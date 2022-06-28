@@ -11,6 +11,7 @@ import android.os.PersistableBundle;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -22,6 +23,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     double rate;
     int numReviews;
     MapView mapView;
+    GoogleMap mMap;
     double latitude;
     double longitude;
 
@@ -49,7 +51,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityNumReviews.setText(String.valueOf(numReviews) + " Reviews");
 
         latitude = 49.2602;
-        longitude = 123.2484;
+        longitude = -123.2484;
         mapView = findViewById(R.id.mapView);
         mapView.getMapAsync(this);
         mapView.onCreate(savedInstanceState);
@@ -58,9 +60,13 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(latitude, longitude))
+        LatLng marker = new LatLng(latitude, longitude);
+        mMap = googleMap;
+        mMap.addMarker(new MarkerOptions()
+                .position(marker)
                 .title("Marker"));
+        float zoomLevel = 17.0f; //This goes up to 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, zoomLevel));
     }
 
     @Override

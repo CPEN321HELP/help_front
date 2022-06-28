@@ -20,9 +20,12 @@
         android:theme="@style/Theme.Help_m5"
         android:usesCleartextTraffic="true"
         tools:targetApi="31" >
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCYBGUSkkE1Ov84q85OkSl1PV-Uq7F0oHU" />
         <activity
             android:name=".FacilityActivity"
-            android:exported="false"/> <!-- CHANGE THIS TO FALSE IN THE END -->
+            android:exported="true"/> <!-- CHANGE THIS TO FALSE IN THE END -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
