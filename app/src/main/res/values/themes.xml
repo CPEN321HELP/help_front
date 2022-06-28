@@ -19,9 +19,13 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.Help_m5.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.Help_m5.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 
-    <style name="Theme.Help_m5.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="Theme.Help_m5.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlNormal">@color/white</item>
+    </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/white</item>
