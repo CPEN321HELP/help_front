@@ -52,7 +52,7 @@ public class EntertainmentsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(),"opening 1",Toast.LENGTH_SHORT).show();
-                shows1.setBackgroundColor(R.color.cobaltBlue);
+                shows1.setBackgroundColor(R.color.black);
             }
         });
 
