@@ -28,8 +28,8 @@ public class PostsFragment extends Fragment {
         binding = FragmentPostsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textPosts;
-        postsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+//        final TextView textView = binding.textPosts;
+//        postsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
