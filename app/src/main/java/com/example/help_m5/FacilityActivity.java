@@ -3,11 +3,15 @@ package com.example.help_m5;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -21,12 +25,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    double rate;
-    int numReviews;
-    MapView mapView;
-    GoogleMap mMap;
-    double latitude;
-    double longitude;
+    private double rate;
+    private int numReviews;
+    private MapView mapView;
+    private GoogleMap mMap;
+    private double latitude;
+    private double longitude;
+    private Button rateButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,15 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         mapView = findViewById(R.id.mapView);
         mapView.getMapAsync(this);
         mapView.onCreate(savedInstanceState);
+
+        rateButton = findViewById(R.id.rate_button);
+        rateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent modelIntent = new Intent(FacilityActivity.this, RateActivity.class);
+                startActivity(modelIntent);
+            }
+        });
 
     }
 

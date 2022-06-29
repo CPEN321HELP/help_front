@@ -25,9 +25,9 @@
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
             android:text="@string/rate_facility_title"
+            android:textColor="@color/black"
             android:textSize="30dp"
-            android:textStyle="bold"
-            android:textColor="@color/black" />
+            android:textStyle="bold" />
 
         <RatingBar
             android:id="@+id/ratingBar2"
@@ -51,24 +51,24 @@
         <EditText
             android:id="@+id/editTextTextMultiLine"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="340dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
-            android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
             android:background="@drawable/roundstyle2"
             android:backgroundTint="@color/UBCBlue"
-            android:textColor="@color/white"
-            android:textSize="16sp"
             android:ems="10"
             android:gravity="start|top"
-            android:inputType="textMultiLine"
             android:hint="@string/comment_hint"
-            android:textColorHint="#FFFFF0"/>
+            android:inputType="textMultiLine"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="#FFFFF0"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Button
@@ -76,7 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="32dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="7dp"
                 android:backgroundTint="@color/white"
                 android:text="@string/cancel"
                 android:textColor="@color/black" />
@@ -85,12 +85,10 @@
                 android:id="@+id/submit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="94dp"
-                android:layout_marginTop="-28dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="7dp"
                 android:backgroundTint="@color/UBCBlue"
                 android:text="@string/submit" />
-
         </LinearLayout>
 
     </LinearLayout>
