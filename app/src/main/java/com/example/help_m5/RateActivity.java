@@ -2,10 +2,13 @@ package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
@@ -13,6 +16,8 @@ public class RateActivity extends AppCompatActivity {
 
     private double rate;
     private String comment;
+    private Button submitButton;
+    private Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,5 +29,21 @@ public class RateActivity extends AppCompatActivity {
 
         EditText editText = findViewById(R.id.editTextTextMultiLine);
         comment = editText.getText().toString();
+
+        submitButton = findViewById(R.id.submit_button);
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("send to backend");
+            }
+        });
+
+        cancelButton = findViewById(R.id.cancel_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
