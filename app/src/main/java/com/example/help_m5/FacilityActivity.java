@@ -25,7 +25,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private double rate;
+    private String title;
+    private float rate;
     private int numReviews;
     private MapView mapView;
     private GoogleMap mMap;
@@ -38,19 +39,21 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
 
+        // Facility Title
+        title = "Tim Hortons";
+        TextView facilityTitle = findViewById(R.id.facilityTitle);
+        facilityTitle.setText(title);
+
+        // Facility Rate
+        rate = (float) 4.3;
+        TextView facilityRate = findViewById(R.id.facilityRatingText);
+        facilityRate.setText(String.valueOf(rate));
+
         // Rating bar
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-
-        // Facility Title
-        TextView facilityTitle = findViewById(R.id.facilityTitle);
-        facilityTitle.setText("Tim Hortons");
-
-        // Facility Rate
-        rate = 4.3;
-        TextView facilityRate = findViewById(R.id.facilityRatingText);
-        facilityRate.setText(String.valueOf(rate));
+        ratingBar.setRating(rate);
 
         // Facility Number of Reviews/Rates
         numReviews = 312;
@@ -64,6 +67,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         mapView.getMapAsync(this);
         mapView.onCreate(savedInstanceState);
 
+        // Rate Button
         rateButton = findViewById(R.id.rate_button);
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
