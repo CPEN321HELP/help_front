@@ -29,4 +29,24 @@
     <string name="address_timhortons">2424 Main Mall, Vancouver, BC V6T 1Z2</string>
 
     <string name="large_text">Tim Hortons Inc., commonly nicknamed Tim\'s or Timmies, is a Canadian multinational fast food restaurant chain. Based in Toronto, Tim Hortons serves</string>
+    <string name="title_activity_rate">RateActivity</string>
+
+
+    <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
+    <string name="start_level">Level 1</string>
+    <string name="next_level">Next Level</string>
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+
+    <!-- Rating Activity -->
+    <string name="rate_facility_title">Rate this Facility</string>
+    <string name="comment_facility_title">Comments:</string>
+    <string name="comment_hint">Please write your comments here</string>
+
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

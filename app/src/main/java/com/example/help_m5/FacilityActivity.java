@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -32,6 +33,11 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
 
+        // Rating bar
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+
         // Facility Title
         TextView facilityTitle = findViewById(R.id.facilityTitle);
         facilityTitle.setText("Tim Hortons");
@@ -41,15 +47,12 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         TextView facilityRate = findViewById(R.id.facilityRatingText);
         facilityRate.setText(String.valueOf(rate));
 
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-
         // Facility Number of Reviews/Rates
         numReviews = 312;
         TextView facilityNumReviews = findViewById(R.id.facilityNumberOfRates);
         facilityNumReviews.setText(String.valueOf(numReviews) + " Reviews");
 
+        // Google Maps Location
         latitude = 49.2602;
         longitude = -123.2484;
         mapView = findViewById(R.id.mapView);
