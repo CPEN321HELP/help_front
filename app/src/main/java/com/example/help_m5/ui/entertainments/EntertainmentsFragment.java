@@ -27,26 +27,32 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.help_m5.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class EntertainmentsFragment extends Fragment {
 
+public class EntertainmentsFragment extends Fragment {
+    final int posts = 0;
+    final int study = 1;
+    final int entertainments = 2;
+    final int restaurants = 3;
+
+    private DatabaseConnection DBconnection;
     private FragmentEntertainmentsBinding binding;
     private FloatingActionButton page_up;
     private FloatingActionButton page_down;
     private FloatingActionButton add_facility;
     private FloatingActionButton main;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        EntertainmentsViewModel entertainmentsViewModel =
-                new ViewModelProvider(this).get(EntertainmentsViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        EntertainmentsViewModel entertainmentsViewModel = new ViewModelProvider(this).get(EntertainmentsViewModel.class);
 
         binding = FragmentEntertainmentsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        ConstraintLayout shows1 = binding.entertainmentsShow1;
+        ConstraintLayout shows1 = binding.facility1;
         shows1.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
@@ -56,10 +62,10 @@ public class EntertainmentsFragment extends Fragment {
             }
         });
 
-        page_up = binding.fabPreviousEntertainments;
-        page_down = binding.fabNextEntertainments;
-        add_facility = binding.fabAddEntertainments;
-        main = binding.fabMainEntertainments;
+        page_up = binding.fabPrevious;
+        page_down = binding.fabNext;
+        add_facility = binding.fabAdd;
+        main = binding.fabMain;
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +80,9 @@ public class EntertainmentsFragment extends Fragment {
                 }
             }
         });
+        DBconnection = new DatabaseConnection();
+        DBconnection.getFacilities(binding, entertainments,1,getContext(),binding);
+
         return root;
     }
 
