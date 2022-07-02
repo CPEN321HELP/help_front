@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -29,6 +32,13 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.common.SignInButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -79,20 +89,19 @@ public class LoginActivity extends AppCompatActivity {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            try {
+                handleSignInResult(task);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) throws JSONException {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
             updateUI(account);
-            //Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
-            //startActivity(MainIntent);
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.startActivity(intent);
             Log.d(TAG, "Trying to load device phone model information");
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -107,23 +116,50 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        // GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        // updateUI(account);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        try {
+            updateUI(account);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void updateUI(GoogleSignInAccount account) {
+    private void updateUI(GoogleSignInAccount account) throws JSONException {
         if (account == null) {
             Log.d(TAG, "There is no user signed in");
         } else {
             Log.d(TAG, "Pref Name: " + account.getDisplayName());
-            Log.d(TAG, "Email: " + account.getEmail());
-            Log.d(TAG, "Given Name: " + account.getGivenName());
             Log.d(TAG, "Family Name: " + account.getFamilyName());
-            Log.d(TAG, "Display URL: " + account.getPhotoUrl());
-            // Send token to your back-end
+            Log.d(TAG, "Email: " + account.getEmail());
+
+            // Send token to back-end
+            JSONObject userJSON = new JSONObject();
+            userJSON.put("user_id", String.valueOf(userid));
+            userJSON.put("user_name",account.getDisplayName() + " " + account.getFamilyName());
+            userJSON.put("user_email", account.getEmail());
+            userJSON.put("user_logo", account.getPhotoUrl());
+            userJSON.put("account_type","0");
+            userJSON.put("account_status","0");
+            RequestQueue queue = Volley.newRequestQueue(this);
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Hizan_alibaba_url+"/user/"+String.valueOf(userid), userJSON,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, "response is: "+response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                    }
+                });
+            queue.add(request);
+
             // Move to another activity
-            // Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
-            // startActivity(MainIntent);
+            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(MainIntent);
+            Log.d(TAG, "start next activity");
         }
     }
 
@@ -140,8 +176,4 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    public void saveUserInfo() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonObjectRequest request = JsonObjectRequest(Request.Method.POST, Hizan_alibaba_url+"/user/"+String.valueOf(userid),  new ResponseListener(), new ErrorListener();
-    }
 }
