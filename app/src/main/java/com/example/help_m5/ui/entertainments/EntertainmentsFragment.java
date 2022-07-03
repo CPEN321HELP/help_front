@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 
 import com.example.help_m5.DatabaseConnection;
 import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
-import com.example.help_m5.tempdb;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -42,7 +41,7 @@ public class EntertainmentsFragment extends Fragment {
     static boolean onSearch = false;   //if this true means user is viewing search result
 
     private SearchView facilitySearchView;
-    private tempdb DBconnection;
+    private DatabaseConnection DBconnection;
     private FragmentEntertainmentsBinding binding;
     private FloatingActionButton page_up;
     private FloatingActionButton page_down;
@@ -61,7 +60,7 @@ public class EntertainmentsFragment extends Fragment {
         binding = FragmentEntertainmentsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        DBconnection = new tempdb();
+        DBconnection = new DatabaseConnection();
         DBconnection.getFacilities(binding, facility_type,1, getContext(), false, "");
 
         facilitySearchView = binding.searchFacility;
@@ -94,16 +93,16 @@ public class EntertainmentsFragment extends Fragment {
                 return false;
             }
         });
-//
-//        ConstraintLayout shows1 = binding.facility1;
-//        shows1.setOnClickListener(new View.OnClickListener() {
-//            @SuppressLint("ResourceAsColor")
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getActivity(),"opening 1",Toast.LENGTH_SHORT).show();
-//                // TODO implet so it opens a new page
-//            }
-//        });
+
+        ConstraintLayout shows1 = binding.facility1;
+        shows1.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getActivity(),"opening 1",Toast.LENGTH_SHORT).show();
+                // TODO implet so it opens a new page
+            }
+        });
 
         page_up = binding.fabPrevious;
         page_up.setOnClickListener(new View.OnClickListener() {

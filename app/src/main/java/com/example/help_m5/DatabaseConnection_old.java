@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,9 +26,7 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 
-import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
-//DatabaseConnection
-public class DatabaseConnection {
+public class DatabaseConnection_old {
 
 
     final String vm_ip = "http://47.251.34.10:3000/";
@@ -53,14 +52,58 @@ public class DatabaseConnection {
      * A string (Json) that hold those information
      *  */
     static int status = server_error;
-    public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, String content_to_search) {
-        String fileName = "";
-        if(is_search){
-            fileName = "search_" + getStringType(facility_type)+".json";
-        }else{
-            fileName =  getStringType(facility_type)+".json";
+    public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext){
+
+
+        Log.d(TAG, "status outside db is : " + status);
+
+        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+        queue.start();
+        String url = vm_ip + getStringType(facility_type);
+        HashMap<String, String> params = new HashMap<String,String>();
+        params.put("page_number", ""+page_number);
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "response is: "+response.toString());
+                try {
+                    Log.d(TAG, "status inside db 1 is : " + status);
+
+                    int length = response.getInt("length");
+
+                    if (length == 0) {
+                        status = reached_end;
+                        return;
+                    }else if (length < 5){
+                        status = reached_end;
+                    }else {
+                        status = normal_server_load;
+                    }
+                    Log.d(TAG, "status inside db 2 is : " + status);
+                    JSONArray facilities = response.getJSONArray("result");
+                    for(int index =0; index < length; index++){
+                        JSONArray facility_info = facilities.getJSONArray(index);
+                        loadToFragment(binding, facility_type, facility_info, index);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                status = server_error;
+                Log.d(TAG, "ERROR when connecting to database");
+            }
+        });
+        queue.add(jsObjRequest);
+        if (status == normal_server_load){
+            return normal_server_load;
+        }else if (status == reached_end) {
+            return reached_end;
+        }else {
+            return server_error;
         }
-        return searchFacilities(binding, facility_type, page_number, applicationContext, is_search, content_to_search, fileName);
     }
 
     /**
@@ -76,11 +119,11 @@ public class DatabaseConnection {
      *           3, indicate unsuccessfully load the data from server to screen
      *           2, reached end of show
      *  */
-    private int searchFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, String content_to_search, String fileName) {
-        if(isCached(applicationContext, fileName)){//page up and page down should go here
+    public int searchFacilities(Object binding, int facility_type, int page_number, Context applicationContext, String content_to_search) {
+        if(isCached(facility_type, applicationContext, content_to_search)){//page up and page down should go here
             try {
-                JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
-                int result = loadToScreen(binding, facility_type, page_number, data);
+                JSONObject data = new JSONObject(readFromJson(applicationContext, facility_type, content_to_search));
+                int result = loadSearch(binding, facility_type, page_number, data);
                 if(result == 1){
                     return reached_end;
                 }
@@ -89,34 +132,31 @@ public class DatabaseConnection {
                 e.printStackTrace();
                 return local_error;
             }
-        } else { //search should go here
+        }else { //search should go here
             final int[] load_status = {normal_server_load};
             final RequestQueue queue = Volley.newRequestQueue(applicationContext);
-            HashMap<String, String> params = new HashMap<String, String>();
             queue.start();
-
-            String url = vm_ip + getStringType(facility_type) ;
+            String url = vm_ip + getStringType(facility_type) + "/search";
+            HashMap<String, String> params = new HashMap<String, String>();
             params.put("page_number", "" + page_number);
-
-            if(is_search){
-                url += "/search";
-                params.put("search", "" + content_to_search);
-            }
-
+            params.put("search", "" + content_to_search);
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 //                    Log.d(TAG, "response is: " + response.toString());
-                    int result = writeToJson(applicationContext,response, fileName);
+                    int result = writeToJson(applicationContext,facility_type,response, content_to_search);
 
-                    if(result == 2){
+                    if(result == 1) {
+                        // FileAlreadyExistsException
+                        // do nothing, this will not happen because we have check existence of file
+                    }else if(result == 2){
                         load_status[0] = local_error;// IOException
                         return;
                     }
 
                     try {
-                        JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
-                        int result2 = loadToScreen(binding, facility_type, page_number, data);
+                        JSONObject data = new JSONObject(readFromJson(applicationContext, facility_type, content_to_search));
+                        int result2 = loadSearch(binding, facility_type, page_number, data);
                         if (result2 == 1){
                             load_status[0] = reached_end; //reached end of facility json array
                         }
@@ -155,7 +195,7 @@ public class DatabaseConnection {
      * @Pupose : to load the content from server our cached file to screen for user to view
      * @return 0 execute as expected, 1 reached end of show
      *  */
-    private int loadToScreen(Object binding, int facility_type, int page_number , JSONObject data){
+    private int loadSearch(Object binding, int facility_type, int page_number , JSONObject data){
         try {
             int length = data.getInt("length");
             int start = (page_number - 1) * 5;
@@ -177,17 +217,19 @@ public class DatabaseConnection {
     }
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
-     * @param fileName :
+     * @param facility_type : int representing the type of facility calling this function
+     * @param content_to_search : the string user typed in searchView
      * @Pupose : to check if file is cached in internal storage, this method is used only by searchFacilities()
      * @return true, if file is cached; false otherwise
      *  */
-    private boolean isCached(Context applicationContext, String fileName){
+    private boolean isCached(int facility_type, Context applicationContext, String content_to_search){
+        String fileName = content_to_search + "_" + getStringType(facility_type)+".json";
         try{
             File file = new File(applicationContext.getFilesDir(),fileName);
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
         } catch (FileNotFoundException e) {
-            return false;
+           return false;
         }
         return true;
     }
@@ -221,11 +263,14 @@ public class DatabaseConnection {
 
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
+     * @param facility_type : int representing the type of facility calling this function
      * @param response : response from server
+     * @param content_to_search : the string user typed in searchView
      * @Pupose write json response from server to a file
      * @return 0 if cached successfully; 1, if File Already Exists; 2 if IOException.
      *  */
-    private int writeToJson(Context applicationContext, JSONObject response, String fileName){
+    private int writeToJson(Context applicationContext, int facility_type, JSONObject response, String content_to_search){
+        String fileName =  content_to_search + "_" + getStringType(facility_type)+".json";
         try{
             File file = new File(applicationContext.getFilesDir(), fileName);
             FileOutputStream writer = new FileOutputStream(file);
@@ -244,11 +289,13 @@ public class DatabaseConnection {
 
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
-     * @param fileName : file name to be read
+     * @param facility_type : int representing the type of facility calling this function
+     * @param content_to_search : response from server
      * @Pupose read json response from file
      * @return String of corrsponding file; "1" if FileNotFoundException; "2" if IOException
      *  */
-    private String readFromJson(Context applicationContext, String fileName){
+    private String readFromJson(Context applicationContext, int facility_type, String content_to_search){
+        String fileName = content_to_search + "_" + getStringType(facility_type)+".json";
         try{
             File file = new File(applicationContext.getFilesDir(),fileName);
             FileReader fileReader = new FileReader(file);
