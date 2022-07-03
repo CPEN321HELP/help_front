@@ -11,7 +11,7 @@
         android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="#197C96F3"
+        android:background="@drawable/layout_border"
         app:layout_constraintHeight_percent="0.1"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="1dp">
@@ -27,6 +27,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@drawable/layout_border"
         android:id="@+id/facility1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -83,6 +84,8 @@
             android:id="@+id/facilityID_textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             android:text="ID"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -93,6 +96,7 @@
         android:id="@+id/facility2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/layout_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
         app:layout_constraintHorizontal_bias="0.0"
@@ -146,6 +150,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -154,6 +160,7 @@
         android:id="@+id/facility3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/layout_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
         app:layout_constraintHorizontal_bias="0.0"
@@ -207,6 +214,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -215,6 +224,8 @@
         android:id="@+id/post_facility4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/layout_border"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
         app:layout_constraintHorizontal_bias="0.0"
@@ -268,6 +279,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -276,6 +289,8 @@
         android:id="@+id/facility5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@drawable/layout_border"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
         app:layout_constraintHorizontal_bias="0.0"
@@ -329,6 +344,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
