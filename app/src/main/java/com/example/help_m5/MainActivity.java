@@ -1,20 +1,21 @@
 package com.example.help_m5;
 
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.navigation.NavigationView;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.help_m5.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        System.out.println(1234);
 
         setSupportActionBar(binding.appBarMain.toolbar);
 //        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
@@ -48,6 +48,18 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        Bundle bundle = getIntent().getExtras();
+        String userName = bundle.getString("user_name");
+        String userEmail = bundle.getString("user_email");
+        TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
+        userNameView.setText(userName);
+        TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
+        userEmailView.setText(userEmail);
+        if (!bundle.getString("user_icon").equals("none")) {
+            Uri userIcon = Uri.parse(bundle.getString("user_icon"));
+            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+        }
     }
 
     @Override

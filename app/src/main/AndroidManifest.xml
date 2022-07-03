@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.help_m5" >
+    package="com.example.help_m5">
     <!-- Include required permissions for Google Mobile Ads to run. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,7 +19,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Help_m5"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
         <activity
             android:name=".RateActivity"
             android:exported="true" />
@@ -48,7 +51,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Help_m5.NoActionBar" >
+            android:theme="@style/Theme.Help_m5.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
