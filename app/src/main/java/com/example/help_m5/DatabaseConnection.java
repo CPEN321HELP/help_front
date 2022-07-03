@@ -2,8 +2,11 @@ package com.example.help_m5;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -202,19 +205,19 @@ public class DatabaseConnection {
     private void loadToFragment(Object binding, int facility_type, JSONArray facility_info, int index){
         switch (index){
             case 0:
-                load_part1(binding, facility_type, facility_info);
+                load_facility1(binding, facility_type, facility_info);
                 break;
             case 1:
-                load_part2(binding, facility_type, facility_info);
+                load_facility2(binding, facility_type, facility_info);
                 break;
             case 2:
-                load_part3(binding, facility_type, facility_info);
+                load_facility3(binding, facility_type, facility_info);
                 break;
             case 3:
-                load_part4(binding, facility_type, facility_info);
+                load_facility4(binding, facility_type, facility_info);
                 break;
             case 4:
-                load_part5(binding, facility_type, facility_info);
+                load_facility5(binding, facility_type, facility_info);
                 break;
         }
     }
@@ -301,44 +304,49 @@ public class DatabaseConnection {
      * @param result : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      *  */
-    private void load_part1(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility1 = null, dateTextView_facility1 =null, contentTextView_facility1 = null, facilityID_textView1 = null;
+    private void load_facility1(Object Binding, int facility_type, JSONArray result)  {
+        TextView titleTextView_facility1 = null, dateTextView_facility1 =null, contentTextView_facility1 = null, facilityID_textView1_facility1 = null;
         RatingBar ratingBar_facility1 = null;
-
+        ConstraintLayout constraintLayout_facility1 = null;
         switch (facility_type){
             case posts:
 //                titleTextView_facility1 = ((FragmentPostsBinding) Binding).titleTextViewFacility1;
 //                dateTextView_facility1 = ((FragmentPostsBinding) Binding).dateTextViewFacility1;
 //                contentTextView_facility1 = ((FragmentPostsBinding) Binding).contentTextViewFacility1;
 //                ratingBar_facility1 = ((FragmentPostsBinding) Binding).ratingBarFacility1;
-//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextView1;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility1;
+//                constraintLayout_facility1 = ((FragmentPostsBinding) Binding).facility1;
                 break;
             case study:
 //                titleTextView_facility1 = ((FragmentStudyBinding) Binding).titleTextViewFacility1;
 //                dateTextView_facility1 = ((FragmentStudyBinding) Binding).dateTextViewFacility1;
 //                contentTextView_facility1 = ((FragmentStudyBinding) Binding).contentTextViewFacility1;
 //                ratingBar_facility1 = ((FragmentStudyBinding) Binding).ratingBarFacility1;
-//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextView1;
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility1;
+//                constraintLayout_facility1 = ((FragmentStudyBinding) Binding).facility1;
                 break;
             case entertainments:
                 titleTextView_facility1 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility1;
                 dateTextView_facility1 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility1;
                 contentTextView_facility1 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility1;
                 ratingBar_facility1 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility1;
-                facilityID_textView1 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView1;
+                facilityID_textView1_facility1 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility1;
+                constraintLayout_facility1 = ((FragmentEntertainmentsBinding) Binding).facility1;
                 break;
             case restaurants:
 //                titleTextView_facility1 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility1;
 //                dateTextView_facility1 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility1;
 //                contentTextView_facility1 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility1;
 //                ratingBar_facility1 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility1;
-//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView1;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility1;
+//                constraintLayout_facility1 = ((FragmentRestaurantsBinding) Binding).facility1;
+
                 break;
         }
         try{
-            facilityID_textView1.setText(result.getString(0));
+            facilityID_textView1_facility1.setText(result.getString(0));
         }catch (JSONException E){
-            facilityID_textView1.setText("ERROR when loading title 1");
+            facilityID_textView1_facility1.setText("ERROR when loading title 1");
         }
 
         try{
@@ -364,6 +372,7 @@ public class DatabaseConnection {
         }catch (JSONException E){
             dateTextView_facility1.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility1.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -372,45 +381,49 @@ public class DatabaseConnection {
      * @param result : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      *  */
-    private void load_part2(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility2 = null, dateTextView_facility2 =null, contentTextView_facility2 = null, facilityID_textView2 = null;
+    private void load_facility2(Object Binding, int facility_type, JSONArray result)  {
+        TextView titleTextView_facility2 = null, dateTextView_facility2 =null, contentTextView_facility2 = null, facilityID_textView1_facility2 = null;
         RatingBar ratingBar_facility2 = null;
-
+        ConstraintLayout constraintLayout_facility2 = null;
         switch (facility_type){
             case posts:
 //                titleTextView_facility2 = ((FragmentPostsBinding) Binding).titleTextViewFacility2;
 //                dateTextView_facility2 = ((FragmentPostsBinding) Binding).dateTextViewFacility2;
 //                contentTextView_facility2 = ((FragmentPostsBinding) Binding).contentTextViewFacility2;
 //                ratingBar_facility2 = ((FragmentPostsBinding) Binding).ratingBarFacility2;
-//                facilityID_textView2 = ((FragmentPostsBinding) Binding).facilityIDTextView2;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility2;
+//                constraintLayout_facility2 = ((FragmentPostsBinding) Binding).facility2;
                 break;
             case study:
 //                titleTextView_facility2 = ((FragmentStudyBinding) Binding).titleTextViewFacility2;
 //                dateTextView_facility2 = ((FragmentStudyBinding) Binding).dateTextViewFacility2;
 //                contentTextView_facility2 = ((FragmentStudyBinding) Binding).contentTextViewFacility2;
 //                ratingBar_facility2 = ((FragmentStudyBinding) Binding).ratingBarFacility2;
-//                facilityID_textView2 = ((FragmentStudyBinding) Binding).facilityIDTextView2;
-
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility2;
+//                constraintLayout_facility2 = ((FragmentStudyBinding) Binding).facility2;
                 break;
             case entertainments:
                 titleTextView_facility2 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility2;
                 dateTextView_facility2 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility2;
                 contentTextView_facility2 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility2;
                 ratingBar_facility2 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility2;
-                facilityID_textView2 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView2;
+                facilityID_textView1_facility2 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility2;
+                constraintLayout_facility2 = ((FragmentEntertainmentsBinding) Binding).facility2;
                 break;
             case restaurants:
 //                titleTextView_facility2 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility2;
 //                dateTextView_facility2 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility2;
 //                contentTextView_facility2 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility2;
 //                ratingBar_facility2 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility2;
-//                facilityID_textView2 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView2;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility2;
+//                constraintLayout_facility2 = ((FragmentRestaurantsBinding) Binding).facility2;
+
                 break;
         }
         try{
-            facilityID_textView2.setText(result.getString(0));
+            facilityID_textView1_facility2.setText(result.getString(0));
         }catch (JSONException E){
-            facilityID_textView2.setText("ERROR when loading id 2");
+            facilityID_textView1_facility2.setText("ERROR when loading title 1");
         }
 
         try{
@@ -422,20 +435,21 @@ public class DatabaseConnection {
         try{
             titleTextView_facility2.setText(result.getString(2));
         }catch (JSONException E){
-            titleTextView_facility2.setText("ERROR when loading title 2");
+            titleTextView_facility2.setText("ERROR when loading title 1");
         }
 
         try{
             contentTextView_facility2.setText(result.getString(3));
         }catch (JSONException E){
-            contentTextView_facility2.setText("ERROR when loading title 2");
+            contentTextView_facility2.setText("ERROR when loading title 1");
         }
 
         try{
             dateTextView_facility2.setText(result.getString(4));
         }catch (JSONException E){
-            dateTextView_facility2.setText("ERROR when loading date 2");
+            dateTextView_facility2.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility2.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -444,45 +458,49 @@ public class DatabaseConnection {
      * @param result : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      *  */
-    private void load_part3(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility3 = null, dateTextView_facility3 =null, contentTextView_facility3 = null, facilityID_textView3 = null;
+    private void load_facility3(Object Binding, int facility_type, JSONArray result)  {
+        TextView titleTextView_facility3 = null, dateTextView_facility3 =null, contentTextView_facility3 = null, facilityID_textView1_facility3 = null;
         RatingBar ratingBar_facility3 = null;
-
+        ConstraintLayout constraintLayout_facility3 = null;
         switch (facility_type){
             case posts:
 //                titleTextView_facility3 = ((FragmentPostsBinding) Binding).titleTextViewFacility3;
 //                dateTextView_facility3 = ((FragmentPostsBinding) Binding).dateTextViewFacility3;
 //                contentTextView_facility3 = ((FragmentPostsBinding) Binding).contentTextViewFacility3;
 //                ratingBar_facility3 = ((FragmentPostsBinding) Binding).ratingBarFacility3;
-//                facilityID_textView3 = ((FragmentPostsBinding) Binding).facilityIDTextView3;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility3;
+//                constraintLayout_facility3 = ((FragmentPostsBinding) Binding).facility3;
                 break;
             case study:
 //                titleTextView_facility3 = ((FragmentStudyBinding) Binding).titleTextViewFacility3;
 //                dateTextView_facility3 = ((FragmentStudyBinding) Binding).dateTextViewFacility3;
 //                contentTextView_facility3 = ((FragmentStudyBinding) Binding).contentTextViewFacility3;
 //                ratingBar_facility3 = ((FragmentStudyBinding) Binding).ratingBarFacility3;
-//                facilityID_textView3 = ((FragmentStudyBinding) Binding).facilityIDTextView3;
-
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility3;
+//                constraintLayout_facility3 = ((FragmentStudyBinding) Binding).facility3;
                 break;
             case entertainments:
                 titleTextView_facility3 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility3;
                 dateTextView_facility3 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility3;
                 contentTextView_facility3 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility3;
                 ratingBar_facility3 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility3;
-                facilityID_textView3 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView3;
+                facilityID_textView1_facility3 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility3;
+                constraintLayout_facility3 = ((FragmentEntertainmentsBinding) Binding).facility3;
                 break;
             case restaurants:
 //                titleTextView_facility3 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility3;
 //                dateTextView_facility3 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility3;
 //                contentTextView_facility3 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility3;
 //                ratingBar_facility3 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility3;
-//                facilityID_textView3 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView3;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility3;
+//                constraintLayout_facility3 = ((FragmentRestaurantsBinding) Binding).facility3;
+
                 break;
         }
         try{
-            facilityID_textView3.setText(result.getString(0));
+            facilityID_textView1_facility3.setText(result.getString(0));
         }catch (JSONException E){
-            facilityID_textView3.setText("ERROR when loading id 3");
+            facilityID_textView1_facility3.setText("ERROR when loading title 1");
         }
 
         try{
@@ -494,20 +512,21 @@ public class DatabaseConnection {
         try{
             titleTextView_facility3.setText(result.getString(2));
         }catch (JSONException E){
-            titleTextView_facility3.setText("ERROR when loading title 3");
+            titleTextView_facility3.setText("ERROR when loading title 1");
         }
 
         try{
             contentTextView_facility3.setText(result.getString(3));
         }catch (JSONException E){
-            contentTextView_facility3.setText("ERROR when loading title 3");
+            contentTextView_facility3.setText("ERROR when loading title 1");
         }
 
         try{
             dateTextView_facility3.setText(result.getString(4));
         }catch (JSONException E){
-            dateTextView_facility3.setText("ERROR when loading date 3");
+            dateTextView_facility3.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility3.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -516,45 +535,49 @@ public class DatabaseConnection {
      * @param result : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      *  */
-    private void load_part4(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility4 = null, dateTextView_facility4 =null, contentTextView_facility4 = null, facilityID_textView4 = null;
+    private void load_facility4(Object Binding, int facility_type, JSONArray result)  {
+        TextView titleTextView_facility4 = null, dateTextView_facility4 =null, contentTextView_facility4 = null, facilityID_textView1_facility4 = null;
         RatingBar ratingBar_facility4 = null;
-
+        ConstraintLayout constraintLayout_facility4 = null;
         switch (facility_type){
             case posts:
 //                titleTextView_facility4 = ((FragmentPostsBinding) Binding).titleTextViewFacility4;
 //                dateTextView_facility4 = ((FragmentPostsBinding) Binding).dateTextViewFacility4;
 //                contentTextView_facility4 = ((FragmentPostsBinding) Binding).contentTextViewFacility4;
 //                ratingBar_facility4 = ((FragmentPostsBinding) Binding).ratingBarFacility4;
-//                facilityID_textView4 = ((FragmentPostsBinding) Binding).facilityIDTextView4;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility4;
+//                constraintLayout_facility4 = ((FragmentPostsBinding) Binding).facility4;
                 break;
             case study:
 //                titleTextView_facility4 = ((FragmentStudyBinding) Binding).titleTextViewFacility4;
 //                dateTextView_facility4 = ((FragmentStudyBinding) Binding).dateTextViewFacility4;
 //                contentTextView_facility4 = ((FragmentStudyBinding) Binding).contentTextViewFacility4;
 //                ratingBar_facility4 = ((FragmentStudyBinding) Binding).ratingBarFacility4;
-//                facilityID_textView4 = ((FragmentStudyBinding) Binding).facilityIDTextView4;
-
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility4;
+//                constraintLayout_facility4 = ((FragmentStudyBinding) Binding).facility4;
                 break;
             case entertainments:
                 titleTextView_facility4 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility4;
                 dateTextView_facility4 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility4;
                 contentTextView_facility4 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility4;
                 ratingBar_facility4 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility4;
-                facilityID_textView4 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView4;
+                facilityID_textView1_facility4 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility4;
+                constraintLayout_facility4 = ((FragmentEntertainmentsBinding) Binding).facility4;
                 break;
             case restaurants:
 //                titleTextView_facility4 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility4;
 //                dateTextView_facility4 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility4;
 //                contentTextView_facility4 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility4;
 //                ratingBar_facility4 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility4;
-//                facilityID_textView4 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView4;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility4;
+//                constraintLayout_facility4 = ((FragmentRestaurantsBinding) Binding).facility4;
+
                 break;
         }
         try{
-            facilityID_textView4.setText(result.getString(0));
+            facilityID_textView1_facility4.setText(result.getString(0));
         }catch (JSONException E){
-            facilityID_textView4.setText("ERROR when loading id 4");
+            facilityID_textView1_facility4.setText("ERROR when loading title 1");
         }
 
         try{
@@ -566,20 +589,21 @@ public class DatabaseConnection {
         try{
             titleTextView_facility4.setText(result.getString(2));
         }catch (JSONException E){
-            titleTextView_facility4.setText("ERROR when loading title 4");
+            titleTextView_facility4.setText("ERROR when loading title 1");
         }
 
         try{
             contentTextView_facility4.setText(result.getString(3));
         }catch (JSONException E){
-            contentTextView_facility4.setText("ERROR when loading title 4");
+            contentTextView_facility4.setText("ERROR when loading title 1");
         }
 
         try{
             dateTextView_facility4.setText(result.getString(4));
         }catch (JSONException E){
-            dateTextView_facility4.setText("ERROR when loading date 4");
+            dateTextView_facility4.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility4.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -588,45 +612,49 @@ public class DatabaseConnection {
      * @param result : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      *  */
-    private void load_part5(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility5 = null, dateTextView_facility5 =null, contentTextView_facility5 = null, facilityID_textView5 = null;
+    private void load_facility5(Object Binding, int facility_type, JSONArray result)  {
+        TextView titleTextView_facility5 = null, dateTextView_facility5 =null, contentTextView_facility5 = null, facilityID_textView1_facility5 = null;
         RatingBar ratingBar_facility5 = null;
-
+        ConstraintLayout constraintLayout_facility5 = null;
         switch (facility_type){
             case posts:
 //                titleTextView_facility5 = ((FragmentPostsBinding) Binding).titleTextViewFacility5;
 //                dateTextView_facility5 = ((FragmentPostsBinding) Binding).dateTextViewFacility5;
 //                contentTextView_facility5 = ((FragmentPostsBinding) Binding).contentTextViewFacility5;
 //                ratingBar_facility5 = ((FragmentPostsBinding) Binding).ratingBarFacility5;
-//                facilityID_textView5 = ((FragmentPostsBinding) Binding).facilityIDTextView5;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility5;
+//                constraintLayout_facility5 = ((FragmentPostsBinding) Binding).facility5;
                 break;
             case study:
 //                titleTextView_facility5 = ((FragmentStudyBinding) Binding).titleTextViewFacility5;
 //                dateTextView_facility5 = ((FragmentStudyBinding) Binding).dateTextViewFacility5;
 //                contentTextView_facility5 = ((FragmentStudyBinding) Binding).contentTextViewFacility5;
 //                ratingBar_facility5 = ((FragmentStudyBinding) Binding).ratingBarFacility5;
-//                facilityID_textView5 = ((FragmentStudyBinding) Binding).facilityIDTextView5;
-
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility5;
+//                constraintLayout_facility5 = ((FragmentStudyBinding) Binding).facility5;
                 break;
             case entertainments:
                 titleTextView_facility5 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility5;
                 dateTextView_facility5 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility5;
                 contentTextView_facility5 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility5;
                 ratingBar_facility5 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility5;
-                facilityID_textView5 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView5;
+                facilityID_textView1_facility5 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility5;
+                constraintLayout_facility5 = ((FragmentEntertainmentsBinding) Binding).facility5;
                 break;
             case restaurants:
 //                titleTextView_facility5 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility5;
 //                dateTextView_facility5 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility5;
 //                contentTextView_facility5 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility5;
 //                ratingBar_facility5 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility5;
-//                facilityID_textView5 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView5;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility5;
+//                constraintLayout_facility5 = ((FragmentRestaurantsBinding) Binding).facility5;
+
                 break;
         }
         try{
-            facilityID_textView5.setText(result.getString(0));
+            facilityID_textView1_facility5.setText(result.getString(0));
         }catch (JSONException E){
-            facilityID_textView5.setText("ERROR when loading id 5");
+            facilityID_textView1_facility5.setText("ERROR when loading title 1");
         }
 
         try{
@@ -638,19 +666,20 @@ public class DatabaseConnection {
         try{
             titleTextView_facility5.setText(result.getString(2));
         }catch (JSONException E){
-            titleTextView_facility5.setText("ERROR when loading title 5");
+            titleTextView_facility5.setText("ERROR when loading title 1");
         }
 
         try{
             contentTextView_facility5.setText(result.getString(3));
         }catch (JSONException E){
-            contentTextView_facility5.setText("ERROR when loading title 5");
+            contentTextView_facility5.setText("ERROR when loading title 1");
         }
 
         try{
             dateTextView_facility5.setText(result.getString(4));
         }catch (JSONException E){
-            dateTextView_facility5.setText("ERROR when loading date 5");
+            dateTextView_facility5.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility5.setVisibility(View.VISIBLE);
     }
 }

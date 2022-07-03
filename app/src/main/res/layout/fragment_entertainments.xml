@@ -31,6 +31,7 @@
         android:id="@+id/facility1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
         app:layout_constraintHorizontal_bias="0.0"
@@ -81,7 +82,7 @@
             app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility1" />
 
         <TextView
-            android:id="@+id/facilityID_textView1"
+            android:id="@+id/facilityID_textView_facility1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -96,6 +97,8 @@
         android:id="@+id/facility2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="invisible"
+
         android:background="@drawable/layout_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
@@ -146,7 +149,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility2" />
         <TextView
-            android:id="@+id/facilityID_textView2"
+            android:id="@+id/facilityID_textView_facility2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
@@ -160,6 +163,8 @@
         android:id="@+id/facility3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="invisible"
+
         android:background="@drawable/layout_border"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
@@ -210,7 +215,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility3" />
         <TextView
-            android:id="@+id/facilityID_textView3"
+            android:id="@+id/facilityID_textView_facility3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
@@ -221,11 +226,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/post_facility4"
+        android:id="@+id/facility4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/layout_border"
-
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
         app:layout_constraintHorizontal_bias="0.0"
@@ -275,7 +280,7 @@
             app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility4" />
 
         <TextView
-            android:id="@+id/facilityID_textView4"
+            android:id="@+id/facilityID_textView_facility4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
@@ -290,12 +295,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/layout_border"
-
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.18"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/post_facility4">
+        app:layout_constraintTop_toBottomOf="@+id/facility4">
         <TextView
             android:id="@+id/titleTextView_facility5"
             android:layout_width="200dp"
@@ -340,7 +345,7 @@
             app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility5" />
 
         <TextView
-            android:id="@+id/facilityID_textView5"
+            android:id="@+id/facilityID_textView_facility5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
