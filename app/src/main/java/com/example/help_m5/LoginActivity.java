@@ -1,27 +1,16 @@
 package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -31,14 +20,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.common.SignInButton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -128,10 +112,6 @@ public class LoginActivity extends AppCompatActivity {
         if (account == null) {
             Log.d(TAG, "There is no user signed in");
         } else {
-            Log.d(TAG, "Pref Name: " + account.getDisplayName());
-            Log.d(TAG, "Family Name: " + account.getFamilyName());
-            Log.d(TAG, "Email: " + account.getEmail());
-
             // Send token to back-end
             JSONObject userJSON = new JSONObject();
             userJSON.put("user_id", String.valueOf(userid));
@@ -158,6 +138,15 @@ public class LoginActivity extends AppCompatActivity {
 
             // Move to another activity
             Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("user_name", account.getDisplayName());
+            bundle.putString("user_email", account.getEmail());
+            if (account.getPhotoUrl() != null) {
+                bundle.putString("user_icon", account.getPhotoUrl().toString());
+            } else {
+                bundle.putString("user_icon", "none");
+            }
+            MainIntent.putExtras(bundle);
             startActivity(MainIntent);
             Log.d(TAG, "start next activity");
         }
