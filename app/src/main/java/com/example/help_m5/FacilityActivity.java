@@ -76,6 +76,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             public void onClick(View v) {
                 Intent modelIntent = new Intent(FacilityActivity.this, RateActivity.class);
                 startActivity(modelIntent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
