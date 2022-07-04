@@ -4,18 +4,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".RateActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginBottom="35dp"
-        android:background="@drawable/roundstyle"
-        android:backgroundTint="@color/babyBlue"
+        android:layout_marginHorizontal="10sp"
+        android:layout_marginVertical="100sp"
+        android:background="@drawable/shadowdark"
         android:orientation="vertical">
 
         <TextView
@@ -23,44 +21,46 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:text="@string/rate_facility_title"
-            android:textColor="@color/black"
-            android:textSize="30dp"
-            android:textStyle="bold" />
+            android:textColor="@color/white"
+            android:textSize="25dp" />
+
+        <TextView
+            android:id="@+id/RateFacilityDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:text="@string/comment_facility_title"
+            android:textAlignment="center"
+            android:textColor="@color/white_light"
+            android:textSize="18dp" />
 
         <RatingBar
             android:id="@+id/ratingBar2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:secondaryProgressTint="@color/UBCyellow"
+            android:progressTint="@color/UBCyellow"
             android:numStars="5"
-            android:theme="@style/RatingBar" />
-
-        <TextView
-            android:id="@+id/commentFacilityTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="5dp"
-            android:text="@string/comment_facility_title"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:theme="@style/RatingBar"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <EditText
             android:id="@+id/editTextTextMultiLine"
             android:layout_width="match_parent"
-            android:layout_height="340dp"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/roundstyle2"
-            android:backgroundTint="@color/UBCBlue"
+            android:layout_height="150dp"
+            android:layout_marginHorizontal="25dp"
+            android:background="@color/UBCPurpleDark"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/comment_hint"
             android:inputType="textMultiLine"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="10dp"
             android:paddingVertical="10dp"
             android:textColor="@color/white"
             android:textColorHint="#FFFFF0"
@@ -68,27 +68,40 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/cancel_button"
+                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="7dp"
-                android:backgroundTint="@color/white"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="30dp"
+                android:background="@color/UBCPurpleLight"
+                android:backgroundTint="@color/UBCPurpleLight"
                 android:text="@string/cancel"
-                android:textColor="@color/black" />
+                android:textColor="@color/UBCyellow"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/submit_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:layout_marginTop="7dp"
-                android:backgroundTint="@color/UBCBlue"
-                android:text="@string/submit" />
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="40dp"
+                android:background="@color/UBCPurpleLight"
+                android:gravity="end"
+                android:paddingRight="15dp"
+                android:text="@string/submit"
+                android:textColor="@color/UBCyellow"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
         </LinearLayout>
 
     </LinearLayout>

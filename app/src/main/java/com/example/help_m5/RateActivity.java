@@ -12,8 +12,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import java.util.Arrays;
+
 public class RateActivity extends AppCompatActivity {
 
+    private static final String TAG = "RateActivity";
     private double rate;
     private String comment;
     private Button submitButton;
@@ -35,6 +38,7 @@ public class RateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("send to backend");
+                finish();
             }
         });
 
@@ -46,4 +50,5 @@ public class RateActivity extends AppCompatActivity {
             }
         });
     }
+    
 }

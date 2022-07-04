@@ -43,12 +43,13 @@
 
     <!-- Rating Activity -->
     <string name="rate_facility_title">Rate this Facility</string>
-    <string name="comment_facility_title">Comments:</string>
-    <string name="comment_hint">Please write your comments here</string>
+    <string name="comment_facility_title">Please select some stars and give\nyour feedback</string>
+    <string name="comment_hint">Please write your comments here ...</string>
 
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
 
-    <string name="title_login">𝓗𝓮𝓵𝓹!</string>
+    <string name="title_login">ᕼEᒪᑭ!</string>
+    <string name="description_login">An APP that makes you know UBC better</string>
 
 </resources>

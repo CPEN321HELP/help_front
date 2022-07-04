@@ -120,6 +120,7 @@ public class LoginActivity extends AppCompatActivity {
             userJSON.put("user_logo", account.getPhotoUrl());
             userJSON.put("account_type","0");
             userJSON.put("account_status","0");
+            System.out.println("12");
             RequestQueue queue = Volley.newRequestQueue(this);
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Hizan_alibaba_url+"/user/"+String.valueOf(userid), userJSON,
                 new Response.Listener<JSONObject>() {

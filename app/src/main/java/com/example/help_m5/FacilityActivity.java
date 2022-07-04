@@ -21,6 +21,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import androidx.transition.TransitionManager;
+import androidx.transition.Transition;
+import androidx.transition.Fade;
+
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private String title;
