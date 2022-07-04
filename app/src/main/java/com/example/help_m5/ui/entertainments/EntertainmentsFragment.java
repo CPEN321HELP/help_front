@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -21,7 +22,7 @@ import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
-public class EntertainmentsFragment extends Fragment {
+public class EntertainmentsFragment extends Fragment  {
 
     static final int posts = 0;
     static final int study = 1;
@@ -38,8 +39,11 @@ public class EntertainmentsFragment extends Fragment {
 
     final String TAG = "EntertainmentsFragment";
 
+    float transY = 100f;
+    OvershootInterpolator interpolator = new OvershootInterpolator();
 
     static boolean onSearch = false;   //if this true means user is viewing search result
+    boolean isMenuOpen = false;
 
     private SearchView facilitySearchView;
     private DatabaseConnection DBconnection;
@@ -105,7 +109,26 @@ public class EntertainmentsFragment extends Fragment {
             }
         });
 
+        initFavMenu();
+
+        return root;
+    }
+    private void initFavMenu(){
+
         page_up = binding.fabPrevious;
+        add_facility = binding.fabAdd;
+        page_down = binding.fabNext;
+        main = binding.fabMain;
+
+        page_up.setAlpha(0f);
+        add_facility.setAlpha(0f);
+        page_down.setAlpha(0f);
+
+        page_up.setTranslationY(transY);
+        add_facility.setTranslationY(transY);
+        page_down.setTranslationY(transY);
+
+
         page_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +166,13 @@ public class EntertainmentsFragment extends Fragment {
             }
         });
 
-        page_down = binding.fabNext;
+        add_facility.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO implement function to add new facility
+            }
+        });
+
         page_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -186,30 +215,32 @@ public class EntertainmentsFragment extends Fragment {
             }
         });
 
-        add_facility = binding.fabAdd;
-        add_facility.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO implement function to add new facility
-            }
-        });
-        main = binding.fabMain;
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (page_down.getVisibility() == View.INVISIBLE) {
-                    page_up.setVisibility(View.VISIBLE);
-                    page_down.setVisibility(View.VISIBLE);
-                    add_facility.setVisibility(View.VISIBLE);
-                } else {
-                    page_up.setVisibility(View.INVISIBLE);
-                    page_down.setVisibility(View.INVISIBLE);
-                    add_facility.setVisibility(View.INVISIBLE);
+                if(isMenuOpen){
+                    closeMenu();
+                }else {
+                    openMenu();
                 }
             }
         });
+    }
+    private void openMenu(){
+        isMenuOpen = !isMenuOpen;
 
-        return root;
+        main.animate().setInterpolator(interpolator).rotation(180f).setDuration(300).start();
+        page_up.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        add_facility.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        page_down.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+
+    }
+    private void closeMenu(){
+        isMenuOpen = !isMenuOpen;
+        main.animate().setInterpolator(interpolator).rotation(0).setDuration(300).start();
+        page_up.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
+        add_facility.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
+        page_down.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
     }
 
     @Override
