@@ -2,8 +2,11 @@ package com.example.help_m5;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,6 +29,7 @@ import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
 
 import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
+
 //DatabaseConnection
 public class DatabaseConnection {
 
@@ -44,48 +48,50 @@ public class DatabaseConnection {
     static final int server_error = 3;
     static final int local_error = 4;
 
-    /**Parameter:
+    /**
+     * Parameter:
      * int facility_type : a integer representing the type
      * int page_number : what range of facility to be search in database
      * Purpose:
      * Get preview for desired facilities
      * Reture:
      * A string (Json) that hold those information
-     *  */
+     */
     static int status = server_error;
+
     public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, String content_to_search) {
         String fileName = "";
-        if(is_search){
-            fileName = "search_" + getStringType(facility_type)+".json";
-        }else{
-            fileName =  getStringType(facility_type)+".json";
+        if (is_search) {
+            fileName = "search_" + getStringType(facility_type) + ".json";
+        } else {
+            fileName = getStringType(facility_type) + ".json";
         }
         return searchFacilities(binding, facility_type, page_number, applicationContext, is_search, content_to_search, fileName);
     }
 
     /**
-     * @param binding : a subclass of databinding, used to find TextView, Ratingbar
-     * @param facility_type : int representing the type of facility calling this function
-     * @param page_number : what range to load
+     * @param binding            : a subclass of databinding, used to find TextView, Ratingbar
+     * @param facility_type      : int representing the type of facility calling this function
+     * @param page_number        : what range to load
      * @param applicationContext : Central interface to provide configuration for an application.
-     * @param content_to_search : string user typed in search box
-     * @Pupose : to load the content from server our cached file to screen for user to view
+     * @param content_to_search  : string user typed in search box
      * @return : 0, indicate successfully load the data from cached file to screen
-     *           4, indicate unsuccessfully load the data from cached file to screen
-     *           1, indicate successfully load the data from server to screen
-     *           3, indicate unsuccessfully load the data from server to screen
-     *           2, reached end of show
-     *  */
+     * 4, indicate unsuccessfully load the data from cached file to screen
+     * 1, indicate successfully load the data from server to screen
+     * 3, indicate unsuccessfully load the data from server to screen
+     * 2, reached end of show
+     * @Pupose : to load the content from server our cached file to screen for user to view
+     */
     private int searchFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, String content_to_search, String fileName) {
-        if(isCached(applicationContext, fileName)){//page up and page down should go here
+        if (isCached(applicationContext, fileName)) {//page up and page down should go here
             try {
                 JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
                 int result = loadToScreen(binding, facility_type, page_number, data);
-                if(result == 1){
+                if (result == 1) {
                     return reached_end;
                 }
                 return normal_local_load;
-            }catch (JSONException e){
+            } catch (JSONException e) {
                 e.printStackTrace();
                 return local_error;
             }
@@ -95,10 +101,10 @@ public class DatabaseConnection {
             HashMap<String, String> params = new HashMap<String, String>();
             queue.start();
 
-            String url = vm_ip + getStringType(facility_type) ;
+            String url = vm_ip + getStringType(facility_type);
             params.put("page_number", "" + page_number);
 
-            if(is_search){
+            if (is_search) {
                 url += "/search";
                 params.put("search", "" + content_to_search);
             }
@@ -107,9 +113,9 @@ public class DatabaseConnection {
                 @Override
                 public void onResponse(JSONObject response) {
 //                    Log.d(TAG, "response is: " + response.toString());
-                    int result = writeToJson(applicationContext,response, fileName);
+                    int result = writeToJson(applicationContext, response, fileName);
 
-                    if(result == 2){
+                    if (result == 2) {
                         load_status[0] = local_error;// IOException
                         return;
                     }
@@ -117,10 +123,10 @@ public class DatabaseConnection {
                     try {
                         JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
                         int result2 = loadToScreen(binding, facility_type, page_number, data);
-                        if (result2 == 1){
+                        if (result2 == 1) {
                             load_status[0] = reached_end; //reached end of facility json array
                         }
-                    }catch (JSONException e){
+                    } catch (JSONException e) {
                         load_status[0] = local_error; // error reading json file
                         e.printStackTrace();
                     }
@@ -135,55 +141,56 @@ public class DatabaseConnection {
             });
             queue.add(jsObjRequest);
             Log.d(TAG, "load_status is " + load_status[0]);
-            if (load_status[0] == normal_server_load){
+            if (load_status[0] == normal_server_load) {
                 return normal_server_load;
-            }else if (load_status[0] == reached_end) {
+            } else if (load_status[0] == reached_end) {
                 return reached_end;
-            }else if (load_status[0] == local_error) {
+            } else if (load_status[0] == local_error) {
                 return local_error;
-            }else {
+            } else {
                 return server_error;
             }
         }
     }
 
     /**
-     * @param binding : a subclass of databinding, used to find TextView, Ratingbar
+     * @param binding       : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type : int representing the type of facility calling this function
-     * @param page_number : what range to load
-     * @param data : Json format data to be process and show on screen
-     * @Pupose : to load the content from server our cached file to screen for user to view
+     * @param page_number   : what range to load
+     * @param data          : Json format data to be process and show on screen
      * @return 0 execute as expected, 1 reached end of show
-     *  */
-    private int loadToScreen(Object binding, int facility_type, int page_number , JSONObject data){
+     * @Pupose : to load the content from server our cached file to screen for user to view
+     */
+    private int loadToScreen(Object binding, int facility_type, int page_number, JSONObject data) {
         try {
             int length = data.getInt("length");
             int start = (page_number - 1) * 5;
             int end = Math.min((page_number * 5), length);
-            int counter = 0 ;
+            int counter = 0;
             JSONArray array = data.getJSONArray("result");
 
-            for( int index = start; index <end; index++){
-                loadToFragment(binding, facility_type, array.getJSONArray(index),counter);
+            for (int index = start; index < end; index++) {
+                loadToFragment(binding, facility_type, array.getJSONArray(index), counter);
                 counter++;
             }
-            if(end == length){
+            if (end == length) {
                 return 1;
             }
-        }catch (JSONException e){
+        } catch (JSONException e) {
             e.printStackTrace();
         }
         return 0;
     }
+
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
-     * @param fileName :
-     * @Pupose : to check if file is cached in internal storage, this method is used only by searchFacilities()
+     * @param fileName           :
      * @return true, if file is cached; false otherwise
-     *  */
-    private boolean isCached(Context applicationContext, String fileName){
-        try{
-            File file = new File(applicationContext.getFilesDir(),fileName);
+     * @Pupose : to check if file is cached in internal storage, this method is used only by searchFacilities()
+     */
+    private boolean isCached(Context applicationContext, String fileName) {
+        try {
+            File file = new File(applicationContext.getFilesDir(), fileName);
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
         } catch (FileNotFoundException e) {
@@ -193,45 +200,45 @@ public class DatabaseConnection {
     }
 
     /**
-     * @param binding : a subclass of databinding, used to find TextView, Ratingbar
+     * @param binding       : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type : int representing the type of facility calling this function
      * @param facility_info : a json array that holds information about facilities
-     * @param index : a int index range from 0 to 5
+     * @param index         : a int index range from 0 to 5
      * @Pupose load information from JSONArray to texView
-     *  */
-    private void loadToFragment(Object binding, int facility_type, JSONArray facility_info, int index){
-        switch (index){
+     */
+    private void loadToFragment(Object binding, int facility_type, JSONArray facility_info, int index) {
+        switch (index) {
             case 0:
-                load_part1(binding, facility_type, facility_info);
+                load_facility1(binding, facility_type, facility_info);
                 break;
             case 1:
-                load_part2(binding, facility_type, facility_info);
+                load_facility2(binding, facility_type, facility_info);
                 break;
             case 2:
-                load_part3(binding, facility_type, facility_info);
+                load_facility3(binding, facility_type, facility_info);
                 break;
             case 3:
-                load_part4(binding, facility_type, facility_info);
+                load_facility4(binding, facility_type, facility_info);
                 break;
             case 4:
-                load_part5(binding, facility_type, facility_info);
+                load_facility5(binding, facility_type, facility_info);
                 break;
         }
     }
 
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
-     * @param response : response from server
-     * @Pupose write json response from server to a file
+     * @param response           : response from server
      * @return 0 if cached successfully; 1, if File Already Exists; 2 if IOException.
-     *  */
-    private int writeToJson(Context applicationContext, JSONObject response, String fileName){
-        try{
+     * @Pupose write json response from server to a file
+     */
+    private int writeToJson(Context applicationContext, JSONObject response, String fileName) {
+        try {
             File file = new File(applicationContext.getFilesDir(), fileName);
             FileOutputStream writer = new FileOutputStream(file);
             writer.write(response.toString().getBytes());
             writer.close();
-            Log.d(TAG, "write to file"+fileName+" path is: "+file.getCanonicalPath());
+            Log.d(TAG, "write to file" + fileName + " path is: " + file.getCanonicalPath());
         } catch (FileAlreadyExistsException e) {
             e.printStackTrace();
             return 1;
@@ -244,18 +251,18 @@ public class DatabaseConnection {
 
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
-     * @param fileName : file name to be read
-     * @Pupose read json response from file
+     * @param fileName           : file name to be read
      * @return String of corrsponding file; "1" if FileNotFoundException; "2" if IOException
-     *  */
-    private String readFromJson(Context applicationContext, String fileName){
-        try{
-            File file = new File(applicationContext.getFilesDir(),fileName);
+     * @Pupose read json response from file
+     */
+    private String readFromJson(Context applicationContext, String fileName) {
+        try {
+            File file = new File(applicationContext.getFilesDir(), fileName);
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             StringBuilder stringBuilder = new StringBuilder();
             String line = bufferedReader.readLine();
-            while (line != null){
+            while (line != null) {
                 stringBuilder.append(line).append("\n");
                 line = bufferedReader.readLine();
             }
@@ -273,12 +280,12 @@ public class DatabaseConnection {
 
     /**
      * @param facility_type : int representing the type of facility calling this function
-     * @Pupose take int facility_type and return string of facility_type
      * @return String of facility type
-     *  */
-    private String getStringType(int facility_type){
+     * @Pupose take int facility_type and return string of facility_type
+     */
+    private String getStringType(int facility_type) {
         String facilityToFetch = "";
-        switch (facility_type){
+        switch (facility_type) {
             case posts:
                 facilityToFetch = "posts";
                 break;
@@ -296,361 +303,387 @@ public class DatabaseConnection {
     }
 
     /**
-     * @param Binding : a subclass of databinding, used to find TextView, Ratingbar
+     * @param Binding       : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type : int representing the type of facility calling this function
-     * @param result : a json array that holds information about facilities
+     * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
-     *  */
-    private void load_part1(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility1 = null, dateTextView_facility1 =null, contentTextView_facility1 = null, facilityID_textView1 = null;
+     */
+    private void load_facility1(Object Binding, int facility_type, JSONArray result) {
+        TextView titleTextView_facility1 = null, dateTextView_facility1 = null, contentTextView_facility1 = null, facilityID_textView1_facility1 = null;
         RatingBar ratingBar_facility1 = null;
-
-        switch (facility_type){
+        ConstraintLayout constraintLayout_facility1 = null;
+        switch (facility_type) {
             case posts:
 //                titleTextView_facility1 = ((FragmentPostsBinding) Binding).titleTextViewFacility1;
 //                dateTextView_facility1 = ((FragmentPostsBinding) Binding).dateTextViewFacility1;
 //                contentTextView_facility1 = ((FragmentPostsBinding) Binding).contentTextViewFacility1;
 //                ratingBar_facility1 = ((FragmentPostsBinding) Binding).ratingBarFacility1;
-//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextView1;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility1;
+//                constraintLayout_facility1 = ((FragmentPostsBinding) Binding).facility1;
                 break;
             case study:
 //                titleTextView_facility1 = ((FragmentStudyBinding) Binding).titleTextViewFacility1;
 //                dateTextView_facility1 = ((FragmentStudyBinding) Binding).dateTextViewFacility1;
 //                contentTextView_facility1 = ((FragmentStudyBinding) Binding).contentTextViewFacility1;
 //                ratingBar_facility1 = ((FragmentStudyBinding) Binding).ratingBarFacility1;
-//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextView1;
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility1;
+//                constraintLayout_facility1 = ((FragmentStudyBinding) Binding).facility1;
                 break;
             case entertainments:
                 titleTextView_facility1 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility1;
                 dateTextView_facility1 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility1;
                 contentTextView_facility1 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility1;
                 ratingBar_facility1 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility1;
-                facilityID_textView1 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView1;
+                facilityID_textView1_facility1 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility1;
+                constraintLayout_facility1 = ((FragmentEntertainmentsBinding) Binding).facility1;
                 break;
             case restaurants:
 //                titleTextView_facility1 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility1;
 //                dateTextView_facility1 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility1;
 //                contentTextView_facility1 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility1;
 //                ratingBar_facility1 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility1;
-//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView1;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility1;
+//                constraintLayout_facility1 = ((FragmentRestaurantsBinding) Binding).facility1;
+
                 break;
         }
-        try{
-            facilityID_textView1.setText(result.getString(0));
-        }catch (JSONException E){
-            facilityID_textView1.setText("ERROR when loading title 1");
+        try {
+            facilityID_textView1_facility1.setText(result.getString(0));
+        } catch (JSONException E) {
+            facilityID_textView1_facility1.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             ratingBar_facility1.setRating((float) result.getDouble(1));
-        }catch (JSONException E){
+        } catch (JSONException E) {
             ratingBar_facility1.setRating((float) 0);
         }
 
-        try{
+        try {
             titleTextView_facility1.setText(result.getString(2));
-        }catch (JSONException E){
+        } catch (JSONException E) {
             titleTextView_facility1.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             contentTextView_facility1.setText(result.getString(3));
-        }catch (JSONException E){
+        } catch (JSONException E) {
             contentTextView_facility1.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             dateTextView_facility1.setText(result.getString(4));
-        }catch (JSONException E){
+        } catch (JSONException E) {
             dateTextView_facility1.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility1.setVisibility(View.VISIBLE);
     }
 
     /**
-     * @param Binding : a subclass of databinding, used to find TextView, Ratingbar
+     * @param Binding       : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type : int representing the type of facility calling this function
-     * @param result : a json array that holds information about facilities
+     * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
-     *  */
-    private void load_part2(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility2 = null, dateTextView_facility2 =null, contentTextView_facility2 = null, facilityID_textView2 = null;
+     */
+    private void load_facility2(Object Binding, int facility_type, JSONArray result) {
+        TextView titleTextView_facility2 = null, dateTextView_facility2 = null, contentTextView_facility2 = null, facilityID_textView1_facility2 = null;
         RatingBar ratingBar_facility2 = null;
-
-        switch (facility_type){
+        ConstraintLayout constraintLayout_facility2 = null;
+        switch (facility_type) {
             case posts:
 //                titleTextView_facility2 = ((FragmentPostsBinding) Binding).titleTextViewFacility2;
 //                dateTextView_facility2 = ((FragmentPostsBinding) Binding).dateTextViewFacility2;
 //                contentTextView_facility2 = ((FragmentPostsBinding) Binding).contentTextViewFacility2;
 //                ratingBar_facility2 = ((FragmentPostsBinding) Binding).ratingBarFacility2;
-//                facilityID_textView2 = ((FragmentPostsBinding) Binding).facilityIDTextView2;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility2;
+//                constraintLayout_facility2 = ((FragmentPostsBinding) Binding).facility2;
                 break;
             case study:
 //                titleTextView_facility2 = ((FragmentStudyBinding) Binding).titleTextViewFacility2;
 //                dateTextView_facility2 = ((FragmentStudyBinding) Binding).dateTextViewFacility2;
 //                contentTextView_facility2 = ((FragmentStudyBinding) Binding).contentTextViewFacility2;
 //                ratingBar_facility2 = ((FragmentStudyBinding) Binding).ratingBarFacility2;
-//                facilityID_textView2 = ((FragmentStudyBinding) Binding).facilityIDTextView2;
-
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility2;
+//                constraintLayout_facility2 = ((FragmentStudyBinding) Binding).facility2;
                 break;
             case entertainments:
                 titleTextView_facility2 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility2;
                 dateTextView_facility2 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility2;
                 contentTextView_facility2 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility2;
                 ratingBar_facility2 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility2;
-                facilityID_textView2 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView2;
+                facilityID_textView1_facility2 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility2;
+                constraintLayout_facility2 = ((FragmentEntertainmentsBinding) Binding).facility2;
                 break;
             case restaurants:
 //                titleTextView_facility2 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility2;
 //                dateTextView_facility2 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility2;
 //                contentTextView_facility2 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility2;
 //                ratingBar_facility2 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility2;
-//                facilityID_textView2 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView2;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility2;
+//                constraintLayout_facility2 = ((FragmentRestaurantsBinding) Binding).facility2;
+
                 break;
         }
-        try{
-            facilityID_textView2.setText(result.getString(0));
-        }catch (JSONException E){
-            facilityID_textView2.setText("ERROR when loading id 2");
+        try {
+            facilityID_textView1_facility2.setText(result.getString(0));
+        } catch (JSONException E) {
+            facilityID_textView1_facility2.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             ratingBar_facility2.setRating((float) result.getDouble(1));
-        }catch (JSONException E){
+        } catch (JSONException E) {
             ratingBar_facility2.setRating((float) 0);
         }
 
-        try{
+        try {
             titleTextView_facility2.setText(result.getString(2));
-        }catch (JSONException E){
-            titleTextView_facility2.setText("ERROR when loading title 2");
+        } catch (JSONException E) {
+            titleTextView_facility2.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             contentTextView_facility2.setText(result.getString(3));
-        }catch (JSONException E){
-            contentTextView_facility2.setText("ERROR when loading title 2");
+        } catch (JSONException E) {
+            contentTextView_facility2.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             dateTextView_facility2.setText(result.getString(4));
-        }catch (JSONException E){
-            dateTextView_facility2.setText("ERROR when loading date 2");
+        } catch (JSONException E) {
+            dateTextView_facility2.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility2.setVisibility(View.VISIBLE);
     }
 
     /**
-     * @param Binding : a subclass of databinding, used to find TextView, Ratingbar
+     * @param Binding       : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type : int representing the type of facility calling this function
-     * @param result : a json array that holds information about facilities
+     * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
-     *  */
-    private void load_part3(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility3 = null, dateTextView_facility3 =null, contentTextView_facility3 = null, facilityID_textView3 = null;
+     */
+    private void load_facility3(Object Binding, int facility_type, JSONArray result) {
+        TextView titleTextView_facility3 = null, dateTextView_facility3 = null, contentTextView_facility3 = null, facilityID_textView1_facility3 = null;
         RatingBar ratingBar_facility3 = null;
-
-        switch (facility_type){
+        ConstraintLayout constraintLayout_facility3 = null;
+        switch (facility_type) {
             case posts:
 //                titleTextView_facility3 = ((FragmentPostsBinding) Binding).titleTextViewFacility3;
 //                dateTextView_facility3 = ((FragmentPostsBinding) Binding).dateTextViewFacility3;
 //                contentTextView_facility3 = ((FragmentPostsBinding) Binding).contentTextViewFacility3;
 //                ratingBar_facility3 = ((FragmentPostsBinding) Binding).ratingBarFacility3;
-//                facilityID_textView3 = ((FragmentPostsBinding) Binding).facilityIDTextView3;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility3;
+//                constraintLayout_facility3 = ((FragmentPostsBinding) Binding).facility3;
                 break;
             case study:
 //                titleTextView_facility3 = ((FragmentStudyBinding) Binding).titleTextViewFacility3;
 //                dateTextView_facility3 = ((FragmentStudyBinding) Binding).dateTextViewFacility3;
 //                contentTextView_facility3 = ((FragmentStudyBinding) Binding).contentTextViewFacility3;
 //                ratingBar_facility3 = ((FragmentStudyBinding) Binding).ratingBarFacility3;
-//                facilityID_textView3 = ((FragmentStudyBinding) Binding).facilityIDTextView3;
-
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility3;
+//                constraintLayout_facility3 = ((FragmentStudyBinding) Binding).facility3;
                 break;
             case entertainments:
                 titleTextView_facility3 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility3;
                 dateTextView_facility3 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility3;
                 contentTextView_facility3 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility3;
                 ratingBar_facility3 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility3;
-                facilityID_textView3 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView3;
+                facilityID_textView1_facility3 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility3;
+                constraintLayout_facility3 = ((FragmentEntertainmentsBinding) Binding).facility3;
                 break;
             case restaurants:
 //                titleTextView_facility3 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility3;
 //                dateTextView_facility3 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility3;
 //                contentTextView_facility3 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility3;
 //                ratingBar_facility3 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility3;
-//                facilityID_textView3 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView3;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility3;
+//                constraintLayout_facility3 = ((FragmentRestaurantsBinding) Binding).facility3;
+
                 break;
         }
-        try{
-            facilityID_textView3.setText(result.getString(0));
-        }catch (JSONException E){
-            facilityID_textView3.setText("ERROR when loading id 3");
+        try {
+            facilityID_textView1_facility3.setText(result.getString(0));
+        } catch (JSONException E) {
+            facilityID_textView1_facility3.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             ratingBar_facility3.setRating((float) result.getDouble(1));
-        }catch (JSONException E){
+        } catch (JSONException E) {
             ratingBar_facility3.setRating((float) 0);
         }
 
-        try{
+        try {
             titleTextView_facility3.setText(result.getString(2));
-        }catch (JSONException E){
-            titleTextView_facility3.setText("ERROR when loading title 3");
+        } catch (JSONException E) {
+            titleTextView_facility3.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             contentTextView_facility3.setText(result.getString(3));
-        }catch (JSONException E){
-            contentTextView_facility3.setText("ERROR when loading title 3");
+        } catch (JSONException E) {
+            contentTextView_facility3.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             dateTextView_facility3.setText(result.getString(4));
-        }catch (JSONException E){
-            dateTextView_facility3.setText("ERROR when loading date 3");
+        } catch (JSONException E) {
+            dateTextView_facility3.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility3.setVisibility(View.VISIBLE);
     }
 
     /**
-     * @param Binding : a subclass of databinding, used to find TextView, Ratingbar
+     * @param Binding       : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type : int representing the type of facility calling this function
-     * @param result : a json array that holds information about facilities
+     * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
-     *  */
-    private void load_part4(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility4 = null, dateTextView_facility4 =null, contentTextView_facility4 = null, facilityID_textView4 = null;
+     */
+    private void load_facility4(Object Binding, int facility_type, JSONArray result) {
+        TextView titleTextView_facility4 = null, dateTextView_facility4 = null, contentTextView_facility4 = null, facilityID_textView1_facility4 = null;
         RatingBar ratingBar_facility4 = null;
-
-        switch (facility_type){
+        ConstraintLayout constraintLayout_facility4 = null;
+        switch (facility_type) {
             case posts:
 //                titleTextView_facility4 = ((FragmentPostsBinding) Binding).titleTextViewFacility4;
 //                dateTextView_facility4 = ((FragmentPostsBinding) Binding).dateTextViewFacility4;
 //                contentTextView_facility4 = ((FragmentPostsBinding) Binding).contentTextViewFacility4;
 //                ratingBar_facility4 = ((FragmentPostsBinding) Binding).ratingBarFacility4;
-//                facilityID_textView4 = ((FragmentPostsBinding) Binding).facilityIDTextView4;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility4;
+//                constraintLayout_facility4 = ((FragmentPostsBinding) Binding).facility4;
                 break;
             case study:
 //                titleTextView_facility4 = ((FragmentStudyBinding) Binding).titleTextViewFacility4;
 //                dateTextView_facility4 = ((FragmentStudyBinding) Binding).dateTextViewFacility4;
 //                contentTextView_facility4 = ((FragmentStudyBinding) Binding).contentTextViewFacility4;
 //                ratingBar_facility4 = ((FragmentStudyBinding) Binding).ratingBarFacility4;
-//                facilityID_textView4 = ((FragmentStudyBinding) Binding).facilityIDTextView4;
-
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility4;
+//                constraintLayout_facility4 = ((FragmentStudyBinding) Binding).facility4;
                 break;
             case entertainments:
                 titleTextView_facility4 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility4;
                 dateTextView_facility4 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility4;
                 contentTextView_facility4 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility4;
                 ratingBar_facility4 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility4;
-                facilityID_textView4 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView4;
+                facilityID_textView1_facility4 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility4;
+                constraintLayout_facility4 = ((FragmentEntertainmentsBinding) Binding).facility4;
                 break;
             case restaurants:
 //                titleTextView_facility4 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility4;
 //                dateTextView_facility4 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility4;
 //                contentTextView_facility4 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility4;
 //                ratingBar_facility4 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility4;
-//                facilityID_textView4 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView4;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility4;
+//                constraintLayout_facility4 = ((FragmentRestaurantsBinding) Binding).facility4;
+
                 break;
         }
-        try{
-            facilityID_textView4.setText(result.getString(0));
-        }catch (JSONException E){
-            facilityID_textView4.setText("ERROR when loading id 4");
+        try {
+            facilityID_textView1_facility4.setText(result.getString(0));
+        } catch (JSONException E) {
+            facilityID_textView1_facility4.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             ratingBar_facility4.setRating((float) result.getDouble(1));
-        }catch (JSONException E){
+        } catch (JSONException E) {
             ratingBar_facility4.setRating((float) 0);
         }
 
-        try{
+        try {
             titleTextView_facility4.setText(result.getString(2));
-        }catch (JSONException E){
-            titleTextView_facility4.setText("ERROR when loading title 4");
+        } catch (JSONException E) {
+            titleTextView_facility4.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             contentTextView_facility4.setText(result.getString(3));
-        }catch (JSONException E){
-            contentTextView_facility4.setText("ERROR when loading title 4");
+        } catch (JSONException E) {
+            contentTextView_facility4.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             dateTextView_facility4.setText(result.getString(4));
-        }catch (JSONException E){
-            dateTextView_facility4.setText("ERROR when loading date 4");
+        } catch (JSONException E) {
+            dateTextView_facility4.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility4.setVisibility(View.VISIBLE);
     }
 
     /**
-     * @param Binding : a subclass of databinding, used to find TextView, Ratingbar
+     * @param Binding       : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type : int representing the type of facility calling this function
-     * @param result : a json array that holds information about facilities
+     * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
-     *  */
-    private void load_part5(Object Binding, int facility_type, JSONArray result)  {
-        TextView titleTextView_facility5 = null, dateTextView_facility5 =null, contentTextView_facility5 = null, facilityID_textView5 = null;
+     */
+    private void load_facility5(Object Binding, int facility_type, JSONArray result) {
+        TextView titleTextView_facility5 = null, dateTextView_facility5 = null, contentTextView_facility5 = null, facilityID_textView1_facility5 = null;
         RatingBar ratingBar_facility5 = null;
-
-        switch (facility_type){
+        ConstraintLayout constraintLayout_facility5 = null;
+        switch (facility_type) {
             case posts:
 //                titleTextView_facility5 = ((FragmentPostsBinding) Binding).titleTextViewFacility5;
 //                dateTextView_facility5 = ((FragmentPostsBinding) Binding).dateTextViewFacility5;
 //                contentTextView_facility5 = ((FragmentPostsBinding) Binding).contentTextViewFacility5;
 //                ratingBar_facility5 = ((FragmentPostsBinding) Binding).ratingBarFacility5;
-//                facilityID_textView5 = ((FragmentPostsBinding) Binding).facilityIDTextView5;
+//                facilityID_textView1 = ((FragmentPostsBinding) Binding).facilityIDTextViewFacility5;
+//                constraintLayout_facility5 = ((FragmentPostsBinding) Binding).facility5;
                 break;
             case study:
 //                titleTextView_facility5 = ((FragmentStudyBinding) Binding).titleTextViewFacility5;
 //                dateTextView_facility5 = ((FragmentStudyBinding) Binding).dateTextViewFacility5;
 //                contentTextView_facility5 = ((FragmentStudyBinding) Binding).contentTextViewFacility5;
 //                ratingBar_facility5 = ((FragmentStudyBinding) Binding).ratingBarFacility5;
-//                facilityID_textView5 = ((FragmentStudyBinding) Binding).facilityIDTextView5;
-
+//                facilityID_textView1 = ((FragmentStudyBinding) Binding).facilityIDTextViewFacility5;
+//                constraintLayout_facility5 = ((FragmentStudyBinding) Binding).facility5;
                 break;
             case entertainments:
                 titleTextView_facility5 = ((FragmentEntertainmentsBinding) Binding).titleTextViewFacility5;
                 dateTextView_facility5 = ((FragmentEntertainmentsBinding) Binding).dateTextViewFacility5;
                 contentTextView_facility5 = ((FragmentEntertainmentsBinding) Binding).contentTextViewFacility5;
                 ratingBar_facility5 = ((FragmentEntertainmentsBinding) Binding).ratingBarFacility5;
-                facilityID_textView5 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextView5;
+                facilityID_textView1_facility5 = ((FragmentEntertainmentsBinding) Binding).facilityIDTextViewFacility5;
+                constraintLayout_facility5 = ((FragmentEntertainmentsBinding) Binding).facility5;
                 break;
             case restaurants:
 //                titleTextView_facility5 = ((FragmentRestaurantsBinding) Binding).titleTextViewFacility5;
 //                dateTextView_facility5 = ((FragmentRestaurantsBinding) Binding).dateTextViewFacility5;
 //                contentTextView_facility5 = ((FragmentRestaurantsBinding) Binding).contentTextViewFacility5;
 //                ratingBar_facility5 = ((FragmentRestaurantsBinding) Binding).ratingBarFacility5;
-//                facilityID_textView5 = ((FragmentRestaurantsBinding) Binding).facilityIDTextView5;
+//                facilityID_textView1 = ((FragmentRestaurantsBinding) Binding).facilityIDTextViewFacility5;
+//                constraintLayout_facility5 = ((FragmentRestaurantsBinding) Binding).facility5;
+
                 break;
         }
-        try{
-            facilityID_textView5.setText(result.getString(0));
-        }catch (JSONException E){
-            facilityID_textView5.setText("ERROR when loading id 5");
+        try {
+            facilityID_textView1_facility5.setText(result.getString(0));
+        } catch (JSONException E) {
+            facilityID_textView1_facility5.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             ratingBar_facility5.setRating((float) result.getDouble(1));
-        }catch (JSONException E){
+        } catch (JSONException E) {
             ratingBar_facility5.setRating((float) 0);
         }
 
-        try{
+        try {
             titleTextView_facility5.setText(result.getString(2));
-        }catch (JSONException E){
-            titleTextView_facility5.setText("ERROR when loading title 5");
+        } catch (JSONException E) {
+            titleTextView_facility5.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             contentTextView_facility5.setText(result.getString(3));
-        }catch (JSONException E){
-            contentTextView_facility5.setText("ERROR when loading title 5");
+        } catch (JSONException E) {
+            contentTextView_facility5.setText("ERROR when loading title 1");
         }
 
-        try{
+        try {
             dateTextView_facility5.setText(result.getString(4));
-        }catch (JSONException E){
-            dateTextView_facility5.setText("ERROR when loading date 5");
+        } catch (JSONException E) {
+            dateTextView_facility5.setText("ERROR when loading date 1");
         }
+        constraintLayout_facility5.setVisibility(View.VISIBLE);
     }
 }
