@@ -7,10 +7,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -20,10 +24,10 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Picasso;
 
-import androidx.transition.TransitionManager;
-import androidx.transition.Transition;
-import androidx.transition.Fade;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -35,6 +39,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private double latitude;
     private double longitude;
     private Button rateButton;
+    private String image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +51,15 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         TextView facilityTitle = findViewById(R.id.facilityTitle);
         facilityTitle.setText(title);
 
+        // Facility Image
+        image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
+        Uri uriImage = Uri.parse(image);
+        Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
+
         // Facility Rate
         rate = (float) 4.3;
         TextView facilityRate = findViewById(R.id.facilityRatingText);
-        facilityRate.setText(String.valueOf(rate));
+        facilityRate.setText("★" + String.valueOf(rate));
 
         // Rating bar
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
@@ -80,6 +90,38 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
+        float userRate = (float) 2.3;
+        String userName = "Peter Na";
+        String userDescription = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+
+    }
+
+    public void createUserReview(float userRate, String userName, String userDescription) {
+        LinearLayout review = new LinearLayout(this);
+        review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        review.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout usernameAndRate = new LinearLayout(this);
+        usernameAndRate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        usernameAndRate.setOrientation(LinearLayout.HORIZONTAL);
+
+        TextView userNameView = new TextView(this);
+        userNameView.setText(userName);
+        userNameView.setTextSize(12);
+
+        TextView userDescriptionView = new TextView(this);
+        userNameView.setText(userDescription);
+        userNameView.setTextSize(12);
+
+        RatingBar userRateView = new RatingBar(this);
+        userRateView.setRating(userRate);
+        userRateView.setScaleX((float)0.5);
+        userRateView.setScaleY((float)0.5);
+
+        usernameAndRate.addView(userNameView);
+        usernameAndRate.addView(userRateView);
+        review.addView(usernameAndRate);
+        review.addView(userDescriptionView);
     }
 
     @Override
