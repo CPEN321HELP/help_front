@@ -3,6 +3,7 @@ package com.example.help_m5;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -15,6 +16,10 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -101,7 +106,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         float userRate = (float) 2.3;
         String userName = "Peter Na";
         String userDescription = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
-        String userDate = "1/24/2022";
+        String userDate = "22/24/2022";
         float userRate1 = (float) 2.3;
         String userName1 = "Peter Na";
         String userDescription1 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
@@ -133,51 +138,76 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(dpToPx(15f), dpToPx(5f), dpToPx(15f), dpToPx(10f));
         review.setElevation(30);
-        review.setBackgroundColor(Color.parseColor("#DDFFFFFF"));
+        review.setBackgroundColor(Color.parseColor("#DCDCDC"));
         review.setLayoutParams(layoutParams);
 
-        LinearLayout usernameAndRate = new LinearLayout(this);
-        usernameAndRate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        usernameAndRate.setOrientation(LinearLayout.HORIZONTAL);
-        usernameAndRate.setBackgroundColor(Color.parseColor("#000B5F"));
+        LinearLayout usernameAndDate = new LinearLayout(this);
+        usernameAndDate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        usernameAndDate.setOrientation(LinearLayout.HORIZONTAL);
+        usernameAndDate.setBackgroundColor(Color.parseColor("#DCDCDC"));
 
-        LinearLayout reportAndDate = new LinearLayout(this);
-        reportAndDate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        reportAndDate.setOrientation(LinearLayout.HORIZONTAL);
-        reportAndDate.setBackgroundColor(Color.parseColor("#000B5F"));
+        LinearLayout descriptionAndReport = new LinearLayout(this);
+        descriptionAndReport.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        descriptionAndReport.setOrientation(LinearLayout.HORIZONTAL);
+        descriptionAndReport.setBackgroundColor(Color.parseColor("#DCDCDC"));
 
         TextView userNameView = new TextView(this);
         userNameView.setText(userName);
         userNameView.setTextSize(15f);
-        userNameView.setTextColor(Color.parseColor("#DDFFFFFF"));
+        userNameView.setTextColor(Color.parseColor("#000000"));
         LinearLayout.LayoutParams layoutMargin = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutMargin.setMargins(dpToPx(5f), dpToPx(5f), dpToPx(5f), dpToPx(5f));
+        layoutMargin.setMargins(dpToPx(5f), dpToPx(5f), dpToPx(5f), dpToPx(0f));
         userNameView.setLayoutParams(layoutMargin);
-
-        RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);
-        userRateView.setRating(userRate);
-        LinearLayout.LayoutParams layoutParamsRate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsRate.setMargins(dpToPx(180f), dpToPx(5f), dpToPx(5f), dpToPx(5f));
-        layoutParamsRate.gravity = Gravity.CENTER | Gravity.END;
-        userRateView.setLayoutParams(layoutParamsRate);
 
         TextView userDateView = new TextView(this);
         userDateView.setText(userDate);
         userDateView.setTextSize(15f);
-        userDateView.setTextColor(Color.parseColor("#DDFFFFFF"));
-        userDateView.setLayoutParams(layoutParamsRate);
+        userDateView.setTextColor(Color.parseColor("#626062"));
+        LinearLayout.LayoutParams layoutParamsDate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsDate.setMargins(dpToPx(210f), dpToPx(3f), dpToPx(5f), dpToPx(0f));
+        layoutParamsDate.gravity = Gravity.CENTER_VERTICAL;
+        userDateView.setLayoutParams(layoutParamsDate);
+
+        RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);
+        userRateView.setRating(userRate);
+        userRateView.setNumStars(5);
+        LinearLayout.LayoutParams layoutParamsRate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsRate.setMargins(dpToPx(4f), dpToPx(0f), dpToPx(5f), dpToPx(0f));
+        layoutParamsRate.gravity = Gravity.CENTER_VERTICAL;
+        userRateView.setLayoutParams(layoutParamsRate);
 
         TextView userDescriptionView = new TextView(this);
         userDescriptionView.setText(userDescription);
         userDescriptionView.setTextSize(15f);
-        userDescriptionView.setLayoutParams(layoutMargin);
+        userDescriptionView.setTextColor(Color.parseColor("#000000"));
+        userDescriptionView.setWidth(dpToPx(300f));
+        LinearLayout.LayoutParams layoutParamsDescription = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsDescription.setMargins(dpToPx(5f), dpToPx(7f), dpToPx(5f), dpToPx(10f));
+        layoutParamsDescription.gravity = Gravity.CENTER;
+        userDescriptionView.setLayoutParams(layoutParamsDescription);
 
-        usernameAndRate.addView(userNameView);
-        usernameAndRate.addView(userRateView);
-        reportAndDate.addView(userDateView);
-        review.addView(usernameAndRate);
-        review.addView(reportAndDate);
-        review.addView(userDescriptionView);
+        Button reportButton = new Button(this, null, androidx.appcompat.R.attr.buttonStyleSmall);
+        reportButton.setText("⚠");
+        reportButton.setTextSize(dpToPx(6f));
+        reportButton.setTextColor(Color.parseColor("#626062"));
+        LinearLayout.LayoutParams layoutParamsReport = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsReport.setMargins(dpToPx(20f), dpToPx(20f), dpToPx(-5f), dpToPx(-5f));
+        reportButton.setLayoutParams(layoutParamsReport);
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent reportIntent = new Intent(FacilityActivity.this, ReportActivity.class);
+                startActivity(reportIntent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        usernameAndDate.addView(userNameView);
+        usernameAndDate.addView(userDateView);
+        descriptionAndReport.addView(userDescriptionView);
+        descriptionAndReport.addView(reportButton);
+        review.addView(usernameAndDate);
+        review.addView(userRateView);
+        review.addView(descriptionAndReport);
 
         LinearLayout linearLayout = findViewById(R.id.facilityReviews);
         linearLayout.addView(review);

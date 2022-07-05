@@ -54,5 +54,9 @@
     <string name="title_login">ᕼEᒪᑭ!</string>
     <string name="description_login">An app that makes you know UBC better</string>
     <string name="menu_report_user">Reported User</string>
+    <string name="report_review_title">Report Content</string>
+    <string name="report_review_content">Please provide your reason for\nreporting below</string>
+    <string name="report_review_hint">Please write your reason here ...</string>
+    <string name="report_user">Report Associated User</string>
 
 </resources>

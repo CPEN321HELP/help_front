@@ -5,29 +5,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RatingBar;
 
-public class RateActivity extends AppCompatActivity {
+public class ReportActivity extends AppCompatActivity {
 
-    private static final String TAG = "RateActivity";
-    private double rate;
+    private static final String TAG = "ReportActivity";
     private String comment;
     private Button submitButton;
     private Button cancelButton;
+    private boolean reportUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rate);
+        setContentView(R.layout.activity_report);
 
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
-        rate = ratingBar.getRating();
-
-        EditText editText = findViewById(R.id.editTextTextMultiLine);
+        EditText editText = findViewById(R.id.editTextReport);
         comment = editText.getText().toString();
 
-        submitButton = findViewById(R.id.submit_button);
+        submitButton = findViewById(R.id.submit_button_report);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,13 +33,29 @@ public class RateActivity extends AppCompatActivity {
             }
         });
 
-        cancelButton = findViewById(R.id.cancel_button);
+        cancelButton = findViewById(R.id.cancel_button_report);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+    }
+
+    public void onCheckboxClicked(View view) {
+        // Is the view now checked?
+        boolean checked = ((CheckBox) view).isChecked();
+        // Check which checkbox was clicked
+        switch(view.getId()) {
+            case R.id.checkbox_user:
+                if (checked) {
+                    reportUser = true;
+                }
+                else {
+                    reportUser = false;
+                }
+                break;
+        }
     }
 
     @Override

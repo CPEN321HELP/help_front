@@ -15,8 +15,9 @@
     <color name="UBCBlue">#000B5F</color>
     <color name="UBCPurpleLight">#3341AB</color>
     <color name="UBCPurpleDark">#242E78</color>
-    <color name="UBCyellow">#FFAB9000</color>
+    <color name="UBCyellow">#dbba00</color>
     <color name="navyBlue2">#0014AB</color>
     <color name="grey">#626062</color>
+    <color name="light_grey">#D3D3D3</color>
 
 </resources>
