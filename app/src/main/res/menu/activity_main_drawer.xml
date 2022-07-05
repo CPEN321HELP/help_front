@@ -24,5 +24,13 @@
             android:id="@+id/nav_entertainments"
             android:icon="@drawable/ic_menu_entertainment"
             android:title="@string/menu_entertainments"/>
+        <item
+            android:id="@+id/report_facility"
+            android:icon="@drawable/ic_menu_entertainment"
+            android:title="@string/menu_report_facility"/>
+        <item
+            android:id="@+id/report_comment"
+            android:icon="@drawable/ic_menu_entertainment"
+            android:title="@string/menu_report_comment"/>
     </group>
 </menu>
