@@ -41,6 +41,9 @@ public class DatabaseConnection {
     static final int study = 1;
     static final int entertainments = 2;
     static final int restaurants = 3;
+    static final int report_user = 4;
+    static final int report_comment = 5;
+    static final int report_facility = 6;
 
     static final int normal_local_load = 0;
     static final int normal_server_load = 1;
@@ -59,14 +62,16 @@ public class DatabaseConnection {
      */
     static int status = server_error;
 
-    public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, String content_to_search) {
+    public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, boolean is_report, String content_to_search) {
         String fileName = "";
         if (is_search) {
             fileName = "search_" + getStringType(facility_type) + ".json";
+        } else if (is_report){
+            fileName = "report" + getStringType(facility_type) + ".json";
         } else {
             fileName = getStringType(facility_type) + ".json";
         }
-        return searchFacilities(binding, facility_type, page_number, applicationContext, is_search, content_to_search, fileName);
+        return searchFacilities(binding, facility_type, page_number, applicationContext, is_search, is_report, content_to_search, fileName);
     }
 
     /**
@@ -82,7 +87,7 @@ public class DatabaseConnection {
      * 2, reached end of show
      * @Pupose : to load the content from server our cached file to screen for user to view
      */
-    private int searchFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, String content_to_search, String fileName) {
+    private int searchFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, boolean is_report, String content_to_search, String fileName) {
         if (isCached(applicationContext, fileName)) {//page up and page down should go here
             try {
                 JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
@@ -100,7 +105,6 @@ public class DatabaseConnection {
             final RequestQueue queue = Volley.newRequestQueue(applicationContext);
             HashMap<String, String> params = new HashMap<String, String>();
             queue.start();
-
             String url = vm_ip + getStringType(facility_type);
             params.put("page_number", "" + page_number);
 
@@ -279,6 +283,32 @@ public class DatabaseConnection {
     }
 
     /**
+     * @param applicationContext : Central interface to provide configuration for an application.
+     * @Pupose clean all files stored in /data/data/com.example.help_m5/files/
+     */
+    public void cleanCaches(Context applicationContext){
+        if( applicationContext == null){
+            Log.d(TAG, "applicationContext Null");
+            return;
+        }
+        File targetDir = applicationContext.getFilesDir();
+        if( targetDir == null){
+            Log.d(TAG, "error cleaning");
+            return;
+        }
+        if(targetDir.isDirectory()){
+            Log.d(TAG, "start cleaning");
+        }
+        File[] files = targetDir.listFiles();
+        if( files == null){
+            Log.d(TAG, "dir empty, nothing to clean");
+            return;
+        }
+        for(File f : files){
+            f.delete();
+        }
+    }
+    /**
      * @param facility_type : int representing the type of facility calling this function
      * @return String of facility type
      * @Pupose take int facility_type and return string of facility_type
@@ -297,6 +327,16 @@ public class DatabaseConnection {
                 break;
             case restaurants:
                 facilityToFetch = "restaurants";
+                break;
+            case report_user:
+                facilityToFetch = "report/user";
+                break;
+            case report_facility:
+                facilityToFetch = "report/facility";
+                break;
+            case report_comment:
+                facilityToFetch = "report/comment";
+
                 break;
         }
         return facilityToFetch;

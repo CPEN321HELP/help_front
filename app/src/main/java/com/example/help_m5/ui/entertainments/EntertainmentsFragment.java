@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -21,14 +22,17 @@ import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
-public class EntertainmentsFragment extends Fragment {
+public class EntertainmentsFragment extends Fragment  {
 
     static final int posts = 0;
     static final int study = 1;
     static final int entertainments = 2;
     static final int restaurants = 3;
+    static final int report_user = 4;
+    static final int report_comment = 5;
+    static final int report_facility = 6;
 
-    static final int facility_type = entertainments;
+    static final int facility_type_thisFragment = entertainments;
 
     static final int normal_local_load = 0;
     static final int normal_server_load = 1;
@@ -38,8 +42,11 @@ public class EntertainmentsFragment extends Fragment {
 
     final String TAG = "EntertainmentsFragment";
 
+    float transY = 100f;
+    OvershootInterpolator interpolator = new OvershootInterpolator();
 
     static boolean onSearch = false;   //if this true means user is viewing search result
+    boolean isMenuOpen = false;
 
     private SearchView facilitySearchView;
     private DatabaseConnection DBconnection;
@@ -62,15 +69,15 @@ public class EntertainmentsFragment extends Fragment {
         View root = binding.getRoot();
 
         DBconnection = new DatabaseConnection();
-        DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, "");
-
+        DBconnection.cleanCaches(getContext());
+        DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), false, false, "");
         facilitySearchView = binding.searchFacility;
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 Log.d(TAG, "searching: " + query);
                 onSearch = true;
-                int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), true, query);
+                int result = DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), true, false, query);
                 if (result == normal_local_load) {
                     Log.d(TAG, "Load data from local device");
                 } else if (result == normal_server_load) {
@@ -105,7 +112,26 @@ public class EntertainmentsFragment extends Fragment {
             }
         });
 
+        initFavMenu();
+
+        return root;
+    }
+    private void initFavMenu(){
+
         page_up = binding.fabPrevious;
+        add_facility = binding.fabAdd;
+        page_down = binding.fabNext;
+        main = binding.fabMain;
+
+        page_up.setAlpha(0f);
+        add_facility.setAlpha(0f);
+        page_down.setAlpha(0f);
+
+        page_up.setTranslationY(transY);
+        add_facility.setTranslationY(transY);
+        page_down.setTranslationY(transY);
+
+
         page_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,7 +141,7 @@ public class EntertainmentsFragment extends Fragment {
                         return;
                     }
                     search_page_number -= 1;
-                    int result = DBconnection.getFacilities(binding, facility_type, search_page_number, getContext(), true, "");
+                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, search_page_number, getContext(), true, false, "");
                     if (result == local_error) {
                         search_page_number = 1;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -130,7 +156,7 @@ public class EntertainmentsFragment extends Fragment {
                         return;
                     }
                     newest_page_number -= 1;
-                    int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, newest_page_number, getContext(), false, false, "");
                     if (result == local_error) {
                         newest_page_number = 1;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -143,7 +169,13 @@ public class EntertainmentsFragment extends Fragment {
             }
         });
 
-        page_down = binding.fabNext;
+        add_facility.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO implement function to add new facility
+            }
+        });
+
         page_down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +186,7 @@ public class EntertainmentsFragment extends Fragment {
                     } else {
                         search_page_number++;
                     }
-                    int result = DBconnection.getFacilities(binding, facility_type, search_page_number, getContext(), true, "");
+                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, search_page_number, getContext(), true, false, "");
                     if (result == local_error) {
                         reached_end_search = true;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -172,7 +204,7 @@ public class EntertainmentsFragment extends Fragment {
                     } else {
                         newest_page_number++;
                     }
-                    int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, newest_page_number, getContext(), false, false, "");
                     if (result == local_error) {
                         reached_end_newest = true;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -186,30 +218,31 @@ public class EntertainmentsFragment extends Fragment {
             }
         });
 
-        add_facility = binding.fabAdd;
-        add_facility.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO implement function to add new facility
-            }
-        });
-        main = binding.fabMain;
         main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (page_down.getVisibility() == View.INVISIBLE) {
-                    page_up.setVisibility(View.VISIBLE);
-                    page_down.setVisibility(View.VISIBLE);
-                    add_facility.setVisibility(View.VISIBLE);
-                } else {
-                    page_up.setVisibility(View.INVISIBLE);
-                    page_down.setVisibility(View.INVISIBLE);
-                    add_facility.setVisibility(View.INVISIBLE);
+                if(isMenuOpen){
+                    closeMenu();
+                }else {
+                    openMenu();
                 }
             }
         });
+    }
+    private void openMenu(){
+        isMenuOpen = !isMenuOpen;
+        main.animate().setInterpolator(interpolator).rotation(180f).setDuration(300).start();
+        page_up.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        add_facility.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        page_down.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
 
-        return root;
+    }
+    private void closeMenu(){
+        isMenuOpen = !isMenuOpen;
+        main.animate().setInterpolator(interpolator).rotation(0).setDuration(300).start();
+        page_up.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
+        add_facility.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
+        page_down.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
     }
 
     @Override

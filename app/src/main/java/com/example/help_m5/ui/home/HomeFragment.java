@@ -9,12 +9,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.help_m5.DatabaseConnection;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
+    private DatabaseConnection DBconnection;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -23,9 +25,6 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        String File_Name= "Demo.txt"; //gives file name
-        String Data="Hello!!"; //define data
-
 
         return root;
 
