@@ -229,7 +229,7 @@
             <TextView
                 android:id="@+id/facilityTitle"
                 android:layout_width="275dp"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:text="@string/title_timhortons"
                 android:textColor="@color/black"
                 android:textSize="28dp" />
@@ -252,7 +252,7 @@
             android:layout_marginTop="5dp"
             android:text="@string/title_description"
             android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/facilityDesription"
@@ -277,7 +277,7 @@
                 android:layout_marginTop="5dp"
                 android:text="@string/title_location"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="20dp" />
             <com.google.android.gms.maps.MapView
                 android:id="@+id/mapView"
                 android:layout_marginTop="5dp"
@@ -294,15 +294,21 @@
                 android:text="@string/address_timhortons" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/facilityReviewsTitle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/title_reviews"
-            android:layout_marginHorizontal="15dp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/black"
-            android:textSize="18dp" />
+            android:id="@+id/facilityReviews"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/facilityReviewsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_reviews"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/black"
+                android:textSize="20dp" />
+        </LinearLayout>
 
     </LinearLayout>
 

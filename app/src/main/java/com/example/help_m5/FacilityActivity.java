@@ -4,18 +4,25 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -92,7 +99,24 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         float userRate = (float) 2.3;
         String userName = "Peter Na";
-        String userDescription = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+        String userDescription = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        float userRate1 = (float) 2.3;
+        String userName1 = "Peter Na";
+        String userDescription1 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        float userRate2 = (float) 2.3;
+        String userName2 = "Peter Na";
+        String userDescription2 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        float userRate3 = (float) 2.3;
+        String userName3 = "Peter Na";
+        String userDescription3 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        float userRate4 = (float) 2.3;
+        String userName4 = "Peter Na";
+        String userDescription4 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        createUserReview(userRate, userName, userDescription);
+        createUserReview(userRate1, userName1, userDescription1);
+        createUserReview(userRate2, userName2, userDescription2);
+        createUserReview(userRate3, userName3, userDescription3);
+        createUserReview(userRate4, userName4, userDescription4);
 
     }
 
@@ -100,28 +124,61 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         LinearLayout review = new LinearLayout(this);
         review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         review.setOrientation(LinearLayout.VERTICAL);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(dpToPx(15f), dpToPx(5f), dpToPx(15f), dpToPx(10f));
+        review.setElevation(30);
+        review.setBackgroundColor(Color.parseColor("#DDFFFFFF"));
+        review.setLayoutParams(layoutParams);
 
         LinearLayout usernameAndRate = new LinearLayout(this);
         usernameAndRate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         usernameAndRate.setOrientation(LinearLayout.HORIZONTAL);
+        usernameAndRate.setBackgroundColor(Color.parseColor("#000B5F"));
 
         TextView userNameView = new TextView(this);
         userNameView.setText(userName);
-        userNameView.setTextSize(12);
+        userNameView.setTextSize(15f);
+        userNameView.setTextColor(Color.parseColor("#DDFFFFFF"));
+        LinearLayout.LayoutParams layoutMargin = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutMargin.setMargins(dpToPx(5f), dpToPx(5f), dpToPx(5f), dpToPx(5f));
+        userNameView.setLayoutParams(layoutMargin);
+
+        RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);
+        userRateView.setRating(userRate);
+        LinearLayout.LayoutParams layoutParamsRate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsRate.setMargins(dpToPx(5f), dpToPx(5f), dpToPx(5f), dpToPx(5f));
+        layoutParamsRate.gravity = Gravity.CENTER;
+        userRateView.setLayoutParams(layoutParamsRate);
+
+        Spinner spinner = new Spinner(this);
+        String[] paths = {"Report"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FacilityActivity.this,
+                android.R.layout.simple_spinner_item,paths);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
         TextView userDescriptionView = new TextView(this);
-        userNameView.setText(userDescription);
-        userNameView.setTextSize(12);
-
-        RatingBar userRateView = new RatingBar(this);
-        userRateView.setRating(userRate);
-        userRateView.setScaleX((float)0.5);
-        userRateView.setScaleY((float)0.5);
+        userDescriptionView.setText(userDescription);
+        userDescriptionView.setTextSize(15f);
+        userDescriptionView.setLayoutParams(layoutMargin);
 
         usernameAndRate.addView(userNameView);
         usernameAndRate.addView(userRateView);
         review.addView(usernameAndRate);
         review.addView(userDescriptionView);
+
+        LinearLayout linearLayout = findViewById(R.id.facilityReviews);
+        linearLayout.addView(review);
+    }
+
+    public int dpToPx(float dp) {
+        Resources r = getResources();
+        float px = TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP,
+                dp,
+                r.getDisplayMetrics()
+        );
+        return (int) px;
     }
 
     @Override
