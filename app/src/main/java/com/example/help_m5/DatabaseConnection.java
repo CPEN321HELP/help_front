@@ -101,7 +101,6 @@ public class DatabaseConnection {
                 return local_error;
             }
         } else { //search should go here
-            final int[] load_status = {normal_server_load};
             final RequestQueue queue = Volley.newRequestQueue(applicationContext);
             HashMap<String, String> params = new HashMap<String, String>();
             queue.start();
@@ -120,7 +119,7 @@ public class DatabaseConnection {
                     int result = writeToJson(applicationContext, response, fileName);
 
                     if (result == 2) {
-                        load_status[0] = local_error;// IOException
+                        status = local_error;// IOException
                         return;
                     }
 
@@ -128,10 +127,10 @@ public class DatabaseConnection {
                         JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
                         int result2 = loadToScreen(binding, facility_type, page_number, data);
                         if (result2 == 1) {
-                            load_status[0] = reached_end; //reached end of facility json array
+                            status = reached_end; //reached end of facility json array
                         }
                     } catch (JSONException e) {
-                        load_status[0] = local_error; // error reading json file
+                        status = local_error; // error reading json file
                         e.printStackTrace();
                     }
 
@@ -139,17 +138,17 @@ public class DatabaseConnection {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    load_status[0] = server_error;
+                    status = server_error;
                     Log.d(TAG, "ERROR when connecting to database");
                 }
             });
             queue.add(jsObjRequest);
-            Log.d(TAG, "load_status is " + load_status[0]);
-            if (load_status[0] == normal_server_load) {
+            Log.d(TAG, "load_status is " + status);
+            if (status == normal_server_load) {
                 return normal_server_load;
-            } else if (load_status[0] == reached_end) {
+            } else if (status == reached_end) {
                 return reached_end;
-            } else if (load_status[0] == local_error) {
+            } else if (status == local_error) {
                 return local_error;
             } else {
                 return server_error;

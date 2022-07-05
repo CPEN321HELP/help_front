@@ -70,7 +70,11 @@ public class EntertainmentsFragment extends Fragment  {
 
         DBconnection = new DatabaseConnection();
         DBconnection.cleanCaches(getContext());
-        DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), false, false, "");
+        int result = DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), false, false, "");
+        if (result == server_error){
+            Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
+            return root;
+        }
         facilitySearchView = binding.searchFacility;
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
