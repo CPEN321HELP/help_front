@@ -11,6 +11,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -100,27 +101,32 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         float userRate = (float) 2.3;
         String userName = "Peter Na";
         String userDescription = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        String userDate = "1/24/2022";
         float userRate1 = (float) 2.3;
         String userName1 = "Peter Na";
         String userDescription1 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        String userDate1 = "1/24/2022";
         float userRate2 = (float) 2.3;
         String userName2 = "Peter Na";
         String userDescription2 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        String userDate2 = "1/24/2022";
         float userRate3 = (float) 2.3;
         String userName3 = "Peter Na";
         String userDescription3 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
+        String userDate3 = "1/24/2022";
         float userRate4 = (float) 2.3;
         String userName4 = "Peter Na";
         String userDescription4 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
-        createUserReview(userRate, userName, userDescription);
-        createUserReview(userRate1, userName1, userDescription1);
-        createUserReview(userRate2, userName2, userDescription2);
-        createUserReview(userRate3, userName3, userDescription3);
-        createUserReview(userRate4, userName4, userDescription4);
+        String userDate4 = "1/24/2022";
+        createUserReview(userRate, userName, userDescription, userDate);
+        createUserReview(userRate1, userName1, userDescription1, userDate1);
+        createUserReview(userRate2, userName2, userDescription2, userDate2);
+        createUserReview(userRate3, userName3, userDescription3, userDate3);
+        createUserReview(userRate4, userName4, userDescription4, userDate4);
 
     }
 
-    public void createUserReview(float userRate, String userName, String userDescription) {
+    public void createUserReview(float userRate, String userName, String userDescription, String userDate) {
         LinearLayout review = new LinearLayout(this);
         review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         review.setOrientation(LinearLayout.VERTICAL);
@@ -135,6 +141,11 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         usernameAndRate.setOrientation(LinearLayout.HORIZONTAL);
         usernameAndRate.setBackgroundColor(Color.parseColor("#000B5F"));
 
+        LinearLayout reportAndDate = new LinearLayout(this);
+        reportAndDate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        reportAndDate.setOrientation(LinearLayout.HORIZONTAL);
+        reportAndDate.setBackgroundColor(Color.parseColor("#000B5F"));
+
         TextView userNameView = new TextView(this);
         userNameView.setText(userName);
         userNameView.setTextSize(15f);
@@ -146,16 +157,15 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);
         userRateView.setRating(userRate);
         LinearLayout.LayoutParams layoutParamsRate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsRate.setMargins(dpToPx(5f), dpToPx(5f), dpToPx(5f), dpToPx(5f));
-        layoutParamsRate.gravity = Gravity.CENTER;
+        layoutParamsRate.setMargins(dpToPx(180f), dpToPx(5f), dpToPx(5f), dpToPx(5f));
+        layoutParamsRate.gravity = Gravity.CENTER | Gravity.END;
         userRateView.setLayoutParams(layoutParamsRate);
 
-        Spinner spinner = new Spinner(this);
-        String[] paths = {"Report"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(FacilityActivity.this,
-                android.R.layout.simple_spinner_item,paths);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        TextView userDateView = new TextView(this);
+        userDateView.setText(userDate);
+        userDateView.setTextSize(15f);
+        userDateView.setTextColor(Color.parseColor("#DDFFFFFF"));
+        userDateView.setLayoutParams(layoutParamsRate);
 
         TextView userDescriptionView = new TextView(this);
         userDescriptionView.setText(userDescription);
@@ -164,7 +174,9 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         usernameAndRate.addView(userNameView);
         usernameAndRate.addView(userRateView);
+        reportAndDate.addView(userDateView);
         review.addView(usernameAndRate);
+        review.addView(reportAndDate);
         review.addView(userDescriptionView);
 
         LinearLayout linearLayout = findViewById(R.id.facilityReviews);
