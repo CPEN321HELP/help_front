@@ -28,8 +28,11 @@ public class EntertainmentsFragment extends Fragment  {
     static final int study = 1;
     static final int entertainments = 2;
     static final int restaurants = 3;
+    static final int report_user = 4;
+    static final int report_comment = 5;
+    static final int report_facility = 6;
 
-    static final int facility_type = entertainments;
+    static final int facility_type_thisFragment = entertainments;
 
     static final int normal_local_load = 0;
     static final int normal_server_load = 1;
@@ -66,7 +69,7 @@ public class EntertainmentsFragment extends Fragment  {
         View root = binding.getRoot();
 
         DBconnection = new DatabaseConnection();
-        DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, "");
+        DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), false, false, "");
 
         facilitySearchView = binding.searchFacility;
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -74,7 +77,7 @@ public class EntertainmentsFragment extends Fragment  {
             public boolean onQueryTextSubmit(String query) {
                 Log.d(TAG, "searching: " + query);
                 onSearch = true;
-                int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), true, query);
+                int result = DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), true, false, query);
                 if (result == normal_local_load) {
                     Log.d(TAG, "Load data from local device");
                 } else if (result == normal_server_load) {
@@ -138,7 +141,7 @@ public class EntertainmentsFragment extends Fragment  {
                         return;
                     }
                     search_page_number -= 1;
-                    int result = DBconnection.getFacilities(binding, facility_type, search_page_number, getContext(), true, "");
+                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, search_page_number, getContext(), true, false, "");
                     if (result == local_error) {
                         search_page_number = 1;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -153,7 +156,7 @@ public class EntertainmentsFragment extends Fragment  {
                         return;
                     }
                     newest_page_number -= 1;
-                    int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, newest_page_number, getContext(), false, false, "");
                     if (result == local_error) {
                         newest_page_number = 1;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -183,7 +186,7 @@ public class EntertainmentsFragment extends Fragment  {
                     } else {
                         search_page_number++;
                     }
-                    int result = DBconnection.getFacilities(binding, facility_type, search_page_number, getContext(), true, "");
+                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, search_page_number, getContext(), true, false, "");
                     if (result == local_error) {
                         reached_end_search = true;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -201,7 +204,7 @@ public class EntertainmentsFragment extends Fragment  {
                     } else {
                         newest_page_number++;
                     }
-                    int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, newest_page_number, getContext(), false, false, "");
                     if (result == local_error) {
                         reached_end_newest = true;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -228,7 +231,6 @@ public class EntertainmentsFragment extends Fragment  {
     }
     private void openMenu(){
         isMenuOpen = !isMenuOpen;
-
         main.animate().setInterpolator(interpolator).rotation(180f).setDuration(300).start();
         page_up.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         add_facility.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
