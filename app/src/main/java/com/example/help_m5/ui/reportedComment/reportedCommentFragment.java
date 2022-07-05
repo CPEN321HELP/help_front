@@ -11,28 +11,33 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.help_m5.R;
+import com.example.help_m5.databinding.FragmentReportedCommentBinding;
+import com.example.help_m5.ui.study.StudyViewModel;
 
 public class reportedCommentFragment extends Fragment {
 
-    private ReportedCommentViewModel mViewModel;
+    private FragmentReportedCommentBinding binding;
 
-    public static reportedCommentFragment newInstance() {
-        return new reportedCommentFragment();
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        ReportedCommentViewModel ViewModel =
+                new ViewModelProvider(this).get(ReportedCommentViewModel.class);
+
+        binding = FragmentReportedCommentBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        final TextView textView = binding.textReportComment;
+        ViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        return root;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_reported_comment, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ReportedCommentViewModel.class);
-        // TODO: Use the ViewModel
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 
 }

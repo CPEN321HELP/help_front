@@ -11,28 +11,32 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.help_m5.R;
+import com.example.help_m5.databinding.FragmentReportedFacilityBinding;
+import com.example.help_m5.ui.study.StudyViewModel;
 
 public class reportedFacilityFragment extends Fragment {
 
-    private ReportedFacilityViewModel mViewModel;
+    private FragmentReportedFacilityBinding binding;
 
-    public static reportedFacilityFragment newInstance() {
-        return new reportedFacilityFragment();
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        ReportedFacilityViewModel ViewModel =
+                new ViewModelProvider(this).get(ReportedFacilityViewModel.class);
+
+        binding = FragmentReportedFacilityBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+
+        final TextView textView = binding.textReportFacility;
+        ViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        return root;
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_reported_facility, container, false);
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(ReportedFacilityViewModel.class);
-        // TODO: Use the ViewModel
-    }
-
 }

@@ -25,12 +25,17 @@
             android:icon="@drawable/ic_menu_entertainment"
             android:title="@string/menu_entertainments"/>
         <item
-            android:id="@+id/report_facility"
-            android:icon="@drawable/ic_menu_entertainment"
+            android:id="@+id/nav_report_facility"
+            android:icon="@drawable/ic_report_facility"
             android:title="@string/menu_report_facility"/>
         <item
-            android:id="@+id/report_comment"
+            android:id="@+id/nav_report_comment"
             android:icon="@drawable/ic_menu_entertainment"
             android:title="@string/menu_report_comment"/>
+
+        <item
+            android:id="@+id/nav_report_user"
+            android:icon="@drawable/ic_reportted_user"
+            android:title="@string/menu_report_user"/>
     </group>
 </menu>
