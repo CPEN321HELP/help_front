@@ -283,6 +283,32 @@ public class DatabaseConnection {
     }
 
     /**
+     * @param applicationContext : Central interface to provide configuration for an application.
+     * @Pupose clean all files stored in /data/data/com.example.help_m5/files/
+     */
+    public void cleanCaches(Context applicationContext){
+        if( applicationContext == null){
+            Log.d(TAG, "applicationContext Null");
+            return;
+        }
+        File targetDir = applicationContext.getFilesDir();
+        if( targetDir == null){
+            Log.d(TAG, "error cleaning");
+            return;
+        }
+        if(targetDir.isDirectory()){
+            Log.d(TAG, "start cleaning");
+        }
+        File[] files = targetDir.listFiles();
+        if( files == null){
+            Log.d(TAG, "dir empty, nothing to clean");
+            return;
+        }
+        for(File f : files){
+            f.delete();
+        }
+    }
+    /**
      * @param facility_type : int representing the type of facility calling this function
      * @return String of facility type
      * @Pupose take int facility_type and return string of facility_type

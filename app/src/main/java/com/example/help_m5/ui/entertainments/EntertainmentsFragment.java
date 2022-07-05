@@ -69,8 +69,8 @@ public class EntertainmentsFragment extends Fragment  {
         View root = binding.getRoot();
 
         DBconnection = new DatabaseConnection();
+        DBconnection.cleanCaches(getContext());
         DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), false, false, "");
-
         facilitySearchView = binding.searchFacility;
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
