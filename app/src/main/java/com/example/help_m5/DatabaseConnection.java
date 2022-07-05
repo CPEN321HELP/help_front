@@ -34,9 +34,10 @@ import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 public class DatabaseConnection {
 
 
-    final String vm_ip = "http://47.251.34.10:3000/";
+    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
+    //following are types of facility
     static final int posts = 0;
     static final int study = 1;
     static final int entertainments = 2;
@@ -44,13 +45,43 @@ public class DatabaseConnection {
     static final int report_user = 4;
     static final int report_comment = 5;
     static final int report_facility = 6;
+    //above are types of facility
 
+    //below are types of error that could happen
     static final int normal_local_load = 0;
     static final int normal_server_load = 1;
     static final int reached_end = 2;
     static final int server_error = 3;
     static final int local_error = 4;
+    //above are types of error that could happen
 
+    static int status_getSpecificFacility = server_error;
+    public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
+        String fileName = "specific_facility.json";
+        String url = vm_ip + "specific";
+        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+        HashMap<String, String> params = new HashMap<String, String>();
+        queue.start();
+        params.put("facility_id", facility_id);
+        params.put("facility_type", ""+facility_type);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                    Log.d(TAG, "response is: " + response.toString());
+                writeToJson(applicationContext, response, fileName);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                status_getFacilities = server_error;
+                Log.d(TAG, "ERROR when connecting to database");
+            }
+        });
+        queue.add(jsObjRequest);
+        Log.d(TAG, "load_status is " + status_getFacilities);
+        return status_getSpecificFacility;
+    }
     /**
      * Parameter:
      * int facility_type : a integer representing the type
@@ -60,8 +91,7 @@ public class DatabaseConnection {
      * Reture:
      * A string (Json) that hold those information
      */
-    static int status = server_error;
-
+    static int status_getFacilities = server_error;
     public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, boolean is_report, String content_to_search) {
         String fileName = "";
         if (is_search) {
@@ -119,7 +149,7 @@ public class DatabaseConnection {
                     int result = writeToJson(applicationContext, response, fileName);
 
                     if (result == 2) {
-                        status = local_error;// IOException
+                        status_getFacilities = local_error;// IOException
                         return;
                     }
 
@@ -127,10 +157,10 @@ public class DatabaseConnection {
                         JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
                         int result2 = loadToScreen(binding, facility_type, page_number, data);
                         if (result2 == 1) {
-                            status = reached_end; //reached end of facility json array
+                            status_getFacilities = reached_end; //reached end of facility json array
                         }
                     } catch (JSONException e) {
-                        status = local_error; // error reading json file
+                        status_getFacilities = local_error; // error reading json file
                         e.printStackTrace();
                     }
 
@@ -138,21 +168,13 @@ public class DatabaseConnection {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    status = server_error;
+                    status_getFacilities = server_error;
                     Log.d(TAG, "ERROR when connecting to database");
                 }
             });
             queue.add(jsObjRequest);
-            Log.d(TAG, "load_status is " + status);
-            if (status == normal_server_load) {
-                return normal_server_load;
-            } else if (status == reached_end) {
-                return reached_end;
-            } else if (status == local_error) {
-                return local_error;
-            } else {
-                return server_error;
-            }
+            Log.d(TAG, "load_status is " + status_getFacilities);
+            return status_getFacilities;
         }
     }
 
@@ -235,7 +257,7 @@ public class DatabaseConnection {
      * @return 0 if cached successfully; 1, if File Already Exists; 2 if IOException.
      * @Pupose write json response from server to a file
      */
-    private int writeToJson(Context applicationContext, JSONObject response, String fileName) {
+    public int writeToJson(Context applicationContext, JSONObject response, String fileName) {
         try {
             File file = new File(applicationContext.getFilesDir(), fileName);
             FileOutputStream writer = new FileOutputStream(file);
@@ -258,7 +280,7 @@ public class DatabaseConnection {
      * @return String of corrsponding file; "1" if FileNotFoundException; "2" if IOException
      * @Pupose read json response from file
      */
-    private String readFromJson(Context applicationContext, String fileName) {
+    public String readFromJson(Context applicationContext, String fileName) {
         try {
             File file = new File(applicationContext.getFilesDir(), fileName);
             FileReader fileReader = new FileReader(file);
