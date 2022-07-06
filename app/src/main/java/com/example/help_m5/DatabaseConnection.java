@@ -33,8 +33,8 @@ import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 //DatabaseConnection
 public class DatabaseConnection {
 
-
-    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
+    final String vm_ip = "http://20.213.243.141:8000/";
+//    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
     //following are types of facility
@@ -55,7 +55,7 @@ public class DatabaseConnection {
     static final int local_error = 4;
     //above are types of error that could happen
 
-    static int status_getSpecificFacility = normal_server_load;
+    int status_getSpecificFacility = normal_server_load;
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";
         String url = vm_ip + "specific";
@@ -75,7 +75,7 @@ public class DatabaseConnection {
             @Override
             public void onErrorResponse(VolleyError error) {
                 status_getSpecificFacility = server_error;
-                Log.d(TAG, "ERROR when connecting to database");
+                Log.d(TAG, "ERROR when connecting to database getSpecificFacility");
             }
         });
         queue.add(jsObjRequest);
@@ -91,7 +91,7 @@ public class DatabaseConnection {
      * Reture:
      * A string (Json) that hold those information
      */
-    static int status_getFacilities = server_error;
+    int status_getFacilities = normal_server_load;
     public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, boolean is_report, String content_to_search) {
         String fileName = "";
         if (is_search) {
@@ -140,12 +140,15 @@ public class DatabaseConnection {
             if (is_search) {
                 url += "/search";
                 params.put("search", "" + content_to_search);
-            }
+            }else{
+                url += "/newest";
 
+            }
+            Log.d(TAG,url);
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-//                    Log.d(TAG, "response is: " + response.toString());
+                    Log.d(TAG, "response is: " + response.toString());
                     int result = writeToJson(applicationContext, response, fileName);
 
                     if (result == 2) {
@@ -169,11 +172,11 @@ public class DatabaseConnection {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     status_getFacilities = server_error;
-                    Log.d(TAG, "ERROR when connecting to database");
+                    Log.d(TAG, "ERROR when connecting to database searchFacilities");
                 }
             });
             queue.add(jsObjRequest);
-            Log.d(TAG, "load_status is " + status_getFacilities);
+            Log.d(TAG, "status_getFacilities is " + status_getFacilities);
             return status_getFacilities;
         }
     }
