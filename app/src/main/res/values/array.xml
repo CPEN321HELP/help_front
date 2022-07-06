@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="planets_array">
+        <item>Entertainments</item>
+        <item>Restaurants</item>
+        <item>Study Places</item>
+        <item>Posts</item>
+    </string-array>
+</resources>
