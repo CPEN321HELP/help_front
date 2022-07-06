@@ -61,6 +61,8 @@ public class FacilityFragment extends Fragment {
     private DatabaseConnection DBconnection;
     private FragmentFacilityBinding binding;
     private FloatingActionButton close_or_refresh, page_up, page_down, add_facility, main;
+    ConstraintLayout shows1, shows2, shows3, shows4, shows5;
+
     Spinner spin;
 
     int search_page_number = 1;
@@ -78,17 +80,29 @@ public class FacilityFragment extends Fragment {
         binding = FragmentFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        switchMode();
+
+        shows1 = binding.facility1;
+        shows2 = binding.facility2;
+        shows3 = binding.facility3;
+        shows4 = binding.facility4;
+        shows5 = binding.facility5;
+
         //set up spinner
         spin = binding.spinnerFacility;
-
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 facility_type = getTypeInt(countryNames[position]);
-                Log.d(TAG, "facility_type "+facility_type);
-
+                Log.d(TAG, "facility_type in onItemSelected"+facility_type);
+                int result = -1;
+                result =  DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
+                Log.d(TAG, "initial result is : " + result);
+                if (result == server_error){
+                    Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
+                    return ;
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -98,23 +112,24 @@ public class FacilityFragment extends Fragment {
         spin.setAdapter(customAdapter);
 
 
-        switchMode();
-        initFavMenu();
+
+        //load initial page
         DBconnection = new DatabaseConnection();
         DBconnection.cleanCaches(getContext());
         int result = -1;
         result =  DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
         Log.d(TAG, "initial result is : " + result);
-
         if (result == server_error){
             Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
             return root;
         }
+
+        //set up search function
         facilitySearchView = binding.searchFacility;
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                setFacilitiesInvisible();
+                setFacilitiesVisibility(View.INVISIBLE);
                 close_or_refresh.setImageResource(R.drawable.ic_baseline_close_24);
                 Log.d(TAG, "searching: " + query);
                 onSearch = true;
@@ -143,23 +158,78 @@ public class FacilityFragment extends Fragment {
             }
         });
 
-        ConstraintLayout shows1 = binding.facility1;
+
+        setConsOnCl();
+
+        //set up p fabs
+        initFavMenu();
+        return root;
+    }
+
+    private void setFacilitiesVisibility(int Visibility){
+        shows1.setVisibility(Visibility);
+        shows2.setVisibility(Visibility);
+        shows3.setVisibility(Visibility);
+        shows4.setVisibility(Visibility);
+        shows5.setVisibility(Visibility);
+
+    }
+
+    private void setRateBarVisibility(int Visibility){
+        binding.ratingBarFacility1.setVisibility(Visibility);
+        binding.ratingBarFacility2.setVisibility(Visibility);
+        binding.ratingBarFacility3.setVisibility(Visibility);
+        binding.ratingBarFacility4.setVisibility(Visibility);
+        binding.ratingBarFacility5.setVisibility(Visibility);
+
+    }
+
+    private void setConsOnCl(){
         shows1.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                int result = DBconnection.getSpecificFacility(facility_type, binding.facilityIDTextViewFacility1.getText().toString(), getContext());
-                if(result == server_error){
-                    Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Toast.makeText(getActivity(), "opening 1", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), FacilityActivity.class);
-                startActivity(intent);
+                ConstraintLayoutOnClickListener();
             }
         });
 
-        return root;
+        shows2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConstraintLayoutOnClickListener();
+            }
+        });
+
+        shows3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConstraintLayoutOnClickListener();
+            }
+        });
+
+        shows4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConstraintLayoutOnClickListener();
+            }
+        });
+
+        shows5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConstraintLayoutOnClickListener();
+            }
+        });
+    }
+
+    private void ConstraintLayoutOnClickListener(){
+        int result = DBconnection.getSpecificFacility(facility_type, binding.facilityIDTextViewFacility1.getText().toString(), getContext());
+        if(result == server_error){
+            Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
+            return ;
+        }
+        Toast.makeText(getActivity(), "opening 1", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), FacilityActivity.class);
+        startActivity(intent);
     }
 
     private void initFavMenu(){
@@ -184,7 +254,7 @@ public class FacilityFragment extends Fragment {
             public void onClick(View v) {
                 DBconnection.cleanCaches(getContext());
                 search_page_number = 1;
-                setFacilitiesInvisible();
+                setFacilitiesVisibility(View.INVISIBLE);
                 if(onSearch){
                     onSearch = false;
                     int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
@@ -207,6 +277,7 @@ public class FacilityFragment extends Fragment {
                         Toast.makeText(getContext(), "You are already on first page", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    setFacilitiesVisibility(View.INVISIBLE);
                     search_page_number -= 1;
                     int result = DBconnection.getFacilities(binding, facility_type, search_page_number, getContext(), true, false, "");
                     if (result == local_error) {
@@ -217,11 +288,14 @@ public class FacilityFragment extends Fragment {
                         search_page_number = 1;
                         Log.d(TAG, "down page load all");
                     }
+                    Log.d(TAG, "1 result is :" + result);
+                    Log.d(TAG, "1 search_page_number is :" + search_page_number);
                 } else {
                     if (newest_page_number == 1) {
                         Toast.makeText(getContext(), "You are already on first page", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    setFacilitiesVisibility(View.INVISIBLE);
                     newest_page_number -= 1;
                     int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, false, "");
                     if (result == local_error) {
@@ -232,6 +306,8 @@ public class FacilityFragment extends Fragment {
                         newest_page_number = 1;
                         Log.d(TAG, "down page load all");
                     }
+                    Log.d(TAG, "1 result is :" + result);
+                    Log.d(TAG, "1 newest_page_number is :" + newest_page_number);
                 }
             }
         });
@@ -253,7 +329,7 @@ public class FacilityFragment extends Fragment {
                     } else {
                         search_page_number++;
                     }
-                    setFacilitiesInvisible();
+                    setFacilitiesVisibility(View.INVISIBLE);
                     int result = DBconnection.getFacilities(binding, facility_type, search_page_number, getContext(), true, false, "");
                     if (result == local_error) {
                         reached_end_search = true;
@@ -261,9 +337,9 @@ public class FacilityFragment extends Fragment {
                     } else if (result == reached_end) {
                         reached_end_search = true;
                     }
-                    Log.d(TAG, "result is :" + result);
-                    Log.d(TAG, "search_page_number is :" + search_page_number);
-                    Log.d(TAG, "reached_end_search is :" + reached_end_search);
+                    Log.d(TAG, "2 result is :" + result);
+                    Log.d(TAG, "2 search_page_number is :" + search_page_number);
+                    Log.d(TAG, "2 reached_end_search is :" + reached_end_search);
 
                 } else {
                     if (reached_end_newest) {
@@ -272,7 +348,7 @@ public class FacilityFragment extends Fragment {
                     } else {
                         newest_page_number++;
                     }
-                    setFacilitiesInvisible();
+                    setFacilitiesVisibility(View.INVISIBLE);
                     int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, false, "");
                     if (result == local_error) {
                         reached_end_newest = true;
@@ -280,9 +356,9 @@ public class FacilityFragment extends Fragment {
                     } else if (result == reached_end) {
                         reached_end_newest = true;
                     }
-                    Log.d(TAG, "result is :" + result);
-                    Log.d(TAG, "search_page_number is :" + newest_page_number);
-                    Log.d(TAG, "reached_end_search is :" + reached_end_newest);
+                    Log.d(TAG, "2 result is :" + result);
+                    Log.d(TAG, "2 newest_page_number is :" + newest_page_number);
+                    Log.d(TAG, "2 reached_end_search is :" + reached_end_newest);
                 }
             }
         });
@@ -303,14 +379,6 @@ public class FacilityFragment extends Fragment {
                 }
             }
         });
-    }
-
-    private void setFacilitiesInvisible(){
-        binding.facility1.setVisibility(View.INVISIBLE);
-        binding.facility2.setVisibility(View.INVISIBLE);
-        binding.facility3.setVisibility(View.INVISIBLE);
-        binding.facility4.setVisibility(View.INVISIBLE);
-        binding.facility5.setVisibility(View.INVISIBLE);
     }
 
     private void openMenu(){
@@ -355,6 +423,7 @@ public class FacilityFragment extends Fragment {
         }
         return -1;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
