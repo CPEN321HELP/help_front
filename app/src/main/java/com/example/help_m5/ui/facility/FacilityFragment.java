@@ -1,33 +1,37 @@
-package com.example.help_m5.ui.entertainments;
+package com.example.help_m5.ui.facility;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
-import android.view.ViewGroup;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.animation.OvershootInterpolator;
-import android.widget.SearchView;
-import android.widget.Toast;
-import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.help_m5.R;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
+import android.widget.SearchView;
+import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.example.help_m5.CustomAdapter;
 import com.example.help_m5.DatabaseConnection;
 import com.example.help_m5.FacilityActivity;
-import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
+import com.example.help_m5.R;
+import com.example.help_m5.databinding.FragmentFacilityBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 
+public class FacilityFragment extends Fragment {
 
-public class EntertainmentsFragment extends Fragment  {
 
     static final int posts = 0;
     static final int study = 1;
@@ -55,7 +59,7 @@ public class EntertainmentsFragment extends Fragment  {
 
     private SearchView facilitySearchView;
     private DatabaseConnection DBconnection;
-    private FragmentEntertainmentsBinding binding;
+    private FragmentFacilityBinding binding;
     private FloatingActionButton close_or_refresh, page_up, page_down, add_facility, main;
 
 
@@ -64,13 +68,32 @@ public class EntertainmentsFragment extends Fragment  {
     boolean reached_end_newest = false;
     boolean reached_end_search = false;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        switchMode();
-        EntertainmentsViewModel entertainmentsViewModel = new ViewModelProvider(this).get(EntertainmentsViewModel.class);
+    String[] countryNames={"Posts","Restaurants","Study places","Entertainments"};
+    int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
-        binding = FragmentEntertainmentsBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        binding = FragmentFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+//        Spinner spinner =binding.spinnerFacility;
+//        // Create an ArrayAdapter using the string array and a default spinner layout
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+//                R.array.planets_array, android.R.layout.simple_spinner_item);
+//        // Specify the layout to use when the list of choices appears
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        // Apply the adapter to the spinner
+//        spinner.setAdapter(adapter);
+
+
+
+//        Log.d(TAG, spinner.getSelectedItem().toString());
+        Spinner spin = binding.spinnerFacility;
+
+        CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
+        spin.setAdapter(customAdapter);
+
+        switchMode();
         initFavMenu();
 
         DBconnection = new DatabaseConnection();
@@ -319,4 +342,5 @@ public class EntertainmentsFragment extends Fragment  {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
+
 }

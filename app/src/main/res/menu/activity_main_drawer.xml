@@ -8,34 +8,17 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/menu_home" />
+
         <item
-            android:id="@+id/nav_posts"
-            android:icon="@drawable/ic_menu_posts"
-            android:title="@string/menu_posts" />
-        <item
-            android:id="@+id/nav_restaurants"
-            android:icon="@drawable/ic_menu_restaurants"
-            android:title="@string/menu_restaurants" />
-        <item
-            android:id="@+id/nav_study"
-            android:icon="@drawable/ic_menu_study"
-            android:title="@string/menu_study"/>
-        <item
-            android:id="@+id/nav_entertainments"
-            android:icon="@drawable/ic_menu_entertainment"
-            android:title="@string/menu_entertainments"/>
+            android:id="@+id/nav_facility"
+            android:icon="@drawable/ic_baseline_all_inclusive_24"
+            android:title="@string/menu_facility"/>
+
         <item
             android:id="@+id/nav_report_facility"
             android:icon="@drawable/ic_report_facility"
             android:title="@string/menu_report_facility"/>
-        <item
-            android:id="@+id/nav_report_comment"
-            android:icon="@drawable/ic_menu_entertainment"
-            android:title="@string/menu_report_comment"/>
 
-        <item
-            android:id="@+id/nav_report_user"
-            android:icon="@drawable/ic_reportted_user"
-            android:title="@string/menu_report_user"/>
+
     </group>
 </menu>
