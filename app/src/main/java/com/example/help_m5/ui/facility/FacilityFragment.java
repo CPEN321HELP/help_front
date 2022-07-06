@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
+import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -41,7 +42,6 @@ public class FacilityFragment extends Fragment {
     static final int report_comment = 5;
     static final int report_facility = 6;
 
-    static final int facility_type_thisFragment = entertainments;
 
     static final int normal_local_load = 0;
     static final int normal_server_load = 1;
@@ -61,7 +61,7 @@ public class FacilityFragment extends Fragment {
     private DatabaseConnection DBconnection;
     private FragmentFacilityBinding binding;
     private FloatingActionButton close_or_refresh, page_up, page_down, add_facility, main;
-
+    Spinner spin;
 
     int search_page_number = 1;
     int newest_page_number = 1;
@@ -71,36 +71,39 @@ public class FacilityFragment extends Fragment {
     String[] countryNames={"Posts","Restaurants","Study places","Entertainments"};
     int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
+    int facility_type = posts;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        Spinner spinner =binding.spinnerFacility;
-//        // Create an ArrayAdapter using the string array and a default spinner layout
-//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-//                R.array.planets_array, android.R.layout.simple_spinner_item);
-//        // Specify the layout to use when the list of choices appears
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        // Apply the adapter to the spinner
-//        spinner.setAdapter(adapter);
+        //set up spinner
+        spin = binding.spinnerFacility;
 
+        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                facility_type = getTypeInt(countryNames[position]);
+                Log.d(TAG, "facility_type "+facility_type);
 
+            }
 
-//        Log.d(TAG, spinner.getSelectedItem().toString());
-        Spinner spin = binding.spinnerFacility;
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
         spin.setAdapter(customAdapter);
 
+
         switchMode();
         initFavMenu();
-
         DBconnection = new DatabaseConnection();
         DBconnection.cleanCaches(getContext());
         int result = -1;
-        result =  DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), false, false, "");
-        Log.d(TAG, "initial result is : ");
+        result =  DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
         Log.d(TAG, "initial result is : " + result);
 
         if (result == server_error){
@@ -115,7 +118,7 @@ public class FacilityFragment extends Fragment {
                 close_or_refresh.setImageResource(R.drawable.ic_baseline_close_24);
                 Log.d(TAG, "searching: " + query);
                 onSearch = true;
-                int result = DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), true, false, query);
+                int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), true, false, query);
                 if (result == normal_local_load) {
                     Log.d(TAG, "Load data from local device");
                 } else if (result == normal_server_load) {
@@ -145,7 +148,7 @@ public class FacilityFragment extends Fragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                int result = DBconnection.getSpecificFacility(facility_type_thisFragment, binding.facilityIDTextViewFacility1.getText().toString(), getContext());
+                int result = DBconnection.getSpecificFacility(facility_type, binding.facilityIDTextViewFacility1.getText().toString(), getContext());
                 if(result == server_error){
                     Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
                     return;
@@ -155,7 +158,6 @@ public class FacilityFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
 
         return root;
     }
@@ -185,13 +187,13 @@ public class FacilityFragment extends Fragment {
                 setFacilitiesInvisible();
                 if(onSearch){
                     onSearch = false;
-                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), false, false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
                     close_or_refresh.setImageResource(R.drawable.ic_baseline_refresh_24);
                     facilitySearchView.setQuery("", false);
                     facilitySearchView.clearFocus();
 
                 } else {
-                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, newest_page_number, getContext(), false, false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, false, "");
 
                 }
             }
@@ -206,7 +208,7 @@ public class FacilityFragment extends Fragment {
                         return;
                     }
                     search_page_number -= 1;
-                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, search_page_number, getContext(), true, false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type, search_page_number, getContext(), true, false, "");
                     if (result == local_error) {
                         search_page_number = 1;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -221,7 +223,7 @@ public class FacilityFragment extends Fragment {
                         return;
                     }
                     newest_page_number -= 1;
-                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, newest_page_number, getContext(), false, false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, false, "");
                     if (result == local_error) {
                         newest_page_number = 1;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -252,7 +254,7 @@ public class FacilityFragment extends Fragment {
                         search_page_number++;
                     }
                     setFacilitiesInvisible();
-                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, search_page_number, getContext(), true, false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type, search_page_number, getContext(), true, false, "");
                     if (result == local_error) {
                         reached_end_search = true;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -271,7 +273,7 @@ public class FacilityFragment extends Fragment {
                         newest_page_number++;
                     }
                     setFacilitiesInvisible();
-                    int result = DBconnection.getFacilities(binding, facility_type_thisFragment, newest_page_number, getContext(), false, false, "");
+                    int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, false, "");
                     if (result == local_error) {
                         reached_end_newest = true;
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
@@ -302,6 +304,7 @@ public class FacilityFragment extends Fragment {
             }
         });
     }
+
     private void setFacilitiesInvisible(){
         binding.facility1.setVisibility(View.INVISIBLE);
         binding.facility2.setVisibility(View.INVISIBLE);
@@ -309,6 +312,7 @@ public class FacilityFragment extends Fragment {
         binding.facility4.setVisibility(View.INVISIBLE);
         binding.facility5.setVisibility(View.INVISIBLE);
     }
+
     private void openMenu(){
         isMenuOpen = !isMenuOpen;
         main.animate().setInterpolator(interpolator).rotation(180f).setDuration(300).start();
@@ -318,6 +322,7 @@ public class FacilityFragment extends Fragment {
         page_down.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
 
     }
+
     private void closeMenu(){
         isMenuOpen = !isMenuOpen;
         main.animate().setInterpolator(interpolator).rotation(0).setDuration(300).start();
@@ -325,12 +330,6 @@ public class FacilityFragment extends Fragment {
         page_up.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
         add_facility.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
         page_down.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
     }
 
     public void switchMode(){
@@ -343,4 +342,22 @@ public class FacilityFragment extends Fragment {
         }
     }
 
+    private int getTypeInt(String selected){
+        switch (selected){
+            case "Entertainments":
+                return entertainments;
+            case "Restaurants":
+                return restaurants;
+            case "Study places":
+                return study;
+            case "Posts":
+                return posts;
+        }
+        return -1;
+    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+    }
 }
