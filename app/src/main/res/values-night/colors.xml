@@ -18,9 +18,10 @@
     <color name="UBCyellow">#dbba00</color>
     <color name="navyBlue2">#0014AB</color>
     <color name="grey">#626062</color>
-    <color name="light_grey">#DCDCDC</color>
+    <color name="light_grey">#D3D3D3</color>
 
     <!-- For day mode and night mode, below should be night -->
-    <color name="text_color">#000000</color>
-    <color name="background_color">#FCFCFC</color>
+    <color name="text_color">#FFFFFF</color>
+    <color name="background_color">#212121</color>
+
 </resources>

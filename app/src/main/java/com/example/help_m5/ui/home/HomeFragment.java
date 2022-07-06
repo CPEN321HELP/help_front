@@ -1,6 +1,7 @@
 package com.example.help_m5.ui.home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.help_m5.DatabaseConnection;
 import com.example.help_m5.databinding.FragmentHomeBinding;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomeFragment extends Fragment {
 
