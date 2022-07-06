@@ -55,7 +55,7 @@ public class DatabaseConnection {
     static final int local_error = 4;
     //above are types of error that could happen
 
-    static int status_getSpecificFacility = server_error;
+    static int status_getSpecificFacility = normal_server_load;
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";
         String url = vm_ip + "specific";
@@ -68,18 +68,18 @@ public class DatabaseConnection {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                    Log.d(TAG, "response is: " + response.toString());
+                Log.d(TAG, "response is: " + response.toString());
                 writeToJson(applicationContext, response, fileName);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                status_getFacilities = server_error;
+                status_getSpecificFacility = server_error;
                 Log.d(TAG, "ERROR when connecting to database");
             }
         });
         queue.add(jsObjRequest);
-        Log.d(TAG, "load_status is " + status_getFacilities);
+        Log.d(TAG, "status_getSpecificFacility is " + status_getSpecificFacility);
         return status_getSpecificFacility;
     }
     /**

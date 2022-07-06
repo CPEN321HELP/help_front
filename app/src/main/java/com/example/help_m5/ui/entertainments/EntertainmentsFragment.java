@@ -4,6 +4,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.help_m5.DatabaseConnection;
+import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -71,10 +73,10 @@ public class EntertainmentsFragment extends Fragment  {
         DBconnection = new DatabaseConnection();
         DBconnection.cleanCaches(getContext());
         int result = DBconnection.getFacilities(binding, facility_type_thisFragment, 1, getContext(), false, false, "");
-        if (result == server_error){
-            Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
-            return root;
-        }
+//        if (result == server_error){
+//            Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
+//            return root;
+//        }
         facilitySearchView = binding.searchFacility;
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -111,8 +113,14 @@ public class EntertainmentsFragment extends Fragment  {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
+                int result = DBconnection.getSpecificFacility(facility_type_thisFragment, binding.facilityIDTextViewFacility1.getText().toString(), getContext());
+                if(result == server_error){
+                    Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Toast.makeText(getActivity(), "opening 1", Toast.LENGTH_SHORT).show();
-                // TODO implet so it opens a new page
+                Intent intent = new Intent(getActivity(), FacilityActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -120,6 +128,11 @@ public class EntertainmentsFragment extends Fragment  {
 
         return root;
     }
+
+    private void OnClickListenerCons(){
+
+    }
+
     private void initFavMenu(){
 
         page_up = binding.fabPrevious;
