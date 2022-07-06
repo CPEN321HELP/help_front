@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
+            android:textColor="@color/text_color"
             android:text="Title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -55,6 +56,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
+            android:textColor="@color/text_color"
+
             android:text="yyyymmdd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -64,6 +67,7 @@
             android:layout_width="300dp"
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
+            android:textColor="@color/text_color"
             android:text="This will be the content. "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +93,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             android:text="ID"
+            android:textColor="@color/text_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -114,6 +119,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:text="Title"
+            android:textColor="@color/text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -124,6 +130,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:text="yyyymmdd"
+            android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -133,6 +140,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:text="This will be the content. "
+            android:textColor="@color/text_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -154,6 +162,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+            android:textColor="@color/text_color"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -180,6 +189,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:text="Title"
+            android:textColor="@color/text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -190,6 +200,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:text="yyyymmdd"
+            android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -199,6 +210,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:text="This will be the content. "
+            android:textColor="@color/text_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -220,6 +232,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+            android:textColor="@color/text_color"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -245,6 +258,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:text="Title"
+            android:textColor="@color/text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -255,6 +269,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:text="yyyymmdd"
+            android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -264,6 +279,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:text="This will be the content. "
+            android:textColor="@color/text_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -285,6 +301,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+            android:textColor="@color/text_color"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -309,6 +326,7 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:text="Title"
+            android:textColor="@color/text_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -319,6 +337,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:text="yyyymmdd"
+            android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -328,6 +347,7 @@
             android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:text="This will be the content. "
+            android:textColor="@color/text_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -350,6 +370,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ID"
+            android:textColor="@color/text_color"
             android:layout_marginStart="5dp"
             android:layout_marginBottom="5dp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,5 +1,6 @@
 package com.example.help_m5.ui.entertainments;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -63,6 +64,7 @@ public class EntertainmentsFragment extends Fragment  {
     boolean reached_end_search = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         EntertainmentsViewModel entertainmentsViewModel = new ViewModelProvider(this).get(EntertainmentsViewModel.class);
 
         binding = FragmentEntertainmentsBinding.inflate(inflater, container, false);

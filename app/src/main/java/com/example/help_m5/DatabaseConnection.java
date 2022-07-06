@@ -33,8 +33,8 @@ import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 //DatabaseConnection
 public class DatabaseConnection {
 
-    final String vm_ip = "http://20.213.243.141:8000/";
-//    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
+//    final String vm_ip = "http://20.213.243.141:8000/";
+    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
     //following are types of facility
