@@ -25,6 +25,8 @@ import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Calendar;
+
 
 public class EntertainmentsFragment extends Fragment  {
 
@@ -64,7 +66,7 @@ public class EntertainmentsFragment extends Fragment  {
     boolean reached_end_search = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        switchMode();
         EntertainmentsViewModel entertainmentsViewModel = new ViewModelProvider(this).get(EntertainmentsViewModel.class);
 
         binding = FragmentEntertainmentsBinding.inflate(inflater, container, false);
@@ -309,4 +311,13 @@ public class EntertainmentsFragment extends Fragment  {
         binding = null;
     }
 
+    public void switchMode(){
+        Calendar calendar = Calendar.getInstance();
+        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
+        if(hour24hrs>=21 || hour24hrs <=7){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
 }
