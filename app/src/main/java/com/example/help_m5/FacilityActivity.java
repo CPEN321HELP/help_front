@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -138,18 +140,23 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(dpToPx(15f), dpToPx(5f), dpToPx(15f), dpToPx(10f));
         review.setElevation(30);
-        review.setBackgroundColor(Color.parseColor("#DCDCDC"));
+        review.setBackgroundColor(Color.parseColor("#FFFFFF"));
         review.setLayoutParams(layoutParams);
 
         LinearLayout usernameAndDate = new LinearLayout(this);
         usernameAndDate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         usernameAndDate.setOrientation(LinearLayout.HORIZONTAL);
-        usernameAndDate.setBackgroundColor(Color.parseColor("#DCDCDC"));
+        usernameAndDate.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
         LinearLayout descriptionAndReport = new LinearLayout(this);
         descriptionAndReport.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         descriptionAndReport.setOrientation(LinearLayout.HORIZONTAL);
-        descriptionAndReport.setBackgroundColor(Color.parseColor("#DCDCDC"));
+        descriptionAndReport.setBackgroundColor(Color.parseColor("#FFFFFF"));
+
+        LinearLayout votingSystem = new LinearLayout(this);
+        votingSystem.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        votingSystem.setOrientation(LinearLayout.HORIZONTAL);
+        votingSystem.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
         TextView userNameView = new TextView(this);
         userNameView.setText(userName);
@@ -182,16 +189,17 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         userDescriptionView.setTextColor(Color.parseColor("#000000"));
         userDescriptionView.setWidth(dpToPx(300f));
         LinearLayout.LayoutParams layoutParamsDescription = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsDescription.setMargins(dpToPx(5f), dpToPx(7f), dpToPx(5f), dpToPx(10f));
+        layoutParamsDescription.setMargins(dpToPx(5f), dpToPx(7f), dpToPx(5f), dpToPx(3f));
         layoutParamsDescription.gravity = Gravity.CENTER;
         userDescriptionView.setLayoutParams(layoutParamsDescription);
 
-        Button reportButton = new Button(this, null, androidx.appcompat.R.attr.buttonStyleSmall);
-        reportButton.setText("⚠");
-        reportButton.setTextSize(dpToPx(6f));
+        Button reportButton = new Button(this, null, androidx.appcompat.R.attr.borderlessButtonStyle);
+        reportButton.setText("Report");
+        reportButton.setTextSize(dpToPx(5f));
         reportButton.setTextColor(Color.parseColor("#626062"));
+        reportButton.setAllCaps(false);
         LinearLayout.LayoutParams layoutParamsReport = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsReport.setMargins(dpToPx(20f), dpToPx(20f), dpToPx(-5f), dpToPx(-5f));
+        layoutParamsReport.setMargins(dpToPx(170f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
         reportButton.setLayoutParams(layoutParamsReport);
         reportButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -201,13 +209,40 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
+        CheckBox upVote = new CheckBox(this);
+        upVote.setButtonDrawable(R.drawable.upvote);
+        LinearLayout.LayoutParams layoutParamsupUpvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsupUpvote.setMargins(dpToPx(5f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
+        upVote.setLayoutParams(layoutParamsupUpvote);
+
+        TextView upVoteCount = new TextView(this);
+        upVoteCount.setText("231");
+        LinearLayout.LayoutParams layoutParamsVoteCount = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsVoteCount.setMargins(dpToPx(2f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
+        upVoteCount.setLayoutParams(layoutParamsVoteCount);
+
+        CheckBox downVote = new CheckBox(this);
+        downVote.setButtonDrawable(R.drawable.downvote);
+        LinearLayout.LayoutParams layoutParamsDownvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsDownvote.setMargins(dpToPx(10f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
+        downVote.setLayoutParams(layoutParamsDownvote);
+
+        TextView downVoteCount = new TextView(this);
+        downVoteCount.setText("22");
+        downVoteCount.setLayoutParams(layoutParamsVoteCount);
+
         usernameAndDate.addView(userNameView);
         usernameAndDate.addView(userDateView);
         descriptionAndReport.addView(userDescriptionView);
-        descriptionAndReport.addView(reportButton);
+        votingSystem.addView(upVote);
+        votingSystem.addView(upVoteCount);
+        votingSystem.addView(downVote);
+        votingSystem.addView(downVoteCount);
+        votingSystem.addView(reportButton);
         review.addView(usernameAndDate);
         review.addView(userRateView);
         review.addView(descriptionAndReport);
+        review.addView(votingSystem);
 
         LinearLayout linearLayout = findViewById(R.id.facilityReviews);
         linearLayout.addView(review);
