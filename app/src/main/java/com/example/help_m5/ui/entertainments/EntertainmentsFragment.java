@@ -3,6 +3,7 @@ package com.example.help_m5.ui.entertainments;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
+import android.view.ViewGroup;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,16 +13,14 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.SearchView;
 import android.widget.Toast;
+import android.view.LayoutInflater;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-
+import com.example.help_m5.R;
 import com.example.help_m5.DatabaseConnection;
 import com.example.help_m5.FacilityActivity;
-import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentEntertainmentsBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
