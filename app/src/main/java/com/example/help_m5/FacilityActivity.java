@@ -1,11 +1,8 @@
 package com.example.help_m5;
 
-import static com.example.help_m5.LoginActivity.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -15,7 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -37,7 +33,6 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -75,8 +70,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         // Get data from database
         DBconnection = new DatabaseConnection();
-        DBconnection.getSpecificFacility(type, facilityId, this);
-        String facilityInfo = DBconnection.readFromJson(this, "specific_facility.json");
+        DBconnection.getSpecificFacility(type, facilityId, FacilityActivity.this);
+        String facilityInfo = DBconnection.readFromJson(FacilityActivity.this, "specific_facility.json");
 
         try {
             JSONObject facility = new JSONObject(facilityInfo);

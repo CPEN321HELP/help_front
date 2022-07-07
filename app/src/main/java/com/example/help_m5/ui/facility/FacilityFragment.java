@@ -245,7 +245,7 @@ public class FacilityFragment extends Fragment {
         int result = DBconnection.getSpecificFacility(facility_type, facility_id, getContext());
         if(result == server_error){
             Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
-            return ;
+            return;
         }
         Toast.makeText(getActivity(), "opening "+which, Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), FacilityActivity.class);
