@@ -40,7 +40,7 @@ public class AddFacilityFragment extends Fragment {
     private DatabaseConnection DBconnection;
     private Spinner spin;
     private Button submit, clean;
-    private static String[] countryNames={"<-Please Select Below->", "post","restaurant","study","entertainment"};
+    private static String[] countryNames={"<-Please Select Below->", "posts","restaurants","studys","entertainments"};
     private static int flags[] = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
     private String facility_type;
     private EditText newFacilityTitle, newFacilityDescription, newFacilityImageLink, newFacilityLocation;
@@ -70,7 +70,7 @@ public class AddFacilityFragment extends Fragment {
                 String input = s.toString().trim();
                 Log.d(TAG, "\""+s.toString().trim()+"\"");
                 int length = input.length();
-                if(length > 10){
+                if(length > 5){
                     titleOK = true;
                     binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
                 }else{

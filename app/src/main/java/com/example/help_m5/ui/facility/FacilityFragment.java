@@ -72,7 +72,7 @@ public class FacilityFragment extends Fragment {
     private boolean reached_end_newest = false;
     private boolean reached_end_search = false;
 
-    private static String[] countryNames={"Post","Restaurant","Study place","Entertainment"};
+    private static String[] countryNames={"Posts","Restaurants","Study","Play"};
     private static int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
     private int facility_type = posts;
@@ -247,9 +247,9 @@ public class FacilityFragment extends Fragment {
             Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
             return ;
         }
-        Toast.makeText(getActivity(), "opening 1", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getActivity(), FacilityActivity.class);
-        startActivity(intent);
+        Toast.makeText(getActivity(), "opening "+which, Toast.LENGTH_SHORT).show();
+//        Intent intent = new Intent(getActivity(), FacilityActivity.class);
+//        startActivity(intent);
     }
 
     private void initFavMenu(){
@@ -441,11 +441,11 @@ public class FacilityFragment extends Fragment {
 
     private int getTypeInt(String selected){
         switch (selected){
-            case "Entertainments":
+            case "Play":
                 return entertainments;
             case "Restaurants":
                 return restaurants;
-            case "Study places":
+            case "Study":
                 return study;
             case "Posts":
                 return posts;

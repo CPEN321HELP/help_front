@@ -50,7 +50,7 @@
                 android:id="@+id/facilityTitleHint"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Please enter at least 10 characters"
+                android:text="Please enter at least 5 characters"
                 android:textColor="@color/text_color"
                 android:textSize="16sp" />
         </LinearLayout>
