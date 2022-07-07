@@ -55,6 +55,39 @@ public class DatabaseConnection {
     static final int only_one_page = 5;
     //above are types of error that could happen
 
+    int status_add_facility = normal_server_load;
+    public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude){
+        String url = vm_ip + "/addFacility";
+        Log.d(TAG, url);
+        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+        HashMap<String, String> params = new HashMap<String, String>();
+        queue.start();
+
+        params.put("title", title);
+        params.put("description", description);
+        params.put("long", longitude);
+        params.put("lat", latitude);
+        params.put("type", type);
+        params.put("facilityImageLink", imageLink);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "response is: " + response.toString());
+                status_add_facility = normal_server_load;
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                status_add_facility = server_error;
+                Log.d(TAG, "ERROR when connecting to database getSpecificFacility");
+            }
+        });
+        queue.add(jsObjRequest);
+        Log.d(TAG, "status_add_facility is " + status_add_facility);
+        return status_add_facility;
+    }
+
     int status_getSpecificFacility = normal_server_load;
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";

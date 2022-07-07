@@ -23,7 +23,5 @@
             android:id="@+id/nav_report_facility"
             android:icon="@drawable/ic_report_facility"
             android:title="@string/menu_report_facility"/>
-
-
     </group>
 </menu>

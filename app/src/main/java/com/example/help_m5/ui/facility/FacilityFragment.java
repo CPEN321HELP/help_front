@@ -65,15 +65,15 @@ public class FacilityFragment extends Fragment {
 
     Spinner spin;
 
-    int search_page_number = 1;
-    int newest_page_number = 1;
-    boolean reached_end_newest = false;
-    boolean reached_end_search = false;
+    private int search_page_number = 1;
+    private int newest_page_number = 1;
+    private boolean reached_end_newest = false;
+    private boolean reached_end_search = false;
 
-    String[] countryNames={"Posts","Restaurants","Study places","Entertainments"};
-    int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
+    private static String[] countryNames={"Post","Restaurant","Study place","Entertainment"};
+    private static int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
-    int facility_type = posts;
+    private int facility_type = posts;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
