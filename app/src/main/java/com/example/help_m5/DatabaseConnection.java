@@ -52,6 +52,7 @@ public class DatabaseConnection {
     static final int reached_end = 2;
     static final int server_error = 3;
     static final int local_error = 4;
+    static final int only_one_page = 5;
     //above are types of error that could happen
 
     int status_getSpecificFacility = normal_server_load;
@@ -123,6 +124,8 @@ public class DatabaseConnection {
                 int result = loadToScreen(binding, facility_type, page_number, data);
                 if (result == 1) {
                     return reached_end;
+                } else if (result == 2){
+                    return only_one_page;
                 }
                 return normal_local_load;
             } catch (JSONException e) {
@@ -160,6 +163,8 @@ public class DatabaseConnection {
                         int result2 = loadToScreen(binding, facility_type, page_number, data);
                         if (result2 == 1) {
                             status_getFacilities = reached_end; //reached end of facility json array
+                        }else if(result2 == 2){
+                            status_getFacilities = only_one_page;
                         }
                     } catch (JSONException e) {
                         status_getFacilities = local_error; // error reading json file
@@ -199,6 +204,9 @@ public class DatabaseConnection {
             for (int index = start; index < end; index++) {
                 loadToFragment(binding, facility_type, array.getJSONArray(index), counter);
                 counter++;
+            }
+            if(length<=5){
+                return 2;
             }
             if (end == length) {
                 return 1;
