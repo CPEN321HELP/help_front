@@ -12,43 +12,17 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_entertainments"
-        android:name="com.example.help_m5.ui.entertainments.EntertainmentsFragment"
-        android:label="@string/menu_entertainments"
-        tools:layout="@layout/fragment_entertainments" />
+        android:id="@+id/nav_facility"
+        android:name="com.example.help_m5.ui.facility.FacilityFragment"
+        android:label="fragment_facility"
+        tools:layout="@layout/fragment_facility" />
 
-    <fragment
-        android:id="@+id/nav_posts"
-        android:name="com.example.help_m5.ui.posts.PostsFragment"
-        android:label="@string/menu_posts"
-        tools:layout="@layout/fragment_posts" />
-
-    <fragment
-        android:id="@+id/nav_restaurants"
-        android:name="com.example.help_m5.ui.restaruants.RestaurantsFragment"
-        android:label="@string/menu_restaurants"
-        tools:layout="@layout/fragment_restaurants" />
-
-    <fragment
-        android:id="@+id/nav_study"
-        android:name="com.example.help_m5.ui.study.StudyFragment"
-        android:label="@string/menu_study"
-        tools:layout="@layout/fragment_study" />
-
-    <fragment
-        android:id="@+id/nav_report_comment"
-        android:name="com.example.help_m5.ui.reportedComment.reportedCommentFragment"
-        android:label="fragment_reported_comment"
-        tools:layout="@layout/fragment_reported_comment" />
     <fragment
         android:id="@+id/nav_report_facility"
         android:name="com.example.help_m5.ui.reportedFacility.reportedFacilityFragment"
         android:label="fragment_reported_facility"
         tools:layout="@layout/fragment_reported_facility" />
-    <fragment
-        android:id="@+id/nav_report_user"
-        android:name="com.example.help_m5.ui.reportedUser.reportedUserFragment"
-        android:label="fragment_reported_user"
-        tools:layout="@layout/fragment_reported_user" />
+
+
 
 </navigation>

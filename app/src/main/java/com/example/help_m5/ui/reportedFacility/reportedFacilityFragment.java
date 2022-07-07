@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentReportedFacilityBinding;
-import com.example.help_m5.ui.study.StudyViewModel;
 
 public class reportedFacilityFragment extends Fragment {
 
