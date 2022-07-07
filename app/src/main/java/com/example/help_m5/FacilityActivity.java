@@ -37,19 +37,26 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private DatabaseConnection DBconnection;
+
+    private String facilityId;
     private String title;
-    private float rate;
+    private double rate;
     private int numReviews;
-    private MapView mapView;
-    private GoogleMap mMap;
+    private String description;
+    private int type;
+    private String image;
     private double latitude;
     private double longitude;
+
     private Button rateButton;
-    private String image;
+    private MapView mapView;
+    private GoogleMap mMap;
+
     private int id = 1;
     private final int UPVOTE_BASE_ID = 10000000;
     private final int DOWNVOTE_BASE_ID = 20000000;
@@ -62,22 +69,37 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
 
+        Bundle bundle = getIntent().getExtras();
+        facilityId = bundle.getString("facility_id");
+        type = Integer.parseInt(bundle.getString("facility_type"));
+
         // Get data from database
         DBconnection = new DatabaseConnection();
-        DBconnection.getSpecificFacility(1, "1", this);
+        DBconnection.getSpecificFacility(type, facilityId, this);
         String facilityInfo = DBconnection.readFromJson(this, "specific_facility.json");
-        Log.d(TAG, facilityInfo);
-        /*
+
         try {
-            JSONObject re = new JSONObject(test);
+            JSONObject facility = new JSONObject(facilityInfo);
+            title = (String) facility.getJSONObject("facility").getString("facilityTitle");
+            description = (String) facility.getJSONObject("facility").getString("facilityDescription");
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
+            image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
+            rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
+            numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
+            latitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("latitude"));
+            longitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("longtitude"));
         } catch (JSONException e) {
             e.printStackTrace();
-        }*/
+        }
 
         // Facility Title
-        title = "Tim Hortons";
         TextView facilityTitle = findViewById(R.id.facilityTitle);
         facilityTitle.setText(title);
+
+        // Facility Description
+        TextView facilityDescription = findViewById(R.id.facilityDescription);
+        facilityDescription.setText(description);
 
         // Facility Image
         image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
@@ -85,24 +107,20 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
 
         // Facility Rate
-        rate = (float) 4.3;
         TextView facilityRate = findViewById(R.id.facilityRatingText);
-        facilityRate.setText("★" + String.valueOf(rate));
+        facilityRate.setText("★" + String.valueOf((float) rate));
 
         // Rating bar
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-        ratingBar.setRating(rate);
+        ratingBar.setRating((float) rate);
 
         // Facility Number of Reviews/Rates
-        numReviews = 312;
         TextView facilityNumReviews = findViewById(R.id.facilityNumberOfRates);
         facilityNumReviews.setText(String.valueOf(numReviews) + " Reviews");
 
         // Google Maps Location
-        latitude = 49.2602;
-        longitude = -123.2484;
         mapView = findViewById(R.id.mapView);
         mapView.getMapAsync(this);
         mapView.onCreate(savedInstanceState);
