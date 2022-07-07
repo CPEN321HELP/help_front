@@ -29,9 +29,6 @@ public class RateActivity extends AppCompatActivity {
         userAccount = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = userAccount.getEmail();
 
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
-        rate = ratingBar.getRating();
-
         EditText editText = findViewById(R.id.editTextTextMultiLine);
         comment = editText.getText().toString();
 
@@ -40,6 +37,8 @@ public class RateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("send to backend");
+                RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
+                rate = ratingBar.getRating();
                 finish();
             }
         });
@@ -51,6 +50,10 @@ public class RateActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void sendRateToDatabase() {
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.help_m5;
 
+import static com.example.help_m5.LoginActivity.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -32,8 +35,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private DatabaseConnection DBconnection;
     private String title;
     private float rate;
     private int numReviews;
@@ -54,6 +61,18 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
+
+        // Get data from database
+        DBconnection = new DatabaseConnection();
+        DBconnection.getSpecificFacility(1, "1", this);
+        String facilityInfo = DBconnection.readFromJson(this, "specific_facility.json");
+        Log.d(TAG, facilityInfo);
+        /*
+        try {
+            JSONObject re = new JSONObject(test);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
 
         // Facility Title
         title = "Tim Hortons";
