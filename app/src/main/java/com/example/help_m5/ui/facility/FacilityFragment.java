@@ -25,14 +25,16 @@ import android.widget.Toast;
 import com.example.help_m5.CustomAdapter;
 import com.example.help_m5.DatabaseConnection;
 import com.example.help_m5.FacilityActivity;
+import com.example.help_m5.LoginActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentFacilityBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Calendar;
 
 public class FacilityFragment extends Fragment {
-
 
     static final int posts = 0;
     static final int study = 1;
@@ -41,7 +43,6 @@ public class FacilityFragment extends Fragment {
     static final int report_user = 4;
     static final int report_comment = 5;
     static final int report_facility = 6;
-
 
     static final int normal_local_load = 0;
     static final int normal_server_load = 1;
@@ -110,8 +111,6 @@ public class FacilityFragment extends Fragment {
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
         spin.setAdapter(customAdapter);
-
-
 
         //load initial page
         DBconnection = new DatabaseConnection();

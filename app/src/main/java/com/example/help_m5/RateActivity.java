@@ -8,11 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 public class RateActivity extends AppCompatActivity {
 
     private static final String TAG = "RateActivity";
     private double rate;
     private String comment;
+    private GoogleSignInAccount userAccount;
+    private String userEmail;
     private Button submitButton;
     private Button cancelButton;
 
@@ -20,6 +25,9 @@ public class RateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
+
+        userAccount = GoogleSignIn.getLastSignedInAccount(this);
+        userEmail = userAccount.getEmail();
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
         rate = ratingBar.getRating();

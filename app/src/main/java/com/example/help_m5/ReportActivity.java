@@ -8,18 +8,30 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 public class ReportActivity extends AppCompatActivity {
 
     private static final String TAG = "ReportActivity";
-    private String comment;
     private Button submitButton;
     private Button cancelButton;
+    private GoogleSignInAccount account;
+    private String userEmail;
+    private String reportedUserEmail;
+    private String comment;
     private boolean reportUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
+
+        Bundle bundle = getIntent().getExtras();
+        reportedUserEmail = bundle.getString("user_email");
+
+        account = GoogleSignIn.getLastSignedInAccount(this);
+        userEmail = account.getEmail();
 
         EditText editText = findViewById(R.id.editTextReport);
         comment = editText.getText().toString();
@@ -29,6 +41,7 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 System.out.println("send to backend");
+
                 finish();
             }
         });

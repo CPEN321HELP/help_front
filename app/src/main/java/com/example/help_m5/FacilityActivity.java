@@ -48,6 +48,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private final int DOWNVOTE_BASE_ID = 20000000;
     private final int UPVOTE_TEXTVIEW_BASE_ID = 30000000;
     private final int DOWNVOTE_TEXTVIEW_BASE_ID = 40000000;
+    private final int REPORT_BUTTON_BASE_ID = 50000000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,27 +103,17 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         String userName = "Peter Na";
         String userDescription = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
         String userDate = "22/24/2022";
-        float userRate1 = (float) 2.3;
-        String userName1 = "Peter Na";
-        String userDescription1 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
-        String userDate1 = "1/24/2022";
-        float userRate2 = (float) 2.3;
-        String userName2 = "Peter Na";
-        String userDescription2 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
-        String userDate2 = "1/24/2022";
-        float userRate3 = (float) 2.3;
-        String userName3 = "Peter Na";
-        String userDescription3 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
-        String userDate3 = "1/24/2022";
-        float userRate4 = (float) 2.3;
-        String userName4 = "Peter Na";
-        String userDescription4 = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
-        String userDate4 = "1/24/2022";
-        createUserReview(userRate, userName, userDescription, userDate);
-        createUserReview(userRate1, userName1, userDescription1, userDate1);
-        createUserReview(userRate2, userName2, userDescription2, userDate2);
-        createUserReview(userRate3, userName3, userDescription3, userDate3);
-        createUserReview(userRate4, userName4, userDescription4, userDate4);
+        String userEmail = "frist@gmail.com";
+        String userEmail2 = "second@gmail.com";
+        String userEmail3 = "third@gmail.com";
+        String userEmail4 = "fourth@gmail.com";
+        String userEmail5 = "fifth@gmail.com";
+
+        createUserReview(userRate, userName, userEmail, userDescription, userDate);
+        createUserReview(userRate, userName, userEmail2, userDescription, userDate);
+        createUserReview(userRate, userName, userEmail3, userDescription, userDate);
+        createUserReview(userRate, userName, userEmail4, userDescription, userDate);
+        createUserReview(userRate, userName, userEmail5, userDescription, userDate);
 
         for (int i = 1; i < id; i++) {
             CheckBox checkUpvote = (CheckBox) findViewById(UPVOTE_BASE_ID + i);
@@ -138,7 +129,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-    public void createUserReview(float userRate, String userName, String userDescription, String userDate) {
+    public void createUserReview(float userRate, String userName, String userEmail, String userDescription, String userDate) {
+        // Linear Layouts
         LinearLayout review = new LinearLayout(this);
         review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         review.setOrientation(LinearLayout.VERTICAL);
@@ -163,6 +155,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         votingSystem.setOrientation(LinearLayout.HORIZONTAL);
         votingSystem.setBackgroundColor(Color.parseColor("#FFFFFF"));
 
+        // Specific Element Views
         TextView userNameView = new TextView(this);
         userNameView.setText(userName);
         userNameView.setTextSize(15f);
@@ -199,6 +192,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         userDescriptionView.setLayoutParams(layoutParamsDescription);
 
         Button reportButton = new Button(this, null, androidx.appcompat.R.attr.borderlessButtonStyle);
+        reportButton.setId(REPORT_BUTTON_BASE_ID + id);
+        reportButton.setTag(userEmail);
         reportButton.setText("Report");
         reportButton.setTextSize(dpToPx(5f));
         reportButton.setTextColor(Color.parseColor("#626062"));
@@ -209,6 +204,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         reportButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent reportIntent = new Intent(FacilityActivity.this, ReportActivity.class);
+                Bundle bundle = new Bundle();
+                Button button = (Button) v;
+                bundle.putString("user_email", (String) v.getTag());
+                reportIntent.putExtras(bundle);
                 startActivity(reportIntent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
@@ -266,6 +265,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         downVoteCount.setId(DOWNVOTE_TEXTVIEW_BASE_ID + id);
         downVoteCount.setLayoutParams(layoutParamsVoteCount);
 
+        // Define Parent-Child relationships
         usernameAndDate.addView(userNameView);
         usernameAndDate.addView(userDateView);
         descriptionAndReport.addView(userDescriptionView);
