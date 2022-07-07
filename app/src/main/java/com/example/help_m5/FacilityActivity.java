@@ -3,34 +3,25 @@ package com.example.help_m5;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ComponentName;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.Typeface;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.util.Log;
+import android.preference.PreferenceManager;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -40,9 +31,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -55,6 +43,11 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private double longitude;
     private Button rateButton;
     private String image;
+    private int id = 1;
+    private final int UPVOTE_BASE_ID = 10000000;
+    private final int DOWNVOTE_BASE_ID = 20000000;
+    private final int UPVOTE_TEXTVIEW_BASE_ID = 30000000;
+    private final int DOWNVOTE_TEXTVIEW_BASE_ID = 40000000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +123,18 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         createUserReview(userRate2, userName2, userDescription2, userDate2);
         createUserReview(userRate3, userName3, userDescription3, userDate3);
         createUserReview(userRate4, userName4, userDescription4, userDate4);
+
+        for (int i = 1; i < id; i++) {
+            CheckBox checkUpvote = (CheckBox) findViewById(UPVOTE_BASE_ID + i);
+            boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + i), false);
+            checkUpvote.setChecked(checkedUp);
+
+            CheckBox checkDownvote = (CheckBox) findViewById(DOWNVOTE_BASE_ID + i);
+            boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(this)
+                    .getBoolean("downVote"+String.valueOf(DOWNVOTE_BASE_ID + i), false);
+            checkDownvote.setChecked(checkedDown);
+        }
 
     }
 
@@ -209,26 +214,56 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
-        CheckBox upVote = new CheckBox(this);
-        upVote.setButtonDrawable(R.drawable.upvote);
-        LinearLayout.LayoutParams layoutParamsupUpvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsupUpvote.setMargins(dpToPx(5f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
-        upVote.setLayoutParams(layoutParamsupUpvote);
-
         TextView upVoteCount = new TextView(this);
         upVoteCount.setText("231");
+        upVoteCount.setId(UPVOTE_TEXTVIEW_BASE_ID + id);
         LinearLayout.LayoutParams layoutParamsVoteCount = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsVoteCount.setMargins(dpToPx(2f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
         upVoteCount.setLayoutParams(layoutParamsVoteCount);
 
+        CheckBox upVote = new CheckBox(this);
+        upVote.setButtonDrawable(R.drawable.upvote);
+        upVote.setId(UPVOTE_BASE_ID + id);
+        LinearLayout.LayoutParams layoutParamsupUpvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsupUpvote.setMargins(dpToPx(5f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
+        upVote.setLayoutParams(layoutParamsupUpvote);
+        upVote.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            LinearLayout linearLayout = (LinearLayout) buttonView.getParent();
+            TextView textView = (TextView) linearLayout.getChildAt(1);
+            if (isChecked) {
+                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) + 1));
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("upVote"+String.valueOf(buttonView.getId()), true).commit();
+            } else {
+                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) - 1));
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("upVote"+String.valueOf(buttonView.getId()), false).commit();
+            }
+        });
+
         CheckBox downVote = new CheckBox(this);
         downVote.setButtonDrawable(R.drawable.downvote);
+        downVote.setId(DOWNVOTE_BASE_ID + id);
         LinearLayout.LayoutParams layoutParamsDownvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsDownvote.setMargins(dpToPx(10f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
         downVote.setLayoutParams(layoutParamsDownvote);
+        downVote.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            LinearLayout linearLayout = (LinearLayout) buttonView.getParent();
+            TextView textView = (TextView) linearLayout.getChildAt(3);
+            if (isChecked) {
+                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) + 1));
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("downVote"+String.valueOf(buttonView.getId()), true).commit();
+            } else {
+                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) - 1));
+                PreferenceManager.getDefaultSharedPreferences(this).edit()
+                        .putBoolean("downVote"+String.valueOf(buttonView.getId()), false).commit();
+            }
+        });
 
         TextView downVoteCount = new TextView(this);
         downVoteCount.setText("22");
+        downVoteCount.setId(DOWNVOTE_TEXTVIEW_BASE_ID + id);
         downVoteCount.setLayoutParams(layoutParamsVoteCount);
 
         usernameAndDate.addView(userNameView);
@@ -246,9 +281,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         LinearLayout linearLayout = findViewById(R.id.facilityReviews);
         linearLayout.addView(review);
+        id++;
     }
 
-    public int dpToPx(float dp) {
+    private int dpToPx(float dp) {
         Resources r = getResources();
         float px = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
