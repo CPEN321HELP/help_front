@@ -32,8 +32,8 @@ import java.util.HashMap;
 //DatabaseConnection
 public class DatabaseConnection {
 
-//    final String vm_ip = "http://20.213.243.141:8000/";
-    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
+    final String vm_ip = "http://20.213.243.141:8000/";
+//    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
     //following are types of facility
@@ -56,8 +56,9 @@ public class DatabaseConnection {
     //above are types of error that could happen
 
     int status_add_facility = normal_server_load;
+
     public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude){
-        String url = vm_ip + "/addFacility";
+        String url = vm_ip + "addFacility";
         Log.d(TAG, url);
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
         HashMap<String, String> params = new HashMap<String, String>();
@@ -69,6 +70,8 @@ public class DatabaseConnection {
         params.put("lat", latitude);
         params.put("type", type);
         params.put("facilityImageLink", imageLink);
+
+        Log.d(TAG, params.toString());
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
@@ -89,6 +92,7 @@ public class DatabaseConnection {
     }
 
     int status_getSpecificFacility = normal_server_load;
+
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";
         String url = vm_ip + "specific";
@@ -115,16 +119,21 @@ public class DatabaseConnection {
         Log.d(TAG, "status_getSpecificFacility is " + status_getSpecificFacility);
         return status_getSpecificFacility;
     }
-    /**
-     * Parameter:
-     * int facility_type : a integer representing the type
-     * int page_number : what range of facility to be search in database
-     * Purpose:
-     * Get preview for desired facilities
-     * Reture:
-     * A string (Json) that hold those information
-     */
+
     int status_getFacilities = normal_server_load;
+    /**
+     * @param binding            : a subclass of databinding, used to find TextView, Ratingbar
+     * @param facility_type      : int representing the type of facility calling this function
+     * @param page_number        : what range to load
+     * @param applicationContext : Central interface to provide configuration for an application.
+     * @param content_to_search  : string user typed in search box
+     * @return : 0, indicate successfully load the data from cached file to screen
+     * 4, indicate unsuccessfully load the data from cached file to screen
+     * 1, indicate successfully load the data from server to screen
+     * 3, indicate unsuccessfully load the data from server to screen
+     * 2, reached end of show
+     * @Pupose : to load the content from server our cached file to screen for user to view
+     */
     public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, boolean is_report, String content_to_search) {
         String fileName = "";
         if (is_search) {
@@ -151,6 +160,7 @@ public class DatabaseConnection {
      * @Pupose : to load the content from server our cached file to screen for user to view
      */
     private int searchFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, boolean is_report, String content_to_search, String fileName) {
+        Log.d(TAG, "facility_type :"+facility_type);
         if (isCached(applicationContext, fileName)) {//page up and page down should go here
             try {
                 JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
@@ -177,7 +187,6 @@ public class DatabaseConnection {
                 params.put("search", "" + content_to_search);
             }else{
                 url += "/newest";
-
             }
             Log.d(TAG,url);
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
