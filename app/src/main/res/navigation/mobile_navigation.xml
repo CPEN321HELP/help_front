@@ -21,13 +21,10 @@
         android:id="@+id/nav_add_facility"
         android:name="com.example.help_m5.ui.add_facility.AddFacilityFragment"
         android:label="fragment_reported_facility" />
-
     <fragment
-        android:id="@+id/nav_report_facility"
-        android:name="com.example.help_m5.ui.reportedFacility.reportedFacilityFragment"
-        android:label="fragment_reported_facility"
-        tools:layout="@layout/fragment_reported_facility" />
-
-
+        android:id="@+id/nav_report"
+        android:name="com.example.help_m5.ui.report.ReportFragment"
+        android:label="fragment_report"
+        tools:layout="@layout/fragment_report" />
 
 </navigation>

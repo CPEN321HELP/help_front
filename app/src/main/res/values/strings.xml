@@ -15,7 +15,7 @@
     <string name="menu_study">Study Places</string>
     <string name="menu_entertainments">Entertainments</string>
     <string name="title_activity_facility">FacilityActivity</string>
-    <string name="menu_report_facility">Reported facility</string>
+    <string name="menu_report">Reports</string>
     <string name="menu_report_comment">Reported comments</string>
     <string name="menu_facility">Facility</string>
 

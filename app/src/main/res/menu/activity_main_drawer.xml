@@ -20,8 +20,8 @@
             android:title="@string/menu_add_facility"/>
 
         <item
-            android:id="@+id/nav_report_facility"
+            android:id="@+id/nav_report"
             android:icon="@drawable/ic_report_facility"
-            android:title="@string/menu_report_facility"/>
+            android:title="@string/menu_report"/>
     </group>
 </menu>

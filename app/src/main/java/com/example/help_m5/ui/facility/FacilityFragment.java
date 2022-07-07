@@ -56,13 +56,13 @@ public class FacilityFragment extends Fragment {
     float transY = 100f;
     OvershootInterpolator interpolator = new OvershootInterpolator();
 
-    static boolean onSearch = false;   //if this true means user is viewing search result
+    boolean onSearch = false;   //if this true means user is viewing search result
     boolean isMenuOpen = false;
 
     private SearchView facilitySearchView;
     private DatabaseConnection DBconnection;
     private FragmentFacilityBinding binding;
-    private FloatingActionButton close_or_refresh, page_up, page_down, add_facility, main;
+    private FloatingActionButton close_or_refresh, page_up, page_down, main;
     ConstraintLayout shows1, shows2, shows3, shows4, shows5;
 
     Spinner spin;
@@ -259,18 +259,15 @@ public class FacilityFragment extends Fragment {
     private void initFavMenu(){
         close_or_refresh = binding.fabCloseOrRefresh;
         page_up = binding.fabPrevious;
-        add_facility = binding.fabAdd;
         page_down = binding.fabNext;
         main = binding.fabMain;
 
         close_or_refresh.setAlpha(0f);
         page_up.setAlpha(0f);
-        add_facility.setAlpha(0f);
         page_down.setAlpha(0f);
 
         close_or_refresh.setTranslationY(transY);
         page_up.setTranslationY(transY);
-        add_facility.setTranslationY(transY);
         page_down.setTranslationY(transY);
 
         close_or_refresh.setOnClickListener(new View.OnClickListener() {
@@ -338,13 +335,6 @@ public class FacilityFragment extends Fragment {
                     Log.d(TAG, "1 result is :" + result);
                     Log.d(TAG, "1 newest_page_number is :" + newest_page_number);
                 }
-            }
-        });
-
-        add_facility.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO implement function to add new facility
             }
         });
 
@@ -419,7 +409,6 @@ public class FacilityFragment extends Fragment {
         main.animate().setInterpolator(interpolator).rotation(180f).setDuration(300).start();
         close_or_refresh.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         page_up.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
-        add_facility.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         page_down.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
 
     }
@@ -429,7 +418,6 @@ public class FacilityFragment extends Fragment {
         main.animate().setInterpolator(interpolator).rotation(0).setDuration(300).start();
         close_or_refresh.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
         page_up.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
-        add_facility.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
         page_down.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
     }
 

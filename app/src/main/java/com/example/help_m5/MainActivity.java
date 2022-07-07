@@ -22,14 +22,22 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-
+    private DatabaseConnection db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
 
+        db = new DatabaseConnection();
+        db.cleanCaches(getApplicationContext());
+        db.getFacilities(binding, 0, 1, getApplicationContext(), false, false, "");
+        db.getFacilities(binding, 1, 1, getApplicationContext(), false, false, "");
+        db.getFacilities(binding, 2, 1, getApplicationContext(), false, false, "");
+        db.getFacilities(binding, 3, 1, getApplicationContext(), false, false, "");
+        db.getFacilities(binding, 5, 1, getApplicationContext(), false, true, "");
+        db.getFacilities(binding, 6, 1, getApplicationContext(), false, true, "");
+
+        setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
 //        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -38,12 +46,13 @@ public class MainActivity extends AppCompatActivity {
 //                        .setAction("Action", null).show();
 //            }
 //        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_report_facility)
+                R.id.nav_home, R.id.nav_report, R.id.nav_add_facility)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
