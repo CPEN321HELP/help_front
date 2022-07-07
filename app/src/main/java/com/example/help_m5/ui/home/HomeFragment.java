@@ -20,7 +20,6 @@ public class HomeFragment extends Fragment {
 
     private static final String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
-    private DatabaseConnection DBconnection;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

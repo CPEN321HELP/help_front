@@ -52,7 +52,41 @@ public class DatabaseConnection {
     static final int reached_end = 2;
     static final int server_error = 3;
     static final int local_error = 4;
+    static final int only_one_page = 5;
     //above are types of error that could happen
+
+    int status_add_facility = normal_server_load;
+    public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude){
+        String url = vm_ip + "/addFacility";
+        Log.d(TAG, url);
+        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+        HashMap<String, String> params = new HashMap<String, String>();
+        queue.start();
+
+        params.put("title", title);
+        params.put("description", description);
+        params.put("long", longitude);
+        params.put("lat", latitude);
+        params.put("type", type);
+        params.put("facilityImageLink", imageLink);
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "response is: " + response.toString());
+                status_add_facility = normal_server_load;
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                status_add_facility = server_error;
+                Log.d(TAG, "ERROR when connecting to database getSpecificFacility");
+            }
+        });
+        queue.add(jsObjRequest);
+        Log.d(TAG, "status_add_facility is " + status_add_facility);
+        return status_add_facility;
+    }
 
     int status_getSpecificFacility = normal_server_load;
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
@@ -123,6 +157,8 @@ public class DatabaseConnection {
                 int result = loadToScreen(binding, facility_type, page_number, data);
                 if (result == 1) {
                     return reached_end;
+                } else if (result == 2){
+                    return only_one_page;
                 }
                 return normal_local_load;
             } catch (JSONException e) {
@@ -160,6 +196,8 @@ public class DatabaseConnection {
                         int result2 = loadToScreen(binding, facility_type, page_number, data);
                         if (result2 == 1) {
                             status_getFacilities = reached_end; //reached end of facility json array
+                        }else if(result2 == 2){
+                            status_getFacilities = only_one_page;
                         }
                     } catch (JSONException e) {
                         status_getFacilities = local_error; // error reading json file
@@ -199,6 +237,9 @@ public class DatabaseConnection {
             for (int index = start; index < end; index++) {
                 loadToFragment(binding, facility_type, array.getJSONArray(index), counter);
                 counter++;
+            }
+            if(length<=5){
+                return 2;
             }
             if (end == length) {
                 return 1;

@@ -49,6 +49,7 @@ public class FacilityFragment extends Fragment {
     static final int reached_end = 2;
     static final int server_error = 3;
     static final int local_error = 4;
+    static final int only_one_page = 5;
 
     static final String TAG = "EntertainmentsFragment";
 
@@ -66,15 +67,15 @@ public class FacilityFragment extends Fragment {
 
     Spinner spin;
 
-    int search_page_number = 1;
-    int newest_page_number = 1;
-    boolean reached_end_newest = false;
-    boolean reached_end_search = false;
+    private int search_page_number = 1;
+    private int newest_page_number = 1;
+    private boolean reached_end_newest = false;
+    private boolean reached_end_search = false;
 
-    String[] countryNames={"Posts","Restaurants","Study places","Entertainments"};
-    int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
+    private static String[] countryNames={"Post","Restaurant","Study place","Entertainment"};
+    private static int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
-    int facility_type = posts;
+    private int facility_type = posts;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -94,14 +95,16 @@ public class FacilityFragment extends Fragment {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                search_page_number = 1;
+                newest_page_number = 1;
                 facility_type = getTypeInt(countryNames[position]);
+                setFacilitiesVisibility(View.INVISIBLE);
                 Log.d(TAG, "facility_type in onItemSelected"+facility_type);
                 int result = -1;
                 result =  DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
                 Log.d(TAG, "initial result is : " + result);
                 if (result == server_error){
                     Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
-                    return ;
                 }
             }
             @Override
@@ -187,41 +190,59 @@ public class FacilityFragment extends Fragment {
         shows1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayoutOnClickListener();
+                ConstraintLayoutOnClickListener(1);
             }
         });
 
         shows2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayoutOnClickListener();
+                ConstraintLayoutOnClickListener(2);
             }
         });
 
         shows3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayoutOnClickListener();
+                ConstraintLayoutOnClickListener(3);
             }
         });
 
         shows4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayoutOnClickListener();
+                ConstraintLayoutOnClickListener(4);
             }
         });
 
         shows5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayoutOnClickListener();
+                ConstraintLayoutOnClickListener(5);
             }
         });
     }
 
-    private void ConstraintLayoutOnClickListener(){
-        int result = DBconnection.getSpecificFacility(facility_type, binding.facilityIDTextViewFacility1.getText().toString(), getContext());
+    private void ConstraintLayoutOnClickListener(int which){
+        String facility_id = "";
+        switch (which){
+            case 1:
+                facility_id = binding.facilityIDTextViewFacility1.getText().toString();
+                break;
+            case 2:
+                facility_id = binding.facilityIDTextViewFacility2.getText().toString();
+                break;
+            case 3:
+                facility_id = binding.facilityIDTextViewFacility3.getText().toString();
+                break;
+            case 4:
+                facility_id = binding.facilityIDTextViewFacility4.getText().toString();
+                break;
+            case 5:
+                facility_id = binding.facilityIDTextViewFacility5.getText().toString();
+                break;
+        }
+        int result = DBconnection.getSpecificFacility(facility_type, facility_id, getContext());
         if(result == server_error){
             Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
             return ;
@@ -253,6 +274,7 @@ public class FacilityFragment extends Fragment {
             public void onClick(View v) {
                 DBconnection.cleanCaches(getContext());
                 search_page_number = 1;
+
                 setFacilitiesVisibility(View.INVISIBLE);
                 if(onSearch){
                     onSearch = false;
@@ -286,6 +308,8 @@ public class FacilityFragment extends Fragment {
                     } else if (result == reached_end) {
                         search_page_number = 1;
                         Log.d(TAG, "down page load all");
+                    } else if(result == only_one_page ){
+                        //TODO
                     }
                     Log.d(TAG, "1 result is :" + result);
                     Log.d(TAG, "1 search_page_number is :" + search_page_number);
@@ -304,6 +328,8 @@ public class FacilityFragment extends Fragment {
                     } else if (result == reached_end) {
                         newest_page_number = 1;
                         Log.d(TAG, "down page load all");
+                    } else if(result == only_one_page ){
+                        //TODO
                     }
                     Log.d(TAG, "1 result is :" + result);
                     Log.d(TAG, "1 newest_page_number is :" + newest_page_number);
@@ -335,6 +361,8 @@ public class FacilityFragment extends Fragment {
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
                     } else if (result == reached_end) {
                         reached_end_search = true;
+                    } else if(result == only_one_page ){
+                        //TODO
                     }
                     Log.d(TAG, "2 result is :" + result);
                     Log.d(TAG, "2 search_page_number is :" + search_page_number);
@@ -354,6 +382,8 @@ public class FacilityFragment extends Fragment {
                         Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
                     } else if (result == reached_end) {
                         reached_end_newest = true;
+                    }else if(result == only_one_page ){
+                        //TODO
                     }
                     Log.d(TAG, "2 result is :" + result);
                     Log.d(TAG, "2 newest_page_number is :" + newest_page_number);
