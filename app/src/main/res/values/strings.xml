@@ -47,7 +47,7 @@
     <!-- Rating Activity -->
     <string name="rate_facility_title">Rate this Facility</string>
     <string name="comment_facility_title">Please select some stars and give\nyour feedback</string>
-    <string name="comment_hint">Please write your comments here ...</string>
+    <string name="comment_hint">(Optional) Please write any comments here ...</string>
 
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>

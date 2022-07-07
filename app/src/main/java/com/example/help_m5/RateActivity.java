@@ -20,6 +20,7 @@ public class RateActivity extends AppCompatActivity {
     private String userEmail;
     private Button submitButton;
     private Button cancelButton;
+    private RatingBar ratingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +31,19 @@ public class RateActivity extends AppCompatActivity {
         userEmail = userAccount.getEmail();
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
-        rate = ratingBar.getRating();
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                submitButton.setEnabled(true);
+                rate = ratingBar.getRating();
+            }
+        });
 
         EditText editText = findViewById(R.id.editTextTextMultiLine);
         comment = editText.getText().toString();
 
         submitButton = findViewById(R.id.submit_button);
+        submitButton.setEnabled(false);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +59,10 @@ public class RateActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    public void sendRateToDatabase() {
+
     }
 
     @Override
