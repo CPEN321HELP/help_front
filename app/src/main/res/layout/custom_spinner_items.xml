@@ -18,5 +18,5 @@
         android:layout_gravity="center"
         android:padding="@dimen/activity_horizontal_margin"
         android:text="Demo"
-        android:textColor="#000" />
+        android:textColor="@color/text_color" />
 </LinearLayout>

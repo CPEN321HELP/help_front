@@ -44,7 +44,7 @@ public class AddFacilityFragment extends Fragment {
     private static int flags[] = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
     private String facility_type;
     private EditText newFacilityTitle, newFacilityDescription, newFacilityImageLink, newFacilityLocation;
-    private boolean titleOK = false, descriptionOK = false, imageLinkOK = false, locationOK = false;
+    private boolean titleOK = false, descriptionOK = false, imageLinkOK = false, locationOK = false, isPost = false;
     private String longitude, latitude;
 
     private static final int normal_local_load = 0;
@@ -53,6 +53,7 @@ public class AddFacilityFragment extends Fragment {
     private static final int server_error = 3;
     private static final int local_error = 4;
     private static final int only_one_page = 5;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
@@ -171,8 +172,18 @@ public class AddFacilityFragment extends Fragment {
                 facility_type = countryNames[position];
                 Log.d(TAG, "facility_type in onItemSelected is: " +facility_type);
                 if(position != 0){
+                    if(position == 1){
+                        isPost = true;
+                        locationOK = true;
+                        binding.locationLayout.setVisibility(View.INVISIBLE);
+                    }else {
+                        binding.locationLayout.setVisibility(View.VISIBLE);
+                        isPost = false;
+                    }
+
                     binding.imageFacilityType.setImageResource(android.R.drawable.presence_online);
                 }else{
+
                     binding.imageFacilityType.setImageResource(android.R.drawable.presence_busy);
                 }
             }
@@ -189,10 +200,31 @@ public class AddFacilityFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(titleOK && descriptionOK && imageLinkOK && locationOK && (longitude != null) && (latitude != null)){
-                    int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString(), newFacilityDescription.getText().toString(), facility_type,newFacilityImageLink.getText().toString(), longitude, latitude);
-                    if(result == server_error){
-                        Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
+                if(isPost){
+                    if(titleOK && descriptionOK && imageLinkOK && locationOK){
+                        int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString(), newFacilityDescription.getText().toString(), facility_type,newFacilityImageLink.getText().toString(), "", "");
+                        if(result == server_error){
+                            Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
+                        }else{
+                            newFacilityTitle.setText("");
+                            newFacilityDescription.setText("");
+                            newFacilityImageLink.setText("");
+                            newFacilityLocation.setText("");
+                            Toast.makeText(getContext(), "Success! Server received your submission", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }else{
+                    if(titleOK && descriptionOK && imageLinkOK && locationOK && (longitude != null) && (latitude != null)){
+                        int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString(), newFacilityDescription.getText().toString(), facility_type,newFacilityImageLink.getText().toString(), longitude, latitude);
+                        if(result == server_error){
+                            Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
+                        }else{
+                            newFacilityTitle.setText("");
+                            newFacilityDescription.setText("");
+                            newFacilityImageLink.setText("");
+                            newFacilityLocation.setText("");
+                            Toast.makeText(getContext(), "Success! Server received your submission", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
@@ -216,12 +248,16 @@ public class AddFacilityFragment extends Fragment {
 
     }
 
-    public LatLng getLocationFromAddress(Context context, String strAddress) {
-
-        Geocoder coder = new Geocoder(context);
+    /**
+     * @param applicationContext : Central interface to provide configuration for an application.
+     * @param strAddress  : string of address user typed
+     * @return : LatLng, contains Latitude and Longitude; or null if user typed is not a valid address.
+     * @Pupose : get long and lat from the address user typed.
+     */
+    public LatLng getLocationFromAddress(Context applicationContext, String strAddress) {
+        Geocoder coder = new Geocoder(applicationContext);
         List<Address> address;
         LatLng p1 = null;
-
         try {
             address = coder.getFromLocationName(strAddress, 5);
             if (address == null) {
