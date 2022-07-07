@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.databinding.FragmentFacilityBinding;
+import com.example.help_m5.databinding.FragmentReportBinding;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,8 +33,8 @@ import java.util.HashMap;
 //DatabaseConnection
 public class DatabaseConnection {
 
-    final String vm_ip = "http://20.213.243.141:8000/";
-//    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
+    //    final String vm_ip = "http://20.213.243.141:8000/";
+    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
     //following are types of facility
@@ -164,7 +165,7 @@ public class DatabaseConnection {
         if (isCached(applicationContext, fileName)) {//page up and page down should go here
             try {
                 JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
-                int result = loadToScreen(binding, facility_type, page_number, data);
+                int result = loadToScreen(binding, facility_type, page_number, data, is_report);
                 if (result == 1) {
                     return reached_end;
                 } else if (result == 2){
@@ -179,20 +180,45 @@ public class DatabaseConnection {
             final RequestQueue queue = Volley.newRequestQueue(applicationContext);
             HashMap<String, String> params = new HashMap<String, String>();
             queue.start();
-            String url = vm_ip + getStringType(facility_type);
             params.put("page_number", "" + page_number);
+            String url = vm_ip;
 
-            if (is_search) {
-                url += "/search";
-                params.put("search", "" + content_to_search);
-            }else{
-                url += "/newest";
+            if(is_report){
+                url += "user/Report/" + getStringType(facility_type);
+            }else {
+                url += getStringType(facility_type);
+                if (is_search) {
+                    url += "/search";
+                    params.put("search", "" + content_to_search);
+                }else{
+                    url += "/newest";
+                }
             }
             Log.d(TAG,url);
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.d(TAG, "response is: " + response.toString());
+
+                    int length = -1;
+                    try {
+                        length = response.getInt("length");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+                    }
+                    if (length == -1){
+                        status_getFacilities = server_error;
+                        return;
+                    } else if(length<=5){
+                        status_getFacilities = only_one_page;
+                    }else{
+                        int end = Math.min((page_number * 5), length);
+                        if (end == length) {
+                            status_getFacilities = reached_end;
+                        }
+                    }
+
                     int result = writeToJson(applicationContext, response, fileName);
 
                     if (result == 2) {
@@ -202,11 +228,9 @@ public class DatabaseConnection {
 
                     try {
                         JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
-                        int result2 = loadToScreen(binding, facility_type, page_number, data);
+                        int result2 = loadToScreen(binding, facility_type, page_number, data, is_report);
                         if (result2 == 1) {
-                            status_getFacilities = reached_end; //reached end of facility json array
-                        }else if(result2 == 2){
-                            status_getFacilities = only_one_page;
+                            status_getFacilities = server_error; //reached end of facility json array
                         }
                     } catch (JSONException e) {
                         status_getFacilities = local_error; // error reading json file
@@ -232,10 +256,10 @@ public class DatabaseConnection {
      * @param facility_type : int representing the type of facility calling this function
      * @param page_number   : what range to load
      * @param data          : Json format data to be process and show on screen
-     * @return 0 execute as expected, 1 reached end of show
+     * @return 0 execute as expected, 1 errer when reading json
      * @Pupose : to load the content from server our cached file to screen for user to view
      */
-    private int loadToScreen(Object binding, int facility_type, int page_number, JSONObject data) {
+    private int loadToScreen(Object binding, int facility_type, int page_number, JSONObject data, boolean isReport) {
         try {
             int length = data.getInt("length");
             int start = (page_number - 1) * 5;
@@ -244,17 +268,12 @@ public class DatabaseConnection {
             JSONArray array = data.getJSONArray("result");
 
             for (int index = start; index < end; index++) {
-                loadToFragment(binding, facility_type, array.getJSONArray(index), counter);
+                loadToFragment(binding, facility_type, array.getJSONArray(index), counter, isReport);
                 counter++;
-            }
-            if(length<=5){
-                return 2;
-            }
-            if (end == length) {
-                return 1;
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            return 1;
         }
         return 0;
     }
@@ -266,14 +285,8 @@ public class DatabaseConnection {
      * @Pupose : to check if file is cached in internal storage, this method is used only by searchFacilities()
      */
     private boolean isCached(Context applicationContext, String fileName) {
-        try {
-            File file = new File(applicationContext.getFilesDir(), fileName);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-        } catch (FileNotFoundException e) {
-            return false;
-        }
-        return true;
+        File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
+        return f.exists() && !f.isDirectory();
     }
 
     /**
@@ -283,22 +296,22 @@ public class DatabaseConnection {
      * @param index         : a int index range from 0 to 5
      * @Pupose load information from JSONArray to texView
      */
-    private void loadToFragment(Object binding, int facility_type, JSONArray facility_info, int index) {
+    private void loadToFragment(Object binding, int facility_type, JSONArray facility_info, int index, boolean isReport) {
         switch (index) {
             case 0:
-                load_facility1(binding, facility_type, facility_info);
+                load_facility1(binding, facility_type, facility_info, isReport);
                 break;
             case 1:
-                load_facility2(binding, facility_type, facility_info);
+                load_facility2(binding, facility_type, facility_info, isReport);
                 break;
             case 2:
-                load_facility3(binding, facility_type, facility_info);
+                load_facility3(binding, facility_type, facility_info, isReport);
                 break;
             case 3:
-                load_facility4(binding, facility_type, facility_info);
+                load_facility4(binding, facility_type, facility_info, isReport);
                 break;
             case 4:
-                load_facility5(binding, facility_type, facility_info);
+                load_facility5(binding, facility_type, facility_info, isReport);
                 break;
         }
     }
@@ -401,14 +414,14 @@ public class DatabaseConnection {
             case restaurants:
                 facilityToFetch = "restaurants";
                 break;
-            case report_user:
-                facilityToFetch = "report/user";
+            case report_user: //need ?
+                facilityToFetch = "user";
                 break;
             case report_facility:
-                facilityToFetch = "report/facility";
+                facilityToFetch = "facility";
                 break;
             case report_comment:
-                facilityToFetch = "report/comment";
+                facilityToFetch = "comment";
 
                 break;
         }
@@ -421,17 +434,27 @@ public class DatabaseConnection {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
-    private void load_facility1(Object Binding, int facility_type, JSONArray result) {
+    private void load_facility1(Object Binding, int facility_type, JSONArray result, boolean isReport) {
         TextView titleTextView_facility1 = null, dateTextView_facility1 = null, contentTextView_facility1 = null, facilityID_textView1_facility1 = null;
         RatingBar ratingBar_facility1 = null;
         ConstraintLayout constraintLayout_facility1 = null;
 
-        titleTextView_facility1 = ((FragmentFacilityBinding) Binding).titleTextViewFacility1;
-        dateTextView_facility1 = ((FragmentFacilityBinding) Binding).dateTextViewFacility1;
-        contentTextView_facility1 = ((FragmentFacilityBinding) Binding).contentTextViewFacility1;
-        ratingBar_facility1 = ((FragmentFacilityBinding) Binding).ratingBarFacility1;
-        facilityID_textView1_facility1 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility1;
-        constraintLayout_facility1 = ((FragmentFacilityBinding) Binding).facility1;
+        if(isReport){
+            titleTextView_facility1 = ((FragmentReportBinding) Binding).titleTextViewFacility1;
+            dateTextView_facility1 = ((FragmentReportBinding) Binding).dateTextViewFacility1;
+            contentTextView_facility1 = ((FragmentReportBinding) Binding).contentTextViewFacility1;
+            ratingBar_facility1 = ((FragmentReportBinding) Binding).ratingBarFacility1;
+            facilityID_textView1_facility1 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility1;
+            constraintLayout_facility1 = ((FragmentReportBinding) Binding).facility1;
+        }else {
+            titleTextView_facility1 = ((FragmentFacilityBinding) Binding).titleTextViewFacility1;
+            dateTextView_facility1 = ((FragmentFacilityBinding) Binding).dateTextViewFacility1;
+            contentTextView_facility1 = ((FragmentFacilityBinding) Binding).contentTextViewFacility1;
+            ratingBar_facility1 = ((FragmentFacilityBinding) Binding).ratingBarFacility1;
+            facilityID_textView1_facility1 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility1;
+            constraintLayout_facility1 = ((FragmentFacilityBinding) Binding).facility1;
+        }
+
 
         try {
             facilityID_textView1_facility1.setText(result.getString(0));
@@ -471,18 +494,26 @@ public class DatabaseConnection {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
-    private void load_facility2(Object Binding, int facility_type, JSONArray result) {
+    private void load_facility2(Object Binding, int facility_type, JSONArray result, boolean isReport) {
         TextView titleTextView_facility2 = null, dateTextView_facility2 = null, contentTextView_facility2 = null, facilityID_textView1_facility2 = null;
         RatingBar ratingBar_facility2 = null;
         ConstraintLayout constraintLayout_facility2 = null;
 
-        titleTextView_facility2 = ((FragmentFacilityBinding) Binding).titleTextViewFacility2;
-        dateTextView_facility2 = ((FragmentFacilityBinding) Binding).dateTextViewFacility2;
-        contentTextView_facility2 = ((FragmentFacilityBinding) Binding).contentTextViewFacility2;
-        ratingBar_facility2 = ((FragmentFacilityBinding) Binding).ratingBarFacility2;
-        facilityID_textView1_facility2 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility2;
-        constraintLayout_facility2 = ((FragmentFacilityBinding) Binding).facility2;
-
+        if(isReport){
+            titleTextView_facility2 = ((FragmentReportBinding) Binding).titleTextViewFacility2;
+            dateTextView_facility2 = ((FragmentReportBinding) Binding).dateTextViewFacility2;
+            contentTextView_facility2 = ((FragmentReportBinding) Binding).contentTextViewFacility2;
+            ratingBar_facility2 = ((FragmentReportBinding) Binding).ratingBarFacility2;
+            facilityID_textView1_facility2 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility2;
+            constraintLayout_facility2 = ((FragmentReportBinding) Binding).facility2;
+        }else {
+            titleTextView_facility2 = ((FragmentFacilityBinding) Binding).titleTextViewFacility2;
+            dateTextView_facility2 = ((FragmentFacilityBinding) Binding).dateTextViewFacility2;
+            contentTextView_facility2 = ((FragmentFacilityBinding) Binding).contentTextViewFacility2;
+            ratingBar_facility2 = ((FragmentFacilityBinding) Binding).ratingBarFacility2;
+            facilityID_textView1_facility2 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility2;
+            constraintLayout_facility2 = ((FragmentFacilityBinding) Binding).facility2;
+        }
         try {
             facilityID_textView1_facility2.setText(result.getString(0));
         } catch (JSONException E) {
@@ -521,17 +552,26 @@ public class DatabaseConnection {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
-    private void load_facility3(Object Binding, int facility_type, JSONArray result) {
+    private void load_facility3(Object Binding, int facility_type, JSONArray result, boolean isReport) {
         TextView titleTextView_facility3 = null, dateTextView_facility3 = null, contentTextView_facility3 = null, facilityID_textView1_facility3 = null;
         RatingBar ratingBar_facility3 = null;
         ConstraintLayout constraintLayout_facility3 = null;
 
-        titleTextView_facility3 = ((FragmentFacilityBinding) Binding).titleTextViewFacility3;
-        dateTextView_facility3 = ((FragmentFacilityBinding) Binding).dateTextViewFacility3;
-        contentTextView_facility3 = ((FragmentFacilityBinding) Binding).contentTextViewFacility3;
-        ratingBar_facility3 = ((FragmentFacilityBinding) Binding).ratingBarFacility3;
-        facilityID_textView1_facility3 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility3;
-        constraintLayout_facility3 = ((FragmentFacilityBinding) Binding).facility3;
+        if(isReport){
+            titleTextView_facility3 = ((FragmentReportBinding) Binding).titleTextViewFacility3;
+            dateTextView_facility3 = ((FragmentReportBinding) Binding).dateTextViewFacility3;
+            contentTextView_facility3 = ((FragmentReportBinding) Binding).contentTextViewFacility3;
+            ratingBar_facility3 = ((FragmentReportBinding) Binding).ratingBarFacility3;
+            facilityID_textView1_facility3 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility3;
+            constraintLayout_facility3 = ((FragmentReportBinding) Binding).facility3;
+        }else {
+            titleTextView_facility3 = ((FragmentFacilityBinding) Binding).titleTextViewFacility3;
+            dateTextView_facility3 = ((FragmentFacilityBinding) Binding).dateTextViewFacility3;
+            contentTextView_facility3 = ((FragmentFacilityBinding) Binding).contentTextViewFacility3;
+            ratingBar_facility3 = ((FragmentFacilityBinding) Binding).ratingBarFacility3;
+            facilityID_textView1_facility3 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility3;
+            constraintLayout_facility3 = ((FragmentFacilityBinding) Binding).facility3;
+        }
 
         try {
             facilityID_textView1_facility3.setText(result.getString(0));
@@ -571,17 +611,26 @@ public class DatabaseConnection {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
-    private void load_facility4(Object Binding, int facility_type, JSONArray result) {
+    private void load_facility4(Object Binding, int facility_type, JSONArray result, boolean isReport) {
         TextView titleTextView_facility4 = null, dateTextView_facility4 = null, contentTextView_facility4 = null, facilityID_textView1_facility4 = null;
         RatingBar ratingBar_facility4 = null;
         ConstraintLayout constraintLayout_facility4 = null;
 
-        titleTextView_facility4 = ((FragmentFacilityBinding) Binding).titleTextViewFacility4;
-        dateTextView_facility4 = ((FragmentFacilityBinding) Binding).dateTextViewFacility4;
-        contentTextView_facility4 = ((FragmentFacilityBinding) Binding).contentTextViewFacility4;
-        ratingBar_facility4 = ((FragmentFacilityBinding) Binding).ratingBarFacility4;
-        facilityID_textView1_facility4 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility4;
-        constraintLayout_facility4 = ((FragmentFacilityBinding) Binding).facility4;
+        if(isReport){
+            titleTextView_facility4 = ((FragmentReportBinding) Binding).titleTextViewFacility4;
+            dateTextView_facility4 = ((FragmentReportBinding) Binding).dateTextViewFacility4;
+            contentTextView_facility4 = ((FragmentReportBinding) Binding).contentTextViewFacility4;
+            ratingBar_facility4 = ((FragmentReportBinding) Binding).ratingBarFacility4;
+            facilityID_textView1_facility4 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility4;
+            constraintLayout_facility4 = ((FragmentReportBinding) Binding).facility4;
+        }else {
+            titleTextView_facility4 = ((FragmentFacilityBinding) Binding).titleTextViewFacility4;
+            dateTextView_facility4 = ((FragmentFacilityBinding) Binding).dateTextViewFacility4;
+            contentTextView_facility4 = ((FragmentFacilityBinding) Binding).contentTextViewFacility4;
+            ratingBar_facility4 = ((FragmentFacilityBinding) Binding).ratingBarFacility4;
+            facilityID_textView1_facility4 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility4;
+            constraintLayout_facility4 = ((FragmentFacilityBinding) Binding).facility4;
+        }
 
         try {
             facilityID_textView1_facility4.setText(result.getString(0));
@@ -621,17 +670,26 @@ public class DatabaseConnection {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
-    private void load_facility5(Object Binding, int facility_type, JSONArray result) {
+    private void load_facility5(Object Binding, int facility_type, JSONArray result, boolean isReport) {
         TextView titleTextView_facility5 = null, dateTextView_facility5 = null, contentTextView_facility5 = null, facilityID_textView1_facility5 = null;
         RatingBar ratingBar_facility5 = null;
         ConstraintLayout constraintLayout_facility5 = null;
 
-        titleTextView_facility5 = ((FragmentFacilityBinding) Binding).titleTextViewFacility5;
-        dateTextView_facility5 = ((FragmentFacilityBinding) Binding).dateTextViewFacility5;
-        contentTextView_facility5 = ((FragmentFacilityBinding) Binding).contentTextViewFacility5;
-        ratingBar_facility5 = ((FragmentFacilityBinding) Binding).ratingBarFacility5;
-        facilityID_textView1_facility5 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility5;
-        constraintLayout_facility5 = ((FragmentFacilityBinding) Binding).facility5;
+        if(isReport){
+            titleTextView_facility5 = ((FragmentReportBinding) Binding).titleTextViewFacility5;
+            dateTextView_facility5 = ((FragmentReportBinding) Binding).dateTextViewFacility5;
+            contentTextView_facility5 = ((FragmentReportBinding) Binding).contentTextViewFacility5;
+            ratingBar_facility5 = ((FragmentReportBinding) Binding).ratingBarFacility5;
+            facilityID_textView1_facility5 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility5;
+            constraintLayout_facility5 = ((FragmentReportBinding) Binding).facility5;
+        }else {
+            titleTextView_facility5 = ((FragmentFacilityBinding) Binding).titleTextViewFacility5;
+            dateTextView_facility5 = ((FragmentFacilityBinding) Binding).dateTextViewFacility5;
+            contentTextView_facility5 = ((FragmentFacilityBinding) Binding).contentTextViewFacility5;
+            ratingBar_facility5 = ((FragmentFacilityBinding) Binding).ratingBarFacility5;
+            facilityID_textView1_facility5 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility5;
+            constraintLayout_facility5 = ((FragmentFacilityBinding) Binding).facility5;
+        }
 
         try {
             facilityID_textView1_facility5.setText(result.getString(0));

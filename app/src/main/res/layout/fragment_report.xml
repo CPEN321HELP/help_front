@@ -6,7 +6,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto"
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
-tools:context=".ui.facility.FacilityFragment">
+    tools:context=".ui.report.ReportFragment">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/search_layout"
@@ -17,16 +17,9 @@ tools:context=".ui.facility.FacilityFragment">
     app:layout_constraintHeight_percent="0.1"
     app:layout_constraintTop_toTopOf="parent">
 
-    <SearchView
-        android:id="@+id/searchFacility"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Spinner
         android:id="@+id/spinnerFacility"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -412,7 +405,6 @@ tools:context=".ui.facility.FacilityFragment">
         android:layout_margin="3dp"
         app:elevation="0dp"
         app:srcCompat="@drawable/ic_up_facility" />
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_next"
