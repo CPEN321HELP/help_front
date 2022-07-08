@@ -73,8 +73,6 @@ public class ReportFragment extends Fragment {
         DBconnection = new DatabaseConnection();
         DBconnection.cleanCaches(getContext());
 
-        switchMode();
-
         shows1 = binding.facility1;
         shows2 = binding.facility2;
         shows3 = binding.facility3;
@@ -317,16 +315,6 @@ public class ReportFragment extends Fragment {
         close_or_refresh.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
         page_up.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
         page_down.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
-    }
-
-    public void switchMode(){
-        Calendar calendar = Calendar.getInstance();
-        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
-        if(hour24hrs>=21 || hour24hrs <=7){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
     }
 
     private int getTypeInt(String selected){

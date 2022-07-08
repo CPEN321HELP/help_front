@@ -70,7 +70,7 @@ public class FacilityFragment extends Fragment {
     private boolean reached_end_newest = false;
     private boolean reached_end_search = false, one_page = false;
 
-    private static String[] countryNames={"Posts","Restaurants","Study","Play"};
+    private static String[] countryNames={"Posts","Eat","Study","Play"};
     private static int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
     private int facility_type = posts;
@@ -81,8 +81,6 @@ public class FacilityFragment extends Fragment {
         View root = binding.getRoot();
         DBconnection = new DatabaseConnection();
         DBconnection.cleanCaches(getContext());
-
-        switchMode();
 
         shows1 = binding.facility1;
         shows2 = binding.facility2;
@@ -449,21 +447,11 @@ public class FacilityFragment extends Fragment {
         page_down.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
     }
 
-    public void switchMode(){
-        Calendar calendar = Calendar.getInstance();
-        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
-        if(hour24hrs>=21 || hour24hrs <=7){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-    }
-
     private int getTypeInt(String selected){
         switch (selected){
             case "Play":
                 return entertainments;
-            case "Restaurants":
+            case "Eat":
                 return restaurants;
             case "Study":
                 return study;

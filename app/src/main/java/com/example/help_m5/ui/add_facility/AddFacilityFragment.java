@@ -40,7 +40,7 @@ public class AddFacilityFragment extends Fragment {
     private DatabaseConnection DBconnection;
     private Spinner spin;
     private Button submit, clean;
-    private static String[] countryNames={"<-Please Select Below->", "posts","restaurants","studys","entertainments"};
+    private static String[] countryNames={"<-Please Select Below->", "Posts","Eat","Study","Play"};
     private static int flags[] = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
     private String facility_type;
     private EditText newFacilityTitle, newFacilityDescription, newFacilityImageLink, newFacilityLocation;
@@ -59,7 +59,6 @@ public class AddFacilityFragment extends Fragment {
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         DBconnection = new DatabaseConnection();
-        switchMode();
 
         newFacilityTitle = binding.newFacilityTitle;
         newFacilityTitle.setHint("please enter a title");
@@ -169,7 +168,7 @@ public class AddFacilityFragment extends Fragment {
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                facility_type = countryNames[position];
+                facility_type = getString(countryNames[position]);
                 Log.d(TAG, "facility_type in onItemSelected is: " +facility_type);
                 if(position != 0){
                     if(position == 1){
@@ -273,14 +272,18 @@ public class AddFacilityFragment extends Fragment {
         return p1;
     }
 
-    public void switchMode(){
-        Calendar calendar = Calendar.getInstance();
-        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
-        if(hour24hrs>=21 || hour24hrs <=7){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+    private String getString(String selected){
+        switch (selected){
+            case "Play":
+                return "entertainments";
+            case "Eat":
+                return "restaurants";
+            case "Study":
+                return "studys";
+            case "Posts":
+                return "posts";
         }
+        return "";
     }
 
     @Override

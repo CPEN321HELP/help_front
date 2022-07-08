@@ -1,5 +1,6 @@
 package com.example.help_m5;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 
@@ -9,6 +10,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceManager;
 
 import com.example.help_m5.databinding.ActivityMainBinding;
 import com.example.help_m5.ui.database.DatabaseConnection;
@@ -19,13 +22,15 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private DatabaseConnection db;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        db = new DatabaseConnection();
-        db.cleanCaches(getApplicationContext());
+//        db = new DatabaseConnection();
+//        db.cleanCaches(getApplicationContext());
         //db.getFacilities(binding, 0, 1, getApplicationContext(), false, false, "");
         //db.getFacilities(binding, 1, 1, getApplicationContext(), false, false, "");
         //db.getFacilities(binding, 2, 1, getApplicationContext(), false, false, "");
@@ -69,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
 //            Uri userIcon = Uri.parse(bundle.getString("user_icon"));
 //            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
 //        }
+    }
+
+    private void displaySharedPreferences() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
     }
 
     @Override
