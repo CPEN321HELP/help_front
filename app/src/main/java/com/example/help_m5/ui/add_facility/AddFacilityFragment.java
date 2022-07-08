@@ -23,7 +23,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.help_m5.CustomAdapter;
-import com.example.help_m5.DatabaseConnection;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentAddFacilityBinding;
 import com.google.android.gms.maps.model.LatLng;

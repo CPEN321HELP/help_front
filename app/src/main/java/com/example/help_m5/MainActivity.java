@@ -1,11 +1,7 @@
 package com.example.help_m5;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -15,8 +11,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.help_m5.databinding.ActivityMainBinding;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,14 +24,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        db = new DatabaseConnection();
-        db.cleanCaches(getApplicationContext());
-        db.getFacilities(binding, 0, 1, getApplicationContext(), false, false, "");
-        db.getFacilities(binding, 1, 1, getApplicationContext(), false, false, "");
-        db.getFacilities(binding, 2, 1, getApplicationContext(), false, false, "");
-        db.getFacilities(binding, 3, 1, getApplicationContext(), false, false, "");
-        db.getFacilities(binding, 5, 1, getApplicationContext(), false, true, "");
-        db.getFacilities(binding, 6, 1, getApplicationContext(), false, true, "");
 
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -59,17 +47,17 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        Bundle bundle = getIntent().getExtras();
-        String userName = bundle.getString("user_name");
-        String userEmail = bundle.getString("user_email");
-        TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
-        userNameView.setText(userName);
-        TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
-        userEmailView.setText(userEmail);
-        if (!bundle.getString("user_icon").equals("none")) {
-            Uri userIcon = Uri.parse(bundle.getString("user_icon"));
-            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
-        }
+//        Bundle bundle = getIntent().getExtras();
+//        String userName = bundle.getString("user_name");
+//        String userEmail = bundle.getString("user_email");
+//        TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
+//        userNameView.setText(userName);
+//        TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
+//        userEmailView.setText(userEmail);
+//        if (!bundle.getString("user_icon").equals("none")) {
+//            Uri userIcon = Uri.parse(bundle.getString("user_icon"));
+//            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+//        }
     }
 
     @Override
