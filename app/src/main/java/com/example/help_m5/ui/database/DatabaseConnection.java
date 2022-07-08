@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.databinding.FragmentFacilityBinding;
 import com.example.help_m5.databinding.FragmentReportBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,8 +34,8 @@ import java.util.HashMap;
 //DatabaseConnection
 public class DatabaseConnection {
 
-    //    final String vm_ip = "http://20.213.243.141:8000/";
-    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
+        final String vm_ip = "http://20.213.243.141:8000/";
+//    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
     //following are types of facility
@@ -58,7 +59,7 @@ public class DatabaseConnection {
 
     int status_add_facility = normal_server_load;
 
-    public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude){
+    public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String email){
         String url = vm_ip + "addFacility";
         Log.d(TAG, url);
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
@@ -72,13 +73,14 @@ public class DatabaseConnection {
         params.put("type", type);
         params.put("facilityImageLink", imageLink);
 
-//        Log.d(TAG, params.toString());
+        Log.d(TAG, params.toString());
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "response is: " + response.toString());
                 status_add_facility = normal_server_load;
+                addCredit(applicationContext, email);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -92,6 +94,28 @@ public class DatabaseConnection {
         return status_add_facility;
     }
 
+    private void addCredit(Context applicationContext, String user_id){
+        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+        HashMap<String, String> params = new HashMap<String, String>();
+        queue.start();
+        String url = vm_ip + "creditHandling/normal";
+        params.put("upUserId", user_id);
+        Log.d(TAG, params.toString());
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "response is: " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "ERROR when connecting to database getSpecificFacility");
+            }
+        });
+        queue.add(jsObjRequest);
+        Log.d(TAG, "status_add_facility is " + status_add_facility);
+    }
+
     int status_getSpecificFacility = normal_server_load;
 
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
@@ -102,7 +126,7 @@ public class DatabaseConnection {
         queue.start();
         params.put("facility_id", facility_id);
         params.put("facility_type", ""+facility_type);
-
+        Log.d(TAG, params.toString());
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -184,12 +208,13 @@ public class DatabaseConnection {
             HashMap<String, String> params = new HashMap<String, String>();
             queue.start();
             params.put("page_number", "" + page_number);
+            params.put("type", ""+ facility_type);
             String url = vm_ip;
 
             if(is_report){
                 url += "user/Report/" + getStringType(facility_type);
             }else {
-                url += getStringType(facility_type);
+                url += "facility";
                 if (is_search) {
                     url += "/search";
                     params.put("search", "" + content_to_search);
@@ -198,18 +223,16 @@ public class DatabaseConnection {
                 }
             }
             Log.d(TAG,url);
+            Log.d(TAG, params.toString());
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.d(TAG, "response is: " + response.toString());
-
                     int result = writeToJson(applicationContext, response, fileName);
-
                     if (result == 2) {
                         status_getFacilities = local_error;// IOException
                         return;
                     }
-
                     try {
                         JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
                         int result2 = loader.loadToScreen(binding, facility_type, page_number, data, is_report);
@@ -337,7 +360,7 @@ public class DatabaseConnection {
                 facilityToFetch = "posts";
                 break;
             case study:
-                facilityToFetch = "study";
+                facilityToFetch = "studys";
                 break;
             case entertainments:
                 facilityToFetch = "entertainments";

@@ -26,6 +26,9 @@ import com.example.help_m5.CustomAdapter;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentAddFacilityBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.Calendar;
@@ -56,6 +59,8 @@ public class AddFacilityFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        String email = account.getEmail();
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         DBconnection = new DatabaseConnection();
@@ -201,7 +206,7 @@ public class AddFacilityFragment extends Fragment {
             public void onClick(View v) {
                 if(isPost){
                     if(titleOK && descriptionOK && imageLinkOK && locationOK){
-                        int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString(), newFacilityDescription.getText().toString(), facility_type,newFacilityImageLink.getText().toString(), "", "");
+                        int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString(), newFacilityDescription.getText().toString(), facility_type,newFacilityImageLink.getText().toString(), "", "", email);
                         if(result == server_error){
                             Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
                         }else{
@@ -214,7 +219,7 @@ public class AddFacilityFragment extends Fragment {
                     }
                 }else{
                     if(titleOK && descriptionOK && imageLinkOK && locationOK && (longitude != null) && (latitude != null)){
-                        int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString(), newFacilityDescription.getText().toString(), facility_type,newFacilityImageLink.getText().toString(), longitude, latitude);
+                        int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString(), newFacilityDescription.getText().toString(), facility_type,newFacilityImageLink.getText().toString(), longitude, latitude, email);
                         if(result == server_error){
                             Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
                         }else{
