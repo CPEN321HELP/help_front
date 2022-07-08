@@ -22,6 +22,8 @@ public class RateActivity extends AppCompatActivity {
     private Button submitButton;
     private Button cancelButton;
     private RatingBar ratingBar;
+    private String facilityId;
+    private int facilityType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class RateActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("send to backend");
+
                 finish();
             }
         });
