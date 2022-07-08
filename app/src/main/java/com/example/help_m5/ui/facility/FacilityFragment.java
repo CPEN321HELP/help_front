@@ -260,13 +260,13 @@ public class FacilityFragment extends Fragment {
         try {
             JSONObject facility = new JSONObject(facilityInfo);
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
-            //description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-            //image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
-            //System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
-            //rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
-            //numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
-            //latitude = Double.parseDouble((String) facility.getJSONObject("facility").getJSONObject("location").getString("latitude"));
-            //longitude = Double.parseDouble((String) facility.getJSONObject("facility").getJSONObject("location").getString("longtidue"));
+            description = (String) facility.getJSONObject("facility").getString("facilityDescription");
+            image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
+            rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
+            numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
+            latitude = Double.parseDouble((String) facility.getJSONObject("facility").getJSONObject("location").getString("latitude"));
+            longitude = Double.parseDouble((String) facility.getJSONObject("facility").getJSONObject("location").getString("longtidue"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

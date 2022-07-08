@@ -69,12 +69,12 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityId = bundle.getString("facility_id");
         type = Integer.parseInt(bundle.getString("facility_type"));
         title = bundle.getString("facility_title");
-        //description = bundle.getString("facility_description", description);
-        //image = bundle.getString("facility_image");
-        //rate = bundle.getDouble("facility_rate");
-        //numReviews = bundle.getInt("facility_numReviews");
-        //latitude = bundle.getDouble("facility_latitude");
-        //longitude = bundle.getDouble("facility_longitude");
+        description = bundle.getString("facility_description", description);
+        image = bundle.getString("facility_image");
+        rate = bundle.getDouble("facility_rate");
+        numReviews = bundle.getInt("facility_numReviews");
+        latitude = bundle.getDouble("facility_latitude");
+        longitude = bundle.getDouble("facility_longitude");
 
         // Get data from database
         /*
