@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
-        
+
         db = new DatabaseConnection();
         db.cleanCaches(getApplicationContext());
         //db.getFacilities(binding, 0, 1, getApplicationContext(), false, false, "");
