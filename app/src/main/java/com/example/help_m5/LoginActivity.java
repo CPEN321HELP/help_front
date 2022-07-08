@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.Task;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+
 public class LoginActivity extends AppCompatActivity {
 
     private SignInButton signInButton;
@@ -31,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private int RC_SIGN_IN = 1;
     final static String TAG = "LoginActivity";
     private static int userid = 1;
-    final String Hizan_alibaba_url = "http://47.251.34.10:3000/";
+    private final String vm_ip = "http://20.213.243.141:8000/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,12 +102,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        try {
-            updateUI(account);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        //try {
+        //    updateUI(account);
+        //} catch (JSONException e) {
+        //    e.printStackTrace();
+        //}
     }
 
     private void updateUI(GoogleSignInAccount account) throws JSONException {
@@ -113,26 +115,28 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "There is no user signed in");
         } else {
             // Send token to back-end
-            JSONObject userJSON = new JSONObject();
-            userJSON.put("user_id", String.valueOf(userid));
-            userJSON.put("user_name",account.getDisplayName() + " " + account.getFamilyName());
-            userJSON.put("user_email", account.getEmail());
-            userJSON.put("user_logo", account.getPhotoUrl());
-            userJSON.put("account_type","0");
-            userJSON.put("account_status","0");
-            System.out.println("12");
             RequestQueue queue = Volley.newRequestQueue(this);
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, Hizan_alibaba_url+"/user/"+String.valueOf(userid), userJSON,
+            HashMap<String, String> params = new HashMap<String, String>();
+            queue.start();
+            params.put("_id", account.getEmail());
+            params.put("username", account.getDisplayName());
+            if (account.getPhotoUrl() != null) {
+                params.put("user_logo", account.getPhotoUrl().toString());
+            } else {
+                params.put("user_logo", "none");
+            }
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"google_sign_up", new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "response is: "+response.toString());
+                        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        System.out.println("response is: "+response.toString());
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                        System.out.println("onErrorResponse" + "Error: " + error.getMessage());
                     }
                 });
             queue.add(request);
@@ -142,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
             Bundle bundle = new Bundle();
             bundle.putString("user_name", account.getDisplayName());
             bundle.putString("user_email", account.getEmail());
+            bundle.putInt("user_type", 0);
             if (account.getPhotoUrl() != null) {
                 bundle.putString("user_icon", account.getPhotoUrl().toString());
             } else {
