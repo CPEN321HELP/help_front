@@ -34,6 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,6 +51,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private String image;
     private double latitude;
     private double longitude;
+    private String[] userReplyIds;
 
     private Button rateButton;
     private MapView mapView;
@@ -84,6 +86,19 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
             latitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("latitude"));
             longitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("longtitude"));
+
+            JSONArray jsonarray = new JSONArray(facility.getJSONArray("reviews"));
+            for (int i = 0; i < jsonarray.length(); i++) {
+                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                String userName = (String) jsonobject.getString("username");
+                String userEmail = (String) jsonobject.getString("useremail");
+                double userRate = (double) jsonobject.getDouble("rate");
+                int downvote = (int) jsonobject.getInt("downvote");
+                int upvote =  (int) jsonobject.getInt("upvote");;
+                String comment = (String) jsonobject.getString("comment");
+                String time = (String) jsonobject.getString("time");
+                createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -97,7 +112,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityDescription.setText(description);
 
         // Facility Image
-        image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
         Uri uriImage = Uri.parse(image);
         Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
 
@@ -135,6 +149,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
+        /*
         float userRate = (float) 2.3;
         String userName = "Peter Na";
         String userDescription = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
@@ -150,6 +165,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         createUserReview(userRate, userName, userEmail3, userDescription, userDate);
         createUserReview(userRate, userName, userEmail4, userDescription, userDate);
         createUserReview(userRate, userName, userEmail5, userDescription, userDate);
+        */
 
         for (int i = 1; i < id; i++) {
             CheckBox checkUpvote = (CheckBox) findViewById(UPVOTE_BASE_ID + i);
@@ -165,7 +181,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-    public void createUserReview(float userRate, String userName, String userEmail, String userDescription, String userDate) {
+    public void createUserReview(float userRate, String userName, String userEmail, String userDescription, String userDate, int upVoteCounter, int downVoteCounter) {
         // Linear Layouts
         LinearLayout review = new LinearLayout(this);
         review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -250,7 +266,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         });
 
         TextView upVoteCount = new TextView(this);
-        upVoteCount.setText("231");
+        upVoteCount.setText(upVoteCounter);
         upVoteCount.setId(UPVOTE_TEXTVIEW_BASE_ID + id);
         LinearLayout.LayoutParams layoutParamsVoteCount = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsVoteCount.setMargins(dpToPx(2f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
@@ -297,7 +313,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         });
 
         TextView downVoteCount = new TextView(this);
-        downVoteCount.setText("22");
+        downVoteCount.setText(downVoteCounter);
         downVoteCount.setId(DOWNVOTE_TEXTVIEW_BASE_ID + id);
         downVoteCount.setLayoutParams(layoutParamsVoteCount);
 

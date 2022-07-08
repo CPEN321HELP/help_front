@@ -9,12 +9,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 public class RateActivity extends AppCompatActivity {
 
     private static final String TAG = "RateActivity";
+    private final String vm_ip = "http://20.213.243.141:8000/";
     private double rate;
     private String comment;
     private GoogleSignInAccount userAccount;
@@ -29,6 +40,10 @@ public class RateActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
+
+        Bundle bundle = getIntent().getExtras();
+        facilityId = bundle.getString("facility_id");
+        facilityType = Integer.parseInt(bundle.getString("facility_type"));
 
         userAccount = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = userAccount.getEmail();
@@ -51,7 +66,29 @@ public class RateActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                RequestQueue queue = Volley.newRequestQueue(RateActivity.this);
+                HashMap<String, String> params = new HashMap<String, String>();
+                queue.start();
+                params.put("_id", facilityId);
+                params.put("type", String.valueOf(facilityType));
+                params.put("username", userEmail);
+                params.put("rate", String.valueOf(rate));
+                params.put("comment", comment);
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"google_sign_up", new JSONObject(params),
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                                System.out.println("response is: "+response.toString());
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                System.out.println("onErrorResponse" + "Error: " + error.getMessage());
+                            }
+                        });
+                queue.add(request);
                 finish();
             }
         });
