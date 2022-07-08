@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
-        db = new DatabaseConnection();
-        db.cleanCaches(getApplicationContext());
+//        db = new DatabaseConnection();
+//        db.cleanCaches(getApplicationContext());
         //db.getFacilities(binding, 0, 1, getApplicationContext(), false, false, "");
         //db.getFacilities(binding, 1, 1, getApplicationContext(), false, false, "");
         //db.getFacilities(binding, 2, 1, getApplicationContext(), false, false, "");

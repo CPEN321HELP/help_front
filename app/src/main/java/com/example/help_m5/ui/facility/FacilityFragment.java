@@ -80,7 +80,7 @@ public class FacilityFragment extends Fragment {
     private boolean reached_end_newest = false;
     private boolean reached_end_search = false, one_page = false;
 
-    private static String[] countryNames={"Posts","Restaurants","Study","Play"};
+    private static String[] countryNames={"Posts","Eat","Study","Play"};
     private static int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
     private int facility_type = posts;
@@ -496,7 +496,7 @@ public class FacilityFragment extends Fragment {
         switch (selected){
             case "Play":
                 return entertainments;
-            case "Restaurants":
+            case "Eat":
                 return restaurants;
             case "Study":
                 return study;
