@@ -85,4 +85,6 @@
 <!--        <item>Posts</item>-->
 <!--    </string-array>-->
 
+    <string name="msg_token_fmt">Notification</string>
+
 </resources>

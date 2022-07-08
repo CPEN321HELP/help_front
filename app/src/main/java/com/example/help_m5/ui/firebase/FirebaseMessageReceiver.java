@@ -38,6 +38,10 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
 
     }
 
+    private void sendRegistrationToServer(String token) {
+
+    }
+
 //    @Override
 //    public void onMessageReceived(RemoteMessage remoteMessage) {
 //        super.onMessageReceived(remoteMessage);
