@@ -59,7 +59,6 @@ public class AddFacilityFragment extends Fragment {
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         DBconnection = new DatabaseConnection();
-        switchMode();
 
         newFacilityTitle = binding.newFacilityTitle;
         newFacilityTitle.setHint("please enter a title");
@@ -271,16 +270,6 @@ public class AddFacilityFragment extends Fragment {
             ex.printStackTrace();
         }
         return p1;
-    }
-
-    public void switchMode(){
-        Calendar calendar = Calendar.getInstance();
-        int hour24hrs = calendar.get(Calendar.HOUR_OF_DAY);
-        if(hour24hrs>=21 || hour24hrs <=7){
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
     }
 
     private String getString(String selected){
