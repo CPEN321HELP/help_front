@@ -67,14 +67,14 @@ public class RateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(RateActivity.this);
-                HashMap<String, String> params = new HashMap<String, String>();
                 queue.start();
-                params.put("_id", facilityId);
-                params.put("type", String.valueOf(facilityType));
-                params.put("username", userEmail);
-                params.put("rate", String.valueOf(rate));
-                params.put("comment", comment);
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"google_sign_up", new JSONObject(params),
+
+                HashMap<String, String> paramsRate = new HashMap<String, String>();
+                paramsRate.put("_id", userEmail);
+                paramsRate.put("rateScore", String.valueOf(rate));
+                paramsRate.put("facility_type", String.valueOf(facilityType));
+                paramsRate.put("facility_id", facilityId);
+                JsonObjectRequest requestRate = new JsonObjectRequest(Request.Method.POST, vm_ip+"/user/RateFacility", new JSONObject(paramsRate),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -88,7 +88,28 @@ public class RateActivity extends AppCompatActivity {
                                 System.out.println("onErrorResponse" + "Error: " + error.getMessage());
                             }
                         });
-                queue.add(request);
+                queue.add(requestRate);
+
+                HashMap<String, String> paramsComment = new HashMap<String, String>();
+                paramsRate.put("facilityType", String.valueOf(facilityType));
+                paramsRate.put("facility_id", facilityId);
+                paramsRate.put("user_id", userEmail);
+                paramsRate.put("replyContent", String.valueOf(rate));
+                JsonObjectRequest requestComment = new JsonObjectRequest(Request.Method.POST, vm_ip+"/comment/add", new JSONObject(paramsComment),
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                                System.out.println("response is: "+response.toString());
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                System.out.println("onErrorResponse" + "Error: " + error.getMessage());
+                            }
+                        });
+                queue.add(requestComment);
                 finish();
             }
         });
