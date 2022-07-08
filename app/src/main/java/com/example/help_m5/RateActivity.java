@@ -2,6 +2,7 @@ package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,7 @@ public class RateActivity extends AppCompatActivity {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
                 submitButton.setEnabled(true);
+                submitButton.setTextColor(Color.parseColor("#dbba00"));
                 rate = ratingBar.getRating();
             }
         });

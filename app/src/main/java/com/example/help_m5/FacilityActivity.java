@@ -78,7 +78,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             JSONObject facility = new JSONObject(facilityInfo);
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD");
             image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
             System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
             rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
@@ -126,8 +125,12 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent modelIntent = new Intent(FacilityActivity.this, RateActivity.class);
-                startActivity(modelIntent);
+                Intent rateIntent = new Intent(FacilityActivity.this, RateActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("facility_id", facilityId);
+                bundle.putInt("facility_type", type);
+                rateIntent.putExtras(bundle);
+                startActivity(rateIntent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });

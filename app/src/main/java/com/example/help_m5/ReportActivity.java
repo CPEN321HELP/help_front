@@ -2,7 +2,12 @@ package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -34,9 +39,26 @@ public class ReportActivity extends AppCompatActivity {
         userEmail = account.getEmail();
 
         EditText editText = findViewById(R.id.editTextReport);
-        comment = editText.getText().toString();
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d(TAG, "Need to include a message");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                submitButton.setEnabled(true);
+                submitButton.setTextColor(Color.parseColor("#dbba00"));
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                comment = editText.getText().toString();
+            }
+        });
 
         submitButton = findViewById(R.id.submit_button_report);
+        submitButton.setEnabled(false);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
