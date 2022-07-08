@@ -2,12 +2,18 @@ package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -43,7 +49,7 @@ public class RateActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
-        facilityType = Integer.parseInt(bundle.getString("facility_type"));
+        facilityType = bundle.getInt("facility_type");
 
         userAccount = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = userAccount.getEmail();
@@ -59,7 +65,24 @@ public class RateActivity extends AppCompatActivity {
         });
 
         EditText editText = findViewById(R.id.editTextTextMultiLine);
-        comment = editText.getText().toString();
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                Log.d(TAG, "Need to include a message");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                submitButton.setEnabled(true);
+                submitButton.setTextColor(Color.parseColor("#dbba00"));
+                comment = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                comment = s.toString();
+            }
+        });
 
         submitButton = findViewById(R.id.submit_button);
         submitButton.setEnabled(false);
@@ -68,13 +91,13 @@ public class RateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(RateActivity.this);
                 queue.start();
-
+/*
                 HashMap<String, String> paramsRate = new HashMap<String, String>();
                 paramsRate.put("_id", userEmail);
                 paramsRate.put("rateScore", String.valueOf(rate));
                 paramsRate.put("facility_type", String.valueOf(facilityType));
                 paramsRate.put("facility_id", facilityId);
-                JsonObjectRequest requestRate = new JsonObjectRequest(Request.Method.POST, vm_ip+"/user/RateFacility", new JSONObject(paramsRate),
+                JsonObjectRequest requestRate = new JsonObjectRequest(Request.Method.POST, vm_ip+"user/RateFacility", new JSONObject(paramsRate),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -90,12 +113,14 @@ public class RateActivity extends AppCompatActivity {
                         });
                 queue.add(requestRate);
 
+ */
+
                 HashMap<String, String> paramsComment = new HashMap<String, String>();
-                paramsRate.put("facilityType", String.valueOf(facilityType));
-                paramsRate.put("facility_id", facilityId);
-                paramsRate.put("user_id", userEmail);
-                paramsRate.put("replyContent", String.valueOf(rate));
-                JsonObjectRequest requestComment = new JsonObjectRequest(Request.Method.POST, vm_ip+"/comment/add", new JSONObject(paramsComment),
+                paramsComment.put("facilityType", String.valueOf(facilityType));
+                paramsComment.put("facility_id", facilityId);
+                paramsComment.put("user_id", userEmail);
+                paramsComment.put("replyContent", comment);
+                JsonObjectRequest requestComment = new JsonObjectRequest(Request.Method.PUT, vm_ip+"comment/add", new JSONObject(paramsComment),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -110,7 +135,12 @@ public class RateActivity extends AppCompatActivity {
                             }
                         });
                 queue.add(requestComment);
-                finish();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        finish();
+                    }
+                }, 1000);
             }
         });
 

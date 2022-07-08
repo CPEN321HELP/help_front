@@ -101,7 +101,7 @@ public class DatabaseConnection {
         String url = vm_ip + "creditHandling/normal";
         params.put("upUserId", user_id);
         Log.d(TAG, params.toString());
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "response is: " + response.toString());

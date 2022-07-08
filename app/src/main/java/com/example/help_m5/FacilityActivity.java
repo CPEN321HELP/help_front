@@ -63,6 +63,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private final int UPVOTE_TEXTVIEW_BASE_ID = 30000000;
     private final int DOWNVOTE_TEXTVIEW_BASE_ID = 40000000;
     private final int REPORT_BUTTON_BASE_ID = 50000000;
+    private final int POST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +81,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             JSONObject facility = new JSONObject(facilityInfo);
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-            image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
-            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
+            //image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+            //System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
             rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
             numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
             latitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("latitude"));
@@ -93,10 +94,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 String userName = (String) jsonobject.getString("username");
                 String userEmail = (String) jsonobject.getString("useremail");
                 double userRate = (double) jsonobject.getDouble("rate");
-                int downvote = (int) jsonobject.getInt("downvote");
-                int upvote =  (int) jsonobject.getInt("upvote");;
-                String comment = (String) jsonobject.getString("comment");
-                String time = (String) jsonobject.getString("time");
+                int downvote = (int) jsonobject.getInt("numberOfDownvote");
+                int upvote =  (int) jsonobject.getInt("numberOfUpvote");;
+                String comment = (String) jsonobject.getString("replyContent");
+                String time = (String) jsonobject.getString("timeOfReply");
                 createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote);
             }
         } catch (JSONException e) {
@@ -112,6 +113,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityDescription.setText(description);
 
         // Facility Image
+        image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
         Uri uriImage = Uri.parse(image);
         Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
 
@@ -148,6 +150,24 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+        if (type == POST) {
+            LinearLayout.LayoutParams widthParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            marginParams.setMargins(0, 5, 0, 0);
+            facilityTitle.setLayoutParams(widthParams);
+            facilityRate.setVisibility(View.GONE);
+            rateButton.setVisibility(View.GONE);
+            ratingBar.setVisibility(View.GONE);
+            facilityNumReviews.setTextSize(dpToPx(7f));
+            facilityNumReviews.setLayoutParams(marginParams);
+            facilityNumReviews.setGravity(Gravity.CENTER);
+            LinearLayout mapLayout = (LinearLayout) findViewById(R.id.facilityMap);
+            mapLayout.setVisibility(View.GONE);
+            TextView comments = (TextView) findViewById(R.id.facilityReviewsTitle);
+            comments.setText("Comments");
+
+        }
 
         /*
         float userRate = (float) 2.3;
