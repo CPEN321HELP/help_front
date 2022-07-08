@@ -117,15 +117,6 @@ public class FacilityFragment extends Fragment {
         spin.setAdapter(customAdapter);
 
         //load initial page
-        DBconnection = new DatabaseConnection();
-        DBconnection.cleanCaches(getContext());
-        int result = -1;
-        result =  DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
-        Log.d(TAG, "initial result is : " + result);
-        if (result == server_error){
-            Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
-            return root;
-        }
 
         //set up search function
         facilitySearchView = binding.searchFacility;
