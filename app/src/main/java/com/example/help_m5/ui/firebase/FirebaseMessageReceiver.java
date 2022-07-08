@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.example.help_m5.R;
 import com.example.help_m5.ui.home.HomeFragment;
@@ -24,31 +25,38 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 public class FirebaseMessageReceiver extends FirebaseMessagingService {
-
-    private static final String TAG = "FirebaseMessageReceiver";
-
-    /**
-     * There are two scenarios when onNewToken is called:
-     * 1) When a new token is generated on initial app startup
-     * 2) Whenever an existing token is changed
-     * Under #2, there are three scenarios when the existing token is changed:
-     * A) App is restored to a new device
-     * B) User uninstalls/reinstalls the app
-     * C) User clears app data
-     */
+    final String TAG = "FirebaseMessageReceiver";
     @Override
     public void onNewToken(@NonNull String token) {
+
         Log.d(TAG, "Refreshed token: " + token);
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // FCM registration token to your app server.
-        sendRegistrationToServer(token);
+//        sendRegistrationToServer(token);
+
     }
 
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to your app server.
+
     }
+
+//    @Override
+//    public void onMessageReceived(RemoteMessage remoteMessage) {
+//        super.onMessageReceived(remoteMessage);
+//        notify(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+//    }
+//
+//    public void notify(String title, String message) {
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "notification_channel")
+//                .setSmallIcon(R.drawable.ic_launcher_background)
+//                .setContentTitle(title)
+//                .setContentText(message)
+//                .setAutoCancel(true);
+//        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+//        managerCompat.notify(123, builder.build());
+//    }
 
     // Override onMessageReceived() method to extract the
     // title and
