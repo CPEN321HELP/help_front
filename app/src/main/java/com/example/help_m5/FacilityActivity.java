@@ -67,8 +67,16 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
         type = Integer.parseInt(bundle.getString("facility_type"));
+        title = bundle.getString("facility_title");
+        //description = bundle.getString("facility_description", description);
+        //image = bundle.getString("facility_image");
+        //rate = bundle.getDouble("facility_rate");
+        //numReviews = bundle.getInt("facility_numReviews");
+        //latitude = bundle.getDouble("facility_latitude");
+        //longitude = bundle.getDouble("facility_longitude");
 
         // Get data from database
+        /*
         DBconnection = new DatabaseConnection();
         DBconnection.getSpecificFacility(type, facilityId, FacilityActivity.this);
         String facilityInfo = DBconnection.readFromJson(FacilityActivity.this, "specific_facility.json");
@@ -87,6 +95,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        */
 
         // Facility Title
         TextView facilityTitle = findViewById(R.id.facilityTitle);

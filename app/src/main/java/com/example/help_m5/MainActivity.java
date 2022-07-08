@@ -30,12 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
         db = new DatabaseConnection();
         db.cleanCaches(getApplicationContext());
-        db.getFacilities(binding, 0, 1, getApplicationContext(), false, false, "");
-        db.getFacilities(binding, 1, 1, getApplicationContext(), false, false, "");
-        db.getFacilities(binding, 2, 1, getApplicationContext(), false, false, "");
-        db.getFacilities(binding, 3, 1, getApplicationContext(), false, false, "");
-        db.getFacilities(binding, 5, 1, getApplicationContext(), false, true, "");
-        db.getFacilities(binding, 6, 1, getApplicationContext(), false, true, "");
+        //db.getFacilities(binding, 0, 1, getApplicationContext(), false, false, "");
+        //db.getFacilities(binding, 1, 1, getApplicationContext(), false, false, "");
+        //db.getFacilities(binding, 2, 1, getApplicationContext(), false, false, "");
+        //db.getFacilities(binding, 3, 1, getApplicationContext(), false, false, "");
+        //db.getFacilities(binding, 5, 1, getApplicationContext(), false, true, "");
+        //db.getFacilities(binding, 6, 1, getApplicationContext(), false, true, "");
 
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
