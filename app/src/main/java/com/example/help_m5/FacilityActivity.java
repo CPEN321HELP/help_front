@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.util.TypedValue;
@@ -22,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -65,21 +67,11 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
 
+        // Get data from database
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
         type = Integer.parseInt(bundle.getString("facility_type"));
-        title = bundle.getString("facility_title");
-        description = bundle.getString("facility_description", description);
-        image = bundle.getString("facility_image");
-        rate = bundle.getDouble("facility_rate");
-        numReviews = bundle.getInt("facility_numReviews");
-        latitude = bundle.getDouble("facility_latitude");
-        longitude = bundle.getDouble("facility_longitude");
-
-        // Get data from database
-        /*
         DBconnection = new DatabaseConnection();
-        DBconnection.getSpecificFacility(type, facilityId, FacilityActivity.this);
         String facilityInfo = DBconnection.readFromJson(FacilityActivity.this, "specific_facility.json");
 
         try {
@@ -96,7 +88,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        */
 
         // Facility Title
         TextView facilityTitle = findViewById(R.id.facilityTitle);
@@ -127,7 +118,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         // Google Maps Location
         mapView = findViewById(R.id.mapView);
-        mapView.getMapAsync(this);
+        mapView.getMapAsync(FacilityActivity.this);
         mapView.onCreate(savedInstanceState);
 
         // Rate Button
@@ -159,12 +150,12 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         for (int i = 1; i < id; i++) {
             CheckBox checkUpvote = (CheckBox) findViewById(UPVOTE_BASE_ID + i);
-            boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(this)
+            boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
                     .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + i), false);
             checkUpvote.setChecked(checkedUp);
 
             CheckBox checkDownvote = (CheckBox) findViewById(DOWNVOTE_BASE_ID + i);
-            boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(this)
+            boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
                     .getBoolean("downVote"+String.valueOf(DOWNVOTE_BASE_ID + i), false);
             checkDownvote.setChecked(checkedDown);
         }
