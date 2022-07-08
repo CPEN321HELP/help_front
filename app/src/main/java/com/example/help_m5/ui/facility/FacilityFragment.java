@@ -2,14 +2,11 @@ package com.example.help_m5.ui.facility;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -23,13 +20,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.help_m5.CustomAdapter;
-import com.example.help_m5.DatabaseConnection;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.FacilityActivity;
-import com.example.help_m5.LoginActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentFacilityBinding;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
@@ -73,7 +67,7 @@ public class FacilityFragment extends Fragment {
     private int search_page_number = 1;
     private int newest_page_number = 1;
     private boolean reached_end_newest = false;
-    private boolean reached_end_search = false;
+    private boolean reached_end_search = false, one_page = false;
 
     private static String[] countryNames={"Posts","Restaurants","Study","Play"};
     private static int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
@@ -84,6 +78,8 @@ public class FacilityFragment extends Fragment {
 
         binding = FragmentFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        DBconnection = new DatabaseConnection();
+        DBconnection.cleanCaches(getContext());
 
         switchMode();
 
@@ -100,6 +96,7 @@ public class FacilityFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 search_page_number = 1;
                 newest_page_number = 1;
+                one_page = false;
                 facility_type = getTypeInt(countryNames[position]);
                 setFacilitiesVisibility(View.INVISIBLE);
                 Log.d(TAG, "facility_type in onItemSelected"+facility_type);
@@ -108,6 +105,8 @@ public class FacilityFragment extends Fragment {
                 Log.d(TAG, "initial result is : " + result);
                 if (result == server_error){
                     Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
+                }else if (result == only_one_page || result == reached_end){
+                    one_page = true;
                 }
             }
             @Override
@@ -138,6 +137,7 @@ public class FacilityFragment extends Fragment {
                 close_or_refresh.setImageResource(R.drawable.ic_baseline_close_24);
                 Log.d(TAG, "searching: " + query);
                 onSearch = true;
+                one_page = false;
                 int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), true, false, query);
                 if (result == normal_local_load) {
                     Log.d(TAG, "Load data from local device");
@@ -151,6 +151,8 @@ public class FacilityFragment extends Fragment {
                     Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
                 } else if (result == reached_end) {
                     Log.d(TAG, "load finished");
+                } else if (result == only_one_page){
+                    one_page = true;
                 }
                 search_page_number = 1;
                 return false;
@@ -158,7 +160,6 @@ public class FacilityFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                onSearch = false;
                 return false;
             }
         });
@@ -311,18 +312,17 @@ public class FacilityFragment extends Fragment {
             public void onClick(View v) {
                 DBconnection.cleanCaches(getContext());
                 search_page_number = 1;
-
+                one_page = false;
                 setFacilitiesVisibility(View.INVISIBLE);
                 if(onSearch){
                     onSearch = false;
-                    int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
                     close_or_refresh.setImageResource(R.drawable.ic_baseline_refresh_24);
                     facilitySearchView.setQuery("", false);
                     facilitySearchView.clearFocus();
-
-                } else {
-                    int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, false, "");
-
+                }
+                int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
+                if(result == only_one_page || result == reached_end){
+                    one_page = true;
                 }
             }
         });
@@ -331,7 +331,8 @@ public class FacilityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (onSearch) {
-                    if (search_page_number == 1) {
+                    if (search_page_number == 1 || one_page) {
+                        reached_end_search = false;
                         Toast.makeText(getContext(), "You are already on first page", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -346,12 +347,13 @@ public class FacilityFragment extends Fragment {
                         search_page_number = 1;
                         Log.d(TAG, "down page load all");
                     } else if(result == only_one_page ){
-                        //TODO
+                        one_page = true;
                     }
                     Log.d(TAG, "1 result is :" + result);
                     Log.d(TAG, "1 search_page_number is :" + search_page_number);
                 } else {
-                    if (newest_page_number == 1) {
+                    if (newest_page_number == 1 || one_page) {
+                        reached_end_newest = false;
                         Toast.makeText(getContext(), "You are already on first page", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -366,7 +368,7 @@ public class FacilityFragment extends Fragment {
                         newest_page_number = 1;
                         Log.d(TAG, "down page load all");
                     } else if(result == only_one_page ){
-                        //TODO
+                        one_page = true;
                     }
                     Log.d(TAG, "1 result is :" + result);
                     Log.d(TAG, "1 newest_page_number is :" + newest_page_number);
@@ -378,6 +380,13 @@ public class FacilityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (onSearch) {
+                    if (one_page) {
+                        search_page_number = 1;
+                        DBconnection.getFacilities(binding, facility_type, 1, getContext(), true, false, "");
+                        Toast.makeText(getContext(), "No more facility to show", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if (reached_end_search) {
                         reached_end_search = false;
                         search_page_number = 1;
@@ -392,13 +401,19 @@ public class FacilityFragment extends Fragment {
                     } else if (result == reached_end) {
                         reached_end_search = true;
                     } else if(result == only_one_page ){
-                        //TODO
+                        one_page = true;
                     }
                     Log.d(TAG, "2 result is :" + result);
                     Log.d(TAG, "2 search_page_number is :" + search_page_number);
                     Log.d(TAG, "2 reached_end_search is :" + reached_end_search);
-
                 } else {
+                    if (one_page) {
+                        newest_page_number = 1;
+                        DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, false, "");
+                        Toast.makeText(getContext(), "No more facility to show", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if (reached_end_newest) {
                         reached_end_newest = false;
                         newest_page_number = 1;
@@ -413,7 +428,7 @@ public class FacilityFragment extends Fragment {
                     } else if (result == reached_end) {
                         reached_end_newest = true;
                     }else if(result == only_one_page ){
-                        //TODO
+                        one_page = true;
                     }
                     Log.d(TAG, "2 result is :" + result);
                     Log.d(TAG, "2 newest_page_number is :" + newest_page_number);

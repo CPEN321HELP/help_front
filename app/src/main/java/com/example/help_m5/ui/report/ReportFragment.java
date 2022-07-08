@@ -2,14 +2,10 @@ package com.example.help_m5.ui.report;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.ViewModelProvider;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -23,7 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.help_m5.CustomAdapter;
-import com.example.help_m5.DatabaseConnection;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentReportBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -74,6 +70,8 @@ public class ReportFragment extends Fragment {
 
         binding = FragmentReportBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        DBconnection = new DatabaseConnection();
+        DBconnection.cleanCaches(getContext());
 
         switchMode();
 
@@ -89,6 +87,7 @@ public class ReportFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 newest_page_number = 1;
+                one_page = false;
                 facility_type = getTypeInt(countryNames[position]);
                 setFacilitiesVisibility(View.INVISIBLE);
                 Log.d(TAG, "facility_type in onItemSelected"+facility_type);
@@ -97,6 +96,8 @@ public class ReportFragment extends Fragment {
                 Log.d(TAG, "initial result is : " + result);
                 if (result == server_error){
                     Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
+                }else if (result == only_one_page || result == reached_end){
+                    one_page = true;
                 }
             }
             @Override
@@ -107,18 +108,6 @@ public class ReportFragment extends Fragment {
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
         spin.setAdapter(customAdapter);
 
-        //load initial page
-        DBconnection = new DatabaseConnection();
-//        DBconnection.cleanCaches(getContext());
-        int result =  DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, true, "");
-        Log.d(TAG, "initial result is : " + result);
-        if (result == server_error){
-            Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
-            return root;
-        }else if (result == only_one_page || result == reached_end){
-            one_page = true;
-        }
-        Log.d(TAG, "result " + result);
         initFavMenu();
         setConsOnCl();
         return root;
@@ -233,7 +222,7 @@ public class ReportFragment extends Fragment {
                     newest_page_number = 1;
                     Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "down page Error happened when loading data, please exist");
-                } else if(result == only_one_page ){
+                } else if(result == only_one_page || result == reached_end){
                     one_page = true;
                 }
             }
@@ -243,10 +232,10 @@ public class ReportFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (newest_page_number == 1 || one_page) {
+                    reached_end_newest = false;
                     Toast.makeText(getContext(), "You are already on first page", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!one_page){reached_end_newest = false;}
                 setFacilitiesVisibility(View.INVISIBLE);
                 newest_page_number -= 1;
                 int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, true, "");
@@ -272,6 +261,8 @@ public class ReportFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (one_page) {
+                    newest_page_number = 1;
+                    DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, true, "");
                     Toast.makeText(getContext(), "No more facility to show", Toast.LENGTH_SHORT).show();
                     return;
                 }

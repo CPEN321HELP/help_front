@@ -1,19 +1,11 @@
-package com.example.help_m5;
+package com.example.help_m5.ui.database;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.help_m5.databinding.FragmentFacilityBinding;
 import com.example.help_m5.databinding.FragmentReportBinding;
 
@@ -21,6 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+<<<<<<< HEAD:app/src/main/java/com/example/help_m5/DatabaseConnection.java
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -250,6 +243,9 @@ public class DatabaseConnection {
             return status_getFacilities;
         }
     }
+=======
+public class LoadToScreen {
+>>>>>>> 15f506773640334d9da28a9455cee8a44b7ad4f5:app/src/main/java/com/example/help_m5/ui/database/LoadToScreen.java
 
     /**
      * @param binding       : a subclass of databinding, used to find TextView, Ratingbar
@@ -259,7 +255,7 @@ public class DatabaseConnection {
      * @return 0 execute as expected, 1 errer when reading json
      * @Pupose : to load the content from server our cached file to screen for user to view
      */
-    private int loadToScreen(Object binding, int facility_type, int page_number, JSONObject data, boolean isReport) {
+    public int loadToScreen(Object binding, int facility_type, int page_number, JSONObject data, boolean isReport) {
         try {
             int length = data.getInt("length");
             int start = (page_number - 1) * 5;
@@ -271,22 +267,17 @@ public class DatabaseConnection {
                 loadToFragment(binding, facility_type, array.getJSONArray(index), counter, isReport);
                 counter++;
             }
+            if(length<=5){
+                return 2;
+            }else if (end == length) {
+                return 1;
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
             return 1;
         }
         return 0;
-    }
-
-    /**
-     * @param applicationContext : Central interface to provide configuration for an application.
-     * @param fileName           :
-     * @return true, if file is cached; false otherwise
-     * @Pupose : to check if file is cached in internal storage, this method is used only by searchFacilities()
-     */
-    private boolean isCached(Context applicationContext, String fileName) {
-        File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
-        return f.exists() && !f.isDirectory();
     }
 
     /**
@@ -314,118 +305,6 @@ public class DatabaseConnection {
                 load_facility5(binding, facility_type, facility_info, isReport);
                 break;
         }
-    }
-
-    /**
-     * @param applicationContext : Central interface to provide configuration for an application.
-     * @param response           : response from server
-     * @return 0 if cached successfully; 1, if File Already Exists; 2 if IOException.
-     * @Pupose write json response from server to a file
-     */
-    public int writeToJson(Context applicationContext, JSONObject response, String fileName) {
-        try {
-            File file = new File(applicationContext.getFilesDir(), fileName);
-            FileOutputStream writer = new FileOutputStream(file);
-            writer.write(response.toString().getBytes());
-            writer.close();
-            Log.d(TAG, "write to file" + fileName + " path is: " + file.getCanonicalPath());
-        } catch (FileAlreadyExistsException e) {
-            e.printStackTrace();
-            return 1;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return 2;
-        }
-        return 0;
-    }
-
-    /**
-     * @param applicationContext : Central interface to provide configuration for an application.
-     * @param fileName           : file name to be read
-     * @return String of corrsponding file; "1" if FileNotFoundException; "2" if IOException
-     * @Pupose read json response from file
-     */
-    public String readFromJson(Context applicationContext, String fileName) {
-        try {
-            File file = new File(applicationContext.getFilesDir(), fileName);
-            FileReader fileReader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            StringBuilder stringBuilder = new StringBuilder();
-            String line = bufferedReader.readLine();
-            while (line != null) {
-                stringBuilder.append(line).append("\n");
-                line = bufferedReader.readLine();
-            }
-            bufferedReader.close();
-            // This responce will have Json Format String
-            return stringBuilder.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return "1";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "2";
-        }
-    }
-
-    /**
-     * @param applicationContext : Central interface to provide configuration for an application.
-     * @Pupose clean all files stored in /data/data/com.example.help_m5/files/
-     */
-    public void cleanCaches(Context applicationContext){
-        if( applicationContext == null){
-            Log.d(TAG, "applicationContext Null");
-            return;
-        }
-        File targetDir = applicationContext.getFilesDir();
-        if( targetDir == null){
-            Log.d(TAG, "error cleaning");
-            return;
-        }
-        if(targetDir.isDirectory()){
-            Log.d(TAG, "start cleaning");
-        }
-        File[] files = targetDir.listFiles();
-        if( files == null){
-            Log.d(TAG, "dir empty, nothing to clean");
-            return;
-        }
-        for(File f : files){
-            f.delete();
-        }
-    }
-    /**
-     * @param facility_type : int representing the type of facility calling this function
-     * @return String of facility type
-     * @Pupose take int facility_type and return string of facility_type
-     */
-    private String getStringType(int facility_type) {
-        String facilityToFetch = "";
-        switch (facility_type) {
-            case posts:
-                facilityToFetch = "posts";
-                break;
-            case study:
-                facilityToFetch = "study";
-                break;
-            case entertainments:
-                facilityToFetch = "entertainments";
-                break;
-            case restaurants:
-                facilityToFetch = "restaurants";
-                break;
-            case report_user: //need ?
-                facilityToFetch = "user";
-                break;
-            case report_facility:
-                facilityToFetch = "facility";
-                break;
-            case report_comment:
-                facilityToFetch = "comment";
-
-                break;
-        }
-        return facilityToFetch;
     }
 
     /**
