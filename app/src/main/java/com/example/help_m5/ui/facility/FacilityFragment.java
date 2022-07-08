@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,16 @@ public class FacilityFragment extends Fragment {
     static final int server_error = 3;
     static final int local_error = 4;
     static final int only_one_page = 5;
+
+    private String facilityInfo;
+    String facility_id = "";
+    String title = "";
+    String description = "";
+    String image = "";
+    double rate = 0.0;
+    int numReviews = 0;
+    double latitude = 0.0;
+    double longitude = 0.0;
 
     static final String TAG = "EntertainmentsFragment";
 
@@ -228,14 +239,6 @@ public class FacilityFragment extends Fragment {
     }
 
     private void ConstraintLayoutOnClickListener(int which){
-        String facility_id = "";
-        String title = "";
-        String description = "";
-        String image = "";
-        double rate = 0.0;
-        int numReviews = 0;
-        double latitude = 0.0;
-        double longitude = 0.0;
 
         switch (which){
             case 1:
@@ -256,40 +259,47 @@ public class FacilityFragment extends Fragment {
         }
 
         int result = DBconnection.getSpecificFacility(facility_type, facility_id, getContext());
-        String facilityInfo = DBconnection.readFromJson(getContext(), "specific_facility.json");
-        try {
-            JSONObject facility = new JSONObject(facilityInfo);
-            title = (String) facility.getJSONObject("facility").getString("facilityTitle");
-            description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-            image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
-            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
-            rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
-            numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
-            latitude = Double.parseDouble((String) facility.getJSONObject("facility").getJSONObject("location").getString("latitude"));
-            longitude = Double.parseDouble((String) facility.getJSONObject("facility").getJSONObject("location").getString("longtidue"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // Actions to do after 5 seconds
+                facilityInfo = DBconnection.readFromJson(getContext(), "specific_facility.json");
+                try {
+                    JSONObject facility = new JSONObject(facilityInfo);
+                    title = (String) facility.getJSONObject("facility").getString("facilityTitle");
+                    description = (String) facility.getJSONObject("facility").getString("facilityDescription");
+                    image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+                    System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
+                    rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
+                    numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
+                    latitude = Double.parseDouble((String) facility.getJSONObject("facility").getJSONObject("location").getString("latitude"));
+                    longitude = Double.parseDouble((String) facility.getJSONObject("facility").getJSONObject("location").getString("longtidue"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-        if(result == server_error){
-            Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
-            return;
-        } else {
-            Toast.makeText(getActivity(), "opening "+which, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(getActivity(), FacilityActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("facility_type", String.valueOf(facility_type));
-            bundle.putString("facility_id", facility_id);
-            bundle.putString("facility_title", title);
-            bundle.putString("facility_description", description);
-            bundle.putString("facility_image", image);
-            bundle.putDouble("facility_rate", rate);
-            bundle.putInt("facility_numReviews", numReviews);
-            bundle.putDouble("facility_latitude", latitude);
-            bundle.putDouble("facility_longitude", longitude);
-            intent.putExtras(bundle);
-            startActivity(intent);
-        }
+                if(result == server_error){
+                    Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    Toast.makeText(getActivity(), "opening "+which, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), FacilityActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("facility_type", String.valueOf(facility_type));
+                    bundle.putString("facility_id", facility_id);
+                    bundle.putString("facility_title", title);
+                    bundle.putString("facility_description", description);
+                    bundle.putString("facility_image", image);
+                    bundle.putDouble("facility_rate", rate);
+                    bundle.putInt("facility_numReviews", numReviews);
+                    bundle.putDouble("facility_latitude", latitude);
+                    bundle.putDouble("facility_longitude", longitude);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            }
+        }, 200);
+
 
     }
 
