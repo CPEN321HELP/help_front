@@ -1,9 +1,14 @@
 package com.example.help_m5;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -15,14 +20,17 @@ import androidx.preference.PreferenceManager;
 
 import com.example.help_m5.databinding.ActivityMainBinding;
 import com.example.help_m5.ui.database.DatabaseConnection;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     private DatabaseConnection db;
-
+    private String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,28 @@ public class MainActivity extends AppCompatActivity {
 
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_report).setVisible(false);
+
+        NotificationChannel channel = new NotificationChannel("notification_channel", "notification_channel", NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(channel);
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                    return;
+                }
+
+                // Get new FCM registration token
+                String token = task.getResult();
+                DatabaseConnection DBconnection = new DatabaseConnection();
+                DBconnection.sendToken(getApplicationContext(),token);
+                // Log and toast
+                Log.d(TAG, token);
+                Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 //        Bundle bundle = getIntent().getExtras();
 //        String userName = bundle.getString("user_name");

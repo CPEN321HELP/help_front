@@ -59,6 +59,28 @@ public class DatabaseConnection {
 
     int status_add_facility = normal_server_load;
 
+    public void sendToken(Context applicationContext, String token){
+        String url = vm_ip + "sendToDevice";
+        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+        HashMap<String, String> params = new HashMap<String, String>();
+        queue.start();
+        params.put("token", token);
+
+        Log.d(TAG, params.toString());
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "response is: " + response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "ERROR when connecting to database getSpecificFacility");
+            }
+        });
+        queue.add(jsObjRequest);
+    }
+
     public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String email){
         String url = vm_ip + "addFacility";
         Log.d(TAG, url);
