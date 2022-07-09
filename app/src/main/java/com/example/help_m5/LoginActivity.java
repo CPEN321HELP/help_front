@@ -34,6 +34,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -56,57 +58,70 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        Bundle bundle = getIntent().getExtras();
-        if(bundle !=null){
-            String is = bundle.getString("logout");
-            if(is != null){
-                signOut();
-            }
-        }
-
         db = new DatabaseConnection();
+
+        // Enable verbose OneSignal logging to debug issues if needed.
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+        // OneSignal Initialization
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
+        OneSignal.setNotificationOpenedHandler(
+                new OneSignal.OSNotificationOpenedHandler() {
+                    @Override
+                    public void notificationOpened(OSNotificationOpenedResult result) {
+                        OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
+                        String message = result.getNotification().getBody();
+                        Pattern p = Pattern.compile("\\d+");
+                        Matcher m = p.matcher(message);
+                        Log.d(TAG, "message is: " + message);
+
+                        if(m.find()) {
+                            String facility_id = m.group(0);
+                            Log.d(TAG, "facility_id is: " + facility_id);
+                            int err = db.getSpecificFacility(0, facility_id, getApplicationContext());
+                            if (err != 0 || err !=1){ //normal_local_load || normal_server_load
+                                Toast.makeText(getApplicationContext(), "Error when opening posts, please report", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                public void run() {
+                                    Intent intent = new Intent(LoginActivity.this, FacilityActivity.class);
+                                    startActivity(intent);
+                                }
+                            }, 300);
+                        }else {
+                            Toast.makeText(getApplicationContext(), "Error when opening posts, please report", Toast.LENGTH_LONG).show();
+                        }
+
+                    }
+                });
+
+        // Configure sign-in to request the user's ID, email address, and basic
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         if(db.isCached(getApplicationContext(), userInfo)){
             //user has already login in
             Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(MainIntent);
-        }else{
-            // Enable verbose OneSignal logging to debug issues if needed.
-            OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
-            // OneSignal Initialization
-            OneSignal.initWithContext(this);
-            OneSignal.setAppId(ONESIGNAL_APP_ID);
-            OneSignal.setNotificationOpenedHandler(
-                    new OneSignal.OSNotificationOpenedHandler() {
-                        @Override
-                        public void notificationOpened(OSNotificationOpenedResult result) {
-                            String actionId = result.getAction().getActionId();
-                            OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
-                            String title = result.getNotification().getTitle();
-                            String message = result.getNotification().getBody();
-                            Intent intent = new Intent(LoginActivity.this, FacilityActivity.class);
-                            startActivity(intent);
-                        }
-                    });
-
-            // Configure sign-in to request the user's ID, email address, and basic
-            // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestEmail()
-                    .build();
-
-            // Build a GoogleSignInClient with the options specified by gso.
-            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-            // Google Sign In Button
-            signInButton = findViewById(R.id.sign_in_button);
-            setButtonText(signInButton, "Sign in with Google");
-            signInButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    signIn();
-                }
-            });
         }
+
+        // Google Sign In Button
+        signInButton = findViewById(R.id.sign_in_button);
+        setButtonText(signInButton, "Sign in with Google");
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn();
+            }
+        });
+
     }
 
     private void signIn() {
