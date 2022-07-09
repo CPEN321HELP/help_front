@@ -80,6 +80,7 @@ public class FacilityFragment extends Fragment {
         binding = FragmentFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         DBconnection = new DatabaseConnection();
+        DBconnection.cleanCaches(getContext());
         shows1 = binding.facility1;
         shows2 = binding.facility2;
         shows3 = binding.facility3;
