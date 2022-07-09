@@ -81,8 +81,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             JSONObject facility = new JSONObject(facilityInfo);
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-            //image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
-            //System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
+            image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
             rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
             numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
             latitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("latitude"));
@@ -113,7 +113,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityDescription.setText(description);
 
         // Facility Image
-        image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
+        //image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
         Uri uriImage = Uri.parse(image);
         Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
 
@@ -166,7 +166,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             mapLayout.setVisibility(View.GONE);
             TextView comments = (TextView) findViewById(R.id.facilityReviewsTitle);
             comments.setText("Comments");
-
         }
 
         /*

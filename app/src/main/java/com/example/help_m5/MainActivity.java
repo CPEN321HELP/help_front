@@ -87,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
+        OneSignal.setExternalUserId("PETER");
+        OneSignal.setEmail("lufei8351@gmail.com");
 
 //        NotificationChannel channel = new NotificationChannel("notification_channel", "notification_channel", NotificationManager.IMPORTANCE_DEFAULT);
 //        NotificationManager manager = getSystemService(NotificationManager.class);
