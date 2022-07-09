@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.onesignal.OneSignal;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private DatabaseConnection db;
     private String TAG = "MainActivity";
+    private static final String ONESIGNAL_APP_ID = "f38cdc86-9fb7-40a5-8176-68b4115411da";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,27 +81,34 @@ public class MainActivity extends AppCompatActivity {
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_report).setVisible(false);
 
-        NotificationChannel channel = new NotificationChannel("notification_channel", "notification_channel", NotificationManager.IMPORTANCE_DEFAULT);
-        NotificationManager manager = getSystemService(NotificationManager.class);
-        manager.createNotificationChannel(channel);
+        // Enable verbose OneSignal logging to debug issues if needed.
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (!task.isSuccessful()) {
-                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                    return;
-                }
+        // OneSignal Initialization
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
 
-                // Get new FCM registration token
-                String token = task.getResult();
-                DatabaseConnection DBconnection = new DatabaseConnection();
-                DBconnection.sendToken(getApplicationContext(),token);
-                // Log and toast
-                Log.d(TAG, token);
-                Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
-            }
-        });
+//        NotificationChannel channel = new NotificationChannel("notification_channel", "notification_channel", NotificationManager.IMPORTANCE_DEFAULT);
+//        NotificationManager manager = getSystemService(NotificationManager.class);
+//        manager.createNotificationChannel(channel);
+//
+//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+//            @Override
+//            public void onComplete(@NonNull Task<String> task) {
+//                if (!task.isSuccessful()) {
+//                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+//                    return;
+//                }
+//
+//                // Get new FCM registration token
+//                String token = task.getResult();
+//                DatabaseConnection DBconnection = new DatabaseConnection();
+//                DBconnection.sendToken(getApplicationContext(),token);
+//                // Log and toast
+//                Log.d(TAG, token);
+//                Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 //        Bundle bundle = getIntent().getExtras();
 //        String userName = bundle.getString("user_name");
