@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -34,12 +35,15 @@ import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private SignInButton signInButton;
-    private GoogleSignInClient mGoogleSignInClient;
     private int RC_SIGN_IN = 1;
     final static String TAG = "LoginActivity";
     private static int userid = 1;
     private final String vm_ip = "http://20.213.243.141:8000/";
+
+    private SignInButton signInButton;
+    private GoogleSignInClient mGoogleSignInClient;
+
+    private int userType;
 
     private static final String ONESIGNAL_APP_ID = "f38cdc86-9fb7-40a5-8176-68b4115411da";
 
@@ -61,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
                         String actionId = result.getAction().getActionId();
                         OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
                         String title = result.getNotification().getTitle();
+                        String message = result.getNotification().getBody();
                         Intent intent = new Intent(LoginActivity.this, FacilityActivity.class);
                         startActivity(intent);
                     }

@@ -81,8 +81,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             JSONObject facility = new JSONObject(facilityInfo);
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-            //image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
-            //System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
+            image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
             rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
             numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
             latitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("latitude"));
@@ -98,7 +98,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 int upvote =  (int) jsonobject.getInt("numberOfUpvote");;
                 String comment = (String) jsonobject.getString("replyContent");
                 String time = (String) jsonobject.getString("timeOfReply");
-                createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote);
+                createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote, false);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -113,7 +113,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityDescription.setText(description);
 
         // Facility Image
-        image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
+        //image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
         Uri uriImage = Uri.parse(image);
         Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
 
@@ -166,7 +166,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             mapLayout.setVisibility(View.GONE);
             TextView comments = (TextView) findViewById(R.id.facilityReviewsTitle);
             comments.setText("Comments");
-
         }
 
         /*
@@ -201,7 +200,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-    public void createUserReview(float userRate, String userName, String userEmail, String userDescription, String userDate, int upVoteCounter, int downVoteCounter) {
+    public void createUserReview(float userRate, String userName, String userEmail, String userDescription, String userDate, int upVoteCounter, int downVoteCounter, boolean isPost) {
         // Linear Layouts
         LinearLayout review = new LinearLayout(this);
         review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -244,14 +243,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         layoutParamsDate.setMargins(dpToPx(210f), dpToPx(3f), dpToPx(5f), dpToPx(0f));
         layoutParamsDate.gravity = Gravity.CENTER_VERTICAL;
         userDateView.setLayoutParams(layoutParamsDate);
-
-        RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);
-        userRateView.setRating(userRate);
-        userRateView.setNumStars(5);
-        LinearLayout.LayoutParams layoutParamsRate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsRate.setMargins(dpToPx(4f), dpToPx(0f), dpToPx(5f), dpToPx(0f));
-        layoutParamsRate.gravity = Gravity.CENTER_VERTICAL;
-        userRateView.setLayoutParams(layoutParamsRate);
 
         TextView userDescriptionView = new TextView(this);
         userDescriptionView.setText(userDescription);
@@ -347,7 +338,16 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         votingSystem.addView(downVoteCount);
         votingSystem.addView(reportButton);
         review.addView(usernameAndDate);
-        review.addView(userRateView);
+        if (isPost == false) {
+            RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);
+            userRateView.setRating(userRate);
+            userRateView.setNumStars(5);
+            LinearLayout.LayoutParams layoutParamsRate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            layoutParamsRate.setMargins(dpToPx(4f), dpToPx(0f), dpToPx(5f), dpToPx(0f));
+            layoutParamsRate.gravity = Gravity.CENTER_VERTICAL;
+            userRateView.setLayoutParams(layoutParamsRate);
+            review.addView(userRateView);
+        }
         review.addView(descriptionAndReport);
         review.addView(votingSystem);
 

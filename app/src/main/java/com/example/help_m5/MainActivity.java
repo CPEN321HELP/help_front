@@ -64,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_report).setVisible(false);
 
-
-
 //        Bundle bundle = getIntent().getExtras();
 //        String userName = bundle.getString("user_name");
 //        String userEmail = bundle.getString("user_email");
