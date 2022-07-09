@@ -74,14 +74,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                         DatabaseConnection db = new DatabaseConnection();
                         db.removeFile("/data/data/com.example.help_m5/files/userInfo.json");
                         Toast.makeText(getContext(), "please exist", Toast.LENGTH_LONG).show();
-                        Intent MainIntent = new Intent(getActivity(), LoginActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("logout","true");
-                        MainIntent.putExtras(bundle);
-                        startActivity(MainIntent);
-
                     }
-
                     return true;
                 }
             });
