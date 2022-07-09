@@ -40,31 +40,14 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private DatabaseConnection db;
     private String TAG = "MainActivity";
-    private static final String ONESIGNAL_APP_ID = "f38cdc86-9fb7-40a5-8176-68b4115411da";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
 
-//        db = new DatabaseConnection();
-//        db.cleanCaches(getApplicationContext());
-        //db.getFacilities(binding, 0, 1, getApplicationContext(), false, false, "");
-        //db.getFacilities(binding, 1, 1, getApplicationContext(), false, false, "");
-        //db.getFacilities(binding, 2, 1, getApplicationContext(), false, false, "");
-        //db.getFacilities(binding, 3, 1, getApplicationContext(), false, false, "");
-        //db.getFacilities(binding, 5, 1, getApplicationContext(), false, true, "");
-        //db.getFacilities(binding, 6, 1, getApplicationContext(), false, true, "");
-
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
-//        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -81,34 +64,7 @@ public class MainActivity extends AppCompatActivity {
         Menu nav_Menu = navigationView.getMenu();
         nav_Menu.findItem(R.id.nav_report).setVisible(false);
 
-        // Enable verbose OneSignal logging to debug issues if needed.
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
 
-        // OneSignal Initialization
-        OneSignal.initWithContext(this);
-        OneSignal.setAppId(ONESIGNAL_APP_ID);
-
-//        NotificationChannel channel = new NotificationChannel("notification_channel", "notification_channel", NotificationManager.IMPORTANCE_DEFAULT);
-//        NotificationManager manager = getSystemService(NotificationManager.class);
-//        manager.createNotificationChannel(channel);
-//
-//        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-//            @Override
-//            public void onComplete(@NonNull Task<String> task) {
-//                if (!task.isSuccessful()) {
-//                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-//                    return;
-//                }
-//
-//                // Get new FCM registration token
-//                String token = task.getResult();
-//                DatabaseConnection DBconnection = new DatabaseConnection();
-//                DBconnection.sendToken(getApplicationContext(),token);
-//                // Log and toast
-//                Log.d(TAG, token);
-//                Toast.makeText(getApplicationContext(), token, Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
 //        Bundle bundle = getIntent().getExtras();
 //        String userName = bundle.getString("user_name");

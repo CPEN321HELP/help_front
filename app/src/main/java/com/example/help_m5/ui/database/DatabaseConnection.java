@@ -34,7 +34,7 @@ import java.util.HashMap;
 //DatabaseConnection
 public class DatabaseConnection {
 
-        final String vm_ip = "http://20.213.243.141:8000/";
+    private static final String vm_ip = "http://20.213.243.141:8000/";
 //    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
@@ -57,8 +57,7 @@ public class DatabaseConnection {
     static final int only_one_page = 5;
     //above are types of error that could happen
 
-    int status_add_facility = normal_server_load;
-
+    //remove?
     public void sendToken(Context applicationContext, String token){
         String url = vm_ip + "sendToDevice";
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
@@ -81,7 +80,15 @@ public class DatabaseConnection {
         queue.add(jsObjRequest);
     }
 
-    public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String email){
+    private int status_add_facility = normal_server_load;
+
+    /**
+     * @param applicationContext : Central interface to provide configuration for an application.
+     * @param title, description, type, imageLink, longitude, latitude : information need to be stored on database
+     * @param user_id : the user who added this facility
+     * @Pupose : to add a new facility in to database
+     */
+    public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String user_id){
         String url = vm_ip + "addFacility";
         Log.d(TAG, url);
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
@@ -102,7 +109,7 @@ public class DatabaseConnection {
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "response is: " + response.toString());
                 status_add_facility = normal_server_load;
-                addCredit(applicationContext, email);
+                addCredit(applicationContext, user_id);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -116,6 +123,11 @@ public class DatabaseConnection {
         return status_add_facility;
     }
 
+    /**
+     * @param applicationContext : Central interface to provide configuration for an application.
+     * @param user_id  : string of user id
+     * @Pupose : to notify server which user to add credit
+     */
     private void addCredit(Context applicationContext, String user_id){
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
         HashMap<String, String> params = new HashMap<String, String>();
@@ -139,7 +151,15 @@ public class DatabaseConnection {
     }
 
     int status_getSpecificFacility = normal_server_load;
-
+    /**
+     * @param facility_type      : int representing the type of facility calling this function
+     * @param applicationContext : Central interface to provide configuration for an application.
+     * @param facility_id  : string of facility_id
+     * @return :
+     * normal_server_load, indicate successfully send the data to server
+     * server_error, indicate unsuccessfully send the data to server
+     * @Pupose : to get a Specific facility by its facility id and type
+     */
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";
         String url = vm_ip + "specific";
@@ -148,7 +168,7 @@ public class DatabaseConnection {
         queue.start();
         params.put("facility_id", facility_id);
         params.put("facility_type", ""+facility_type);
-        Log.d(TAG, params.toString());
+//        Log.d(TAG, params.toString());
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
@@ -163,7 +183,7 @@ public class DatabaseConnection {
             }
         });
         queue.add(jsObjRequest);
-        Log.d(TAG, "status_getSpecificFacility is " + status_getSpecificFacility);
+//        Log.d(TAG, "status_getSpecificFacility is " + status_getSpecificFacility);
         return status_getSpecificFacility;
     }
 

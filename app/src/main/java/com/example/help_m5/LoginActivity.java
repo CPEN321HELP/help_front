@@ -66,25 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (!task.isSuccessful()) {
-                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                    return;
-                }
-
-                // Get new FCM registration token
-                String token = task.getResult();
-
-                // Log and toast
-                //String msg = getString(R.string.msg_token_fmt, token);
-                //Log.d(TAG, msg);
-                //Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

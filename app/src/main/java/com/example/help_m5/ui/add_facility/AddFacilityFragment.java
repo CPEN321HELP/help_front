@@ -245,9 +245,6 @@ public class AddFacilityFragment extends Fragment {
             }
         });
 
-        LatLng test = getLocationFromAddress(getContext(), "4500 Oak St, Vancouver, BC V6H 3N1");
-        Log.d(TAG, test.toString());
-
         return root;
 
     }
