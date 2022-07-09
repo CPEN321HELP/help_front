@@ -34,8 +34,7 @@ import java.util.HashMap;
 //DatabaseConnection
 public class DatabaseConnection {
 
-//    private static final String vm_ip = "http://20.213.243.141:8000/";
-    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
+    private static final String vm_ip = "http://20.213.243.141:8000/";
     final String TAG = "databaseConnection";
 
     //following are types of facility
@@ -162,7 +161,7 @@ public class DatabaseConnection {
      */
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";
-        String url = vm_ip + "specific";
+        String url = "http://20.213.243.141:8000/specific";
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
         HashMap<String, String> params = new HashMap<String, String>();
         queue.start();

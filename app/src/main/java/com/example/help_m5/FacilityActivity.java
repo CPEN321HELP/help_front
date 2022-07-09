@@ -81,21 +81,27 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         // Get data from database
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
-        isPost = (bundle.getInt("facility_type") == POST);
+        isPost = (POST == (int) bundle.getInt("facility_type"));
+        System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
+        System.out.println(isPost);
         type = Integer.parseInt(bundle.getString("facility_type"));
         DBconnection = new DatabaseConnection();
         String facilityInfo = DBconnection.readFromJson(FacilityActivity.this, "specific_facility.json");
 
         try {
             JSONObject facility = new JSONObject(facilityInfo);
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            System.out.println(facility);
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
             image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
             System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
             rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
             numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
-            latitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("latitude"));
-            longitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("longtitude"));
+            latitude = (double) facility.getJSONObject("facility").getDouble("latitude");
+            longitude = (double) facility.getJSONObject("facility").getDouble("longtitude");
+
+            System.out.println(latitude+" "+longitude);
 
             JSONArray jsonarray = facility.getJSONArray("reviews");
             System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
