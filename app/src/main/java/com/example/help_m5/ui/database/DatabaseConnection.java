@@ -307,7 +307,7 @@ public class DatabaseConnection {
      * @return true, if file is cached; false otherwise
      * @Pupose : to check if file is cached in internal storage, this method is used only by searchFacilities()
      */
-    private boolean isCached(Context applicationContext, String fileName) {
+    public boolean isCached(Context applicationContext, String fileName) {
         File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
         return f.exists() && !f.isDirectory();
     }
@@ -356,15 +356,22 @@ public class DatabaseConnection {
             bufferedReader.close();
             // This responce will have Json Format String
             return stringBuilder.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return "1";
         } catch (IOException e) {
             e.printStackTrace();
-            return "2";
+            return null;
         }
     }
+    public void removeFile(Context applicationContext, String fileName){
+        if(!isCached(applicationContext, fileName)){
+            File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
+            f.delete();
+        }
+    }
+    public void removeFile(String filePath){
+        File f = new File(filePath);
+        f.delete();
 
+    }
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
      * @Pupose clean all files stored in /data/data/com.example.help_m5/files/

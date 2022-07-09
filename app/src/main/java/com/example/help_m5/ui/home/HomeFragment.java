@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         DBconnection = new DatabaseConnection();
-        DBconnection.cleanCaches(getContext());
+//        DBconnection.cleanCaches(getContext());
 
         shows1 = binding.facility1;
         shows2 = binding.facility2;
