@@ -1,6 +1,7 @@
 package com.example.help_m5.ui.database;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
@@ -161,6 +162,41 @@ public class DatabaseConnection {
      */
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";
+        if(isCached(applicationContext, fileName)){
+            removeFile(applicationContext, fileName);
+        }
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                String url = "http://20.213.243.141:8000/specific";
+                final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+                HashMap<String, String> params = new HashMap<String, String>();
+                queue.start();
+                params.put("facility_id", facility_id);
+                params.put("facility_type", ""+facility_type);
+//        Log.d(TAG, params.toString());
+                JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d(TAG, "response is: " + response.toString());
+                        writeToJson(applicationContext, response, fileName);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        status_getSpecificFacility = server_error;
+                        Log.d(TAG, "ERROR when connecting to database getSpecificFacility");
+                    }
+                });
+                queue.add(jsObjRequest);
+//        Log.d(TAG, "status_getSpecificFacility is " + status_getSpecificFacility);
+            }
+        }, 500);
+        return status_getSpecificFacility;
+    }
+    /*
+    public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
+        String fileName = "specific_facility.json";
         String url = "http://20.213.243.141:8000/specific";
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
         HashMap<String, String> params = new HashMap<String, String>();
@@ -185,7 +221,7 @@ public class DatabaseConnection {
 //        Log.d(TAG, "status_getSpecificFacility is " + status_getSpecificFacility);
         return status_getSpecificFacility;
     }
-
+*/
     int status_getFacilities = normal_server_load;
     /**
      * @param binding            : a subclass of databinding, used to find TextView, Ratingbar
@@ -255,8 +291,8 @@ public class DatabaseConnection {
             if(is_report){
                 url += "user/Report/" + getStringType(facility_type);
             }else {
-//                url += "facility";
-                url += getStringType(facility_type);
+                url += "facility";
+                //url += getStringType(facility_type);
                 if (is_search) {
                     url += "/search";
                     params.put("search", "" + content_to_search);

@@ -253,7 +253,7 @@ public class FacilityFragment extends Fragment {
                     startActivity(intent);
                 }
             }
-        }, 300);
+        }, 500);
 
     }
 

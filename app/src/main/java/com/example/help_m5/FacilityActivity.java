@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.help_m5.ui.database.DatabaseConnection;
+import com.example.help_m5.ui.facility.FacilityFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -98,8 +99,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
             rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
             numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
-            latitude = (double) facility.getJSONObject("facility").getDouble("latitude");
-            longitude = (double) facility.getJSONObject("facility").getDouble("longtitude");
+            if (type != POST) {
+                latitude = (double) facility.getJSONObject("facility").getDouble("latitude");
+                longitude = (double) facility.getJSONObject("facility").getDouble("longtitude");
+            }
 
             System.out.println(latitude+" "+longitude);
 
@@ -120,6 +123,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        DatabaseConnection db = new DatabaseConnection();
+        //db.removeFile("/data/data/com.example.help_m5/files/specific_facility.json");
+        //db.removeFile(getApplicationContext(),"specific_facility.json");
 
         // Facility Title
         TextView facilityTitle = findViewById(R.id.facilityTitle);
@@ -154,16 +161,23 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         mapView.onCreate(savedInstanceState);
 
         // Address
-        Geocoder geocoder;
-        List<Address> addresses;
-        geocoder = new Geocoder(this, Locale.getDefault());
-        try {
-            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            TextView addressView = (TextView) findViewById(R.id.facilityAddress);
-            addressView.setText(address);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (type != POST) {
+            Geocoder geocoder;
+            List<Address> addresses;
+            geocoder = new Geocoder(this, Locale.getDefault());
+            try {
+                if (geocoder.getFromLocation(latitude, longitude, 1) == null) {
+                    TextView addressView = (TextView) findViewById(R.id.facilityAddress);
+                    addressView.setText("Address not avaliable yet");
+                } else {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                    String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    TextView addressView = (TextView) findViewById(R.id.facilityAddress);
+                    addressView.setText(address);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         // Rate Button
@@ -384,6 +398,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         LinearLayout linearLayout = findViewById(R.id.facilityReviews);
         linearLayout.addView(review);
         id++;
+
     }
 
     private int dpToPx(float dp) {

@@ -119,6 +119,8 @@ public class RateActivity extends AppCompatActivity {
                 paramsComment.put("facility_id", facilityId);
                 paramsComment.put("user_id", userEmail);
                 paramsComment.put("replyContent", comment);
+                paramsComment.put("username", userAccount.getDisplayName());
+                paramsComment.put("rateScore", String.valueOf(rate));
                 JsonObjectRequest requestComment = new JsonObjectRequest(Request.Method.PUT, vm_ip+"comment/add", new JSONObject(paramsComment),
                         new Response.Listener<JSONObject>() {
                             @Override
