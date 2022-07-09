@@ -34,8 +34,8 @@ import java.util.HashMap;
 //DatabaseConnection
 public class DatabaseConnection {
 
-    private static final String vm_ip = "http://20.213.243.141:8000/";
-//    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
+//    private static final String vm_ip = "http://20.213.243.141:8000/";
+    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
     //following are types of facility
@@ -256,7 +256,8 @@ public class DatabaseConnection {
             if(is_report){
                 url += "user/Report/" + getStringType(facility_type);
             }else {
-                url += "facility";
+//                url += "facility";
+                url += getStringType(facility_type);
                 if (is_search) {
                     url += "/search";
                     params.put("search", "" + content_to_search);
