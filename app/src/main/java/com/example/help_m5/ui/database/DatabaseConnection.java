@@ -34,8 +34,8 @@ import java.util.HashMap;
 //DatabaseConnection
 public class DatabaseConnection {
 
-    private static final String vm_ip = "http://20.213.243.141:8000/";
-//    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
+//    private static final String vm_ip = "http://20.213.243.141:8000/";
+    final String vm_ip = "http://47.251.34.10:3000/"; //this is Hizan's alibaba server.
     final String TAG = "databaseConnection";
 
     //following are types of facility
@@ -256,7 +256,8 @@ public class DatabaseConnection {
             if(is_report){
                 url += "user/Report/" + getStringType(facility_type);
             }else {
-                url += "facility";
+//                url += "facility";
+                url += getStringType(facility_type);
                 if (is_search) {
                     url += "/search";
                     params.put("search", "" + content_to_search);
@@ -306,7 +307,7 @@ public class DatabaseConnection {
      * @return true, if file is cached; false otherwise
      * @Pupose : to check if file is cached in internal storage, this method is used only by searchFacilities()
      */
-    private boolean isCached(Context applicationContext, String fileName) {
+    public boolean isCached(Context applicationContext, String fileName) {
         File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
         return f.exists() && !f.isDirectory();
     }
@@ -355,15 +356,22 @@ public class DatabaseConnection {
             bufferedReader.close();
             // This responce will have Json Format String
             return stringBuilder.toString();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return "1";
         } catch (IOException e) {
             e.printStackTrace();
-            return "2";
+            return null;
         }
     }
+    public void removeFile(Context applicationContext, String fileName){
+        if(!isCached(applicationContext, fileName)){
+            File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
+            f.delete();
+        }
+    }
+    public void removeFile(String filePath){
+        File f = new File(filePath);
+        f.delete();
 
+    }
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
      * @Pupose clean all files stored in /data/data/com.example.help_m5/files/

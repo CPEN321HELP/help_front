@@ -38,6 +38,9 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.onesignal.OneSignal;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class MainActivity extends AppCompatActivity {
     private static final int NORMAL_USER = 0;
 
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private DatabaseConnection db;
     private String TAG = "MainActivity";
+    private String userInfo = "userInfo.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        /*
         Bundle bundle = getIntent().getExtras();
         String userName = bundle.getString("user_name");
         String userEmail = bundle.getString("user_email");
@@ -81,6 +86,45 @@ public class MainActivity extends AppCompatActivity {
         if (userType == NORMAL_USER) {
            Menu nav_Menu = navigationView.getMenu();
            nav_Menu.findItem(R.id.nav_report).setVisible(false);
+
+         */
+
+        Menu nav_Menu = navigationView.getMenu();
+        nav_Menu.findItem(R.id.nav_report).setVisible(false);
+        DatabaseConnection db = new DatabaseConnection();
+        String info = db.readFromJson(getApplicationContext(), userInfo);
+        Log.d(TAG,"info in main is  "+info);
+
+        if(info != null){
+            try {
+                JSONObject user_data = new JSONObject(info);
+                String userName = user_data.getString("user_name");
+                String userEmail = user_data.getString("user_email");
+                String userLogo = user_data.getString("user_icon");
+                TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
+                userNameView.setText(userName);
+                TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
+                userEmailView.setText(userEmail);
+                if (!userLogo.equals("none")) {
+                    Uri userIcon = Uri.parse(userLogo);
+                    Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            Log.d(TAG, "finish set up");
+        }else {
+            Bundle bundle = getIntent().getExtras();
+            String userName = bundle.getString("user_name");
+            String userEmail = bundle.getString("user_email");
+            TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
+            userNameView.setText(userName);
+            TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
+            userEmailView.setText(userEmail);
+            if (!bundle.getString("user_icon").equals("none")) {
+                Uri userIcon = Uri.parse(bundle.getString("user_icon"));
+                Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+            }
         }
     }
 

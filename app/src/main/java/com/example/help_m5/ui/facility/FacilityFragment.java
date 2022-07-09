@@ -80,8 +80,6 @@ public class FacilityFragment extends Fragment {
         binding = FragmentFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         DBconnection = new DatabaseConnection();
-        DBconnection.cleanCaches(getContext());
-
         shows1 = binding.facility1;
         shows2 = binding.facility2;
         shows3 = binding.facility3;
@@ -244,7 +242,6 @@ public class FacilityFragment extends Fragment {
             public void run() {
                 if(result == server_error){
                     Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
-                    return;
                 } else {
                     Toast.makeText(getActivity(), "opening " + which, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), FacilityActivity.class);
@@ -276,7 +273,6 @@ public class FacilityFragment extends Fragment {
         close_or_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DBconnection.cleanCaches(getContext());
                 search_page_number = 1;
                 one_page = false;
                 setFacilitiesVisibility(View.INVISIBLE);

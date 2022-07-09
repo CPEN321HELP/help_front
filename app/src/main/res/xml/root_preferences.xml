@@ -18,20 +18,20 @@
 
 <!--    </PreferenceCategory>-->
 
-<!--    <PreferenceCategory app:title="@string/sync_header">-->
+    <PreferenceCategory android:title="Account Settings">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="sign_out"
+            android:title="Sign Out"
+            android:summary="Click here to sign out your google account"/>
 
-<!--        <SwitchPreferenceCompat-->
-<!--            app:key="sync"-->
-<!--            app:title="@string/sync_title" />-->
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="delete"
+            android:title="Delete account"
+            android:summary="Click here to delete your account - not implement"/>
+    </PreferenceCategory>
 
-<!--        <SwitchPreferenceCompat-->
-<!--            app:dependency="sync"-->
-<!--            app:key="attachment"-->
-<!--            app:summaryOff="@string/attachment_summary_off"-->
-<!--            app:summaryOn="@string/attachment_summary_on"-->
-<!--            app:title="@string/attachment_title" />-->
-
-<!--    </PreferenceCategory>-->
     <PreferenceCategory android:title="Display Settings">
         <SwitchPreference
             android:defaultValue="false"

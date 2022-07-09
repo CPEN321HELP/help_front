@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,12 +40,14 @@ public class LoginActivity extends AppCompatActivity {
     private int RC_SIGN_IN = 1;
     final static String TAG = "LoginActivity";
     private final String vm_ip = "http://20.213.243.141:8000/";
+    private static int userid = 1;
 
     private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
+    private DatabaseConnection db;
 
     private int userType;
-
+    private String userInfo = "userInfo.json";
     private static final String ONESIGNAL_APP_ID = "f38cdc86-9fb7-40a5-8176-68b4115411da";
 
     @Override
@@ -51,44 +55,57 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Enable verbose OneSignal logging to debug issues if needed.
-        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
-
-        // OneSignal Initialization
-        OneSignal.initWithContext(this);
-        OneSignal.setAppId(ONESIGNAL_APP_ID);
-        OneSignal.setNotificationOpenedHandler(
-                new OneSignal.OSNotificationOpenedHandler() {
-                    @Override
-                    public void notificationOpened(OSNotificationOpenedResult result) {
-                        String actionId = result.getAction().getActionId();
-                        OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
-                        String title = result.getNotification().getTitle();
-                        String message = result.getNotification().getBody();
-                        Intent intent = new Intent(LoginActivity.this, FacilityActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-        // Configure sign-in to request the user's ID, email address, and basic
-        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-        // Google Sign In Button
-        signInButton = findViewById(R.id.sign_in_button);
-        setButtonText(signInButton, "Sign in with Google");
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
+        Bundle bundle = getIntent().getExtras();
+        if(bundle !=null){
+            String is = bundle.getString("logout");
+            if(is != null){
+                signOut();
             }
-        });
+        }
 
+        db = new DatabaseConnection();
+        if(db.isCached(getApplicationContext(), userInfo)){
+            //user has already login in
+            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(MainIntent);
+        }else{
+            // Enable verbose OneSignal logging to debug issues if needed.
+            OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+            // OneSignal Initialization
+            OneSignal.initWithContext(this);
+            OneSignal.setAppId(ONESIGNAL_APP_ID);
+            OneSignal.setNotificationOpenedHandler(
+                    new OneSignal.OSNotificationOpenedHandler() {
+                        @Override
+                        public void notificationOpened(OSNotificationOpenedResult result) {
+                            String actionId = result.getAction().getActionId();
+                            OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
+                            String title = result.getNotification().getTitle();
+                            String message = result.getNotification().getBody();
+                            Intent intent = new Intent(LoginActivity.this, FacilityActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+
+            // Configure sign-in to request the user's ID, email address, and basic
+            // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+            GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestEmail()
+                    .build();
+
+            // Build a GoogleSignInClient with the options specified by gso.
+            mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+            // Google Sign In Button
+            signInButton = findViewById(R.id.sign_in_button);
+            setButtonText(signInButton, "Sign in with Google");
+            signInButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn();
+                }
+            });
+        }
     }
 
     private void signIn() {
@@ -166,30 +183,55 @@ public class LoginActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+    /*
+                            JSONObject info = new JSONObject();
+                            try {
+                                info.put("user_name", account.getDisplayName());
+                                info.put("user_email", account.getEmail());
+                                info.put("user_type", 0);
+                                info.put("credit", response.get("credit"));
+                                if (account.getPhotoUrl() != null) {
+                                    info.put("user_icon", account.getPhotoUrl().toString());
+                                } else {
+                                    info.put("user_icon", "none");
+                                }
+                                db.writeToJson(getApplicationContext(), info, userInfo);
+                                Log.d(TAG,"info is: "+info.toString());
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(TAG, response.toString());
+
+     */
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            System.out.println("onErrorResponse" + "Error: " + error.getMessage());
+                            Log.d(TAG, "onErrorResponse " + "Error: " + error.getMessage());
                         }
                     });
             queue.add(request);
 
-            // Move to another activity
-            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putString("user_name", account.getDisplayName());
-            bundle.putString("user_email", account.getEmail());
-            bundle.putInt("user_type", 0);
-            if (account.getPhotoUrl() != null) {
-                bundle.putString("user_icon", account.getPhotoUrl().toString());
-            } else {
-                bundle.putString("user_icon", "none");
-            }
-            MainIntent.putExtras(bundle);
-            startActivity(MainIntent);
-            Log.d(TAG, "start next activity");
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    // Move to another activity
+                    Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user_name", account.getDisplayName());
+                    bundle.putString("user_email", account.getEmail());
+                    bundle.putInt("user_type", 0);
+                    if (account.getPhotoUrl() != null) {
+                        bundle.putString("user_icon", account.getPhotoUrl().toString());
+                    } else {
+                        bundle.putString("user_icon", "none");
+                    }
+                    MainIntent.putExtras(bundle);
+                    startActivity(MainIntent);
+                    Log.d(TAG, "start next activity");
+                }
+            }, 500);
         }
     }
 
@@ -204,6 +246,19 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    protected void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(getApplicationContext(), "You have Sign out.", Toast.LENGTH_LONG).show();
+                    }
+                });
+        mGoogleSignInClient.revokeAccess();
+        finishAndRemoveTask();
+        System.exit(0);
     }
 
 }

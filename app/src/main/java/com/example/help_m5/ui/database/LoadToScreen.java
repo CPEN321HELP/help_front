@@ -3,12 +3,9 @@ package com.example.help_m5.ui.database;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
-
-import com.example.help_m5.databinding.FragmentFacilityBinding;
+import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.databinding.FragmentReportBinding;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,12 +91,12 @@ public class LoadToScreen {
             facilityID_textView1_facility1 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility1;
             constraintLayout_facility1 = ((FragmentReportBinding) Binding).facility1;
         }else {
-            titleTextView_facility1 = ((FragmentFacilityBinding) Binding).titleTextViewFacility1;
-            dateTextView_facility1 = ((FragmentFacilityBinding) Binding).dateTextViewFacility1;
-            contentTextView_facility1 = ((FragmentFacilityBinding) Binding).contentTextViewFacility1;
-            ratingBar_facility1 = ((FragmentFacilityBinding) Binding).ratingBarFacility1;
-            facilityID_textView1_facility1 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility1;
-            constraintLayout_facility1 = ((FragmentFacilityBinding) Binding).facility1;
+            titleTextView_facility1 = ((FragmentHomeBinding) Binding).titleTextViewFacility1;
+            dateTextView_facility1 = ((FragmentHomeBinding) Binding).dateTextViewFacility1;
+            contentTextView_facility1 = ((FragmentHomeBinding) Binding).contentTextViewFacility1;
+            ratingBar_facility1 = ((FragmentHomeBinding) Binding).ratingBarFacility1;
+            facilityID_textView1_facility1 = ((FragmentHomeBinding) Binding).facilityIDTextViewFacility1;
+            constraintLayout_facility1 = ((FragmentHomeBinding) Binding).facility1;
         }
 
 
@@ -154,12 +151,12 @@ public class LoadToScreen {
             facilityID_textView1_facility2 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility2;
             constraintLayout_facility2 = ((FragmentReportBinding) Binding).facility2;
         }else {
-            titleTextView_facility2 = ((FragmentFacilityBinding) Binding).titleTextViewFacility2;
-            dateTextView_facility2 = ((FragmentFacilityBinding) Binding).dateTextViewFacility2;
-            contentTextView_facility2 = ((FragmentFacilityBinding) Binding).contentTextViewFacility2;
-            ratingBar_facility2 = ((FragmentFacilityBinding) Binding).ratingBarFacility2;
-            facilityID_textView1_facility2 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility2;
-            constraintLayout_facility2 = ((FragmentFacilityBinding) Binding).facility2;
+            titleTextView_facility2 = ((FragmentHomeBinding) Binding).titleTextViewFacility2;
+            dateTextView_facility2 = ((FragmentHomeBinding) Binding).dateTextViewFacility2;
+            contentTextView_facility2 = ((FragmentHomeBinding) Binding).contentTextViewFacility2;
+            ratingBar_facility2 = ((FragmentHomeBinding) Binding).ratingBarFacility2;
+            facilityID_textView1_facility2 = ((FragmentHomeBinding) Binding).facilityIDTextViewFacility2;
+            constraintLayout_facility2 = ((FragmentHomeBinding) Binding).facility2;
         }
         try {
             facilityID_textView1_facility2.setText(result.getString(0));
@@ -212,12 +209,12 @@ public class LoadToScreen {
             facilityID_textView1_facility3 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility3;
             constraintLayout_facility3 = ((FragmentReportBinding) Binding).facility3;
         }else {
-            titleTextView_facility3 = ((FragmentFacilityBinding) Binding).titleTextViewFacility3;
-            dateTextView_facility3 = ((FragmentFacilityBinding) Binding).dateTextViewFacility3;
-            contentTextView_facility3 = ((FragmentFacilityBinding) Binding).contentTextViewFacility3;
-            ratingBar_facility3 = ((FragmentFacilityBinding) Binding).ratingBarFacility3;
-            facilityID_textView1_facility3 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility3;
-            constraintLayout_facility3 = ((FragmentFacilityBinding) Binding).facility3;
+            titleTextView_facility3 = ((FragmentHomeBinding) Binding).titleTextViewFacility3;
+            dateTextView_facility3 = ((FragmentHomeBinding) Binding).dateTextViewFacility3;
+            contentTextView_facility3 = ((FragmentHomeBinding) Binding).contentTextViewFacility3;
+            ratingBar_facility3 = ((FragmentHomeBinding) Binding).ratingBarFacility3;
+            facilityID_textView1_facility3 = ((FragmentHomeBinding) Binding).facilityIDTextViewFacility3;
+            constraintLayout_facility3 = ((FragmentHomeBinding) Binding).facility3;
         }
 
         try {
@@ -271,12 +268,12 @@ public class LoadToScreen {
             facilityID_textView1_facility4 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility4;
             constraintLayout_facility4 = ((FragmentReportBinding) Binding).facility4;
         }else {
-            titleTextView_facility4 = ((FragmentFacilityBinding) Binding).titleTextViewFacility4;
-            dateTextView_facility4 = ((FragmentFacilityBinding) Binding).dateTextViewFacility4;
-            contentTextView_facility4 = ((FragmentFacilityBinding) Binding).contentTextViewFacility4;
-            ratingBar_facility4 = ((FragmentFacilityBinding) Binding).ratingBarFacility4;
-            facilityID_textView1_facility4 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility4;
-            constraintLayout_facility4 = ((FragmentFacilityBinding) Binding).facility4;
+            titleTextView_facility4 = ((FragmentHomeBinding) Binding).titleTextViewFacility4;
+            dateTextView_facility4 = ((FragmentHomeBinding) Binding).dateTextViewFacility4;
+            contentTextView_facility4 = ((FragmentHomeBinding) Binding).contentTextViewFacility4;
+            ratingBar_facility4 = ((FragmentHomeBinding) Binding).ratingBarFacility4;
+            facilityID_textView1_facility4 = ((FragmentHomeBinding) Binding).facilityIDTextViewFacility4;
+            constraintLayout_facility4 = ((FragmentHomeBinding) Binding).facility4;
         }
 
         try {
@@ -330,12 +327,12 @@ public class LoadToScreen {
             facilityID_textView1_facility5 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility5;
             constraintLayout_facility5 = ((FragmentReportBinding) Binding).facility5;
         }else {
-            titleTextView_facility5 = ((FragmentFacilityBinding) Binding).titleTextViewFacility5;
-            dateTextView_facility5 = ((FragmentFacilityBinding) Binding).dateTextViewFacility5;
-            contentTextView_facility5 = ((FragmentFacilityBinding) Binding).contentTextViewFacility5;
-            ratingBar_facility5 = ((FragmentFacilityBinding) Binding).ratingBarFacility5;
-            facilityID_textView1_facility5 = ((FragmentFacilityBinding) Binding).facilityIDTextViewFacility5;
-            constraintLayout_facility5 = ((FragmentFacilityBinding) Binding).facility5;
+            titleTextView_facility5 = ((FragmentHomeBinding) Binding).titleTextViewFacility5;
+            dateTextView_facility5 = ((FragmentHomeBinding) Binding).dateTextViewFacility5;
+            contentTextView_facility5 = ((FragmentHomeBinding) Binding).contentTextViewFacility5;
+            ratingBar_facility5 = ((FragmentHomeBinding) Binding).ratingBarFacility5;
+            facilityID_textView1_facility5 = ((FragmentHomeBinding) Binding).facilityIDTextViewFacility5;
+            constraintLayout_facility5 = ((FragmentHomeBinding) Binding).facility5;
         }
 
         try {
