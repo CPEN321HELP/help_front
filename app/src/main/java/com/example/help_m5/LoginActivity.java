@@ -71,25 +71,6 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
-
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (!task.isSuccessful()) {
-                    Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                    return;
-                }
-
-                // Get new FCM registration token
-                String token = task.getResult();
-
-                // Log and toast
-                //String msg = getString(R.string.msg_token_fmt, token);
-                //Log.d(TAG, msg);
-                //Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
-            }
-        });
-
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -176,21 +157,19 @@ public class LoginActivity extends AppCompatActivity {
                 params.put("user_logo", "none");
             }
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"google_sign_up", new JSONObject(params),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        System.out.println("response is: "+response.toString());
-                        DatabaseConnection DBconnection = new DatabaseConnection();
-                        String userInfo = DBconnection.readFromJson(LoginActivity.this, "specific_facility.json");
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Error: " + error.getMessage());
-                    }
-                });
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                            System.out.println("response is: "+response.toString());
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            System.out.println("onErrorResponse" + "Error: " + error.getMessage());
+                        }
+                    });
             queue.add(request);
 
             // Move to another activity

@@ -98,7 +98,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 int upvote =  (int) jsonobject.getInt("numberOfUpvote");;
                 String comment = (String) jsonobject.getString("replyContent");
                 String time = (String) jsonobject.getString("timeOfReply");
-                createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote);
+                createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote, false);
             }
         } catch (JSONException e) {
             e.printStackTrace();
