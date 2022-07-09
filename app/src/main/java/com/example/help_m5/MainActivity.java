@@ -7,9 +7,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -33,8 +36,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.onesignal.OneSignal;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
+    private static final int NORMAL_USER = 0;
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
@@ -61,20 +66,22 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.nav_report).setVisible(false);
-
-//        Bundle bundle = getIntent().getExtras();
-//        String userName = bundle.getString("user_name");
-//        String userEmail = bundle.getString("user_email");
-//        TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
-//        userNameView.setText(userName);
-//        TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
-//        userEmailView.setText(userEmail);
-//        if (!bundle.getString("user_icon").equals("none")) {
-//            Uri userIcon = Uri.parse(bundle.getString("user_icon"));
-//            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
-//        }
+        Bundle bundle = getIntent().getExtras();
+        String userName = bundle.getString("user_name");
+        String userEmail = bundle.getString("user_email");
+        int userType = bundle.getInt("user_type");
+        TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
+        userNameView.setText(userName);
+        TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
+        userEmailView.setText(userEmail);
+        if (!bundle.getString("user_icon").equals("none")) {
+           Uri userIcon = Uri.parse(bundle.getString("user_icon"));
+            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+        }
+        if (userType == NORMAL_USER) {
+           Menu nav_Menu = navigationView.getMenu();
+           nav_Menu.findItem(R.id.nav_report).setVisible(false);
+        }
     }
 
     private void displaySharedPreferences() {

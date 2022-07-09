@@ -36,9 +36,6 @@
 <!--            android:value="@string/default_notification_channel_id" />-->
 
         <activity
-            android:name=".PostActivity"
-            android:exported="true" />
-        <activity
             android:name=".ReportActivity"
             android:exported="true" />
         <activity

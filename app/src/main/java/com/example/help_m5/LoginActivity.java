@@ -37,7 +37,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private int RC_SIGN_IN = 1;
     final static String TAG = "LoginActivity";
-    private static int userid = 1;
     private final String vm_ip = "http://20.213.243.141:8000/";
 
     private SignInButton signInButton;
@@ -162,6 +161,11 @@ public class LoginActivity extends AppCompatActivity {
                         public void onResponse(JSONObject response) {
                             System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                             System.out.println("response is: "+response.toString());
+                            try {
+                                userType = Integer.parseInt(response.getString("user_type"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         }
                     },
                     new Response.ErrorListener() {

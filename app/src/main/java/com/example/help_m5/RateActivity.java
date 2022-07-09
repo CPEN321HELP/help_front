@@ -32,7 +32,7 @@ public class RateActivity extends AppCompatActivity {
 
     private static final String TAG = "RateActivity";
     private final String vm_ip = "http://20.213.243.141:8000/";
-    private double rate;
+    private float rate;
     private String comment;
     private GoogleSignInAccount userAccount;
     private String userEmail;
@@ -60,7 +60,7 @@ public class RateActivity extends AppCompatActivity {
                                         boolean fromUser) {
                 submitButton.setEnabled(true);
                 submitButton.setTextColor(Color.parseColor("#dbba00"));
-                rate = ratingBar.getRating();
+                rate = rating;
             }
         });
 
@@ -91,7 +91,7 @@ public class RateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 RequestQueue queue = Volley.newRequestQueue(RateActivity.this);
                 queue.start();
-/*
+
                 HashMap<String, String> paramsRate = new HashMap<String, String>();
                 paramsRate.put("_id", userEmail);
                 paramsRate.put("rateScore", String.valueOf(rate));
@@ -101,19 +101,18 @@ public class RateActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                                 System.out.println("response is: "+response.toString());
+                                Toast.makeText(RateActivity.this, "Your review was successfully submitted!", Toast.LENGTH_SHORT).show();
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 System.out.println("onErrorResponse" + "Error: " + error.getMessage());
+                                Toast.makeText(RateActivity.this, "Error submitting review: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                 queue.add(requestRate);
-
- */
 
                 HashMap<String, String> paramsComment = new HashMap<String, String>();
                 paramsComment.put("facilityType", String.valueOf(facilityType));
@@ -124,7 +123,6 @@ public class RateActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                                 System.out.println("response is: "+response.toString());
                             }
                         },
@@ -151,10 +149,6 @@ public class RateActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    public void sendRateToDatabase() {
-
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -85,13 +86,15 @@ public class ReportActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                                System.out.println("response is: "+response.toString());
+                                Log.d(TAG,"response is: "+response.toString());
+                                Toast.makeText(ReportActivity.this, "Report successfully sent!", Toast.LENGTH_SHORT).show();
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                System.out.println("onErrorResponse" + "Error: " + error.getMessage());
+                                Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                                Toast.makeText(ReportActivity.this, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                 queue.add(request);

@@ -8,6 +8,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +39,12 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.sql.SQLOutput;
+import java.util.List;
+import java.util.Locale;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -44,14 +52,14 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
     private String facilityId;
     private String title;
-    private double rate;
+    private float rate;
     private int numReviews;
     private String description;
     private int type;
     private String image;
     private double latitude;
     private double longitude;
-    private String[] userReplyIds;
+    private boolean isPost;
 
     private Button rateButton;
     private MapView mapView;
@@ -73,6 +81,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         // Get data from database
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
+        isPost = (bundle.getInt("facility_type") == POST);
         type = Integer.parseInt(bundle.getString("facility_type"));
         DBconnection = new DatabaseConnection();
         String facilityInfo = DBconnection.readFromJson(FacilityActivity.this, "specific_facility.json");
@@ -83,22 +92,24 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
             image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
             System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
-            rate = Double.parseDouble((String) facility.getJSONObject("facility").getString("facilityOverallRate"));
-            numReviews = Integer.parseInt((String) facility.getJSONObject("facility").getString("numberOfRates"));
+            rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
+            numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
             latitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("latitude"));
             longitude = Double.parseDouble((String) facility.getJSONObject("facility").getString("longtitude"));
 
-            JSONArray jsonarray = new JSONArray(facility.getJSONArray("reviews"));
+            JSONArray jsonarray = facility.getJSONArray("reviews");
+            System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+            System.out.println(jsonarray);
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                 String userName = (String) jsonobject.getString("username");
-                String userEmail = (String) jsonobject.getString("useremail");
-                double userRate = (double) jsonobject.getDouble("rate");
-                int downvote = (int) jsonobject.getInt("numberOfDownvote");
-                int upvote =  (int) jsonobject.getInt("numberOfUpvote");;
+                String userEmail = (String) jsonobject.getString("replierID");
+                double userRate = (double) jsonobject.getDouble("rateScore");
+                int downvote = (int) jsonobject.getInt("downVotes");
+                int upvote =  (int) jsonobject.getInt("upVotes");;
                 String comment = (String) jsonobject.getString("replyContent");
                 String time = (String) jsonobject.getString("timeOfReply");
-                createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote, false);
+                createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote, isPost);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -119,13 +130,13 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         // Facility Rate
         TextView facilityRate = findViewById(R.id.facilityRatingText);
-        facilityRate.setText("★" + String.valueOf((float) rate));
+        facilityRate.setText("★" + String.valueOf(rate));
 
         // Rating bar
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-        ratingBar.setRating((float) rate);
+        ratingBar.setRating(rate);
 
         // Facility Number of Reviews/Rates
         TextView facilityNumReviews = findViewById(R.id.facilityNumberOfRates);
@@ -135,6 +146,19 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         mapView = findViewById(R.id.mapView);
         mapView.getMapAsync(FacilityActivity.this);
         mapView.onCreate(savedInstanceState);
+
+        // Address
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            TextView addressView = (TextView) findViewById(R.id.facilityAddress);
+            addressView.setText(address);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Rate Button
         rateButton = findViewById(R.id.rate_button);
@@ -269,7 +293,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 Intent reportIntent = new Intent(FacilityActivity.this, ReportActivity.class);
                 Bundle bundle = new Bundle();
                 Button button = (Button) v;
-                bundle.putString("user_email", (String) v.getTag());
+                bundle.putString("user_email", (String) button.getTag());
                 reportIntent.putExtras(bundle);
                 startActivity(reportIntent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -286,9 +310,9 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         CheckBox upVote = new CheckBox(this);
         upVote.setButtonDrawable(R.drawable.upvote);
         upVote.setId(UPVOTE_BASE_ID + id);
-        LinearLayout.LayoutParams layoutParamsupUpvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsupUpvote.setMargins(dpToPx(5f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
-        upVote.setLayoutParams(layoutParamsupUpvote);
+        LinearLayout.LayoutParams layoutParamsUpvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParamsUpvote.setMargins(dpToPx(5f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
+        upVote.setLayoutParams(layoutParamsUpvote);
         upVote.setOnCheckedChangeListener((buttonView, isChecked) -> {
             LinearLayout linearLayout = (LinearLayout) buttonView.getParent();
             TextView textView = (TextView) linearLayout.getChildAt(1);
@@ -338,7 +362,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         votingSystem.addView(downVoteCount);
         votingSystem.addView(reportButton);
         review.addView(usernameAndDate);
-        if (isPost == false) {
+        if (!isPost) {
             RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);
             userRateView.setRating(userRate);
             userRateView.setNumStars(5);
