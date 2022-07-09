@@ -191,14 +191,14 @@ public class LoginActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-                            System.out.println("response is: "+response.toString());
-                            try {
-                                userType = Integer.parseInt(response.getString("user_type"));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-    /*
+                            //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                            //System.out.println("response is: "+response.toString());
+                            //try {
+                            //    userType = Integer.parseInt(response.getString("user_type"));
+                            //} catch (JSONException e) {
+                            //    e.printStackTrace();
+                            //}
+
                             JSONObject info = new JSONObject();
                             try {
                                 info.put("user_name", account.getDisplayName());
@@ -216,8 +216,7 @@ public class LoginActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d(TAG, response.toString());
-
-     */
+                            
                         }
                     },
                     new Response.ErrorListener() {
