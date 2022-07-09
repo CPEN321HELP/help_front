@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +23,9 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.onesignal.OSNotificationAction;
+import com.onesignal.OSNotificationOpenedResult;
+import com.onesignal.OneSignal;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,10 +41,31 @@ public class LoginActivity extends AppCompatActivity {
     private static int userid = 1;
     private final String vm_ip = "http://20.213.243.141:8000/";
 
+    private static final String ONESIGNAL_APP_ID = "f38cdc86-9fb7-40a5-8176-68b4115411da";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // Enable verbose OneSignal logging to debug issues if needed.
+        OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+
+        // OneSignal Initialization
+        OneSignal.initWithContext(this);
+        OneSignal.setAppId(ONESIGNAL_APP_ID);
+        OneSignal.setNotificationOpenedHandler(
+                new OneSignal.OSNotificationOpenedHandler() {
+                    @Override
+                    public void notificationOpened(OSNotificationOpenedResult result) {
+                        String actionId = result.getAction().getActionId();
+                        OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
+                        String title = result.getNotification().getTitle();
+                        Intent intent = new Intent(LoginActivity.this, FacilityActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
 
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -56,9 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                 String token = task.getResult();
 
                 // Log and toast
-                String msg = getString(R.string.msg_token_fmt, token);
-                Log.d(TAG, msg);
-                Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
+                //String msg = getString(R.string.msg_token_fmt, token);
+                //Log.d(TAG, msg);
+                //Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_SHORT).show();
             }
         });
 
