@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -328,6 +329,8 @@ public class DatabaseConnection {
                 public void onErrorResponse(VolleyError error) {
                     status_getFacilities = server_error;
                     Log.d(TAG, "ERROR when connecting to database searchFacilities");
+                    Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                    Toast.makeText(applicationContext, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
             queue.add(jsObjRequest);

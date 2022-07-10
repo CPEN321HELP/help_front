@@ -95,7 +95,7 @@ public class AddFacilityFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
-                Log.d(TAG, "\""+s.toString().trim()+"\"");
+//                Log.d(TAG, "\""+s.toString().trim()+"\"");
                 int length = input.length();
                 if(length > 50){
                     descriptionOK = true;
@@ -257,10 +257,9 @@ public class AddFacilityFragment extends Fragment {
      */
     public LatLng getLocationFromAddress(Context applicationContext, String strAddress) {
         Geocoder coder = new Geocoder(applicationContext);
-        List<Address> address;
         LatLng p1 = null;
         try {
-            address = coder.getFromLocationName(strAddress, 5);
+            List<Address> address = coder.getFromLocationName(strAddress, 1);
             if (address == null) {
                 return null;
             }

@@ -73,6 +73,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private boolean isPost;
 
     private Button rateButton;
+    private Button reportFacilityButton;
     private MapView mapView;
     private GoogleMap mMap;
 
@@ -216,7 +217,24 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+        reportFacilityButton = findViewById(R.id.repor_facility_button);
+        reportFacilityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent reportIntent = new Intent(FacilityActivity.this, ReportActivity.class);
+                Bundle bundle = new Bundle();
+                Button button = (Button) v;
+                bundle.putString("title", title);
+                bundle.putString("user_email", (String) button.getTag());
+                bundle.putInt("facility_id", Integer.parseInt(facilityId));
+                bundle.putInt("facility_type", type);
+                bundle.putString("report_type", "6"); //5 means report comment
 
+                reportIntent.putExtras(bundle);
+                startActivity(reportIntent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
         if (type == POST) {
             LinearLayout.LayoutParams widthParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -321,7 +339,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 bundle.putString("user_email", (String) button.getTag());
                 bundle.putInt("facility_id", Integer.parseInt(facilityId));
                 bundle.putInt("facility_type", type);
-                bundle.putString("reportType", "5");
+                bundle.putString("report_type", "5"); //5 means report comment
 
                 reportIntent.putExtras(bundle);
                 startActivity(reportIntent);

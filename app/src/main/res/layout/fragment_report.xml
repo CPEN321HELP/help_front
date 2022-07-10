@@ -9,41 +9,22 @@
     tools:context=".ui.report.ReportFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/search_layout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/layout_border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Spinner
-            android:id="@+id/spinnerFacility"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:spinnerMode="dropdown"
-            android:dropDownWidth="match_parent"
-            app:layout_constraintWidth_percent="0.5"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/report_y1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/layout_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintHeight_percent="0.5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_layout">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -60,7 +41,7 @@
                         android:id="@+id/report_title_y1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Title:"
+                        android:text="1. Title:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -82,7 +63,7 @@
                         android:id="@+id/facility_type_y1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Facility type:"
+                        android:text="2. Facility type:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -104,7 +85,7 @@
                         android:id="@+id/facility_id_org_y1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Original facility type:"
+                        android:text="3. Original facility type:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -126,7 +107,7 @@
                         android:id="@+id/reporter_id_y1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reporter:"
+                        android:text="4. Reporter:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -145,10 +126,32 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/report_type_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5. Report Type is:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/report_type_cont_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Report Type"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
                         android:id="@+id/reported_id_y1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reported user:"
+                        android:text="6. Reported user:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -170,7 +173,7 @@
                         android:id="@+id/reported_reason_y1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reason:"
+                        android:text="7. Reason:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -223,7 +226,7 @@
         android:background="@drawable/layout_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintHeight_percent="0.5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/report_y1"
@@ -246,7 +249,7 @@
                         android:id="@+id/report_title_y2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Title:"
+                        android:text="1. Title:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -268,7 +271,7 @@
                         android:id="@+id/facility_type_y2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Facility type:"
+                        android:text="2. Facility type:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -290,7 +293,7 @@
                         android:id="@+id/facility_id_org_y2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Original facility type:"
+                        android:text="3. Original facility type:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -312,7 +315,7 @@
                         android:id="@+id/reporter_id_y2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reporter:"
+                        android:text="4. Reporter:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -321,6 +324,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Repoter is :"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/report_type_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5. Report Type is:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/report_type_cont_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Report Type"
                         android:textColor="@color/text_color"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -334,7 +358,7 @@
                         android:id="@+id/reported_id_y2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="User reported:"
+                        android:text="6. User reported:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -356,7 +380,7 @@
                         android:id="@+id/reported_reason_y2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reason:"
+                        android:text="7. Reason:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
