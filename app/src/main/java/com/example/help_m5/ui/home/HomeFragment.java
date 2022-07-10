@@ -250,7 +250,7 @@ public class HomeFragment extends Fragment {
                     Toast.makeText(getActivity(), "opening " + which, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), FacilityActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("facility_type", String.valueOf(facility_type));
+                    bundle.putInt("facility_type", facility_type);
                     bundle.putString("facility_id", finalFacility_id);
                     intent.putExtras(bundle);
                     startActivity(intent);

@@ -28,7 +28,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.help_m5.ui.database.DatabaseConnection;
-import com.example.help_m5.ui.facility.FacilityFragment;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -36,6 +35,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
+
+import com.example.help_m5.ui.home.HomeFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -85,7 +86,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         isPost = (POST == (int) bundle.getInt("facility_type"));
         System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
         System.out.println(isPost);
-        type = Integer.parseInt(bundle.getString("facility_type"));
+        type = bundle.getInt("facility_type");
         DBconnection = new DatabaseConnection();
         String facilityInfo = DBconnection.readFromJson(FacilityActivity.this, "specific_facility.json");
 
