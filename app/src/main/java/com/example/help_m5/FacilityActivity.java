@@ -108,8 +108,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             System.out.println(latitude+" "+longitude);
 
             JSONArray jsonarray = facility.getJSONArray("reviews");
-            System.out.println("EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-            System.out.println(jsonarray);
+            numReviews = (int) jsonarray.length();
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                 String userName = (String) jsonobject.getString("userName");
@@ -124,10 +123,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        DatabaseConnection db = new DatabaseConnection();
-        //db.removeFile("/data/data/com.example.help_m5/files/specific_facility.json");
-        //db.removeFile(getApplicationContext(),"specific_facility.json");
 
         // Facility Title
         TextView facilityTitle = findViewById(R.id.facilityTitle);
@@ -315,6 +310,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 Bundle bundle = new Bundle();
                 Button button = (Button) v;
                 bundle.putString("user_email", (String) button.getTag());
+                bundle.putInt("facility_id", Integer.parseInt(facilityId));
+                bundle.putInt("facility_type", type);
                 reportIntent.putExtras(bundle);
                 startActivity(reportIntent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

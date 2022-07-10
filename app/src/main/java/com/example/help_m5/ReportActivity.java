@@ -38,6 +38,8 @@ public class ReportActivity extends AppCompatActivity {
     private String reportedUserEmail;
     private String comment;
     private boolean reportUser;
+    private int type;
+    private int facilityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,8 @@ public class ReportActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         reportedUserEmail = bundle.getString("user_email");
+        type = bundle.getInt("facility_type");
+        facilityId = bundle.getInt("facility_id");
 
         account = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = account.getEmail();
@@ -77,11 +81,12 @@ public class ReportActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(ReportActivity.this);
                 HashMap<String, String> params = new HashMap<String, String>();
                 queue.start();
-                //params.put("_id", facilityId);
-                //params.put("type", String.valueOf(facilityType));
-                params.put("username", userEmail);
-                params.put("comment", comment);
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"google_sign_up", new JSONObject(params),
+                params.put("reportedFacilityID", String.valueOf(facilityId));
+                params.put("reportedFacilityType", String.valueOf(type));
+                params.put("reporterID", userEmail);
+                params.put("reported_id", reportedUserEmail);
+                params.put("reportReason", comment);
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"user/Report/comment", new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
