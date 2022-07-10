@@ -1,6 +1,7 @@
 package com.example.help_m5;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,7 +43,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Picasso;
-
+import java.util.ArrayList;
 import com.example.help_m5.ui.home.HomeFragment;
 
 import org.json.JSONArray;
@@ -52,8 +53,11 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Locale;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -76,7 +80,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private Button reportFacilityButton;
     private MapView mapView;
     private GoogleMap mMap;
-
+    private ArrayList<CharSequence> reviewers;
     private int id = 1;
     private final int UPVOTE_BASE_ID = 10000000;
     private final int DOWNVOTE_BASE_ID = 20000000;
@@ -89,7 +93,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
-
+        reviewers = new ArrayList<>();
         // Get data from database
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
@@ -107,8 +111,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
             numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
             if (type != POST) {
-                latitude = (double) facility.getJSONObject("facility").getDouble("latitude");
-                longitude = (double) facility.getJSONObject("facility").getDouble("longtitude");
+                latitude = facility.getJSONObject("facility").getDouble("latitude");
+                longitude = facility.getJSONObject("facility").getDouble("longitude");
             }
 
             HashMap<String, String> map = new HashMap<String, String>();
@@ -117,6 +121,9 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
                 if(jsonobject.toString().equals("{}")){
+                    continue;
+                }
+                if(jsonobject.toString().equals("[]")){
                     continue;
                 }
                 try{
@@ -215,6 +222,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 Bundle bundle = new Bundle();
                 bundle.putString("facility_id", facilityId);
                 bundle.putInt("facility_type", type);
+                bundle.putCharSequenceArrayList("reviewers", reviewers);
                 rateIntent.putExtras(bundle);
                 startActivity(rateIntent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -271,6 +279,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
     public void createUserReview(float userRate, String userName, String userEmail, String userDescription, String userDate, int upVoteCounter, int downVoteCounter, boolean isPost) {
         // Linear Layouts
+        reviewers.add(userEmail);
         LinearLayout review = new LinearLayout(this);
         review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         review.setOrientation(LinearLayout.VERTICAL);

@@ -23,8 +23,11 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ReportActivity extends AppCompatActivity {
@@ -42,7 +45,6 @@ public class ReportActivity extends AppCompatActivity {
     private boolean reportUser;
     private int type;
     private int facilityId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
