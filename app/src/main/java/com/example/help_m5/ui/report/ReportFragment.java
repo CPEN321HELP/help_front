@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,7 +63,7 @@ public class ReportFragment extends Fragment {
     private static final int local_error = 4;
     private  static final int only_one_page = 5;
 
-    private static final String TAG = "EntertainmentsFragment";
+    private static final String TAG = "ReportFragment";
 
     private float transY = 100f;
     private OvershootInterpolator interpolator = new OvershootInterpolator();
@@ -72,18 +73,13 @@ public class ReportFragment extends Fragment {
     private DatabaseConnection DBconnection;
     private FragmentReportBinding binding;
     private FloatingActionButton refresh;
-    private ConstraintLayout report_y1, report_y2;
     private Spinner spin;
 
-    private TextView report_title_cont_y1, facility_type_cont_y1, facility_id_org_cont_y1, reporter_id_cont_y1, reported_id_cont_y1, reported_reason_cont_y1, report_id_y1;
-    private TextView report_title_cont_y2, facility_type_cont_y2, facility_id_org_cont_y2, reporter_id_cont_y2, reported_id_cont_y2, reported_reason_cont_y2, report_id_y2;
 
 
     private static String[] countryNames={"Comment","Facility"};
     private static int flags[] = {R.drawable.ic_baseline_comment_24, R.drawable.ic_baseline_all_inclusive_24};
     private int facility_type = -1;
-    private int report_type = report_comment;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentReportBinding.inflate(inflater, container, false);
@@ -91,58 +87,32 @@ public class ReportFragment extends Fragment {
         DBconnection = new DatabaseConnection();
         DBconnection.cleanCaches(getContext());
 
-        report_y1 = binding.reportY1;
-        report_y2 = binding.reportY2;
-
-        //set up spinner
-        spin = binding.spinnerFacility;
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                report_type = getTypeInt(countryNames[position]);
-                setFacilitiesVisibility(View.INVISIBLE);
-                Log.d(TAG, "report_type in onItemSelected"+report_type);
-                getReports(report_type, getContext());
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
-        spin.setAdapter(customAdapter);
-
         initFavMenu();
         setConsOnCl();
+        initButtons();
         return root;
     }
 
-    private void setFacilitiesVisibility(int Visibility){
-        report_y1.setVisibility(Visibility);
-        report_y2.setVisibility(Visibility);
-    }
-
-
     private void setConsOnCl(){
-        report_y1.setOnClickListener(new View.OnClickListener() {
+        binding.reportY1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ConstraintLayoutOnClickListener(1);
             }
         });
 
-        report_y2.setOnClickListener(new View.OnClickListener() {
+        binding.reportY2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ConstraintLayoutOnClickListener(2);
             }
         });
-
     }
 
     private void ConstraintLayoutOnClickListener(int which){
         String facility_id = "";
-        Log.d(TAG, "facility_type is "+facility_type);
+        Log.d(TAG, "before facility_type is "+facility_type);
+
         switch (which){
             case 1:
                 facility_type = getTypeInt(binding.facilityTypeContY1.getText().toString());
@@ -153,6 +123,10 @@ public class ReportFragment extends Fragment {
                 facility_id = binding.reportedIdY2.getText().toString();
                 break;
         }
+
+        Log.d(TAG, "after facility_type is "+facility_type);
+        Log.d(TAG, "after facility_id is "+facility_id);
+
         int result = DBconnection.getSpecificFacility(facility_type, facility_id, getContext());
         Handler handler = new Handler();
 
@@ -161,7 +135,6 @@ public class ReportFragment extends Fragment {
             public void run() {
                 if(result == server_error){
                     Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
-                    return;
                 } else {
                     Toast.makeText(getActivity(), "opening " + which, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity(), FacilityActivity.class);
@@ -176,20 +149,18 @@ public class ReportFragment extends Fragment {
     }
 
     private void initFavMenu(){
-       refresh.setOnClickListener(new View.OnClickListener() {
+        refresh = binding.fabCloseOrRefresh;
+        refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getReports(report_type, getContext());
+                getReports(getContext());
             }
         });
     }
-    private void getReports(int report_type, Context context){
-        String url = vm_ip;
-        if(report_type == report_comment){
-            url += "admin/Report/comment";
-        }else {
-            url += "admin/Report/facility";
-        }
+
+    private void getReports(Context context){
+        String url = vm_ip+"report/admin";
+
         final RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<String, String>();
 
@@ -225,74 +196,154 @@ public class ReportFragment extends Fragment {
         queue.add(jsObjRequest);
     }
 
+    private void initButtons(){
+        //approve y1
+        binding.reportApproveY1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approve(true,1,getContext());
+            }
+        });
+        //approve y2
+        binding.reportApproveY2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approve(true,2,getContext());
+            }
+        });
+        //not approve y1
+        binding.reportNotY1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approve(false,1,getContext());
+            }
+        });
+        //not approve y2
+        binding.reportNotY2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                approve(false,2,getContext());
+            }
+        });
+    }
+    private TextView report_title_cont_Y1, facility_type_cont_Y1, facility_id_org_cont_Y1, reporter_id_cont_Y1, report_type_cont_Y1, reported_id_cont_Y1, reported_reason_cont_Y1, report_id_Y1;
+    private TextView report_title_cont_y2, facility_type_cont_y2, facility_id_org_cont_y2, reporter_id_cont_y2, report_type_cont_y2, reported_id_cont_y2, reported_reason_cont_y2, report_id_y2;
+
+    private void approve(boolean isApprove, int which, Context context){
+        String url = vm_ip + "admin/reportApproval";
+        final RequestQueue queue = Volley.newRequestQueue(context);
+        HashMap<String, String> params = new HashMap<String, String>();
+        if(isApprove){
+            params.put("approve", "1");
+        }else {
+            params.put("approve", "0");
+        }
+        if(which == 1){
+            params.put("report_type", binding.reportTypeContY1.getText().toString());
+            params.put("report_id", binding.reportIdY1.getText().toString());
+            params.put("facility_type", binding.facilityTypeContY1.getText().toString());
+            params.put("facility_id", binding.facilityIdOrgContY1.getText().toString());
+        }else {
+            params.put("report_type", binding.reportTypeContY2.getText().toString());
+            params.put("report_id", binding.reportIdY2.getText().toString());
+            params.put("facility_type", binding.facilityTypeContY2.getText().toString());
+            params.put("facility_id", binding.facilityIdOrgContY2.getText().toString());
+        }
+        Log.d(TAG, params.toString());
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                Toast.makeText(context, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        queue.add(jsObjRequest);
+    }
+
     private void update1(JSONObject data){
-        report_title_cont_y1 = binding.reportTitleContY1;
+        //1
+        report_title_cont_Y1 = binding.reportTitleContY1;
         try {
             String reportType = data.getString("title");
-            report_title_cont_y1.setText((reportType));
+            report_title_cont_Y1.setText((reportType));
         } catch (JSONException e) {
             e.printStackTrace();
-            report_title_cont_y1.setText("none");
+            report_title_cont_Y1.setText("none");
         }
-
-        facility_type_cont_y1 = binding.facilityTypeContY1;
+        //2
+        facility_type_cont_Y1 = binding.facilityTypeContY1;
         try {
             String reportedFacilityType = data.getString("facility_type");
-            facility_type_cont_y1.setText(getTypeInString(reportedFacilityType));
+            facility_type_cont_Y1.setText(getTypeInString(reportedFacilityType));
         } catch (JSONException e) {
             e.printStackTrace();
-            facility_type_cont_y1.setText("none");
+            facility_type_cont_Y1.setText("none");
         }
-
-        facility_id_org_cont_y1 = binding.facilityIdOrgContY1;
+        //3
+        facility_id_org_cont_Y1 = binding.facilityIdOrgContY1;
         try {
             String reportedFacilityID = data.getString("facility_id");
-            facility_id_org_cont_y1.setText((reportedFacilityID));
+            facility_id_org_cont_Y1.setText((reportedFacilityID));
         } catch (JSONException e) {
             e.printStackTrace();
-            facility_id_org_cont_y1.setText("none");
+            facility_id_org_cont_Y1.setText("none");
         }
-
-        reporter_id_cont_y1 = binding.reporterIdContY1;
+        //4
+        reporter_id_cont_Y1 = binding.reporterIdContY1;
         try {
             String reporterID = data.getString("reporter");
-            reporter_id_cont_y1.setText((reporterID));
+            reporter_id_cont_Y1.setText((reporterID));
         } catch (JSONException e) {
             e.printStackTrace();
-            reporter_id_cont_y1.setText("none");
+            reporter_id_cont_Y1.setText("none");
         }
-
-        reported_id_cont_y1 = binding.reportedIdContY1;
+        //5
+        report_type_cont_Y1 = binding.reportTypeContY1;
+        try {
+            String report_type = data.getString("report_type");
+            report_type_cont_Y1.setText((report_type));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            report_type_cont_Y1.setText("none");
+        }
+        //6
+        reported_id_cont_Y1 = binding.reportedIdContY1;
         try {
             String reported_id = data.getString("reported_user");
-            reported_id_cont_y1.setText((reported_id));
+            reported_id_cont_Y1.setText((reported_id));
         } catch (JSONException e) {
             e.printStackTrace();
-            reported_id_cont_y1.setText("none");
+            reported_id_cont_Y1.setText("none");
         }
-
-        reported_reason_cont_y1 = binding.reportedReasonContY1;
+        //7
+        reported_reason_cont_Y1 = binding.reportedReasonContY1;
         try {
             String reportReason = data.getString("reason");
-            reported_reason_cont_y1.setText((reportReason));
+            reported_reason_cont_Y1.setText((reportReason));
         } catch (JSONException e) {
-            reported_reason_cont_y1.setText("none");
+            reported_reason_cont_Y1.setText("none");
             e.printStackTrace();
         }
-
-        report_id_y1 = binding.reportIdY1;
+        //id
+        report_id_Y1 = binding.reportIdY1;
         try {
             String report_id = data.getString("_id");
-            report_id_y1.setText((report_id));
+            report_id_Y1.setText((report_id));
         } catch (JSONException e) {
             e.printStackTrace();
-            report_id_y1.setText("none");
+            report_id_Y1.setText("none");
         }
-        report_y1.setVisibility(View.VISIBLE);
-
+        binding.reportY1.setVisibility(View.VISIBLE);
     }
 
     private void update2(JSONObject data){
+        //1
         report_title_cont_y2 = binding.reportTitleContY2;
         try {
             String reportType = data.getString("title");
@@ -301,7 +352,7 @@ public class ReportFragment extends Fragment {
             e.printStackTrace();
             report_title_cont_y2.setText("none");
         }
-
+        //2
         facility_type_cont_y2 = binding.facilityTypeContY2;
         try {
             String reportedFacilityType = data.getString("facility_type");
@@ -310,7 +361,7 @@ public class ReportFragment extends Fragment {
             e.printStackTrace();
             facility_type_cont_y2.setText("none");
         }
-
+        //3
         facility_id_org_cont_y2 = binding.facilityIdOrgContY2;
         try {
             String reportedFacilityID = data.getString("facility_id");
@@ -319,7 +370,7 @@ public class ReportFragment extends Fragment {
             e.printStackTrace();
             facility_id_org_cont_y2.setText("none");
         }
-
+        //4
         reporter_id_cont_y2 = binding.reporterIdContY2;
         try {
             String reporterID = data.getString("reporter");
@@ -328,7 +379,16 @@ public class ReportFragment extends Fragment {
             e.printStackTrace();
             reporter_id_cont_y2.setText("none");
         }
-
+        //5
+        report_type_cont_y2 = binding.reportTypeContY2;
+        try {
+            String report_type = data.getString("report_type");
+            report_type_cont_y2.setText((report_type));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            report_type_cont_y2.setText("none");
+        }
+        //6
         reported_id_cont_y2 = binding.reportedIdContY2;
         try {
             String reported_id = data.getString("reported_user");
@@ -337,7 +397,7 @@ public class ReportFragment extends Fragment {
             e.printStackTrace();
             reported_id_cont_y2.setText("none");
         }
-
+        //7
         reported_reason_cont_y2 = binding.reportedReasonContY2;
         try {
             String reportReason = data.getString("reason");
@@ -346,7 +406,7 @@ public class ReportFragment extends Fragment {
             reported_reason_cont_y2.setText("none");
             e.printStackTrace();
         }
-
+        //id
         report_id_y2 = binding.reportIdY2;
         try {
             String report_id = data.getString("_id");
@@ -355,7 +415,7 @@ public class ReportFragment extends Fragment {
             e.printStackTrace();
             report_id_y2.setText("none");
         }
-        report_y2.setVisibility(View.VISIBLE);
+        binding.reportY2.setVisibility(View.VISIBLE);
     }
 
     private String getTypeInString(String type){
@@ -363,7 +423,7 @@ public class ReportFragment extends Fragment {
             case "0":
                 return "posts";
             case "1":
-                return "study";
+                return "studys";
             case "2":
                 return "entertainments";
             case "3":
@@ -375,6 +435,7 @@ public class ReportFragment extends Fragment {
         }
         return "none";
     }
+
     private int getTypeInt(String type){
         switch (type){
             case "posts":

@@ -37,7 +37,7 @@ public class ReportActivity extends AppCompatActivity {
     private String userEmail;
     private String reportedUserEmail;
     private String comment;
-    private String reportType;
+    private String report_type;
     private String title;
     private boolean reportUser;
     private int type;
@@ -52,7 +52,7 @@ public class ReportActivity extends AppCompatActivity {
         reportedUserEmail = bundle.getString("user_email");
         type = bundle.getInt("facility_type");
         facilityId = bundle.getInt("facility_id");
-        reportType = bundle.getString("reportType");
+        report_type = bundle.getString("report_type");
         account = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = account.getEmail();
         title = bundle.getString("title");
@@ -81,19 +81,14 @@ public class ReportActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = vm_ip;
-                if(reportType.equals("5")){
-                    url += "user/Report/comment";
-                }else{
-                    url += "user/Report/facility";
-                }
+                String url = vm_ip + "user/Report/commentAndfacility";
                 Log.d(TAG, "bbb" + url);
                 RequestQueue queue = Volley.newRequestQueue(ReportActivity.this);
                 HashMap<String, String> params = new HashMap<String, String>();
                 queue.start();
                 params.put("reportedFacilityID", String.valueOf(facilityId));
                 params.put("reportedFacilityType", String.valueOf(type));
-                params.put("reportType", reportType);
+                params.put("report_type", report_type);
                 params.put("reporterID", userEmail);
                 params.put("reported_id", reportedUserEmail);
                 params.put("reportReason", editText.getText().toString());
