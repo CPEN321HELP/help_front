@@ -25,7 +25,6 @@ import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
-import com.example.help_m5.databinding.FragmentFacilityBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONException;
@@ -240,6 +239,7 @@ public class HomeFragment extends Fragment {
 
         int result = DBconnection.getSpecificFacility(facility_type, facility_id, getContext());
         Handler handler = new Handler();
+
         String finalFacility_id = facility_id;
         handler.postDelayed(new Runnable() {
             public void run() {
