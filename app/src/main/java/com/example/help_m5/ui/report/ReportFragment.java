@@ -3,11 +3,14 @@ package com.example.help_m5.ui.report;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +19,33 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.AdapterView;
 import android.widget.SearchView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.help_m5.CustomAdapter;
+import com.example.help_m5.FacilityActivity;
+import com.example.help_m5.ReportActivity;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentReportBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class ReportFragment extends Fragment {
+
+    private static final String vm_ip = "http://20.213.243.141:8000/";
 
     private static final int posts = 0;
     private static final int study = 1;
@@ -50,21 +69,20 @@ public class ReportFragment extends Fragment {
 
     private boolean isMenuOpen = false;
 
-    private SearchView facilitySearchView;
     private DatabaseConnection DBconnection;
     private FragmentReportBinding binding;
-    private FloatingActionButton close_or_refresh, page_up, page_down, main;
-    private ConstraintLayout shows1, shows2, shows3, shows4, shows5;
-
+    private FloatingActionButton refresh;
+    private ConstraintLayout report_y1, report_y2;
     private Spinner spin;
 
-    private int newest_page_number = 1;
-    private boolean reached_end_newest = false, one_page = false;
+    private TextView report_title_cont_y1, facility_type_cont_y1, facility_id_org_cont_y1, reporter_id_cont_y1, reported_id_cont_y1, reported_reason_cont_y1, report_id_y1;
+    private TextView report_title_cont_y2, facility_type_cont_y2, facility_id_org_cont_y2, reporter_id_cont_y2, reported_id_cont_y2, reported_reason_cont_y2, report_id_y2;
+
 
     private static String[] countryNames={"Comment","Facility"};
     private static int flags[] = {R.drawable.ic_baseline_comment_24, R.drawable.ic_baseline_all_inclusive_24};
-
-    private int facility_type = report_comment;
+    private int facility_type = -1;
+    private int report_type = report_comment;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -73,34 +91,22 @@ public class ReportFragment extends Fragment {
         DBconnection = new DatabaseConnection();
         DBconnection.cleanCaches(getContext());
 
-        shows1 = binding.facility1;
-        shows2 = binding.facility2;
-        shows3 = binding.facility3;
-        shows4 = binding.facility4;
-        shows5 = binding.facility5;
+        report_y1 = binding.reportY1;
+        report_y2 = binding.reportY2;
 
         //set up spinner
         spin = binding.spinnerFacility;
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                newest_page_number = 1;
-                one_page = false;
-                facility_type = getTypeInt(countryNames[position]);
+                report_type = getTypeInt(countryNames[position]);
                 setFacilitiesVisibility(View.INVISIBLE);
-                Log.d(TAG, "facility_type in onItemSelected"+facility_type);
-                int result = -1;
-                result =  DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, true, "");
-                Log.d(TAG, "initial result is : " + result);
-                if (result == server_error){
-                    Toast.makeText(getContext(), "Error happened when connecting to server, please exist", Toast.LENGTH_SHORT).show();
-                }else if (result == only_one_page || result == reached_end){
-                    one_page = true;
-                }
+                Log.d(TAG, "report_type in onItemSelected"+report_type);
+                getReports(report_type, getContext());
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
@@ -112,220 +118,281 @@ public class ReportFragment extends Fragment {
     }
 
     private void setFacilitiesVisibility(int Visibility){
-        shows1.setVisibility(Visibility);
-        shows2.setVisibility(Visibility);
-        shows3.setVisibility(Visibility);
-        shows4.setVisibility(Visibility);
-        shows5.setVisibility(Visibility);
-
+        report_y1.setVisibility(Visibility);
+        report_y2.setVisibility(Visibility);
     }
 
-    private void setRateBarVisibility(int Visibility){
-        binding.ratingBarFacility1.setVisibility(Visibility);
-        binding.ratingBarFacility2.setVisibility(Visibility);
-        binding.ratingBarFacility3.setVisibility(Visibility);
-        binding.ratingBarFacility4.setVisibility(Visibility);
-        binding.ratingBarFacility5.setVisibility(Visibility);
-
-    }
 
     private void setConsOnCl(){
-        shows1.setOnClickListener(new View.OnClickListener() {
+        report_y1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ConstraintLayoutOnClickListener(1);
             }
         });
 
-        shows2.setOnClickListener(new View.OnClickListener() {
+        report_y2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ConstraintLayoutOnClickListener(2);
             }
         });
 
-        shows3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConstraintLayoutOnClickListener(3);
-            }
-        });
-
-        shows4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConstraintLayoutOnClickListener(4);
-            }
-        });
-
-        shows5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ConstraintLayoutOnClickListener(5);
-            }
-        });
     }
 
     private void ConstraintLayoutOnClickListener(int which){
         String facility_id = "";
+        Log.d(TAG, "facility_type is "+facility_type);
         switch (which){
             case 1:
-                facility_id = binding.facilityIDTextViewFacility1.getText().toString();
+                facility_type = getTypeInt(binding.facilityTypeContY1.getText().toString());
+                facility_id = binding.reportedIdY1.getText().toString();
                 break;
             case 2:
-                facility_id = binding.facilityIDTextViewFacility2.getText().toString();
-                break;
-            case 3:
-                facility_id = binding.facilityIDTextViewFacility3.getText().toString();
-                break;
-            case 4:
-                facility_id = binding.facilityIDTextViewFacility4.getText().toString();
-                break;
-            case 5:
-                facility_id = binding.facilityIDTextViewFacility5.getText().toString();
+                facility_type = getTypeInt(binding.facilityTypeContY2.getText().toString());
+                facility_id = binding.reportedIdY2.getText().toString();
                 break;
         }
         int result = DBconnection.getSpecificFacility(facility_type, facility_id, getContext());
-        if(result == server_error){
-            Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
-            return ;
-        }
-        Toast.makeText(getActivity(), "opening "+which, Toast.LENGTH_SHORT).show();
-//        Intent intent = new Intent(getActivity(), FacilityActivity.class);
-//        startActivity(intent);
+        Handler handler = new Handler();
+
+        String finalFacility_id = facility_id;
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                if(result == server_error){
+                    Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    Toast.makeText(getActivity(), "opening " + which, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), FacilityActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("facility_type", facility_type);
+                    bundle.putString("facility_id", finalFacility_id);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+            }
+        }, 300);
     }
 
     private void initFavMenu(){
-        close_or_refresh = binding.fabCloseOrRefresh;
-        page_up = binding.fabPrevious;
-        page_down = binding.fabNext;
-        main = binding.fabMain;
-
-        close_or_refresh.setAlpha(0f);
-        page_up.setAlpha(0f);
-        page_down.setAlpha(0f);
-
-        close_or_refresh.setTranslationY(transY);
-        page_up.setTranslationY(transY);
-        page_down.setTranslationY(transY);
-
-        close_or_refresh.setOnClickListener(new View.OnClickListener() {
+       refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                one_page = false;
-                DBconnection.cleanCaches(getContext());
-                setFacilitiesVisibility(View.INVISIBLE);
-                int result = DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, true, "");
-                if (result == local_error) {
-                    newest_page_number = 1;
-                    Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "down page Error happened when loading data, please exist");
-                } else if(result == only_one_page || result == reached_end){
-                    one_page = true;
-                }
-            }
-        });
-
-        page_up.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (newest_page_number == 1 || one_page) {
-                    reached_end_newest = false;
-                    Toast.makeText(getContext(), "You are already on first page", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                setFacilitiesVisibility(View.INVISIBLE);
-                newest_page_number -= 1;
-                int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, true, "");
-                if (result == local_error) {
-                    newest_page_number = 1;
-                    Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "down page Error happened when loading data, please exist");
-                } else if (result == reached_end) {
-                    newest_page_number = 1;
-                    Log.d(TAG, "down page load all");
-                } else if(result == only_one_page ){
-                    one_page = true;
-
-                }
-                Log.d(TAG, "1 result is :" + result);
-                Log.d(TAG, "1 newest_page_number is :" + newest_page_number);
-            }
-        });
-
-
-
-        page_down.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (one_page) {
-                    newest_page_number = 1;
-                    DBconnection.getFacilities(binding, facility_type, 1, getContext(), false, true, "");
-                    Toast.makeText(getContext(), "No more facility to show", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (reached_end_newest) {
-                    reached_end_newest = false;
-                    newest_page_number = 1;
-                } else {
-                    newest_page_number++;
-                }
-                setFacilitiesVisibility(View.INVISIBLE);
-                int result = DBconnection.getFacilities(binding, facility_type, newest_page_number, getContext(), false, true, "");
-                if (result == local_error) {
-                    reached_end_newest = true;
-                    Toast.makeText(getContext(), "Error happened when loading data, please exist", Toast.LENGTH_SHORT).show();
-                } else if (result == reached_end) {
-                    reached_end_newest = true;
-                }else if(result == only_one_page ){
-                    one_page = true;
-                }
-                Log.d(TAG, "2 result is :" + result);
-                Log.d(TAG, "2 newest_page_number is :" + newest_page_number);
-                Log.d(TAG, "2 reached_end_search is :" + reached_end_newest);
-            }
-        });
-
-        main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                close_or_refresh.setImageResource(R.drawable.ic_baseline_refresh_24);
-                if(isMenuOpen){
-                    closeMenu();
-                }else {
-                    openMenu();
-                }
+                getReports(report_type, getContext());
             }
         });
     }
+    private void getReports(int report_type, Context context){
+        String url = vm_ip;
+        if(report_type == report_comment){
+            url += "admin/Report/comment";
+        }else {
+            url += "admin/Report/facility";
+        }
+        final RequestQueue queue = Volley.newRequestQueue(context);
+        HashMap<String, String> params = new HashMap<String, String>();
 
-    private void openMenu(){
-        isMenuOpen = !isMenuOpen;
-        main.animate().setInterpolator(interpolator).rotation(180f).setDuration(300).start();
-        close_or_refresh.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
-        page_up.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
-        page_down.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.GET, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "ccc" + response.toString());
+                try {
+                    int length = response.getInt("length");
+                    if(length == 0){
+
+                    } else if(length == 1){
+                        JSONArray a1 = response.getJSONArray("report_content");
+                        update1(a1.getJSONObject(0));
+                    } else {
+                        JSONArray a1 = response.getJSONArray("report_content");
+                        update1(a1.getJSONObject(0));
+                        update2(a1.getJSONObject(1));
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                Toast.makeText(context, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        queue.add(jsObjRequest);
+    }
+
+    private void update1(JSONObject data){
+        report_title_cont_y1 = binding.reportTitleContY1;
+        try {
+            String reportType = data.getString("title");
+            report_title_cont_y1.setText((reportType));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            report_title_cont_y1.setText("none");
+        }
+
+        facility_type_cont_y1 = binding.facilityTypeContY1;
+        try {
+            String reportedFacilityType = data.getString("facility_type");
+            facility_type_cont_y1.setText(getTypeInString(reportedFacilityType));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            facility_type_cont_y1.setText("none");
+        }
+
+        facility_id_org_cont_y1 = binding.facilityIdOrgContY1;
+        try {
+            String reportedFacilityID = data.getString("facility_id");
+            facility_id_org_cont_y1.setText((reportedFacilityID));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            facility_id_org_cont_y1.setText("none");
+        }
+
+        reporter_id_cont_y1 = binding.reporterIdContY1;
+        try {
+            String reporterID = data.getString("reporter");
+            reporter_id_cont_y1.setText((reporterID));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            reporter_id_cont_y1.setText("none");
+        }
+
+        reported_id_cont_y1 = binding.reportedIdContY1;
+        try {
+            String reported_id = data.getString("reported_user");
+            reported_id_cont_y1.setText((reported_id));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            reported_id_cont_y1.setText("none");
+        }
+
+        reported_reason_cont_y1 = binding.reportedReasonContY1;
+        try {
+            String reportReason = data.getString("reason");
+            reported_reason_cont_y1.setText((reportReason));
+        } catch (JSONException e) {
+            reported_reason_cont_y1.setText("none");
+            e.printStackTrace();
+        }
+
+        report_id_y1 = binding.reportIdY1;
+        try {
+            String report_id = data.getString("_id");
+            report_id_y1.setText((report_id));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            report_id_y1.setText("none");
+        }
+        report_y1.setVisibility(View.VISIBLE);
 
     }
 
-    private void closeMenu(){
-        isMenuOpen = !isMenuOpen;
-        main.animate().setInterpolator(interpolator).rotation(0).setDuration(300).start();
-        close_or_refresh.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
-        page_up.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
-        page_down.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
+    private void update2(JSONObject data){
+        report_title_cont_y2 = binding.reportTitleContY2;
+        try {
+            String reportType = data.getString("title");
+            report_title_cont_y2.setText((reportType));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            report_title_cont_y2.setText("none");
+        }
+
+        facility_type_cont_y2 = binding.facilityTypeContY2;
+        try {
+            String reportedFacilityType = data.getString("facility_type");
+            facility_type_cont_y2.setText(getTypeInString(reportedFacilityType));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            facility_type_cont_y2.setText("none");
+        }
+
+        facility_id_org_cont_y2 = binding.facilityIdOrgContY2;
+        try {
+            String reportedFacilityID = data.getString("facility_id");
+            facility_id_org_cont_y2.setText((reportedFacilityID));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            facility_id_org_cont_y2.setText("none");
+        }
+
+        reporter_id_cont_y2 = binding.reporterIdContY2;
+        try {
+            String reporterID = data.getString("reporter");
+            reporter_id_cont_y2.setText((reporterID));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            reporter_id_cont_y2.setText("none");
+        }
+
+        reported_id_cont_y2 = binding.reportedIdContY2;
+        try {
+            String reported_id = data.getString("reported_user");
+            reported_id_cont_y2.setText((reported_id));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            reported_id_cont_y2.setText("none");
+        }
+
+        reported_reason_cont_y2 = binding.reportedReasonContY2;
+        try {
+            String reportReason = data.getString("reason");
+            reported_reason_cont_y2.setText((reportReason));
+        } catch (JSONException e) {
+            reported_reason_cont_y2.setText("none");
+            e.printStackTrace();
+        }
+
+        report_id_y2 = binding.reportIdY2;
+        try {
+            String report_id = data.getString("_id");
+            report_id_y2.setText((report_id));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            report_id_y2.setText("none");
+        }
+        report_y2.setVisibility(View.VISIBLE);
     }
 
-    private int getTypeInt(String selected){
-        switch (selected){
-            case "Comment":
+    private String getTypeInString(String type){
+        switch (type){
+            case "0":
+                return "posts";
+            case "1":
+                return "study";
+            case "2":
+                return "entertainments";
+            case "3":
+                return "restaurants";
+            case "5":
+                return "report_comment";
+            case "6":
+                return "report_facility";
+        }
+        return "none";
+    }
+    private int getTypeInt(String type){
+        switch (type){
+            case "posts":
+                return posts;
+            case "study":
+                return study;
+            case "entertainments":
+                return entertainments;
+            case "restaurants":
+                return restaurants;
+            case "report_comment":
                 return report_comment;
-            case  "Facility":
+            case "report_facility":
                 return report_facility;
         }
         return -1;
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();

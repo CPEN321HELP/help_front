@@ -183,9 +183,7 @@ public class HomeFragment extends Fragment {
     private void setConsOnCl(){
         shows1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                ConstraintLayoutOnClickListener(1);
-            }
+            public void onClick(View v) {ConstraintLayoutOnClickListener(1);}
         });
 
         shows2.setOnClickListener(new View.OnClickListener() {

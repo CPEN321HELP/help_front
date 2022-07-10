@@ -64,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
+        OneSignal.setExternalUserId("l2542293790@gmail.com");
         OneSignal.setNotificationOpenedHandler(
                 new OneSignal.OSNotificationOpenedHandler() {
                     @Override
@@ -107,9 +108,12 @@ public class LoginActivity extends AppCompatActivity {
 
         if(db.isCached(getApplicationContext(), userInfo)){
             //user has already login in
+            Log.d(TAG, "cached");
+
             Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(MainIntent);
         }
+        Log.d(TAG, "not cached");
 
         // Google Sign In Button
         signInButton = findViewById(R.id.sign_in_button);
@@ -191,6 +195,7 @@ public class LoginActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            Log.d(TAG, response.toString());
                             //System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                             //System.out.println("response is: "+response.toString());
                             //try {
@@ -198,13 +203,17 @@ public class LoginActivity extends AppCompatActivity {
                             //} catch (JSONException e) {
                             //    e.printStackTrace();
                             //}
+                            Log.d(TAG, "aaa "+getApplicationContext().getFilesDir().toString());
+                            Log.d(TAG, "aaa "+response.toString());
+
 
                             JSONObject info = new JSONObject();
+
                             try {
                                 info.put("user_name", account.getDisplayName());
                                 info.put("user_email", account.getEmail());
                                 info.put("user_type", 0);
-                                info.put("credit", response.get("credit"));
+                                info.put("number_of_credit", response.get("number_of_credit"));
                                 if (account.getPhotoUrl() != null) {
                                     info.put("user_icon", account.getPhotoUrl().toString());
                                 } else {
@@ -215,7 +224,6 @@ public class LoginActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            Log.d(TAG, response.toString());
 
                         }
                     },

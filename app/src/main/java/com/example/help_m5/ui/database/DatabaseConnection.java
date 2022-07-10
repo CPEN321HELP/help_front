@@ -417,19 +417,19 @@ public class DatabaseConnection {
             return;
         }
         File targetDir = applicationContext.getFilesDir();
-        if( targetDir == null){
-//            Log.d(TAG, "error cleaning");
-            return;
-        }
-        if(targetDir.isDirectory()){
-//            Log.d(TAG, "start cleaning");
-        }
         File[] files = targetDir.listFiles();
         if( files == null){
 //            Log.d(TAG, "dir empty, nothing to clean");
             return;
         }
         for(File f : files){
+            String filename = f.getName();
+            Log.d(TAG, "filename is: "+filename);
+            if(filename.equals("userInfo.json")){
+                continue;
+            }
+            Log.d(TAG, "delete filename is: " + filename);
+
             f.delete();
         }
     }

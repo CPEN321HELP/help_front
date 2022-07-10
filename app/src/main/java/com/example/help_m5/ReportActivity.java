@@ -37,6 +37,8 @@ public class ReportActivity extends AppCompatActivity {
     private String userEmail;
     private String reportedUserEmail;
     private String comment;
+    private String reportType;
+    private String title;
     private boolean reportUser;
     private int type;
     private int facilityId;
@@ -50,10 +52,10 @@ public class ReportActivity extends AppCompatActivity {
         reportedUserEmail = bundle.getString("user_email");
         type = bundle.getInt("facility_type");
         facilityId = bundle.getInt("facility_id");
-
+        reportType = bundle.getString("reportType");
         account = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = account.getEmail();
-
+        title = bundle.getString("title");
         EditText editText = findViewById(R.id.editTextReport);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -69,24 +71,35 @@ public class ReportActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                comment = editText.getText().toString();
+//                comment = editText.getText().toString();
             }
         });
 
         submitButton = findViewById(R.id.submit_button_report);
-        submitButton.setEnabled(false);
+//        submitButton.setEnabled(false);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String url = vm_ip;
+                if(reportType.equals("5")){
+                    url += "user/Report/comment";
+                }else{
+                    url += "user/Report/facility";
+                }
+                Log.d(TAG, "bbb" + url);
                 RequestQueue queue = Volley.newRequestQueue(ReportActivity.this);
                 HashMap<String, String> params = new HashMap<String, String>();
                 queue.start();
                 params.put("reportedFacilityID", String.valueOf(facilityId));
                 params.put("reportedFacilityType", String.valueOf(type));
+                params.put("reportType", reportType);
                 params.put("reporterID", userEmail);
                 params.put("reported_id", reportedUserEmail);
-                params.put("reportReason", comment);
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"user/Report/comment", new JSONObject(params),
+                params.put("reportReason", editText.getText().toString());
+                params.put("title", title);
+
+                Log.d(TAG, "aaa" + params.toString());
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

@@ -84,12 +84,12 @@ public class LoadToScreen {
         ConstraintLayout constraintLayout_facility1 = null;
 
         if(isReport){
-            titleTextView_facility1 = ((FragmentReportBinding) Binding).titleTextViewFacility1;
-            dateTextView_facility1 = ((FragmentReportBinding) Binding).dateTextViewFacility1;
-            contentTextView_facility1 = ((FragmentReportBinding) Binding).contentTextViewFacility1;
-            ratingBar_facility1 = ((FragmentReportBinding) Binding).ratingBarFacility1;
-            facilityID_textView1_facility1 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility1;
-            constraintLayout_facility1 = ((FragmentReportBinding) Binding).facility1;
+//            titleTextView_facility1 = ((FragmentReportBinding) Binding).titleTextViewFacility1;
+//            dateTextView_facility1 = ((FragmentReportBinding) Binding).dateTextViewFacility1;
+//            contentTextView_facility1 = ((FragmentReportBinding) Binding).contentTextViewFacility1;
+//            ratingBar_facility1 = ((FragmentReportBinding) Binding).ratingBarFacility1;
+//            facilityID_textView1_facility1 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility1;
+//            constraintLayout_facility1 = ((FragmentReportBinding) Binding).facility1;
         }else {
             titleTextView_facility1 = ((FragmentHomeBinding) Binding).titleTextViewFacility1;
             dateTextView_facility1 = ((FragmentHomeBinding) Binding).dateTextViewFacility1;
@@ -144,12 +144,12 @@ public class LoadToScreen {
         ConstraintLayout constraintLayout_facility2 = null;
 
         if(isReport){
-            titleTextView_facility2 = ((FragmentReportBinding) Binding).titleTextViewFacility2;
-            dateTextView_facility2 = ((FragmentReportBinding) Binding).dateTextViewFacility2;
-            contentTextView_facility2 = ((FragmentReportBinding) Binding).contentTextViewFacility2;
-            ratingBar_facility2 = ((FragmentReportBinding) Binding).ratingBarFacility2;
-            facilityID_textView1_facility2 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility2;
-            constraintLayout_facility2 = ((FragmentReportBinding) Binding).facility2;
+//            titleTextView_facility2 = ((FragmentReportBinding) Binding).titleTextViewFacility2;
+//            dateTextView_facility2 = ((FragmentReportBinding) Binding).dateTextViewFacility2;
+//            contentTextView_facility2 = ((FragmentReportBinding) Binding).contentTextViewFacility2;
+//            ratingBar_facility2 = ((FragmentReportBinding) Binding).ratingBarFacility2;
+//            facilityID_textView1_facility2 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility2;
+//            constraintLayout_facility2 = ((FragmentReportBinding) Binding).facility2;
         }else {
             titleTextView_facility2 = ((FragmentHomeBinding) Binding).titleTextViewFacility2;
             dateTextView_facility2 = ((FragmentHomeBinding) Binding).dateTextViewFacility2;
@@ -202,12 +202,12 @@ public class LoadToScreen {
         ConstraintLayout constraintLayout_facility3 = null;
 
         if(isReport){
-            titleTextView_facility3 = ((FragmentReportBinding) Binding).titleTextViewFacility3;
-            dateTextView_facility3 = ((FragmentReportBinding) Binding).dateTextViewFacility3;
-            contentTextView_facility3 = ((FragmentReportBinding) Binding).contentTextViewFacility3;
-            ratingBar_facility3 = ((FragmentReportBinding) Binding).ratingBarFacility3;
-            facilityID_textView1_facility3 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility3;
-            constraintLayout_facility3 = ((FragmentReportBinding) Binding).facility3;
+//            titleTextView_facility3 = ((FragmentReportBinding) Binding).titleTextViewFacility3;
+//            dateTextView_facility3 = ((FragmentReportBinding) Binding).dateTextViewFacility3;
+//            contentTextView_facility3 = ((FragmentReportBinding) Binding).contentTextViewFacility3;
+//            ratingBar_facility3 = ((FragmentReportBinding) Binding).ratingBarFacility3;
+//            facilityID_textView1_facility3 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility3;
+//            constraintLayout_facility3 = ((FragmentReportBinding) Binding).facility3;
         }else {
             titleTextView_facility3 = ((FragmentHomeBinding) Binding).titleTextViewFacility3;
             dateTextView_facility3 = ((FragmentHomeBinding) Binding).dateTextViewFacility3;
@@ -261,12 +261,12 @@ public class LoadToScreen {
         ConstraintLayout constraintLayout_facility4 = null;
 
         if(isReport){
-            titleTextView_facility4 = ((FragmentReportBinding) Binding).titleTextViewFacility4;
-            dateTextView_facility4 = ((FragmentReportBinding) Binding).dateTextViewFacility4;
-            contentTextView_facility4 = ((FragmentReportBinding) Binding).contentTextViewFacility4;
-            ratingBar_facility4 = ((FragmentReportBinding) Binding).ratingBarFacility4;
-            facilityID_textView1_facility4 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility4;
-            constraintLayout_facility4 = ((FragmentReportBinding) Binding).facility4;
+//            titleTextView_facility4 = ((FragmentReportBinding) Binding).titleTextViewFacility4;
+//            dateTextView_facility4 = ((FragmentReportBinding) Binding).dateTextViewFacility4;
+//            contentTextView_facility4 = ((FragmentReportBinding) Binding).contentTextViewFacility4;
+//            ratingBar_facility4 = ((FragmentReportBinding) Binding).ratingBarFacility4;
+//            facilityID_textView1_facility4 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility4;
+//            constraintLayout_facility4 = ((FragmentReportBinding) Binding).facility4;
         }else {
             titleTextView_facility4 = ((FragmentHomeBinding) Binding).titleTextViewFacility4;
             dateTextView_facility4 = ((FragmentHomeBinding) Binding).dateTextViewFacility4;
@@ -320,12 +320,12 @@ public class LoadToScreen {
         ConstraintLayout constraintLayout_facility5 = null;
 
         if(isReport){
-            titleTextView_facility5 = ((FragmentReportBinding) Binding).titleTextViewFacility5;
-            dateTextView_facility5 = ((FragmentReportBinding) Binding).dateTextViewFacility5;
-            contentTextView_facility5 = ((FragmentReportBinding) Binding).contentTextViewFacility5;
-            ratingBar_facility5 = ((FragmentReportBinding) Binding).ratingBarFacility5;
-            facilityID_textView1_facility5 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility5;
-            constraintLayout_facility5 = ((FragmentReportBinding) Binding).facility5;
+//            titleTextView_facility5 = ((FragmentReportBinding) Binding).titleTextViewFacility5;
+//            dateTextView_facility5 = ((FragmentReportBinding) Binding).dateTextViewFacility5;
+//            contentTextView_facility5 = ((FragmentReportBinding) Binding).contentTextViewFacility5;
+//            ratingBar_facility5 = ((FragmentReportBinding) Binding).ratingBarFacility5;
+//            facilityID_textView1_facility5 = ((FragmentReportBinding) Binding).facilityIDTextViewFacility5;
+//            constraintLayout_facility5 = ((FragmentReportBinding) Binding).facility5;
         }else {
             titleTextView_facility5 = ((FragmentHomeBinding) Binding).titleTextViewFacility5;
             dateTextView_facility5 = ((FragmentHomeBinding) Binding).dateTextViewFacility5;

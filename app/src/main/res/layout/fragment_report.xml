@@ -1,427 +1,424 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.constraintlayout.widget.ConstraintLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.report.ReportFragment">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/search_layout"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:background="@drawable/layout_border"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.1"
-    app:layout_constraintTop_toTopOf="parent">
-
-    <Spinner
-        android:id="@+id/spinnerFacility"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/search_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:spinnerMode="dropdown"
-        android:dropDownWidth="match_parent"
-        app:layout_constraintWidth_percent="0.5"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:background="@drawable/layout_border"
-    android:id="@+id/facility1"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:visibility="invisible"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.18"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/search_layout">
-
-    <TextView
-        android:id="@+id/titleTextView_facility1"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:textColor="@color/text_color"
-        android:text="Title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dateTextView_facility1"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:textColor="@color/text_color"
-
-        android:text="yyyymmdd"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/contentTextView_facility1"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/text_color"
-        android:text="This will be the content. "
+        <Spinner
+            android:id="@+id/spinnerFacility"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:spinnerMode="dropdown"
+            android:dropDownWidth="match_parent"
+            app:layout_constraintWidth_percent="0.5"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/report_y1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_border"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_layout">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/report_title_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Title:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/report_title_cont_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Actual title"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/facility_type_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Facility type:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/facility_type_cont_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Actual facility type"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/facility_id_org_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Original facility type:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/facility_id_org_cont_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Actual Original facility type"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/reporter_id_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reporter:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/reporter_id_cont_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Repoter is :"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/reported_id_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reported user:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/reported_id_cont_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User being report is :"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/reported_reason_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reason:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/reported_reason_cont_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reason is :"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/report_id_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="report_id"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/reportApprove_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Approve" />
+
+                    <Button
+                        android:id="@+id/reportNot_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reject" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/report_y2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/layout_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RatingBar
-        android:id="@+id/ratingBar_facility1"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:stepSize="0.1"
+        app:layout_constraintHeight_percent="0.45"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility1" />
+        app:layout_constraintTop_toBottomOf="@+id/report_y1"
+        app:layout_constraintVertical_bias="1.0">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/facilityID_textView_facility1"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/report_title_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Title:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/report_title_cont_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Actual title"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/facility_type_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Facility type:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/facility_type_cont_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Actual facility type"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/facility_id_org_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Original facility type:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/facility_id_org_cont_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Actual Original facility type"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/reporter_id_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reporter:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/reporter_id_cont_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Repoter is :"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/reported_id_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User reported:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/reported_id_cont_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User being report is :"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/reported_reason_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reason:"
+                        android:textColor="@color/text_color"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:id="@+id/reported_reason_cont_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reason is :"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/report_id_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="report_id"
+                        android:textColor="@color/text_color"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/reportApprove_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Approve" />
+
+                    <Button
+                        android:id="@+id/reportNot_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reject" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="ID"
-        android:textColor="@color/text_color"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/facility2"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:visibility="invisible"
-
-    android:background="@drawable/layout_border"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.18"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/facility1">
-
-    <TextView
-        android:id="@+id/titleTextView_facility2"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Title"
-        android:textColor="@color/text_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dateTextView_facility2"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="yyyymmdd"
-        android:textColor="@color/text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/contentTextView_facility2"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:text="This will be the content. "
-        android:textColor="@color/text_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RatingBar
-        android:id="@+id/ratingBar_facility2"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:stepSize="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility2" />
-    <TextView
-        android:id="@+id/facilityID_textView_facility2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID"
-        android:textColor="@color/text_color"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/facility3"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:visibility="invisible"
-
-    android:background="@drawable/layout_border"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.18"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/facility2">
-
-    <TextView
-        android:id="@+id/titleTextView_facility3"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Title"
-        android:textColor="@color/text_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dateTextView_facility3"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="yyyymmdd"
-        android:textColor="@color/text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/contentTextView_facility3"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:text="This will be the content. "
-        android:textColor="@color/text_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RatingBar
-        android:id="@+id/ratingBar_facility3"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:stepSize="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility3" />
-    <TextView
-        android:id="@+id/facilityID_textView_facility3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID"
-        android:textColor="@color/text_color"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/facility4"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:background="@drawable/layout_border"
-    android:visibility="invisible"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.18"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/facility3">
-
-    <TextView
-        android:id="@+id/titleTextView_facility4"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Title"
-        android:textColor="@color/text_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dateTextView_facility4"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="yyyymmdd"
-        android:textColor="@color/text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/contentTextView_facility4"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:text="This will be the content. "
-        android:textColor="@color/text_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-    <RatingBar
-        android:id="@+id/ratingBar_facility4"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:stepSize="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility4" />
-
-    <TextView
-        android:id="@+id/facilityID_textView_facility4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID"
-        android:textColor="@color/text_color"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/facility5"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:background="@drawable/layout_border"
-    android:visibility="invisible"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHeight_percent="0.18"
-    app:layout_constraintHorizontal_bias="0.0"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/facility4">
-    <TextView
-        android:id="@+id/titleTextView_facility5"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="Title"
-        android:textColor="@color/text_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/dateTextView_facility5"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:text="yyyymmdd"
-        android:textColor="@color/text_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/contentTextView_facility5"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:text="This will be the content. "
-        android:textColor="@color/text_color"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RatingBar
-        android:id="@+id/ratingBar_facility5"
-        style="?android:attr/ratingBarStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:stepSize="0.1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility5" />
-
-    <TextView
-        android:id="@+id/facilityID_textView_facility5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID"
-        android:textColor="@color/text_color"
-        android:layout_marginStart="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginEnd="16dp"
-    android:layout_marginBottom="16dp"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent">
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_close_or_refresh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        app:elevation="0dp"
-        app:srcCompat="@drawable/ic_baseline_refresh_24" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_previous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        app:elevation="0dp"
-        app:srcCompat="@drawable/ic_up_facility" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_next"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        app:elevation="0dp"
-        app:srcCompat="@drawable/ic_down_facility" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="3dp"
-        app:elevation="0dp"
-        app:srcCompat="@drawable/ic_show_mnu" />
-
-</LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_close_or_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/ic_baseline_refresh_24" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,6 +50,8 @@ public class RateActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
         facilityType = bundle.getInt("facility_type");
+        Log.d(TAG, facilityId);
+        Log.d(TAG, ""+facilityType);
 
         userAccount = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = userAccount.getEmail();
@@ -68,7 +70,6 @@ public class RateActivity extends AppCompatActivity {
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.d(TAG, "Need to include a message");
             }
 
             @Override
@@ -97,19 +98,23 @@ public class RateActivity extends AppCompatActivity {
                 paramsRate.put("rateScore", String.valueOf(rate));
                 paramsRate.put("facility_type", String.valueOf(facilityType));
                 paramsRate.put("facility_id", facilityId);
+                Log.d(TAG, paramsRate.toString());
                 JsonObjectRequest requestRate = new JsonObjectRequest(Request.Method.POST, vm_ip+"user/RateFacility", new JSONObject(paramsRate),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                System.out.println("response is: "+response.toString());
-                                Toast.makeText(RateActivity.this, "Your review was successfully submitted!", Toast.LENGTH_SHORT).show();
+                                Log.d(TAG,response.toString());
+//                                System.out.println("response is: "+response.toString());
+                                Toast.makeText(getApplicationContext(), "Your review was successfully submitted!", Toast.LENGTH_SHORT).show();
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                System.out.println("onErrorResponse" + "Error: " + error.getMessage());
-                                Toast.makeText(RateActivity.this, "Error submitting review: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.d(TAG,"1 onErrorResponse" + "Error: " + error.getMessage());
+                                Log.d(TAG, "1 ERROR when connecting to database getSpecificFacility");
+
+                                Toast.makeText(getApplicationContext(), "Error submitting review: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                 queue.add(requestRate);
@@ -125,13 +130,15 @@ public class RateActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                System.out.println("response is: "+response.toString());
-                            }
+                                Log.d(TAG,response.toString());
+//                                System.out.println("response is: "+response.toString());
+                                }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                System.out.println("onErrorResponse" + "Error: " + error.getMessage());
+                                Log.d(TAG,"2 onErrorResponse" + "Error: " + error.getMessage());
+                                Log.d(TAG, "2 ERROR when connecting to database getSpecificFacility");
                             }
                         });
                 queue.add(requestComment);

@@ -45,6 +45,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.sql.SQLOutput;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -106,19 +107,29 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
 
             System.out.println(latitude+" "+longitude);
-
+            HashMap<String, String> map = new HashMap<String, String>();
             JSONArray jsonarray = facility.getJSONArray("reviews");
             numReviews = (int) jsonarray.length();
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
-                String userName = (String) jsonobject.getString("userName");
-                String userEmail = (String) jsonobject.getString("replierID");
-                double userRate = (double) jsonobject.getDouble("rateScore");
-                int downvote = (int) jsonobject.getInt("downVotes");
-                int upvote =  (int) jsonobject.getInt("upVotes");;
-                String comment = (String) jsonobject.getString("replyContent");
-                String time = (String) jsonobject.getString("timeOfReply");
-                createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote, isPost);
+                if(jsonobject.toString().equals("{}")){
+                    continue;
+                }
+                try{
+                    String userName = (String) jsonobject.getString("userName");
+                    String userEmail = (String) jsonobject.getString("replierID");
+                    double userRate = (double) jsonobject.getDouble("rateScore");
+                    int downvote = (int) jsonobject.getInt("downVotes");
+                    int upvote =  (int) jsonobject.getInt("upVotes");;
+                    String comment = (String) jsonobject.getString("replyContent");
+                    String time = (String) jsonobject.getString("timeOfReply");
+                    createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote, isPost);
+                    map.put(userEmail,"1");
+                }catch (JSONException e){
+                    e.printStackTrace();
+                    continue;
+                }
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -294,24 +305,27 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         layoutParamsDescription.gravity = Gravity.CENTER;
         userDescriptionView.setLayoutParams(layoutParamsDescription);
 
-        Button reportButton = new Button(this, null, androidx.appcompat.R.attr.borderlessButtonStyle);
-        reportButton.setId(REPORT_BUTTON_BASE_ID + id);
-        reportButton.setTag(userEmail);
-        reportButton.setText("Report");
-        reportButton.setTextSize(dpToPx(5f));
-        reportButton.setTextColor(Color.parseColor("#626062"));
-        reportButton.setAllCaps(false);
+        Button reportCommentButton = new Button(this, null, androidx.appcompat.R.attr.borderlessButtonStyle);
+        reportCommentButton.setId(REPORT_BUTTON_BASE_ID + id);
+        reportCommentButton.setTag(userEmail);
+        reportCommentButton.setText("Report");
+        reportCommentButton.setTextSize(dpToPx(5f));
+        reportCommentButton.setTextColor(Color.parseColor("#626062"));
+        reportCommentButton.setAllCaps(false);
         LinearLayout.LayoutParams layoutParamsReport = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsReport.setMargins(dpToPx(170f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
-        reportButton.setLayoutParams(layoutParamsReport);
-        reportButton.setOnClickListener(new View.OnClickListener() {
+        reportCommentButton.setLayoutParams(layoutParamsReport);
+        reportCommentButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent reportIntent = new Intent(FacilityActivity.this, ReportActivity.class);
                 Bundle bundle = new Bundle();
                 Button button = (Button) v;
+                bundle.putString("title", title);
                 bundle.putString("user_email", (String) button.getTag());
                 bundle.putInt("facility_id", Integer.parseInt(facilityId));
                 bundle.putInt("facility_type", type);
+                bundle.putString("reportType", "5");
+
                 reportIntent.putExtras(bundle);
                 startActivity(reportIntent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -378,7 +392,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         votingSystem.addView(upVoteCount);
         votingSystem.addView(downVote);
         votingSystem.addView(downVoteCount);
-        votingSystem.addView(reportButton);
+        votingSystem.addView(reportCommentButton);
         review.addView(usernameAndDate);
         if (!isPost) {
             RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);

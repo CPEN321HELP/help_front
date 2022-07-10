@@ -89,11 +89,15 @@ public class MainActivity extends AppCompatActivity {
 
         */
 
-        Menu nav_Menu = navigationView.getMenu();
-        nav_Menu.findItem(R.id.nav_report).setVisible(false);
+//        Menu nav_Menu = navigationView.getMenu();
+//        nav_Menu.findItem(R.id.nav_report).setVisible(false);
         DatabaseConnection db = new DatabaseConnection();
-        String info = db.readFromJson(getApplicationContext(), userInfo);
-        Log.d(TAG,"info in main is  "+info);
+        String info = null;
+        if(db.isCached(getApplicationContext(),userInfo)){
+            info = db.readFromJson(getApplicationContext(), userInfo);
+            Log.d(TAG,"info in main is  "+info);
+        }
+
 
         if(info != null){
             try {
