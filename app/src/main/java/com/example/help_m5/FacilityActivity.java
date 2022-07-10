@@ -179,9 +179,11 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityNumReviews.setText(String.valueOf(numReviews) + " Reviews");
 
         // Google Maps Location
-        mapView = findViewById(R.id.mapView);
-        mapView.getMapAsync(FacilityActivity.this);
-        mapView.onCreate(savedInstanceState);
+        if ((Double) latitude != null && (Double) longitude != null) {
+            mapView = findViewById(R.id.mapView);
+            mapView.getMapAsync(FacilityActivity.this);
+            mapView.onCreate(savedInstanceState);
+        }
 
         // Address
         if (type != POST) {
@@ -190,6 +192,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             geocoder = new Geocoder(this, Locale.getDefault());
             try {
                 if (geocoder.getFromLocation(latitude, longitude, 1) == null) {
+                    mapView.setVisibility(View.GONE);
                     TextView addressView = (TextView) findViewById(R.id.facilityAddress);
                     addressView.setText("Address not avaliable yet");
                 } else {
