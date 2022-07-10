@@ -58,6 +58,7 @@ import java.util.Locale;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "FacilityActivity";
     private DatabaseConnection DBconnection;
 
     private String facilityId;
@@ -102,7 +103,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
             image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
-            System.out.println("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"+image);
             rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
             numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
             if (type != POST) {
@@ -147,9 +147,21 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityDescription.setText(description);
 
         // Facility Image
-        //image = "https://www.lunenburgregion.ca/themes/user/site/default/asset/img/gallery/Tim_Hortons_2.jpg";
-        Uri uriImage = Uri.parse(image);
-        Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
+        if (Uri.parse(image) == null) {
+            findViewById(R.id.imageView2).setVisibility(View.GONE);
+        } else {
+            Uri uriImage = Uri.parse(image);
+            Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
+        }
+
+        Picasso.Builder builder = new Picasso.Builder(getApplicationContext());
+        builder.listener(new Picasso.Listener() {
+            @Override
+            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
+                findViewById(R.id.imageView2).setVisibility(View.GONE);
+                exception.printStackTrace();
+            }
+        });
 
         // Facility Rate
         TextView facilityRate = findViewById(R.id.facilityRatingText);
@@ -325,6 +337,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         upVoteCount.setLayoutParams(layoutParamsVoteCount);
 
         CheckBox upVote = new CheckBox(this);
+        upVote.setTag(userEmail);
         upVote.setButtonDrawable(R.drawable.upvote);
         upVote.setId(UPVOTE_BASE_ID + id);
         LinearLayout.LayoutParams layoutParamsUpvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -334,10 +347,16 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             LinearLayout linearLayout = (LinearLayout) buttonView.getParent();
             TextView textView = (TextView) linearLayout.getChildAt(1);
             if (isChecked) {
+                AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "up", "pend");
                 textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putBoolean("upVote"+String.valueOf(buttonView.getId()), true).commit();
+                CheckBox oppositeBox = (CheckBox)findViewById((int)buttonView.getId() + 10000000);
+                if (oppositeBox.isChecked()) {
+                    oppositeBox.setChecked(false);
+                }
             } else {
+                AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "up", "cancel");
                 textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putBoolean("upVote"+String.valueOf(buttonView.getId()), false).commit();
@@ -345,6 +364,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         });
 
         CheckBox downVote = new CheckBox(this);
+        downVote.setTag(userEmail);
         downVote.setButtonDrawable(R.drawable.downvote);
         downVote.setId(DOWNVOTE_BASE_ID + id);
         LinearLayout.LayoutParams layoutParamsDownvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -354,10 +374,16 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             LinearLayout linearLayout = (LinearLayout) buttonView.getParent();
             TextView textView = (TextView) linearLayout.getChildAt(3);
             if (isChecked) {
+                AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "down", "pend");
                 textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putBoolean("downVote"+String.valueOf(buttonView.getId()), true).commit();
+                CheckBox oppositeBox = (CheckBox)findViewById((int)buttonView.getId() - 10000000);
+                if (oppositeBox.isChecked()) {
+                    oppositeBox.setChecked(false);
+                }
             } else {
+                AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "down", "pend");
                 textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putBoolean("downVote"+String.valueOf(buttonView.getId()), false).commit();
@@ -396,6 +422,36 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         linearLayout.addView(review);
         id++;
 
+    }
+
+    private void AdjustVote(String facilityType, String facilityId, String userId, String vote, String isCancelled) {
+        String url = "http://20.213.243.141:8000/Votes";
+        RequestQueue queue = Volley.newRequestQueue(FacilityActivity.this);
+        HashMap<String, String> params = new HashMap<String, String>();
+        queue.start();
+        params.put("facilityType", facilityType);
+        params.put("facility_id", facilityId);
+        params.put("user_id", userId);
+        params.put("vote", vote);
+        params.put("isCancelled", isCancelled);
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                        Log.d(TAG,"response is: "+response.toString());
+                        Toast.makeText(FacilityActivity.this, "Report successfully sent!", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                        Toast.makeText(FacilityActivity.this, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+        queue.add(request);
     }
 
     private int dpToPx(float dp) {
