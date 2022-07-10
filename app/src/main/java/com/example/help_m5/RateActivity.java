@@ -25,9 +25,12 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class RateActivity extends AppCompatActivity {
 
@@ -44,7 +47,7 @@ public class RateActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private String facilityId;
     private int facilityType;
-
+    private List<CharSequence> reviewers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +56,10 @@ public class RateActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
         facilityType = bundle.getInt("facility_type");
+        reviewers = bundle.getCharSequenceArrayList("reviewers");
         Log.d(TAG, facilityId);
         Log.d(TAG, ""+facilityType);
+        Log.d(TAG, ""+reviewers.toString());
 
         userAccount = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = userAccount.getEmail();
@@ -137,13 +142,21 @@ public class RateActivity extends AppCompatActivity {
                 paramsComment.put("replyContent", comment);
                 paramsComment.put("username", userAccount.getDisplayName());
                 paramsComment.put("rateScore", String.valueOf(rate));
+
                 JsonObjectRequest requestComment = new JsonObjectRequest(Request.Method.PUT, vm_ip+"comment/add", new JSONObject(paramsComment),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Log.d(TAG,response.toString());
-//                                System.out.println("response is: "+response.toString());
+                                Log.d(TAG,"requestComment"+response.toString());
+                                try {
+                                    String result = response.getString("result");
+                                    if(result.equals("already_exist")){
+                                        Toast.makeText(getApplicationContext(), "You have reviewed in the past.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
+                            }
                         },
                         new Response.ErrorListener() {
                             @Override
@@ -153,12 +166,43 @@ public class RateActivity extends AppCompatActivity {
                             }
                         });
                 queue.add(requestComment);
+
+                HashMap<String, String> notify = new HashMap<String, String>();
+                notify.put("facilityType", String.valueOf(facilityType));
+                notify.put("facility_id", facilityId);
+                JSONObject data = new JSONObject(notify);
+                try {
+                    data.put("reviewers", new JSONArray(reviewers));
+                    data.put("length", reviewers.size());
+                } catch (JSONException e) {
+                    Log.d(TAG, "unable to add reviewers");
+                    e.printStackTrace();
+                }
+                Log.d(TAG, "asdasdasd + "+ data);
+                JsonObjectRequest requestNotify = new JsonObjectRequest(Request.Method.POST, vm_ip+"sendToDevice3", data,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d(TAG,response.toString());
+//                                System.out.println("response is: "+response.toString());
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.d(TAG,"23 onErrorResponse" + "Error: " + error.getMessage());
+                                Log.d(TAG, "23 requestNotify");
+                            }
+                        });
+                queue.add(requestNotify);
+
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
                         finish();
                     }
                 }, 1000);
+
             }
         });
 

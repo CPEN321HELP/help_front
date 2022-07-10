@@ -226,6 +226,7 @@ public class ReportFragment extends Fragment {
             }
         });
     }
+
     private TextView report_title_cont_Y1, facility_type_cont_Y1, facility_id_org_cont_Y1, reporter_id_cont_Y1, report_type_cont_Y1, reported_id_cont_Y1, reported_reason_cont_Y1, report_id_Y1;
     private TextView report_title_cont_y2, facility_type_cont_y2, facility_id_org_cont_y2, reporter_id_cont_y2, report_type_cont_y2, reported_id_cont_y2, reported_reason_cont_y2, report_id_y2;
 
@@ -239,15 +240,23 @@ public class ReportFragment extends Fragment {
             params.put("approve", "0");
         }
         if(which == 1){
+//            params.put("report_type", "5");
+//            params.put("report_id", "62cb1c4fea53d3e824fcc10c");
+//            params.put("facility_type", "entertainments");
+//            params.put("facility_id", "6");
+//            params.put("reported_user", "l2542293790@gmail.com");
+
             params.put("report_type", binding.reportTypeContY1.getText().toString());
             params.put("report_id", binding.reportIdY1.getText().toString());
             params.put("facility_type", binding.facilityTypeContY1.getText().toString());
             params.put("facility_id", binding.facilityIdOrgContY1.getText().toString());
+            params.put("reported_user", binding.reportedIdContY1.getText().toString());
         }else {
             params.put("report_type", binding.reportTypeContY2.getText().toString());
             params.put("report_id", binding.reportIdY2.getText().toString());
             params.put("facility_type", binding.facilityTypeContY2.getText().toString());
             params.put("facility_id", binding.facilityIdOrgContY2.getText().toString());
+            params.put("reported_user", binding.reportedIdContY2.getText().toString());
         }
         Log.d(TAG, params.toString());
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {

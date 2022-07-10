@@ -23,8 +23,11 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ReportActivity extends AppCompatActivity {
@@ -42,13 +45,13 @@ public class ReportActivity extends AppCompatActivity {
     private boolean reportUser;
     private int type;
     private int facilityId;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
         Bundle bundle = getIntent().getExtras();
+
         reportedUserEmail = bundle.getString("user_email");
         type = bundle.getInt("facility_type");
         facilityId = bundle.getInt("facility_id");
@@ -56,6 +59,7 @@ public class ReportActivity extends AppCompatActivity {
         account = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = account.getEmail();
         title = bundle.getString("title");
+
         EditText editText = findViewById(R.id.editTextReport);
         editText.addTextChangedListener(new TextWatcher() {
             @Override

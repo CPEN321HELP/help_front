@@ -64,7 +64,6 @@ public class LoginActivity extends AppCompatActivity {
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
-        OneSignal.setExternalUserId("l2542293790@gmail.com");
         OneSignal.setNotificationOpenedHandler(
                 new OneSignal.OSNotificationOpenedHandler() {
                     @Override
@@ -180,6 +179,16 @@ public class LoginActivity extends AppCompatActivity {
         if (account == null) {
             Log.d(TAG, "There is no user signed in");
         } else {
+            String email = account.getEmail();
+            if(email!= null){
+                Toast.makeText(getApplicationContext(), "email is "+email, Toast.LENGTH_SHORT).show();
+                OneSignal.setExternalUserId(email);
+            }else {
+                OneSignal.setExternalUserId("none@gmail.com");
+                Toast.makeText(getApplicationContext(), "email is none@gmail.com", Toast.LENGTH_SHORT).show();
+
+            }
+
             // Send token to back-end
             RequestQueue queue = Volley.newRequestQueue(this);
             HashMap<String, String> params = new HashMap<String, String>();

@@ -428,7 +428,7 @@ public class DatabaseConnection {
         for(File f : files){
             String filename = f.getName();
             Log.d(TAG, "filename is: "+filename);
-            if(filename.equals("userInfo.json")){
+            if(filename.equals("userInfo.json") || f.isDirectory()){
                 continue;
             }
             Log.d(TAG, "delete filename is: " + filename);

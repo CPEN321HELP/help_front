@@ -97,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
             info = db.readFromJson(getApplicationContext(), userInfo);
             Log.d(TAG,"info in main is  "+info);
         }
-
-
         if(info != null){
             try {
                 JSONObject user_data = new JSONObject(info);
