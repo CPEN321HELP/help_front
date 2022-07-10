@@ -15,9 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.help_m5.databinding.FragmentFacilityBinding;
 import com.example.help_m5.databinding.FragmentReportBinding;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -9,11 +9,6 @@
             android:icon="@drawable/ic_baseline_all_inclusive_24"
             android:title="@string/menu_home" />
 
-<!--        <item-->
-<!--            android:id="@+id/nav_facility"-->
-<!--            android:icon="@drawable/ic_baseline_all_inclusive_24"-->
-<!--            android:title="@string/menu_facility"/>-->
-
         <item
             android:id="@+id/nav_add_facility"
             android:icon="@drawable/ic_baseline_add_24"
