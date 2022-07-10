@@ -257,12 +257,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         });
 
         if (type == POST) {
-            LinearLayout.LayoutParams widthParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             marginParams.setMargins(0, 5, 0, 0);
-            facilityTitle.setLayoutParams(widthParams);
             facilityRate.setVisibility(View.GONE);
-            //rateButton.setText("Comment");
+            rateButton.setText("Comment");
             ratingBar.setVisibility(View.GONE);
             facilityNumReviews.setTextSize(dpToPx(7f));
             facilityNumReviews.setLayoutParams(marginParams);
@@ -461,7 +459,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         LinearLayout linearLayout = findViewById(R.id.facilityReviews);
         linearLayout.addView(review);
         id++;
-
     }
 
     private void AdjustVote(String facilityType, String facilityId, String userId, String vote, String isCancelled) {
@@ -479,16 +476,13 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                         Log.d(TAG,"response is: "+response.toString());
-                        Toast.makeText(FacilityActivity.this, "Report successfully sent!", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
-                        Toast.makeText(FacilityActivity.this, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
         queue.add(request);
