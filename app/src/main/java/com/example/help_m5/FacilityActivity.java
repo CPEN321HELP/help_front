@@ -111,7 +111,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             System.out.println(jsonarray);
             for (int i = 0; i < jsonarray.length(); i++) {
                 JSONObject jsonobject = jsonarray.getJSONObject(i);
-                String userName = (String) jsonobject.getString("username");
+                String userName = (String) jsonobject.getString("userName");
                 String userEmail = (String) jsonobject.getString("replierID");
                 double userRate = (double) jsonobject.getDouble("rateScore");
                 int downvote = (int) jsonobject.getInt("downVotes");
@@ -321,7 +321,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         });
 
         TextView upVoteCount = new TextView(this);
-        upVoteCount.setText(upVoteCounter);
+        upVoteCount.setText(String.valueOf(upVoteCounter));
         upVoteCount.setId(UPVOTE_TEXTVIEW_BASE_ID + id);
         LinearLayout.LayoutParams layoutParamsVoteCount = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsVoteCount.setMargins(dpToPx(2f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
@@ -368,7 +368,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         });
 
         TextView downVoteCount = new TextView(this);
-        downVoteCount.setText(downVoteCounter);
+        downVoteCount.setText(String.valueOf(downVoteCounter));
         downVoteCount.setId(DOWNVOTE_TEXTVIEW_BASE_ID + id);
         downVoteCount.setLayoutParams(layoutParamsVoteCount);
 

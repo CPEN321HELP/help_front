@@ -160,6 +160,7 @@ public class DatabaseConnection {
      * server_error, indicate unsuccessfully send the data to server
      * @Pupose : to get a Specific facility by its facility id and type
      */
+    /*
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";
         if(isCached(applicationContext, fileName)){
@@ -194,7 +195,7 @@ public class DatabaseConnection {
         }, 500);
         return status_getSpecificFacility;
     }
-    /*
+    */
     public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
         String fileName = "specific_facility.json";
         String url = "http://20.213.243.141:8000/specific";
@@ -221,8 +222,9 @@ public class DatabaseConnection {
 //        Log.d(TAG, "status_getSpecificFacility is " + status_getSpecificFacility);
         return status_getSpecificFacility;
     }
-*/
+
     int status_getFacilities = normal_server_load;
+
     /**
      * @param binding            : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type      : int representing the type of facility calling this function
