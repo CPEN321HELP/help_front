@@ -67,11 +67,12 @@ public class ReportActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 submitButton.setEnabled(true);
                 submitButton.setTextColor(Color.parseColor("#dbba00"));
+                comment = s.toString();
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-//                comment = editText.getText().toString();
+                comment = s.toString();
             }
         });
 

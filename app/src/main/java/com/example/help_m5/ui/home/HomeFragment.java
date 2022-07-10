@@ -20,6 +20,12 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.help_m5.CustomAdapter;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.ui.database.DatabaseConnection;
@@ -31,6 +37,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
 
@@ -74,6 +81,7 @@ public class HomeFragment extends Fragment {
     private static int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
     private int facility_type = posts;
+    private String facility_id = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -216,7 +224,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void ConstraintLayoutOnClickListener(int which){
-        String facility_id = "";
         switch (which){
             case 1:
                 facility_id = binding.facilityIDTextViewFacility1.getText().toString();
@@ -235,27 +242,33 @@ public class HomeFragment extends Fragment {
                 break;
         }
 
-        int result = DBconnection.getSpecificFacility(facility_type, facility_id, getContext());
-        Handler handler = new Handler();
-
-        String finalFacility_id = facility_id;
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                if(result == server_error){
-                    Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
-                    return;
-                } else {
-                    Toast.makeText(getActivity(), "opening " + which, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), FacilityActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("facility_type", facility_type);
-                    bundle.putString("facility_id", finalFacility_id);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
+        String url = "http://20.213.243.141:8000/specific";
+        final RequestQueue queue = Volley.newRequestQueue(getContext());
+        HashMap<String, String> params = new HashMap<String, String>();
+        queue.start();
+        params.put("facility_id", facility_id);
+        params.put("facility_type", String.valueOf(facility_type));
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Intent intent = new Intent(getActivity(), FacilityActivity.class);
+                Log.d(TAG, "response is: " + response.toString());
+                Bundle bundle = new Bundle();
+                bundle.putInt("facility_type", facility_type);
+                bundle.putString("facility_id", facility_id);
+                System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"+facility_id);
+                bundle.putString("facility_json", response.toString());
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+bundle.getInt("facility_type"));
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
-        }, 300);
-
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "ERROR when connecting to database getSpecificFacility: " + error, Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(jsObjRequest);
     }
 
     private void initFavMenu(){

@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
@@ -27,6 +28,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -85,11 +92,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
         isPost = (POST == (int) bundle.getInt("facility_type"));
-        System.out.println("SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS");
-        System.out.println(isPost);
         type = bundle.getInt("facility_type");
-        DBconnection = new DatabaseConnection();
-        String facilityInfo = DBconnection.readFromJson(FacilityActivity.this, "specific_facility.json");
+        String facilityInfo = bundle.getString("facility_json");
 
         try {
             JSONObject facility = new JSONObject(facilityInfo);
@@ -106,7 +110,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 longitude = (double) facility.getJSONObject("facility").getDouble("longtitude");
             }
 
-            System.out.println(latitude+" "+longitude);
             HashMap<String, String> map = new HashMap<String, String>();
             JSONArray jsonarray = facility.getJSONArray("reviews");
             numReviews = (int) jsonarray.length();
@@ -218,24 +221,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             TextView comments = (TextView) findViewById(R.id.facilityReviewsTitle);
             comments.setText("Comments");
         }
-
-        /*
-        float userRate = (float) 2.3;
-        String userName = "Peter Na";
-        String userDescription = "fwhfboifegiyoegfiofgwpifwqpfqwufvpwyfvwqpfqwpiyfvweyfvweyifwpifvywq";
-        String userDate = "22/24/2022";
-        String userEmail = "frist@gmail.com";
-        String userEmail2 = "second@gmail.com";
-        String userEmail3 = "third@gmail.com";
-        String userEmail4 = "fourth@gmail.com";
-        String userEmail5 = "fifth@gmail.com";
-
-        createUserReview(userRate, userName, userEmail, userDescription, userDate);
-        createUserReview(userRate, userName, userEmail2, userDescription, userDate);
-        createUserReview(userRate, userName, userEmail3, userDescription, userDate);
-        createUserReview(userRate, userName, userEmail4, userDescription, userDate);
-        createUserReview(userRate, userName, userEmail5, userDescription, userDate);
-        */
 
         for (int i = 1; i < id; i++) {
             CheckBox checkUpvote = (CheckBox) findViewById(UPVOTE_BASE_ID + i);
