@@ -136,9 +136,16 @@ public class RateActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
-                                Log.d(TAG,response.toString());
-//                                System.out.println("response is: "+response.toString());
+                                Log.d(TAG,"requestComment"+response.toString());
+                                try {
+                                    String result = response.getString("result");
+                                    if(result.equals("already_exist")){
+                                        Toast.makeText(getApplicationContext(), "You have reviewed in the past.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
                                 }
+                            }
                         },
                         new Response.ErrorListener() {
                             @Override
@@ -155,6 +162,7 @@ public class RateActivity extends AppCompatActivity {
                 JSONObject data = new JSONObject(notify);
                 try {
                     data.put("reviewers", new JSONArray(reviewers));
+                    data.put("length", reviewers.size());
                 } catch (JSONException e) {
                     Log.d(TAG, "unable to add reviewers");
                     e.printStackTrace();

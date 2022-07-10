@@ -51,6 +51,7 @@ public class ReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_report);
 
         Bundle bundle = getIntent().getExtras();
+
         reportedUserEmail = bundle.getString("user_email");
         type = bundle.getInt("facility_type");
         facilityId = bundle.getInt("facility_id");
@@ -58,6 +59,7 @@ public class ReportActivity extends AppCompatActivity {
         account = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = account.getEmail();
         title = bundle.getString("title");
+
         EditText editText = findViewById(R.id.editTextReport);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
