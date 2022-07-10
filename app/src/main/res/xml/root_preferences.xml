@@ -25,11 +25,11 @@
             android:title="Sign Out"
             android:summary="Click here to sign out your google account"/>
 
-        <SwitchPreference
+        <Preference
             android:defaultValue="false"
             android:key="delete"
-            android:title="Delete account"
-            android:summary="Click here to delete your account - not implement"/>
+            android:title="Delete Account"
+            android:summary="Click here to delete your account"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="Display Settings">

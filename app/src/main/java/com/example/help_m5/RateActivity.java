@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -32,6 +33,8 @@ public class RateActivity extends AppCompatActivity {
 
     private static final String TAG = "RateActivity";
     private final String vm_ip = "http://20.213.243.141:8000/";
+    private final static int POST = 0;
+
     private float rate;
     private String comment;
     private GoogleSignInAccount userAccount;
@@ -65,6 +68,14 @@ public class RateActivity extends AppCompatActivity {
                 rate = rating;
             }
         });
+        if (facilityType == POST) {
+            ratingBar.setVisibility(View.INVISIBLE);
+            TextView textTitle = (TextView) findViewById(R.id.RateFacilityTitle);
+            textTitle.setText("Comment on a Post");
+
+            TextView textView = (TextView) findViewById(R.id.RateFacilityDescription);
+            textView.setText("Please leave your comments\nbelow");
+        }
 
         EditText editText = findViewById(R.id.editTextTextMultiLine);
         editText.addTextChangedListener(new TextWatcher() {

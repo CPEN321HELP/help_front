@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -41,6 +42,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import com.example.help_m5.ui.home.HomeFragment;
@@ -153,16 +155,22 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         } else {
             Uri uriImage = Uri.parse(image);
             Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2));
-        }
+            /*
+            Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2), new Callback() {
+                @Override
+                public void onSuccess() {
 
-        Picasso.Builder builder = new Picasso.Builder(getApplicationContext());
-        builder.listener(new Picasso.Listener() {
-            @Override
-            public void onImageLoadFailed(Picasso picasso, Uri uri, Exception exception) {
-                findViewById(R.id.imageView2).setVisibility(View.GONE);
-                exception.printStackTrace();
-            }
-        });
+                }
+
+                @Override
+                public void onError() {
+                    ImageView imageView = (ImageView)findViewById(R.id.imageView2);
+                    imageView.setVisibility(View.GONE);
+                }
+            });
+
+             */
+        }
 
         // Facility Rate
         TextView facilityRate = findViewById(R.id.facilityRatingText);
@@ -220,6 +228,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
         reportFacilityButton = findViewById(R.id.repor_facility_button);
         reportFacilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,13 +247,14 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
         if (type == POST) {
             LinearLayout.LayoutParams widthParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             marginParams.setMargins(0, 5, 0, 0);
             facilityTitle.setLayoutParams(widthParams);
             facilityRate.setVisibility(View.GONE);
-            rateButton.setVisibility(View.GONE);
+            //rateButton.setText("Comment");
             ratingBar.setVisibility(View.GONE);
             facilityNumReviews.setTextSize(dpToPx(7f));
             facilityNumReviews.setLayoutParams(marginParams);
