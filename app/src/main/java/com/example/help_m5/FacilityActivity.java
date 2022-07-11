@@ -266,17 +266,21 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             comments.setText("Comments");
         }
 
+        /*
         for (int i = 1; i < id; i++) {
             CheckBox checkUpvote = (CheckBox) findViewById(UPVOTE_BASE_ID + i);
             boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
                     .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + i), false);
+            checkUpvote.setOnCheckedChangeListener(null);
             checkUpvote.setChecked(checkedUp);
 
             CheckBox checkDownvote = (CheckBox) findViewById(DOWNVOTE_BASE_ID + i);
             boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
                     .getBoolean("downVote"+String.valueOf(DOWNVOTE_BASE_ID + i), false);
+            checkDownvote.setOnCheckedChangeListener(null);
             checkDownvote.setChecked(checkedDown);
         }
+        */
 
     }
 
@@ -373,6 +377,11 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         upVote.setTag(userEmail);
         upVote.setButtonDrawable(R.drawable.upvote);
         upVote.setId(UPVOTE_BASE_ID + id);
+        boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
+                .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + id), false);
+        if (checkedUp) {
+            upVote.setChecked(checkedUp);
+        }
         LinearLayout.LayoutParams layoutParamsUpvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsUpvote.setMargins(dpToPx(5f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
         upVote.setLayoutParams(layoutParamsUpvote);
@@ -396,10 +405,20 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
+        TextView downVoteCount = new TextView(this);
+        downVoteCount.setText(String.valueOf(downVoteCounter));
+        downVoteCount.setId(DOWNVOTE_TEXTVIEW_BASE_ID + id);
+        downVoteCount.setLayoutParams(layoutParamsVoteCount);
+
         CheckBox downVote = new CheckBox(this);
         downVote.setTag(userEmail);
         downVote.setButtonDrawable(R.drawable.downvote);
         downVote.setId(DOWNVOTE_BASE_ID + id);
+        boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
+                .getBoolean("downVote"+String.valueOf(DOWNVOTE_BASE_ID + id), false);
+        if (checkedDown) {
+            downVote.setChecked(checkedDown);
+        }
         LinearLayout.LayoutParams layoutParamsDownvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsDownvote.setMargins(dpToPx(10f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
         downVote.setLayoutParams(layoutParamsDownvote);
@@ -408,7 +427,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             TextView textView = (TextView) linearLayout.getChildAt(3);
             if (isChecked) {
                 AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "down", "pend");
-                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) + 1));
+                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putBoolean("downVote"+String.valueOf(buttonView.getId()), true).commit();
                 CheckBox oppositeBox = (CheckBox)findViewById((int)buttonView.getId() - 10000000);
@@ -417,21 +436,17 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 }
             } else {
                 AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "down", "cancel");
-                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) - 1));
+                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(this).edit()
                         .putBoolean("downVote"+String.valueOf(buttonView.getId()), false).commit();
             }
         });
 
-        TextView downVoteCount = new TextView(this);
-        downVoteCount.setText(String.valueOf(downVoteCounter));
-        downVoteCount.setId(DOWNVOTE_TEXTVIEW_BASE_ID + id);
-        downVoteCount.setLayoutParams(layoutParamsVoteCount);
-
         // Define Parent-Child relationships
         usernameAndDate.addView(userNameView);
         usernameAndDate.addView(userDateView);
         descriptionAndReport.addView(userDescriptionView);
+
         votingSystem.addView(upVote);
         votingSystem.addView(upVoteCount);
         votingSystem.addView(downVote);
