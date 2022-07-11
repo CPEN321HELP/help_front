@@ -201,7 +201,7 @@ public class AddFacilityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isPost){
-                    if(titleOK && descriptionOK && imageLinkOK && locationOK){
+                    if(titleOK && descriptionOK && imageLinkOK){
                         int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), "", "", email);
                         if(result == server_error){
                             Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
