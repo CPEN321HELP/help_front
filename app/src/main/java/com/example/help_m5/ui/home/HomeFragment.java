@@ -270,7 +270,6 @@ public class HomeFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putInt("facility_type", facility_type);
                 bundle.putString("facility_id", facility_id);
-                System.out.println("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"+facility_id);
                 bundle.putString("facility_json", response.toString());
                 System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+bundle.getInt("facility_type"));
                 intent.putExtras(bundle);
