@@ -22,6 +22,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.help_m5.CustomAdapter;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
@@ -31,16 +37,21 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONObject;
+
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 // test
 public class AddFacilityFragment extends Fragment {
-
+    private static final String vm_ip = "http://20.213.243.141:8000/";
     private static final String TAG = "AddFacilityFragment";
+
     private FragmentAddFacilityBinding binding;
     private DatabaseConnection DBconnection;
+
     private Spinner spin;
     private Button submit, clean;
     private static String[] countryNames={"<-Please Select Below->", "Posts","Eat","Study","Play"};
@@ -60,10 +71,10 @@ public class AddFacilityFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
-        String email = account.getEmail();
+        String user_email = account.getEmail();
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        DBconnection = new DatabaseConnection();
+
 
         newFacilityTitle = binding.newFacilityTitle;
         newFacilityTitle.setHint("please enter a title");
@@ -88,7 +99,7 @@ public class AddFacilityFragment extends Fragment {
         });
 
         newFacilityDescription = binding.newFacilityDescription;
-        newFacilityDescription.setHint("please enter a description");
+        newFacilityDescription.setHint("Please enter a description");
         newFacilityDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -110,7 +121,7 @@ public class AddFacilityFragment extends Fragment {
         });
 
         newFacilityImageLink = binding.newFacilityImageLink;
-        newFacilityImageLink.setHint("please enter an url");
+        newFacilityImageLink.setHint("Please enter an valid url");
         newFacilityImageLink.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -140,7 +151,7 @@ public class AddFacilityFragment extends Fragment {
         });
 
         newFacilityLocation = binding.newFacilityLocation;
-        newFacilityLocation.setHint("please enter an address");
+        newFacilityLocation.setHint("Please enter an valid address");
         newFacilityLocation.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -159,7 +170,8 @@ public class AddFacilityFragment extends Fragment {
                         latitude = Double.toString(result.latitude);
                         longitude = Double.toString(result.longitude);
                         Log.d(TAG, result.toString());
-                    }                }
+                    }
+                }
             }
         });
 
@@ -174,7 +186,6 @@ public class AddFacilityFragment extends Fragment {
                 if(position != 0){
                     if(position == 1){
                         isPost = true;
-                        locationOK = true;
                         binding.locationLayout.setVisibility(View.INVISIBLE);
                     }else {
                         binding.locationLayout.setVisibility(View.VISIBLE);
@@ -183,7 +194,6 @@ public class AddFacilityFragment extends Fragment {
 
                     binding.imageFacilityType.setImageResource(android.R.drawable.presence_online);
                 }else{
-
                     binding.imageFacilityType.setImageResource(android.R.drawable.presence_busy);
                 }
             }
@@ -192,7 +202,6 @@ public class AddFacilityFragment extends Fragment {
 
             }
         });
-
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
         spin.setAdapter(customAdapter);
 
@@ -202,29 +211,11 @@ public class AddFacilityFragment extends Fragment {
             public void onClick(View v) {
                 if(isPost){
                     if(titleOK && descriptionOK && imageLinkOK){
-                        int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), "", "", email);
-                        if(result == server_error){
-                            Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
-                        }else{
-                            newFacilityTitle.setText("");
-                            newFacilityDescription.setText("");
-                            newFacilityImageLink.setText("");
-                            newFacilityLocation.setText("");
-                            Toast.makeText(getContext(), "Success! Server received your submission", Toast.LENGTH_SHORT).show();
-                        }
+                        addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), "", "", user_email);
                     }
                 }else{
                     if(titleOK && descriptionOK && imageLinkOK && locationOK && (longitude != null) && (latitude != null)){
-                        int result = DBconnection.addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, email);
-                        if(result == server_error){
-                            Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
-                        }else{
-                            newFacilityTitle.setText("");
-                            newFacilityDescription.setText("");
-                            newFacilityImageLink.setText("");
-                            newFacilityLocation.setText("");
-                            Toast.makeText(getContext(), "Success! Server received your submission", Toast.LENGTH_SHORT).show();
-                        }
+                        addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email);
                     }
                 }
             }
@@ -282,7 +273,46 @@ public class AddFacilityFragment extends Fragment {
         }
         return "";
     }
+    /**
+     * @param applicationContext : Central interface to provide configuration for an application.
+     * @param title, description, type, imageLink, longitude, latitude : information need to be stored on database
+     * @param user_id : the user who added this facility
+     * @Pupose : to add a new facility in to database
+     */
+    public void addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String user_id){
+        String url = vm_ip + "addFacility";
+        Log.d(TAG, url);
+        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+        HashMap<String, String> params = new HashMap<String, String>();
+        queue.start();
 
+        params.put("title", title);
+        params.put("description", description);
+        params.put("long", longitude);
+        params.put("lat", latitude);
+        params.put("type", type);
+        params.put("facilityImageLink", imageLink);
+
+//        Log.d(TAG, params.toString());
+
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "response is: " + response.toString());
+                Toast.makeText(getContext(), "Success! Server received your submission", Toast.LENGTH_SHORT).show();
+                DBconnection = new DatabaseConnection();
+                DBconnection.addCredit(applicationContext, user_id);
+                clean.performClick();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        queue.add(jsObjRequest);
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
