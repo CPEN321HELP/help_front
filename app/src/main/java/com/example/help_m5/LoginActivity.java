@@ -90,49 +90,54 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "In regex facility_id is : " + facility_id+ " facility_type is: " + facility_type_s);
                             switch (facility_type_s){
                                 case "posts":
-                                    facility_type_int = posts;break;
+                                    facility_type_int = posts;
+                                    break;
                                 case "studys":
-                                    facility_type_int =  study;break;
+                                    facility_type_int =  study;
+                                    break;
                                 case "entertainments":
-                                    facility_type_int =  entertainments;break;
+                                    facility_type_int =  entertainments;
+                                    break;
                                 case "restaurants":
-                                    facility_type_int =  restaurants;break;
+                                    facility_type_int =  restaurants;
+                                    break;
                             }
                             Log.d(TAG, "In regex facility_id is : " + facility_id+ " facility_type_int is: " + facility_type_int);
                             if(facility_type_int == -1){
                                 Toast.makeText(getApplicationContext(), "Error when opening posts, please report", Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            String url = "http://20.213.243.141:8000/specific";
-                            final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
-                            HashMap<String, String> params = new HashMap<String, String>();
-                            queue.start();
-                            params.put("facility_id", facility_id);
-                            params.put("facility_type", String.valueOf(facility_type_int));
-                            int finalFacility_type_int = facility_type_int;
-                            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    Intent intent = new Intent(getApplicationContext(), FacilityActivity.class);
-                                    Log.d(TAG, "response is: " + response.toString());
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("facility_type", finalFacility_type_int);
-                                    bundle.putString("facility_id", facility_id);
-                                    bundle.putString("facility_json", response.toString());
-                                    intent.putExtras(bundle);
-                                    startActivity(intent);
-                                }
-                            }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Log.d(TAG,"ERROR notification: " + error);
-                                }
-                            });
-                            queue.add(jsObjRequest);
-                        }else {
-                            Toast.makeText(getApplicationContext(), "Error when opening posts, please report", Toast.LENGTH_LONG).show();
+                            DatabaseConnection DBconnection = new DatabaseConnection();
+                            DBconnection.getSpecificFacility(facility_type_int, facility_id, getApplicationContext(), LoginActivity.this);
+//                            String url = "http://20.213.243.141:8000/specific";
+//                            final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
+//                            HashMap<String, String> params = new HashMap<String, String>();
+//                            queue.start();
+//                            params.put("facility_id", facility_id);
+//                            params.put("facility_type", String.valueOf(facility_type_int));
+//                            int finalFacility_type_int = facility_type_int;
+//                            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+//                                @Override
+//                                public void onResponse(JSONObject response) {
+//                                    Intent intent = new Intent(getApplicationContext(), FacilityActivity.class);
+//                                    Log.d(TAG, "response is: " + response.toString());
+//                                    Bundle bundle = new Bundle();
+//                                    bundle.putInt("facility_type", finalFacility_type_int);
+//                                    bundle.putString("facility_id", facility_id);
+//                                    bundle.putString("facility_json", response.toString());
+//                                    intent.putExtras(bundle);
+//                                    startActivity(intent);
+//                                }
+//                            }, new Response.ErrorListener() {
+//                                @Override
+//                                public void onErrorResponse(VolleyError error) {
+//                                    Log.d(TAG,"ERROR notification: " + error);
+//                                }
+//                            });
+//                            queue.add(jsObjRequest);
+//                        }else {
+//                            Toast.makeText(getApplicationContext(), "Error when opening posts, please report", Toast.LENGTH_LONG).show();
                         }
-
                     }
                 });
 
