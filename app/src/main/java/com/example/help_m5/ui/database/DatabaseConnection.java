@@ -1,6 +1,9 @@
 package com.example.help_m5.ui.database;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +19,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.ReportActivity;
+import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.databinding.FragmentReportBinding;
 
 import org.json.JSONArray;
@@ -31,11 +36,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //DatabaseConnection
 public class DatabaseConnection {
 
-    private static final String vm_ip = "http://20.213.243.141:8000/";
+    protected String vm_ip = "http://20.213.243.141:8080/";
     final String TAG = "databaseConnection";
 
     //following are types of facility
@@ -57,48 +64,6 @@ public class DatabaseConnection {
     static final int only_one_page = 5;
     //above are types of error that could happen
 
-    private int status_add_facility = normal_server_load;
-
-    /**
-     * @param applicationContext : Central interface to provide configuration for an application.
-     * @param title, description, type, imageLink, longitude, latitude : information need to be stored on database
-     * @param user_id : the user who added this facility
-     * @Pupose : to add a new facility in to database
-     */
-    public int addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String user_id){
-        String url = vm_ip + "addFacility";
-        Log.d(TAG, url);
-        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
-        HashMap<String, String> params = new HashMap<String, String>();
-        queue.start();
-
-        params.put("title", title);
-        params.put("description", description);
-        params.put("long", longitude);
-        params.put("lat", latitude);
-        params.put("type", type);
-        params.put("facilityImageLink", imageLink);
-
-        Log.d(TAG, params.toString());
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, "response is: " + response.toString());
-                status_add_facility = normal_server_load;
-                addCredit(applicationContext, user_id);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                status_add_facility = server_error;
-                Log.d(TAG, "ERROR when connecting to database getSpecificFacility");
-            }
-        });
-        queue.add(jsObjRequest);
-        Log.d(TAG, "status_add_facility is " + status_add_facility);
-        return status_add_facility;
-    }
 
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
@@ -124,162 +89,187 @@ public class DatabaseConnection {
             }
         });
         queue.add(jsObjRequest);
-        Log.d(TAG, "status_add_facility is " + status_add_facility);
     }
 
-    int status_getSpecificFacility = normal_server_load;
     /**
      * @param facility_type      : int representing the type of facility calling this function
      * @param applicationContext : Central interface to provide configuration for an application.
      * @param facility_id  : string of facility_id
-     * @return :
      * normal_server_load, indicate successfully send the data to server
      * server_error, indicate unsuccessfully send the data to server
      * @Pupose : to get a Specific facility by its facility id and type
      */
     /*
     */
-    public int getSpecificFacility(int facility_type, String facility_id, Context applicationContext){
-        String fileName = "specific_facility.json";
-        String url = "http://20.213.243.141:8000/specific";
+    public void getSpecificFacility(int facility_type, String facility_id, Context applicationContext, Activity activity){
+        String url = vm_ip + "specific";
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
-        HashMap<String, String> params = new HashMap<String, String>();
         queue.start();
+        HashMap<String, String> params = new HashMap<String, String>();
         params.put("facility_id", facility_id);
-        params.put("facility_type", ""+facility_type);
-        Log.d("getSpecificFacility", "ddd" + params.toString());
+        params.put("facility_type", String.valueOf(facility_type));
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("facility_type", facility_type);
+        bundle.putString("facility_id", facility_id);
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Intent intent = new Intent(activity, FacilityActivity.class);
                 Log.d(TAG, "response is: " + response.toString());
-                writeToJson(applicationContext, response, fileName);
+                bundle.putString("facility_json", response.toString());
+                intent.putExtras(bundle);
+                Toast.makeText(applicationContext, "Opening facility", Toast.LENGTH_SHORT).show();
+                applicationContext.startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                status_getSpecificFacility = server_error;
-                Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                Toast.makeText(applicationContext, "ERROR when connecting to server, can not open facility", Toast.LENGTH_SHORT).show();
             }
         });
         queue.add(jsObjRequest);
-//        Log.d(TAG, "status_getSpecificFacility is " + status_getSpecificFacility);
-        return status_getSpecificFacility;
     }
-
-    int status_getFacilities = normal_server_load;
 
     /**
      * @param binding            : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type      : int representing the type of facility calling this function
-     * @param page_number        : what range to load
      * @param applicationContext : Central interface to provide configuration for an application.
      * @param content_to_search  : string user typed in search box
-     * @return : 0, indicate successfully load the data from cached file to screen
-     * 4, indicate unsuccessfully load the data from cached file to screen
-     * 1, indicate successfully load the data from server to screen
-     * 3, indicate unsuccessfully load the data from server to screen
-     * 2, reached end of show
      * @Pupose : to load the content from server our cached file to screen for user to view
      */
-    public int getFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, boolean is_report, String content_to_search) {
+    public void getFacilities (Object binding, int facility_type, Context applicationContext, boolean is_search, String content_to_search, boolean nextPage, boolean previousPage){
         String fileName = "";
         if (is_search) {
-            fileName = "search_" + getStringType(facility_type) + ".json";
-        } else if (is_report){
-            fileName = "report" + getStringType(facility_type) + ".json";
+            fileName = "search.json";
         } else {
             fileName = getStringType(facility_type) + ".json";
         }
-        return searchFacilities(binding, facility_type, page_number, applicationContext, is_search, is_report, content_to_search, fileName);
+        searchFacilities(binding, facility_type, applicationContext, is_search, content_to_search, fileName, nextPage, previousPage);
     }
+
 
     /**
      * @param binding            : a subclass of databinding, used to find TextView, Ratingbar
      * @param facility_type      : int representing the type of facility calling this function
-     * @param page_number        : what range to load
      * @param applicationContext : Central interface to provide configuration for an application.
      * @param content_to_search  : string user typed in search box
-     * @return : 0, indicate successfully load the data from cached file to screen
-     * 4, indicate unsuccessfully load the data from cached file to screen
-     * 1, indicate successfully load the data from server to screen
-     * 3, indicate unsuccessfully load the data from server to screen
-     * 2, reached end of show
      * @Pupose : to load the content from server our cached file to screen for user to view
      */
-    private int searchFacilities(Object binding, int facility_type, int page_number, Context applicationContext, boolean is_search, boolean is_report, String content_to_search, String fileName) {
-//        Log.d(TAG, "facility_type :"+facility_type);
+    public void searchFacilities(Object binding, int facility_type, Context applicationContext, boolean is_search, String content_to_search, String fileName, boolean nextPage, boolean previousPage) {
         LoadToScreen loader = new LoadToScreen();
         if (isCached(applicationContext, fileName)) {//page up and page down should go here
             try {
                 JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
-                int result = loader.loadToScreen(binding, facility_type, page_number, data, is_report);
-                Log.d(TAG, "result in cached is " + result);
-
-                if (result == 1) {
-                    return reached_end;
-                } else if (result == 2){
-                    return only_one_page;
-                }
-                return normal_local_load;
+                loadToScreen(binding, applicationContext, facility_type, data, nextPage, previousPage, fileName);
             } catch (JSONException e) {
                 e.printStackTrace();
-                return local_error;
             }
         } else { //search should go here
             final RequestQueue queue = Volley.newRequestQueue(applicationContext);
             HashMap<String, String> params = new HashMap<String, String>();
             queue.start();
-            params.put("page_number", "" + page_number);
             params.put("type", ""+ facility_type);
             String url = vm_ip;
-
-            if(is_report){
-                url += "user/Report/" + getStringType(facility_type);
-            }else {
-                url += "facility";
-                //url += getStringType(facility_type);
-                if (is_search) {
-                    url += "/search";
-                    params.put("search", "" + content_to_search);
-                }else{
-                    url += "/newest";
-                }
+            url += "facility";
+            //url += getStringType(facility_type);
+            if (is_search) {
+                url += "/search";
+                params.put("search", "" + content_to_search);
+            }else{
+                url += "/newest";
             }
+
             Log.d(TAG,url);
             Log.d(TAG, params.toString());
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.d(TAG, "response is: " + response.toString());
-                    int result = writeToJson(applicationContext, response, fileName);
-                    if (result == 2) {
-                        status_getFacilities = local_error;// IOException
-                        return;
-                    }
+
                     try {
-                        JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
-                        int result2 = loader.loadToScreen(binding, facility_type, page_number, data, is_report);
-                        if (result2 == 1) {
-                            status_getFacilities = server_error; //reached end of facility json array
-                        }
+                        response.put("current_page", 1);
                     } catch (JSONException e) {
-                        status_getFacilities = local_error; // error reading json file
                         e.printStackTrace();
                     }
+                    Log.d(TAG, "response is: " + response.toString());
 
+                    if(writeToJson(applicationContext, response, fileName) != 0){
+                        Toast.makeText(applicationContext, "Error happened when loading data, please report to admin", Toast.LENGTH_SHORT);
+                    };
+//                    Log.d(TAG, "readFromJson" + readFromJson(applicationContext,fileName));
+                    loadToScreen(binding, applicationContext, facility_type, response, nextPage, previousPage, fileName);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    status_getFacilities = server_error;
                     Log.d(TAG, "ERROR when connecting to database searchFacilities");
                     Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
-                    Toast.makeText(applicationContext, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(applicationContext, "ERROR when get data (facilities) from server", Toast.LENGTH_SHORT).show();
                 }
             });
             queue.add(jsObjRequest);
-            Log.d(TAG, "status_getFacilities is " + status_getFacilities);
-            return status_getFacilities;
+        }
+    }
+
+    /**
+     * @param binding       : a subclass of databinding, used to find TextView, Ratingbar
+     * @param facility_type : int representing the type of facility calling this function
+     * @param data          : Json format data to be process and show on screen
+     * @Pupose : to load the content from server our cached file to screen for user to view
+     */
+    public void loadToScreen(Object binding, Context applicationContext, int facility_type, JSONObject data, boolean nextPage, boolean previousPage, String fileName) {
+        LoadToScreen loader = new LoadToScreen();
+        try {
+            int length = data.getInt("length");
+            int current_page = data.getInt("current_page");
+//            Log.d(TAG, "1 length is: "+length+", current_page is: "+current_page);
+
+            if(previousPage && (current_page == 1)){
+                Toast.makeText(applicationContext, "You are on first page", Toast.LENGTH_SHORT).show();
+                return;
+            }else if(previousPage){
+                current_page -= 1;
+            }
+
+            int start = current_page * 5;
+            Log.d(TAG, "1.5 startIndex is: "+start);
+
+            if(nextPage && (start >= length)){
+                Toast.makeText(applicationContext, "You are on last page", Toast.LENGTH_SHORT).show();
+                return;
+            }else if (nextPage){
+                current_page += 1;
+            }
+//            Log.d(TAG, "2 length is: "+length+", current_page is: "+current_page);
+
+            start = (current_page - 1) * 5;
+            data.put("current_page", current_page);
+            writeToJson(applicationContext, data, fileName);
+
+            int end = Math.min((current_page * 5), length);
+//            Log.d(TAG, "3 startIndex is: "+start+", endIndex is: "+end);
+//            Log.d(TAG, "4 readFromJson" + readFromJson(applicationContext,fileName));
+            int counter = 0;
+            JSONArray array = data.getJSONArray("result");
+
+            FragmentHomeBinding b1 = (FragmentHomeBinding)binding;
+            b1.facility1.setVisibility(View.INVISIBLE);
+            FragmentHomeBinding b2 = (FragmentHomeBinding)binding;
+            b1.facility2.setVisibility(View.INVISIBLE);
+            FragmentHomeBinding b3 = (FragmentHomeBinding)binding;
+            b1.facility3.setVisibility(View.INVISIBLE);
+            FragmentHomeBinding b4 = (FragmentHomeBinding)binding;
+            b1.facility4.setVisibility(View.INVISIBLE);
+            FragmentHomeBinding b5 = (FragmentHomeBinding)binding;
+            b1.facility5.setVisibility(View.INVISIBLE);
+//            Log.d(TAG, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            for (int index = start; index < end; index++) {
+                loader.loadToFragment(binding, facility_type, array.getJSONArray(index), counter);
+                counter++;
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
@@ -290,6 +280,7 @@ public class DatabaseConnection {
      * @Pupose : to check if file is cached in internal storage, this method is used only by searchFacilities()
      */
     public boolean isCached(Context applicationContext, String fileName) {
+//        Log.d(TAG, applicationContext.getFilesDir().toString()+"/"+fileName);
         File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
         return f.exists() && !f.isDirectory();
     }
@@ -307,7 +298,7 @@ public class DatabaseConnection {
             FileOutputStream writer = new FileOutputStream(file);
             writer.write(response.toString().getBytes());
             writer.close();
-            Log.d(TAG, "write to file" + fileName + " path is: " + file.getCanonicalPath());
+//            Log.d(TAG, "write to file" + fileName + " path is: " + file.getCanonicalPath());
         } catch (FileAlreadyExistsException e) {
             e.printStackTrace();
             return 1;
@@ -358,7 +349,7 @@ public class DatabaseConnection {
      * @param applicationContext : Central interface to provide configuration for an application.
      * @Pupose clean all files stored in /data/data/com.example.help_m5/files/
      */
-    public void cleanCaches(Context applicationContext){
+    public void cleanAllCaches(Context applicationContext){
         if( applicationContext == null){
 //            Log.d(TAG, "applicationContext Null");
             return;
@@ -380,12 +371,32 @@ public class DatabaseConnection {
             f.delete();
         }
     }
+    public void cleanSearchCaches(Context applicationContext){
+        if( applicationContext == null){
+//            Log.d(TAG, "applicationContext Null");
+            return;
+        }
+        File targetDir = applicationContext.getFilesDir();
+        File[] files = targetDir.listFiles();
+        if(files == null){
+//            Log.d(TAG, "dir empty, nothing to clean");
+            return;
+        }
+        for(File f : files){
+            String filename = f.getName();
+            if(!filename.equals("search.json") || f.isDirectory()){
+                continue;
+            }
+            Log.d(TAG, "delete filename is: " + filename);
+            f.delete();
+        }
+    }
     /**
      * @param facility_type : int representing the type of facility calling this function
      * @return String of facility type
      * @Pupose take int facility_type and return string of facility_type
      */
-    private String getStringType(int facility_type) {
+    protected String getStringType(int facility_type) {
         String facilityToFetch = "";
         switch (facility_type) {
             case posts:

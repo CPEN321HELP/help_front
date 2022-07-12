@@ -9,7 +9,7 @@
     tools:context=".ui.report.ReportFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/report_y1"
+        android:id="@+id/c1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/layout_border"
@@ -20,12 +20,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ScrollView
+            android:id="@+id/s1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:id="@+id/l1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
@@ -220,7 +222,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/report_y2"
+        android:id="@+id/c2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@drawable/layout_border"
@@ -229,15 +231,16 @@
         app:layout_constraintHeight_percent="0.5"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/report_y1"
         app:layout_constraintVertical_bias="1.0">
         <ScrollView
+            android:id="@+id/s2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
+                android:id="@+id/l2"
                 android:orientation="vertical">
 
                 <LinearLayout

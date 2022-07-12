@@ -1,24 +1,15 @@
 package com.example.help_m5.ui.report;
 
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.OvershootInterpolator;
-import android.widget.AdapterView;
-import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,9 +20,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.help_m5.CustomAdapter;
-import com.example.help_m5.FacilityActivity;
-import com.example.help_m5.ReportActivity;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentReportBinding;
@@ -41,34 +29,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
 import java.util.HashMap;
 
 public class ReportFragment extends Fragment {
 
-    private static final String vm_ip = "http://20.213.243.141:8000/";
+    private String vm_ip;
 
     private static final int posts = 0;
     private static final int study = 1;
     private static final int entertainments = 2;
     private static final int restaurants = 3;
-    private static final int report_user = 4;
     private static final int report_comment = 5;
     private static final int report_facility = 6;
-
-    private static final int normal_local_load = 0;
-    private  static final int normal_server_load = 1;
-    private static final int reached_end = 2;
-    private static final int server_error = 3;
-    private static final int local_error = 4;
-    private  static final int only_one_page = 5;
-
     private static final String TAG = "ReportFragment";
-
-    private float transY = 100f;
-    private OvershootInterpolator interpolator = new OvershootInterpolator();
-
-    private boolean isMenuOpen = false;
 
     private DatabaseConnection DBconnection;
     private FragmentReportBinding binding;
@@ -79,14 +52,17 @@ public class ReportFragment extends Fragment {
 
     private static String[] countryNames={"Comment","Facility"};
     private static int flags[] = {R.drawable.ic_baseline_comment_24, R.drawable.ic_baseline_all_inclusive_24};
+
     private int facility_type = -1;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         binding = FragmentReportBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        vm_ip = getResources().getString(R.string.azure_ip);
+        Log.d(TAG, vm_ip);
         DBconnection = new DatabaseConnection();
-        DBconnection.cleanCaches(getContext());
-
+        DBconnection.cleanAllCaches(getContext());
+        binding.c1.setVisibility(View.INVISIBLE);
+        binding.c2.setVisibility(View.INVISIBLE);
         initFavMenu();
         setConsOnCl();
         initButtons();
@@ -94,22 +70,22 @@ public class ReportFragment extends Fragment {
     }
 
     private void setConsOnCl(){
-        binding.reportY1.setOnClickListener(new View.OnClickListener() {
+        binding.l1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayoutOnClickListener(1);
+                eventOnClickListener(1);
             }
         });
 
-        binding.reportY2.setOnClickListener(new View.OnClickListener() {
+        binding.l2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConstraintLayoutOnClickListener(2);
+                eventOnClickListener(2);
             }
         });
     }
 
-    private void ConstraintLayoutOnClickListener(int which){
+    private void eventOnClickListener(int which){
         String facility_id = "";
         Log.d(TAG, "before facility_type is "+facility_type);
 
@@ -123,29 +99,7 @@ public class ReportFragment extends Fragment {
                 facility_id = binding.reportedIdY2.getText().toString();
                 break;
         }
-
-        Log.d(TAG, "after facility_type is "+facility_type);
-        Log.d(TAG, "after facility_id is "+facility_id);
-
-        int result = DBconnection.getSpecificFacility(facility_type, facility_id, getContext());
-        Handler handler = new Handler();
-
-        String finalFacility_id = facility_id;
-        handler.postDelayed(new Runnable() {
-            public void run() {
-                if(result == server_error){
-                    Toast.makeText(getContext(), "Error happened when connecting to server, please try again later", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "opening " + which, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), FacilityActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("facility_type", facility_type);
-                    bundle.putString("facility_id", finalFacility_id);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
-                }
-            }
-        }, 300);
+        DBconnection.getSpecificFacility(facility_type, facility_id, getContext(), getActivity());
     }
 
     private void initFavMenu(){
@@ -170,8 +124,11 @@ public class ReportFragment extends Fragment {
                 Log.d(TAG, "ccc" + response.toString());
                 try {
                     int length = response.getInt("length");
-                    if(length == 0){
+                    binding.c1.setVisibility(View.INVISIBLE);
+                    binding.c2.setVisibility(View.INVISIBLE);
 
+                    if(length == 0){
+                        Toast.makeText(getContext(),"There is not report need to be process",Toast.LENGTH_SHORT).show();
                     } else if(length == 1){
                         JSONArray a1 = response.getJSONArray("report_content");
                         update1(a1.getJSONObject(0));
@@ -192,7 +149,6 @@ public class ReportFragment extends Fragment {
                 Toast.makeText(context, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         queue.add(jsObjRequest);
     }
 
@@ -262,6 +218,7 @@ public class ReportFragment extends Fragment {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Toast.makeText(context, "Server has received!" , Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {
@@ -328,7 +285,7 @@ public class ReportFragment extends Fragment {
             reported_id_cont_Y1.setText((reported_id));
         } catch (JSONException e) {
             e.printStackTrace();
-            reported_id_cont_Y1.setText("none");
+            reported_id_cont_Y1.setText("This is Facility, not reported user");
         }
         //7
         reported_reason_cont_Y1 = binding.reportedReasonContY1;
@@ -348,7 +305,7 @@ public class ReportFragment extends Fragment {
             e.printStackTrace();
             report_id_Y1.setText("none");
         }
-        binding.reportY1.setVisibility(View.VISIBLE);
+        binding.c1.setVisibility(View.VISIBLE);
     }
 
     private void update2(JSONObject data){
@@ -404,7 +361,7 @@ public class ReportFragment extends Fragment {
             reported_id_cont_y2.setText((reported_id));
         } catch (JSONException e) {
             e.printStackTrace();
-            reported_id_cont_y2.setText("none");
+            reported_id_cont_y2.setText("This is Facility, not reported user");
         }
         //7
         reported_reason_cont_y2 = binding.reportedReasonContY2;
@@ -424,7 +381,7 @@ public class ReportFragment extends Fragment {
             e.printStackTrace();
             report_id_y2.setText("none");
         }
-        binding.reportY2.setVisibility(View.VISIBLE);
+        binding.c2.setVisibility(View.VISIBLE);
     }
 
     private String getTypeInString(String type){

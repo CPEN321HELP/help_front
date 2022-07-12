@@ -112,7 +112,7 @@ public class ReportActivity extends AppCompatActivity {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
-                                Toast.makeText(ReportActivity.this, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReportActivity.this, "Error sending report" + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                 queue.add(request);

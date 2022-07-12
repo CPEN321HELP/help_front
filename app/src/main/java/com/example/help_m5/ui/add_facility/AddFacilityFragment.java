@@ -46,7 +46,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 // test
 public class AddFacilityFragment extends Fragment {
-    private static final String vm_ip = "http://20.213.243.141:8000/";
+    private String vm_ip;
     private static final String TAG = "AddFacilityFragment";
 
     private FragmentAddFacilityBinding binding;
@@ -70,6 +70,7 @@ public class AddFacilityFragment extends Fragment {
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        vm_ip = getResources().getString(R.string.azure_ip);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
         String user_email = account.getEmail();
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
@@ -211,11 +212,11 @@ public class AddFacilityFragment extends Fragment {
             public void onClick(View v) {
                 if(isPost){
                     if(titleOK && descriptionOK && imageLinkOK){
-                        addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), "", "", user_email);
+                        addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), "", "", user_email, clean);
                     }
                 }else{
                     if(titleOK && descriptionOK && imageLinkOK && locationOK && (longitude != null) && (latitude != null)){
-                        addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email);
+                        addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email, clean);
                     }
                 }
             }
@@ -279,7 +280,7 @@ public class AddFacilityFragment extends Fragment {
      * @param user_id : the user who added this facility
      * @Pupose : to add a new facility in to database
      */
-    public void addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String user_id){
+    public void addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String user_id, Button clean){
         String url = vm_ip + "addFacility";
         Log.d(TAG, url);
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
