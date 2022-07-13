@@ -90,9 +90,11 @@ public class AddFacilityFragment extends Fragment {
                 if(length > 5){
                     titleOK = true;
                     binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
+                    binding.imageNewFacilityTitle.setTag("good");
                 }else{
                     titleOK = false;
                     binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_busy);
+                    binding.imageNewFacilityTitle.setTag("bad");
                 }
             }
             @Override
