@@ -6,6 +6,8 @@ import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 
+import android.widget.Spinner;
+
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 
@@ -13,6 +15,7 @@ import com.example.help_m5.ui.add_facility.AddFacilityFragment;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runners.Parameterized;
 
 public class AddFacilityFragmentTest {
 
@@ -22,13 +25,57 @@ public class AddFacilityFragmentTest {
         mfragment.moveToState(Lifecycle.State.STARTED);
     }
     @Test
-    public void t1(){
-        onView(withId(R.id.newFacilityTitle)).perform(typeText("Sve"));
+    public void testBadTitle(){
+        onView(withId(R.id.newFacilityTitle)).perform(typeText("Bad"));
         onView(withId(R.id.imageNewFacilityTitle)).check(matches(withTagValue(equalTo("bad"))));
     }
     @Test
-    public void t2(){
-        onView(withId(R.id.newFacilityTitle)).perform(typeText("Svseev"));
+    public void testGoodTitle(){
+        onView(withId(R.id.newFacilityTitle)).perform(typeText("Long enough"));
         onView(withId(R.id.imageNewFacilityTitle)).check(matches(withTagValue(equalTo("good"))));
+    }
+    @Test
+    public void testBadDescription(){
+        onView(withId(R.id.newFacilityDescription)).perform(typeText("This is a bad description because it is too short"));
+        onView(withId(R.id.imageFacilityDescription)).check(matches(withTagValue(equalTo("bad"))));
+    }
+    @Test
+    public void testGoodDescription(){
+        onView(withId(R.id.newFacilityDescription)).perform(typeText("This is a excellent description because it is not too short, and more than 50 characters"));
+        onView(withId(R.id.imageNewFacilityTitle)).check(matches(withTagValue(equalTo("good"))));
+    }
+
+    @Test
+    public void testBadImageLink(){
+        onView(withId(R.id.newFacilityImageLink)).perform(typeText("BAD URL"));
+        onView(withId(R.id.imageFacilityImageLink)).check(matches(withTagValue(equalTo("bad"))));
+    }
+    @Test
+    public void testGoodImageLink(){
+        onView(withId(R.id.newFacilityImageLink)).perform(typeText("https://imgtu.com/i/jwCDjH"));
+        onView(withId(R.id.imageFacilityImageLink)).check(matches(withTagValue(equalTo("good"))));
+    }
+
+    @Test
+    public void testBadLocation(){
+        onView(withId(R.id.newFacilityLocation)).perform(typeText("Not_A_Address"));
+        onView(withId(R.id.newFacilityDescription)).perform(click());
+        onView(withId(R.id.imageFacilityLocation)).check(matches(withTagValue(equalTo("bad"))));
+    }
+    @Test
+    public void testGoodLocation(){
+        onView(withId(R.id.newFacilityLocation)).perform(typeText("650 W 41st Ave, Vancouver, BC V5Z 2M9"));
+        onView(withId(R.id.newFacilityDescription)).perform(click());
+        onView(withId(R.id.newFacilityLocation)).perform(click());
+
+        onView(withId(R.id.imageFacilityLocation)).check(matches(withTagValue(equalTo("good"))));
+    }
+
+    @Test
+    public void testGoodType(){
+        onView(withId(R.id.imageFacilityType)).check(matches(withTagValue(equalTo("bad"))));
+        onView(withId(R.id.newFacilityType)).perform(click());
+        onData(anything()).atPosition(1).perform(click());
+        onView(withId(R.id.imageFacilityType)).check(matches(withTagValue(equalTo("good"))));
     }
 }

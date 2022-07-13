@@ -114,9 +114,11 @@ public class AddFacilityFragment extends Fragment {
                 if(length > 50){
                     descriptionOK = true;
                     binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_online);
+                    binding.imageFacilityDescription.setTag("good");
                 }else{
                     descriptionOK = false;
                     binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                    binding.imageFacilityDescription.setTag("bad");
                 }
             }
             @Override
@@ -143,9 +145,12 @@ public class AddFacilityFragment extends Fragment {
                 if(matcher1.matches() || matcher2.matches()){
                     imageLinkOK = true;
                     binding.imageFacilityImageLink.setImageResource(android.R.drawable.presence_online);
+                    binding.imageFacilityImageLink.setTag("good");
+
                 }else{
                     imageLinkOK = false;
                     binding.imageFacilityImageLink.setImageResource(android.R.drawable.presence_busy);
+                    binding.imageFacilityImageLink.setTag("bad");
                 }
                 Log.d(TAG, "\""+s.toString().trim()+"\"");
             }
@@ -167,9 +172,12 @@ public class AddFacilityFragment extends Fragment {
                         Log.d(TAG, "error");
                         locationOK = false;
                         binding.imageFacilityLocation.setImageResource(android.R.drawable.presence_busy);
+                        binding.imageFacilityLocation.setTag("bad");
+
                     }else {
                         locationOK = true;
                         binding.imageFacilityLocation.setImageResource(android.R.drawable.presence_online);
+                        binding.imageFacilityLocation.setTag("good");
                         latitude = Double.toString(result.latitude);
                         longitude = Double.toString(result.longitude);
                         Log.d(TAG, result.toString());
@@ -194,10 +202,11 @@ public class AddFacilityFragment extends Fragment {
                         binding.locationLayout.setVisibility(View.VISIBLE);
                         isPost = false;
                     }
-
                     binding.imageFacilityType.setImageResource(android.R.drawable.presence_online);
+                    binding.imageFacilityType.setTag("good");
                 }else{
                     binding.imageFacilityType.setImageResource(android.R.drawable.presence_busy);
+                    binding.imageFacilityType.setTag("bad");
                 }
             }
             @Override
