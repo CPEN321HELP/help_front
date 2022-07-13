@@ -78,6 +78,8 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="default_notification_channel_id" />
 
+    <string name="azure_ip">http://20.213.243.141:8080/</string>
+
     <!--    <string-array name="facility_types">-->
     <!--        <item>Entertainments</item>-->
     <!--        <item>Restaurants</item>-->
