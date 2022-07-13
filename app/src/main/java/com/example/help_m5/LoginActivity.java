@@ -25,6 +25,11 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.onesignal.OSNotificationAction;
 import com.onesignal.OSNotificationOpenedResult;
 import com.onesignal.OneSignal;
@@ -37,6 +42,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
+
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://cpen321help-default-rtdb.firebaseio.com/");
 
     private int RC_SIGN_IN = 1;
     final static String TAG = "LoginActivity";
@@ -224,14 +231,34 @@ public class LoginActivity extends AppCompatActivity {
         if (account == null) {
             Log.d(TAG, "There is no user signed in");
         } else {
-            String email = account.getEmail();
+            final String email = account.getEmail();
+            final String name = account.getDisplayName();
             if(email!= null){
                 Toast.makeText(getApplicationContext(), "email is "+email, Toast.LENGTH_SHORT).show();
                 OneSignal.setExternalUserId(email);
+
+                // firebase chat connection
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.child("users").hasChild("email")) {
+                            Toast.makeText(LoginActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
+                        } else {
+                            databaseReference.child("users").child("email").setValue(email);
+                            databaseReference.child("users").child("name").setValue(name);
+                            Toast.makeText(LoginActivity.this, "Successfully registered", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }else {
+                // One signal connection
                 OneSignal.setExternalUserId("none@gmail.com");
                 Toast.makeText(getApplicationContext(), "email is none@gmail.com", Toast.LENGTH_SHORT).show();
-
             }
 
             // Send token to back-end
