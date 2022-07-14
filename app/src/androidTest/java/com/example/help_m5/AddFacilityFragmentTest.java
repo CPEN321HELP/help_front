@@ -34,36 +34,48 @@ public class AddFacilityFragmentTest {
     public void testBadTitle(){
         onView(withId(R.id.newFacilityTitle)).perform(typeText("Bad"));
         onView(withId(R.id.imageNewFacilityTitle)).check(matches(withTagValue(equalTo("bad"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
     public void testGoodTitle(){
         onView(withId(R.id.newFacilityTitle)).perform(typeText("Long enough"));
         onView(withId(R.id.imageNewFacilityTitle)).check(matches(withTagValue(equalTo("good"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
     public void testBadDescription(){
         onView(withId(R.id.newFacilityDescription)).perform(typeText("This is a bad description because it is too short"));
         onView(withId(R.id.imageFacilityDescription)).check(matches(withTagValue(equalTo("bad"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
     public void testGoodDescription(){
         onView(withId(R.id.newFacilityDescription)).perform(typeText("This is a excellent description because it is not too short, and more than 50 characters"));
         onView(withId(R.id.imageFacilityDescription)).check(matches(withTagValue(equalTo("good"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
     public void testBadImageLink(){
         onView(withId(R.id.newFacilityImageLink)).perform(typeText("BAD URL"));
         onView(withId(R.id.imageFacilityImageLink)).check(matches(withTagValue(equalTo("bad"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
     public void testGoodImageLink(){
         onView(withId(R.id.newFacilityImageLink)).perform(typeText("https://imgtu.com/i/jwCDjH"));
         onView(withId(R.id.imageFacilityImageLink)).check(matches(withTagValue(equalTo("good"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
@@ -71,6 +83,8 @@ public class AddFacilityFragmentTest {
         onView(withId(R.id.newFacilityLocation)).perform(typeText("Not_A_Address"));
         onView(withId(R.id.newFacilityDescription)).perform(click());
         onView(withId(R.id.imageFacilityLocation)).check(matches(withTagValue(equalTo("bad"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
@@ -79,6 +93,8 @@ public class AddFacilityFragmentTest {
         onView(withId(R.id.newFacilityDescription)).perform(click());
         onView(withId(R.id.newFacilityLocation)).perform(click());
         onView(withId(R.id.imageFacilityLocation)).check(matches(withTagValue(equalTo("good"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
@@ -87,6 +103,8 @@ public class AddFacilityFragmentTest {
         onView(withId(R.id.newFacilityType)).perform(click());
         onData(anything()).atPosition(1).perform(click());
         onView(withId(R.id.imageFacilityType)).check(matches(withTagValue(equalTo("good"))));
+        onView(withId(R.id.submitAll)).perform(scrollTo());
+        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
     }
 
     @Test
