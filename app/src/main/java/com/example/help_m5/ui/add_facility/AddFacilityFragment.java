@@ -86,7 +86,7 @@ public class AddFacilityFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
                 Log.d(TAG, "\""+s.toString().trim()+"\"");
-                int length = input.length();
+                int length = input.replaceAll("[^a-zA-Z0-9]","").length();
                 if(length > 5){
                     titleOK = true;
                     binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
@@ -111,7 +111,7 @@ public class AddFacilityFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
 //                Log.d(TAG, "\""+s.toString().trim()+"\"");
-                int length = input.length();
+                int length = input.replaceAll("[^a-zA-Z0-9]","").length();
                 if(length > 50){
                     descriptionOK = true;
                     binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_online);
@@ -229,12 +229,12 @@ public class AddFacilityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(isPost){
-                    Toast.makeText(getContext(), "Sending your response!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Sending your response to server!", Toast.LENGTH_SHORT).show();
                     addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), "", "", user_email, clean);
 //                    Toast.makeText(getContext(), "Please fill-out all fields!", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    Toast.makeText(getContext(), "Sending your response!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Sending your response to server!", Toast.LENGTH_SHORT).show();
                     addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email, clean);
                 }
             }

@@ -194,7 +194,7 @@ public class DatabaseConnection {
                     Log.d(TAG, "response is: " + response.toString());
 
                     if(writeToJson(applicationContext, response, fileName) != 0){
-                        Toast.makeText(applicationContext, "Error happened when loading data, please report to admin", Toast.LENGTH_SHORT);
+                        Toast.makeText(applicationContext, "Error happened when loading data, please report to admin", Toast.LENGTH_SHORT).show();
                     };
 //                    Log.d(TAG, "readFromJson" + readFromJson(applicationContext,fileName));
                     loadToScreen(binding, applicationContext, facility_type, response, nextPage, previousPage, fileName);
@@ -225,7 +225,7 @@ public class DatabaseConnection {
 //            Log.d(TAG, "1 length is: "+length+", current_page is: "+current_page);
 
             if(previousPage && (current_page == 1)){
-                Toast.makeText(applicationContext, "You are on first page", Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, "You are on the first page", Toast.LENGTH_SHORT).show();
                 return;
             }else if(previousPage){
                 current_page -= 1;
@@ -235,7 +235,7 @@ public class DatabaseConnection {
             Log.d(TAG, "1.5 startIndex is: "+start);
 
             if(nextPage && (start >= length)){
-                Toast.makeText(applicationContext, "You are on last page", Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, "You are on the last page", Toast.LENGTH_SHORT).show();
                 return;
             }else if (nextPage){
                 current_page += 1;

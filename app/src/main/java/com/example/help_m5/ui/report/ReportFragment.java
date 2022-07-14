@@ -187,6 +187,7 @@ public class ReportFragment extends Fragment {
     private TextView report_title_cont_y2, facility_type_cont_y2, facility_id_org_cont_y2, reporter_id_cont_y2, report_type_cont_y2, reported_id_cont_y2, reported_reason_cont_y2, report_id_y2;
 
     private void approve(boolean isApprove, int which, Context context){
+        Toast.makeText(context, "Sending result to server!" , Toast.LENGTH_SHORT).show();
         String url = vm_ip + "admin/reportApproval";
         final RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<String, String>();
@@ -218,7 +219,7 @@ public class ReportFragment extends Fragment {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(context, "Server has received!" , Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Server has received your decision!" , Toast.LENGTH_SHORT).show();
 
             }
         }, new Response.ErrorListener() {
