@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -37,7 +37,7 @@
                     android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLength="1"
+                    android:maxLines="1"
                     android:textSize="18sp"
                     android:text="Fullname"
                     android:textStyle="bold"/>
@@ -49,14 +49,12 @@
                     android:textStyle="bold"
                     android:maxLines="1"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/theme_color"
+                    android:textColor="@color/theme_color_80"
                     android:textSize="14sp"
                     android:text="This is last message"/>
-
             </LinearLayout>
 
             <TextView
-                android:id="@+id/unseenMessages"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
@@ -65,9 +63,9 @@
                 android:text="1"
                 android:textSize="10sp"
                 android:textColor="#FFFFFF"
-                android:gravity="center" />
-                <!--android:background="@drawable/round_back_theme_1000"-->
-
+                android:gravity="center"
+                android:background="@drawable/round_back_theme_1000"
+                android:id="@+id/unseenMessages"/>
         </RelativeLayout>
 
         <View
@@ -75,8 +73,6 @@
             android:layout_height="1dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:background="#14000000" />
-
+            android:background="#14000000"/>
     </LinearLayout>
-
 </RelativeLayout>

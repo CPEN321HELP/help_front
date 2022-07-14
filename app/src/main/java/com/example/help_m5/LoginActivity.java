@@ -157,6 +157,7 @@ public class LoginActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
+        /*
         if(db.isCached(getApplicationContext(), userInfo)){
             //user has already login in
             Log.d(TAG, "cached");
@@ -166,12 +167,15 @@ public class LoginActivity extends AppCompatActivity {
         }
         Log.d(TAG, "not cached");
 
+         */
+
         // Google Sign In Button
         signInButton = findViewById(R.id.sign_in_button);
         setButtonText(signInButton, "Sign in with Google");
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 signIn();
             }
         });
@@ -219,12 +223,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onStart();
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
-        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        //try {
-        //    updateUI(account);
-        //} catch (JSONException e) {
-        //    e.printStackTrace();
-        //}
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        try {
+            updateUI(account);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     private void updateUI(GoogleSignInAccount account) throws JSONException {
@@ -233,6 +237,7 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             final String email = account.getEmail();
             final String name = account.getDisplayName();
+            final String id = account.getId();
             if(email!= null){
                 Toast.makeText(getApplicationContext(), "email is "+email, Toast.LENGTH_SHORT).show();
                 OneSignal.setExternalUserId(email);
@@ -241,15 +246,15 @@ public class LoginActivity extends AppCompatActivity {
                 databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.child("users").hasChild("email")) {
-                            Toast.makeText(LoginActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
+                        if (snapshot.child("users").hasChild(id)) {
+                            Toast.makeText(LoginActivity.this, "id already exists", Toast.LENGTH_SHORT).show();
                         } else {
-                            databaseReference.child("users").child("email").setValue(email);
-                            databaseReference.child("users").child("name").setValue(name);
-                            databaseReference.child("users").child("profile_pic").setValue("");
+                            databaseReference.child("users").child(id).child("email").setValue(email);
+                            databaseReference.child("users").child(id).child("name").setValue(name);
+                            databaseReference.child("users").child(id).child("profile_pic").setValue("");
 
                             // save email to memory
-                            MemoryData.saveData(email, LoginActivity.this);
+                            MemoryData.saveData(id, LoginActivity.this);
 
                             // save name to memory
                             MemoryData.saveName(name, LoginActivity.this);
@@ -319,6 +324,7 @@ public class LoginActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("user_name", account.getDisplayName());
                     bundle.putString("user_email", account.getEmail());
+                    bundle.putString("chat_user_id", account.getId());
                     bundle.putInt("user_type", 0);
                     if (account.getPhotoUrl() != null) {
                         bundle.putString("user_icon", account.getPhotoUrl().toString());
