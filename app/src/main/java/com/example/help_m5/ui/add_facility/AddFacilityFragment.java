@@ -96,6 +96,7 @@ public class AddFacilityFragment extends Fragment {
                     binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_busy);
                     binding.imageNewFacilityTitle.setTag("bad");
                 }
+                enableSubmit();
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -120,6 +121,7 @@ public class AddFacilityFragment extends Fragment {
                     binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
                     binding.imageFacilityDescription.setTag("bad");
                 }
+                enableSubmit();
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -127,6 +129,7 @@ public class AddFacilityFragment extends Fragment {
 
         newFacilityImageLink = binding.newFacilityImageLink;
         newFacilityImageLink.setHint("Please enter an valid url");
+        binding.imageFacilityImageLink.setTag("bad");
         newFacilityImageLink.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -152,7 +155,8 @@ public class AddFacilityFragment extends Fragment {
                     binding.imageFacilityImageLink.setImageResource(android.R.drawable.presence_busy);
                     binding.imageFacilityImageLink.setTag("bad");
                 }
-                Log.d(TAG, "\""+s.toString().trim()+"\"");
+//                Log.d(TAG, "\""+s.toString().trim()+"\"");
+                enableSubmit();
             }
             @Override
             public void afterTextChanged(Editable s) {}
@@ -183,6 +187,7 @@ public class AddFacilityFragment extends Fragment {
                         Log.d(TAG, result.toString());
                     }
                 }
+                enableSubmit();
             }
         });
 
@@ -202,12 +207,13 @@ public class AddFacilityFragment extends Fragment {
                         binding.locationLayout.setVisibility(View.VISIBLE);
                         isPost = false;
                     }
-                    binding.imageFacilityType.setImageResource(android.R.drawable.presence_online);
                     binding.imageFacilityType.setTag("good");
+                    binding.imageFacilityType.setImageResource(android.R.drawable.presence_online);
                 }else{
-                    binding.imageFacilityType.setImageResource(android.R.drawable.presence_busy);
                     binding.imageFacilityType.setTag("bad");
+                    binding.imageFacilityType.setImageResource(android.R.drawable.presence_busy);
                 }
+                enableSubmit();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -218,17 +224,18 @@ public class AddFacilityFragment extends Fragment {
         spin.setAdapter(customAdapter);
 
         submit = binding.submitAll;
+        submit.setEnabled(false);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(isPost){
-                    if(titleOK && descriptionOK && imageLinkOK){
-                        addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), "", "", user_email, clean);
-                    }
+                    Toast.makeText(getContext(), "Sending your response!", Toast.LENGTH_SHORT).show();
+                    addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), "", "", user_email, clean);
+//                    Toast.makeText(getContext(), "Please fill-out all fields!", Toast.LENGTH_SHORT).show();
+
                 }else{
-                    if(titleOK && descriptionOK && imageLinkOK && locationOK && (longitude != null) && (latitude != null)){
-                        addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email, clean);
-                    }
+                    Toast.makeText(getContext(), "Sending your response!", Toast.LENGTH_SHORT).show();
+                    addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email, clean);
                 }
             }
         });
@@ -325,6 +332,21 @@ public class AddFacilityFragment extends Fragment {
         });
         queue.add(jsObjRequest);
     }
+
+    private void enableSubmit(){
+        if(isPost){
+            if(titleOK && descriptionOK && imageLinkOK){
+                submit.setEnabled(true);
+            }
+
+        }else{
+            if(titleOK && descriptionOK && imageLinkOK && locationOK && (longitude != null) && (latitude != null)){
+                submit.setEnabled(true);
+            }
+
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
