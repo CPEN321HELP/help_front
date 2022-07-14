@@ -10,6 +10,8 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import android.content.Context;
 import android.content.Intent;
 
+import androidx.lifecycle.Lifecycle;
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
@@ -49,6 +51,12 @@ public class ExampleInstrumentedTest {
 
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest  {
+
+    @Before
+    public void setUp() {
+        ActivityScenario<FacilityActivity> mfragment = ActivityScenario.launch(FacilityActivity.class);
+        mfragment.moveToState(Lifecycle.State.STARTED);
+    }
 
     @Rule
     public ActivityTestRule<FacilityActivity> activityRule =

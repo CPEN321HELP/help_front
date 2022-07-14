@@ -22,8 +22,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ChatActivity"
+            android:name=".Chat"
             android:exported="false" />
+        <activity
+            android:name=".ChatActivity"
+            android:exported="true" />
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -85,7 +88,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Help_m5.NoActionBar"></activity>
+            android:theme="@style/Theme.Help_m5.NoActionBar" />
     </application>
 
 </manifest>

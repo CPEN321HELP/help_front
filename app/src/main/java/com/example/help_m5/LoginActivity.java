@@ -246,6 +246,13 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             databaseReference.child("users").child("email").setValue(email);
                             databaseReference.child("users").child("name").setValue(name);
+                            databaseReference.child("users").child("profile_pic").setValue("");
+
+                            // save email to memory
+                            MemoryData.saveData(email, LoginActivity.this);
+
+                            // save name to memory
+                            MemoryData.saveName(name, LoginActivity.this);
                             Toast.makeText(LoginActivity.this, "Successfully registered", Toast.LENGTH_SHORT).show();
                         }
                     }
