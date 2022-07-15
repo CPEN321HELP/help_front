@@ -61,21 +61,15 @@ public class AddFacilityFragment extends Fragment {
     private boolean titleOK = false, descriptionOK = false, imageLinkOK = false, locationOK = false, isPost = false;
     private String longitude, latitude;
 
-    private static final int normal_local_load = 0;
-    private static final int normal_server_load = 1;
-    private static final int reached_end = 2;
-    private static final int server_error = 3;
-    private static final int local_error = 4;
-    private static final int only_one_page = 5;
+    private GoogleSignInAccount account;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm_ip = getResources().getString(R.string.azure_ip);
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        account = GoogleSignIn.getLastSignedInAccount(getContext());
         String user_email = account.getEmail();
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-
 
         newFacilityTitle = binding.newFacilityTitle;
         newFacilityTitle.setHint("please enter a title");
@@ -237,6 +231,7 @@ public class AddFacilityFragment extends Fragment {
                     Toast.makeText(getContext(), "Sending your response to server!", Toast.LENGTH_SHORT).show();
                     addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email, clean);
                 }
+                enableSubmit();
             }
         });
 
@@ -300,37 +295,59 @@ public class AddFacilityFragment extends Fragment {
      */
     public void addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String user_id, Button clean){
         String url = vm_ip + "addFacility";
-        Log.d(TAG, url);
+//        Log.d(TAG, url);
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
-        HashMap<String, String> params = new HashMap<String, String>();
+        HashMap<String, String> newFacilityParam = new HashMap<String, String>();
         queue.start();
 
-        params.put("title", title);
-        params.put("description", description);
-        params.put("long", longitude);
-        params.put("lat", latitude);
-        params.put("type", type);
-        params.put("facilityImageLink", imageLink);
+        newFacilityParam.put("title", title);
+        newFacilityParam.put("description", description);
+        newFacilityParam.put("long", longitude);
+        newFacilityParam.put("lat", latitude);
+        newFacilityParam.put("type", type);
+        newFacilityParam.put("facilityImageLink", imageLink);
+        newFacilityParam.put("adderID", user_id);
+        //used to add credit for users
+        newFacilityParam.put("AdditionType", "addFacility");
+        newFacilityParam.put("upUserId", user_id);
+        Log.d(TAG, "newFacilityParam" + newFacilityParam.toString());
 
-//        Log.d(TAG, params.toString());
-
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(newFacilityParam), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d(TAG, "response is: " + response.toString());
+                Log.d(TAG, "response in addFacility is: " + response.toString());
                 Toast.makeText(getContext(), "Success! Server received your submission", Toast.LENGTH_SHORT).show();
-                DBconnection = new DatabaseConnection();
-                DBconnection.addCredit(applicationContext, user_id);
+
                 clean.performClick();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                Log.d(TAG, "onErrorResponse addFacility " + "Error: " + error.getMessage());
                 Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
             }
         });
         queue.add(jsObjRequest);
+
+//        HashMap<String, String> creditParams = new HashMap<String, String>();
+//        String credit_url = vm_ip + "creditHandling/normal";
+//        creditParams.put("AdditionType", "addFacility");
+//        creditParams.put("upUserId", user_id);
+//        Log.d(TAG, "addCredit credit_url: " + credit_url);
+//        Log.d(TAG, "addCredit creditParams: " + creditParams.toString());
+//        JsonObjectRequest crejsObjRequest = new JsonObjectRequest(Request.Method.POST, credit_url, new JSONObject(creditParams), new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                Log.d(TAG, "response in addFacility's credit is: " + response.toString());
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d(TAG, "addCredit onErrorResponse" + "Error: " + error.getMessage());
+//            }
+//        });
+//        queue.add(crejsObjRequest);
     }
 
     private void enableSubmit(){

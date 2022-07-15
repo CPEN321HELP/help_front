@@ -72,6 +72,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private float rate;
     private int numReviews;
     private String description;
+    private String adderID;
     private int type;
     private String image;
     private double latitude;
@@ -109,6 +110,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             System.out.println(facility);
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
+            adderID = facility.getJSONObject("facility").getString("adderID");
+
             image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
             // Facility Image
             if (Uri.parse(image) == null) {
@@ -148,14 +151,14 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 }
                 try{
                     String userName = (String) jsonobject.getString("userName");
-                    String userEmail = (String) jsonobject.getString("replierID");
+                    String replierID = (String) jsonobject.getString("replierID");
                     double userRate = (double) jsonobject.getDouble("rateScore");
                     int downvote = (int) jsonobject.getInt("downVotes");
                     int upvote =  (int) jsonobject.getInt("upVotes");;
                     String comment = (String) jsonobject.getString("replyContent");
                     String time = (String) jsonobject.getString("timeOfReply");
-                    createUserReview((float) userRate, userName, userEmail, comment, time, upvote, downvote, isPost);
-                    map.put(userEmail,"1");
+                    createUserReview((float) userRate, userName, replierID, comment, time, upvote, downvote, isPost);
+                    map.put(replierID,"1");
                 }catch (JSONException e){
                     e.printStackTrace();
                     continue;
@@ -243,6 +246,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 bundle.putString("user_email", (String) button.getTag());
                 bundle.putInt("facility_id", Integer.parseInt(facilityId));
                 bundle.putInt("facility_type", type);
+                bundle.putString("reportedUserId", adderID);
+
                 bundle.putString("report_type", "6"); //5 means report comment
 
                 reportIntent.putExtras(bundle);
@@ -284,9 +289,9 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
     }
 
-    public void createUserReview(float userRate, String userName, String userEmail, String userDescription, String userDate, int upVoteCounter, int downVoteCounter, boolean isPost) {
+    public void createUserReview(float userRate, String userName, String replierID, String userDescription, String userDate, int upVoteCounter, int downVoteCounter, boolean isPost) {
         // Linear Layouts
-        reviewers.add(userEmail);
+        reviewers.add(replierID);
         LinearLayout review = new LinearLayout(this);
         review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         review.setOrientation(LinearLayout.VERTICAL);
@@ -341,7 +346,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         Button reportCommentButton = new Button(this, null, androidx.appcompat.R.attr.borderlessButtonStyle);
         reportCommentButton.setId(REPORT_BUTTON_BASE_ID + id);
-        reportCommentButton.setTag(userEmail);
+        reportCommentButton.setTag(replierID);
         reportCommentButton.setText("Report");
         reportCommentButton.setTextSize(dpToPx(5f));
         reportCommentButton.setTextColor(Color.parseColor("#626062"));
@@ -359,6 +364,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 bundle.putInt("facility_id", Integer.parseInt(facilityId));
                 bundle.putInt("facility_type", type);
                 bundle.putString("report_type", "5"); //5 means report comment
+                bundle.putString("reportedUserId", replierID); //5 means report comment
 
                 reportIntent.putExtras(bundle);
                 startActivity(reportIntent);
@@ -374,7 +380,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         upVoteCount.setLayoutParams(layoutParamsVoteCount);
 
         CheckBox upVote = new CheckBox(this);
-        upVote.setTag(userEmail);
+        upVote.setTag(replierID);
         upVote.setButtonDrawable(R.drawable.upvote);
         upVote.setId(UPVOTE_BASE_ID + id);
         boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
@@ -411,7 +417,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         downVoteCount.setLayoutParams(layoutParamsVoteCount);
 
         CheckBox downVote = new CheckBox(this);
-        downVote.setTag(userEmail);
+        downVote.setTag(replierID);
         downVote.setButtonDrawable(R.drawable.downvote);
         downVote.setId(DOWNVOTE_BASE_ID + id);
         boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)

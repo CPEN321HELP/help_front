@@ -67,28 +67,39 @@ public class DatabaseConnection {
 
     /**
      * @param applicationContext : Central interface to provide configuration for an application.
-     * @param user_id  : string of user id
      * @Pupose : to notify server which user to add credit
      */
-    public void addCredit(Context applicationContext, String user_id){
-        final RequestQueue queue = Volley.newRequestQueue(applicationContext);
+    public JsonObjectRequest addCredita(Context applicationContext, String upUserId, String downUserId, boolean isRepost, boolean isComment, boolean isAddF){
+
         HashMap<String, String> params = new HashMap<String, String>();
-        queue.start();
-        String url = vm_ip + "creditHandling/normal";
-        params.put("upUserId", user_id);
-        Log.d(TAG, params.toString());
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+        String url = vm_ip + "creditHandling/";
+        if(isRepost){
+            url += "report";
+            params.put("AdditionType", "report");
+        }else {
+            url += "normal";
+            if(isComment){
+                params.put("AdditionType", "comment");
+            }else if (isAddF){
+                params.put("AdditionType", "addFacility");
+            }
+        }
+        params.put("upUserId", upUserId);
+        params.put("downUserId", downUserId);
+
+        Log.d(TAG, "addCredit url: " + url);
+        Log.d(TAG, "addCredit credit: " + params.toString());
+
+        return new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d(TAG, "response is: " + response.toString());
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "ERROR when connecting to database getSpecificFacility");
+                Log.d(TAG, "addCredit onErrorResponse" + "Error: " + error.getMessage());
             }
         });
-        queue.add(jsObjRequest);
     }
 
     /**
@@ -116,7 +127,7 @@ public class DatabaseConnection {
             @Override
             public void onResponse(JSONObject response) {
                 Intent intent = new Intent(activity, FacilityActivity.class);
-                Log.d(TAG, "response is: " + response.toString());
+                Log.d(TAG, "response getSpecificFacility is: " + response.toString());
                 bundle.putString("facility_json", response.toString());
                 intent.putExtras(bundle);
                 Toast.makeText(applicationContext, "Opening facility", Toast.LENGTH_SHORT).show();
@@ -125,7 +136,7 @@ public class DatabaseConnection {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(applicationContext, "ERROR when connecting to server, can not open facility", Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "onErrorResponse getSpecificFacility " + "Error: " + error.getMessage());
             }
         });
         queue.add(jsObjRequest);
@@ -191,7 +202,7 @@ public class DatabaseConnection {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.d(TAG, "response is: " + response.toString());
+                    Log.d(TAG, "response searchFacilities is: " + response.toString());
 
                     if(writeToJson(applicationContext, response, fileName) != 0){
                         Toast.makeText(applicationContext, "Error happened when loading data, please report to admin", Toast.LENGTH_SHORT).show();
@@ -202,8 +213,7 @@ public class DatabaseConnection {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d(TAG, "ERROR when connecting to database searchFacilities");
-                    Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
+                    Log.d(TAG, "onErrorResponse searchFacilities " + "Error: " + error.getMessage());
                     Toast.makeText(applicationContext, "ERROR when get data (facilities) from server", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -232,7 +242,7 @@ public class DatabaseConnection {
             }
 
             int start = current_page * 5;
-            Log.d(TAG, "1.5 startIndex is: "+start);
+//            Log.d(TAG, "1.5 startIndex is: "+start);
 
             if(nextPage && (start >= length)){
                 Toast.makeText(applicationContext, "You are on the last page", Toast.LENGTH_SHORT).show();
@@ -334,12 +344,14 @@ public class DatabaseConnection {
             return null;
         }
     }
+
     public void removeFile(Context applicationContext, String fileName){
         if(!isCached(applicationContext, fileName)){
             File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
             f.delete();
         }
     }
+
     public void removeFile(String filePath){
         File f = new File(filePath);
         f.delete();
@@ -362,7 +374,7 @@ public class DatabaseConnection {
         }
         for(File f : files){
             String filename = f.getName();
-            Log.d(TAG, "filename is: "+filename);
+//            Log.d(TAG, "filename is: "+filename);
             if(filename.equals("userInfo.json") || f.isDirectory()){
                 continue;
             }
@@ -371,6 +383,7 @@ public class DatabaseConnection {
             f.delete();
         }
     }
+
     public void cleanSearchCaches(Context applicationContext){
         if( applicationContext == null){
 //            Log.d(TAG, "applicationContext Null");
@@ -387,7 +400,7 @@ public class DatabaseConnection {
             if(!filename.equals("search.json") || f.isDirectory()){
                 continue;
             }
-            Log.d(TAG, "delete filename is: " + filename);
+//            Log.d(TAG, "delete filename is: " + filename);
             f.delete();
         }
     }

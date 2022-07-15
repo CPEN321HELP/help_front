@@ -196,31 +196,26 @@ public class ReportFragment extends Fragment {
         }else {
             params.put("approve", "0");
         }
-        if(which == 1){
 //            params.put("report_type", "5");
 //            params.put("report_id", "62cb1c4fea53d3e824fcc10c");
 //            params.put("facility_type", "entertainments");
 //            params.put("facility_id", "6");
 //            params.put("reported_user", "l2542293790@gmail.com");
+        params.put("report_type", which == 1? binding.reportTypeContY1.getText().toString() : binding.reportTypeContY2.getText().toString());
+        params.put("report_id", which == 1? binding.reportIdY1.getText().toString(): binding.reportIdY2.getText().toString());
+        params.put("facility_type", which == 1? binding.facilityTypeContY1.getText().toString():binding.facilityTypeContY2.getText().toString());
+        params.put("facility_id", which == 1? binding.facilityIdOrgContY1.getText().toString():binding.facilityIdOrgContY2.getText().toString());
+        params.put("reported_user", which == 1? binding.reportedIdContY1.getText().toString():binding.reportedIdContY2.getText().toString());
+        //for adding credit
+        params.put("AdditionType", "report");
+        params.put("upUserId", which == 1? binding.reporterIdContY1.getText().toString():binding.reporterIdContY2.getText().toString());
+        params.put("downUserId",  which == 1? binding.reportedIdContY1.getText().toString():binding.reportedIdContY2.getText().toString());
 
-            params.put("report_type", binding.reportTypeContY1.getText().toString());
-            params.put("report_id", binding.reportIdY1.getText().toString());
-            params.put("facility_type", binding.facilityTypeContY1.getText().toString());
-            params.put("facility_id", binding.facilityIdOrgContY1.getText().toString());
-            params.put("reported_user", binding.reportedIdContY1.getText().toString());
-        }else {
-            params.put("report_type", binding.reportTypeContY2.getText().toString());
-            params.put("report_id", binding.reportIdY2.getText().toString());
-            params.put("facility_type", binding.facilityTypeContY2.getText().toString());
-            params.put("facility_id", binding.facilityIdOrgContY2.getText().toString());
-            params.put("reported_user", binding.reportedIdContY2.getText().toString());
-        }
         Log.d(TAG, params.toString());
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Toast.makeText(context, "Server has received your decision!" , Toast.LENGTH_SHORT).show();
-
             }
         }, new Response.ErrorListener() {
             @Override

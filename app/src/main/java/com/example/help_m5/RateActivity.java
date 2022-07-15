@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -142,7 +143,10 @@ public class RateActivity extends AppCompatActivity {
                 paramsComment.put("replyContent", comment);
                 paramsComment.put("username", userAccount.getDisplayName());
                 paramsComment.put("rateScore", String.valueOf(rate));
-
+                //for add credit
+                paramsComment.put("AdditionType", "comment");
+                paramsComment.put("upUserId", userAccount.getDisplayName());
+                paramsComment.put("downUserId",  "");
                 JsonObjectRequest requestComment = new JsonObjectRequest(Request.Method.PUT, vm_ip+"comment/add", new JSONObject(paramsComment),
                         new Response.Listener<JSONObject>() {
                             @Override
@@ -152,6 +156,8 @@ public class RateActivity extends AppCompatActivity {
                                     String result = response.getString("result");
                                     if(result.equals("already_exist")){
                                         Toast.makeText(getApplicationContext(), "You have reviewed in the past.", Toast.LENGTH_SHORT).show();
+                                    }else{
+                                        DatabaseConnection db = new DatabaseConnection();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
