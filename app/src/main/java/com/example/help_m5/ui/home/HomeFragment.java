@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
                     setRateBarVisibility(View.VISIBLE);
                 }
                 setFacilitiesVisibility(View.INVISIBLE);
-                Log.d(TAG, "facility_type in onItemSelected"+facility_type);
+                Log.d(TAG, "facility_type in onItemSelected "+facility_type);
                 DBconnection.getFacilities(binding, facility_type, getContext(),false,"", false, false);
 
             }

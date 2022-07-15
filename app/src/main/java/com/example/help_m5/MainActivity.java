@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +32,7 @@ import androidx.preference.PreferenceManager;
 
 import com.example.help_m5.databinding.ActivityMainBinding;
 import com.example.help_m5.ui.database.DatabaseConnection;
+import com.example.help_m5.ui.database.LoadToScreen;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseConnection db;
     private String TAG = "MainActivity";
     private String userInfo = "userInfo.json";
-
+    private int admin = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +71,13 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                Log.d(TAG, "you have chose" + item.toString());
+//                return true;
+//            }
+//        });
         /*
         Bundle bundle = getIntent().getExtras();
         String userName = bundle.getString("user_name");
@@ -93,29 +101,28 @@ public class MainActivity extends AppCompatActivity {
 //        nav_Menu.findItem(R.id.nav_report).setVisible(false);
         DatabaseConnection db = new DatabaseConnection();
         String info = null;
-        if(db.isCached(getApplicationContext(),userInfo)){
+        if(db.isCached(getApplicationContext(), userInfo)){
             info = db.readFromJson(getApplicationContext(), userInfo);
             Log.d(TAG,"info in main is  "+info);
         }
         if(info != null){
             try {
                 JSONObject user_data = new JSONObject(info);
-                String userName = user_data.getString("user_name");
-                String userEmail = user_data.getString("user_email");
-                String userLogo = user_data.getString("user_icon");
-                TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
-                userNameView.setText(userName);
-                TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
-                userEmailView.setText(userEmail);
-                if (!userLogo.equals("none")) {
-                    Uri userIcon = Uri.parse(userLogo);
-                    Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+                if(!user_data.has("account_type")){
+                    Log.d(TAG, "qqq server error");
+                    finish();
                 }
+                int userType = user_data.getInt("account_type");
+                Menu processReport = navigationView.getMenu();
+                processReport.findItem(R.id.nav_report).setVisible(userType == admin);
+                LoadToScreen loader = new LoadToScreen();
+                loader.loadUserInfo(navigationView, user_data, MainActivity.this);
+                Log.d(TAG, "userInfo finished set up");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            Log.d(TAG, "finish set up");
-        }else {
+
+        } else {
             Bundle bundle = getIntent().getExtras();
             String userName = bundle.getString("user_name");
             String userEmail = bundle.getString("user_email");

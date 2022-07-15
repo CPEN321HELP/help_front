@@ -1,21 +1,117 @@
 package com.example.help_m5.ui.database;
 
+import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.databinding.FragmentReportBinding;
+import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class LoadToScreen {
     private final String TAG = "LoadToScreen";
+    private int admin = 0;
+
+    public void loadUserInfo(NavigationView navigationView, JSONObject user_data, Activity activity){
+
+        String userName = "error";
+        String userEmail = "error";
+        String userLogo = "error";
+        int numberCredit = -1;
+        int userType = -1;
+
+        try {
+            userName = user_data.getString("username");
+            userEmail = user_data.getString("_id");
+            userLogo = user_data.getString("user_logo");
+            userType = user_data.getInt("account_type");
+            numberCredit = user_data.getInt("number_of_credit");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        TextView userNameView = navigationView.getHeaderView(0).findViewById(R.id.userName);
+//        TextView userNameView = activity.findViewById(R.id.userName);
+
+        userNameView.setText(userName);
+
+        TextView userEmailView = navigationView.getHeaderView(0).findViewById(R.id.userEmail);
+//        TextView userEmailView = activity.findViewById(R.id.userEmail);
+        userEmailView.setText(userEmail);
+
+        if (!userLogo.equals("none")) {
+            Uri userIcon = Uri.parse(userLogo);
+            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+//            Picasso.get().load(userIcon).into((ImageView) activity.findViewById(R.id.userIcon));
+        }
+
+        if(userType != -1 && numberCredit != -1){
+            if (userType == admin){ //admain
+                ImageView logo = navigationView.getHeaderView(0).findViewById(R.id.userLevelLogo);
+//                ImageView logo = activity.findViewById(R.id.userLevelLogo);
+                assert(logo != null);
+                logo.setImageResource(R.drawable.level_admin_logo);
+
+                TextView userCreditView = navigationView.getHeaderView(0).findViewById(R.id.numberOfCredit);
+//                TextView userCreditView = activity.findViewById(R.id.numberOfCredit);
+                userCreditView.setText("You have: "+numberCredit + "(admin)");
+
+            }else {// not admin
+                ImageView logo = navigationView.getHeaderView(0).findViewById(R.id.userLevelLogo);
+//                ImageView logo = activity.findViewById(R.id.userLevelLogo);
+                int user_level = numberCredit / 50 + 1;
+                switch (user_level){
+                    case 1:
+                        logo.setImageResource(R.drawable.level_1_logo);
+                        break;
+                    case 2:
+                        logo.setImageResource(R.drawable.level_2_logo);
+                        break;
+                    case 3:
+                        logo.setImageResource(R.drawable.level_3_logo);
+                        break;
+                    case 4:
+                        logo.setImageResource(R.drawable.level_4_logo);
+                        break;
+                    case 5:
+                        logo.setImageResource(R.drawable.level_5_logo);
+                        break;
+                    case 6:
+                        logo.setImageResource(R.drawable.level_6_logo);
+                        break;
+                    case 7:
+                        logo.setImageResource(R.drawable.level_7_logo);
+                        break;
+                    case 8:
+                        logo.setImageResource(R.drawable.level_8_logo);
+                        break;
+                    case 9:
+                        logo.setImageResource(R.drawable.level_9_logo);
+                        break;
+                    default:
+                        logo.setImageResource(R.drawable.level_9plus_logo);
+                        break;
+                }
+
+                TextView userCreditView = navigationView.getHeaderView(0).findViewById(R.id.numberOfCredit);
+//                TextView userCreditView = activity.findViewById(R.id.numberOfCredit);
+                userCreditView.setText("You have: "+numberCredit + "(user)");
+            }
+        }
+    }
 
     /**
      * @param binding       : a subclass of databinding, used to find TextView, Ratingbar

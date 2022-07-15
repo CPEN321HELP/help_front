@@ -100,9 +100,13 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         // Get data from database
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
-        isPost = (POST == (int) bundle.getInt("facility_type"));
-        type = bundle.getInt("facility_type");
+        type = bundle.getInt("facilityType");
+        isPost = (POST == type);
+//        Log.d(TAG, "ssss type is "+ type);
+//        Log.d(TAG, "ssss isPost is "+ isPost);
+
         String facilityInfo = bundle.getString("facility_json");
+        Log.d(TAG, "sssssss "+facilityInfo);
 
         try {
             JSONObject facility = new JSONObject(facilityInfo);
@@ -110,7 +114,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             System.out.println(facility);
             title = (String) facility.getJSONObject("facility").getString("facilityTitle");
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-            adderID = facility.getJSONObject("facility").getString("adderID");
+            adderID = facility.getString("adderID");
+//            Log.d(TAG, "sssssss adderID "+adderID);
 
             image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
             // Facility Image

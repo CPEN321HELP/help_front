@@ -145,9 +145,10 @@ public class RateActivity extends AppCompatActivity {
                 paramsComment.put("rateScore", String.valueOf(rate));
                 //for add credit
                 paramsComment.put("AdditionType", "comment");
-                paramsComment.put("upUserId", userAccount.getDisplayName());
+                paramsComment.put("upUserId", userEmail);
                 paramsComment.put("downUserId",  "");
-                JsonObjectRequest requestComment = new JsonObjectRequest(Request.Method.PUT, vm_ip+"comment/add", new JSONObject(paramsComment),
+                Log.d(TAG, "requestComment: " + paramsComment);
+                JsonObjectRequest requestComment = new JsonObjectRequest(Request.Method.POST, vm_ip+"comment/add", new JSONObject(paramsComment),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -201,6 +202,8 @@ public class RateActivity extends AppCompatActivity {
                             }
                         });
                 queue.add(requestNotify);
+
+
 
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {

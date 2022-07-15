@@ -23,6 +23,7 @@ import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.ReportActivity;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.databinding.FragmentReportBinding;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,54 +55,43 @@ public class DatabaseConnection {
     final int report_comment = 5;
     final int report_facility = 6;
     //above are types of facility
+    private String userInfo = "userInfo.json";
 
-    //below are types of error that could happen
-    static final int normal_local_load = 0;
-    static final int normal_server_load = 1;
-    static final int reached_end = 2;
-    static final int server_error = 3;
-    static final int local_error = 4;
-    static final int only_one_page = 5;
-    //above are types of error that could happen
-
-
-    /**
-     * @param applicationContext : Central interface to provide configuration for an application.
-     * @Pupose : to notify server which user to add credit
-     */
-    public JsonObjectRequest addCredita(Context applicationContext, String upUserId, String downUserId, boolean isRepost, boolean isComment, boolean isAddF){
-
+    public void updateUserInfo(NavigationView navigationView, Context context, String user_id, Activity activity,boolean load){
+        RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<String, String>();
-        String url = vm_ip + "creditHandling/";
-        if(isRepost){
-            url += "report";
-            params.put("AdditionType", "report");
-        }else {
-            url += "normal";
-            if(isComment){
-                params.put("AdditionType", "comment");
-            }else if (isAddF){
-                params.put("AdditionType", "addFacility");
-            }
-        }
-        params.put("upUserId", upUserId);
-        params.put("downUserId", downUserId);
+        queue.start();
+        params.put("_id", user_id);
+        params.put("username", "");
+        params.put("user_logo", "");
 
-        Log.d(TAG, "addCredit url: " + url);
-        Log.d(TAG, "addCredit credit: " + params.toString());
+        Log.d(TAG, "updateUserInfo params is " + params);
 
-        return new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(params), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "addCredit onErrorResponse" + "Error: " + error.getMessage());
-            }
-        });
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"google_sign_up", new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        if(response.toString().equals("{}")){
+                            Toast.makeText(context, "Unable to get update from server", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        writeToJson(context, response, userInfo);
+                        if(load){
+                            Log.d(TAG, "updateUserInfo response is "+response);
+                            LoadToScreen loader = new LoadToScreen();
+                            loader.loadUserInfo(navigationView, response, activity);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse updateUI " + "Error: " + error.getMessage());
+                    }
+                });
+        queue.add(request);
     }
-
     /**
      * @param facility_type      : int representing the type of facility calling this function
      * @param applicationContext : Central interface to provide configuration for an application.
@@ -117,18 +107,20 @@ public class DatabaseConnection {
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
         queue.start();
         HashMap<String, String> params = new HashMap<String, String>();
+//        Log.d(TAG, "ssss type in getSpecific is "+facility_type);
         params.put("facility_id", facility_id);
-        params.put("facility_type", String.valueOf(facility_type));
+        params.put("facilityType", String.valueOf(facility_type));
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("facility_type", facility_type);
-        bundle.putString("facility_id", facility_id);
+
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Intent intent = new Intent(activity, FacilityActivity.class);
                 Log.d(TAG, "response getSpecificFacility is: " + response.toString());
+                Bundle bundle = new Bundle();
+                bundle.putInt("facilityType", facility_type);
+                bundle.putString("facility_id", facility_id);
                 bundle.putString("facility_json", response.toString());
+                Intent intent = new Intent(activity, FacilityActivity.class);
                 intent.putExtras(bundle);
                 Toast.makeText(applicationContext, "Opening facility", Toast.LENGTH_SHORT).show();
                 applicationContext.startActivity(intent);

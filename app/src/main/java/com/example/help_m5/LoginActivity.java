@@ -64,13 +64,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         db = new DatabaseConnection();
-
         // Enable verbose OneSignal logging to debug issues if needed.
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
-        OneSignal.setEmail("none@gmail.com");
+//        OneSignal.setEmail("none@gmail.com");
         OneSignal.setNotificationOpenedHandler(
                 new OneSignal.OSNotificationOpenedHandler() {
                     @Override
@@ -150,14 +149,14 @@ public class LoginActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        if(db.isCached(getApplicationContext(), userInfo)){
-            //user has already login in
-            Log.d(TAG, "cached");
-
-            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(MainIntent);
-        }
-        Log.d(TAG, "not cached");
+//        if(db.isCached(getApplicationContext(), userInfo)){
+//            //user has already login in
+//            Log.d(TAG, "cached");
+//
+//            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+//            startActivity(MainIntent);
+//        }
+//        Log.d(TAG, "not cached");
 
         // Google Sign In Button
         signInButton = findViewById(R.id.sign_in_button);
@@ -168,7 +167,6 @@ public class LoginActivity extends AppCompatActivity {
                 signIn();
             }
         });
-
     }
 
     private void signIn() {
@@ -249,30 +247,14 @@ public class LoginActivity extends AppCompatActivity {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d(TAG, response.toString());
-                            JSONObject info = new JSONObject();
-                            try {
-                                info.put("user_name", account.getDisplayName());
-                                info.put("user_email", account.getEmail());
-                                info.put("user_type", 0);
-                                info.put("number_of_credit", response.get("number_of_credit"));
-                                if (account.getPhotoUrl() != null) {
-                                    info.put("user_icon", account.getPhotoUrl().toString());
-                                } else {
-                                    info.put("user_icon", "none");
-                                }
-                                db.writeToJson(getApplicationContext(), info, userInfo);
-                                Log.d(TAG,"info is: "+info.toString());
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
+                            Log.d(TAG, "response in loingin is: " + response.toString());
+                            db.writeToJson(getApplicationContext(), response, userInfo);
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d(TAG, "onErrorResponse " + "Error: " + error.getMessage());
+                            Log.d(TAG, "onErrorResponse updateUI " + "Error: " + error.getMessage());
                         }
                     });
             queue.add(request);
@@ -285,7 +267,9 @@ public class LoginActivity extends AppCompatActivity {
                     Bundle bundle = new Bundle();
                     bundle.putString("user_name", account.getDisplayName());
                     bundle.putString("user_email", account.getEmail());
-                    bundle.putInt("user_type", 0);
+                    bundle.putInt("user_type", 1);
+                    bundle.putInt("number_of_credit", 1);
+
                     if (account.getPhotoUrl() != null) {
                         bundle.putString("user_icon", account.getPhotoUrl().toString());
                     } else {

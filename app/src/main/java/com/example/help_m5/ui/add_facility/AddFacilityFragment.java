@@ -3,6 +3,7 @@ package com.example.help_m5.ui.add_facility;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,6 +31,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.CustomAdapter;
+import com.example.help_m5.LoginActivity;
+import com.example.help_m5.MainActivity;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentAddFacilityBinding;
@@ -36,6 +40,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONObject;
 
@@ -232,6 +237,15 @@ public class AddFacilityFragment extends Fragment {
                     addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email, clean);
                 }
                 enableSubmit();
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+                        Log.d(TAG, String.valueOf("is it null?" + navigationView == null));
+                        DatabaseConnection db = new DatabaseConnection();
+                        db.updateUserInfo(navigationView, getContext(), user_email, getActivity(),true);
+                    }
+                }, 1000);
             }
         });
 
@@ -243,6 +257,7 @@ public class AddFacilityFragment extends Fragment {
                 newFacilityDescription.setText("");
                 newFacilityImageLink.setText("");
                 newFacilityLocation.setText("");
+                enableSubmit();
             }
         });
 
@@ -329,25 +344,25 @@ public class AddFacilityFragment extends Fragment {
         });
         queue.add(jsObjRequest);
 
-//        HashMap<String, String> creditParams = new HashMap<String, String>();
-//        String credit_url = vm_ip + "creditHandling/normal";
-//        creditParams.put("AdditionType", "addFacility");
-//        creditParams.put("upUserId", user_id);
-//        Log.d(TAG, "addCredit credit_url: " + credit_url);
-//        Log.d(TAG, "addCredit creditParams: " + creditParams.toString());
-//        JsonObjectRequest crejsObjRequest = new JsonObjectRequest(Request.Method.POST, credit_url, new JSONObject(creditParams), new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Log.d(TAG, "response in addFacility's credit is: " + response.toString());
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.d(TAG, "addCredit onErrorResponse" + "Error: " + error.getMessage());
-//            }
-//        });
-//        queue.add(crejsObjRequest);
+        HashMap<String, String> creditParams = new HashMap<String, String>();
+        String credit_url = vm_ip + "creditHandling/normal";
+        creditParams.put("AdditionType", "addFacility");
+        creditParams.put("upUserId", user_id);
+        Log.d(TAG, "addCredit credit_url: " + credit_url);
+        Log.d(TAG, "addCredit creditParams: " + creditParams.toString());
+        JsonObjectRequest crejsObjRequest = new JsonObjectRequest(Request.Method.POST, credit_url, new JSONObject(creditParams), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "response in addFacility's credit is: " + response.toString());
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(TAG, "addCredit onErrorResponse" + "Error: " + error.getMessage());
+            }
+        });
+        queue.add(crejsObjRequest);
     }
 
     private void enableSubmit(){
