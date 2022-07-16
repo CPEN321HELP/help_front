@@ -103,7 +103,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         type = bundle.getInt("facilityType");
         isPost = (POST == type);
         String facilityInfo = bundle.getString("facility_json");
-
+        Log.d(TAG,"type is "+type+", is Post: "+isPost);
         try {
             JSONObject facility = new JSONObject(facilityInfo);
             try {

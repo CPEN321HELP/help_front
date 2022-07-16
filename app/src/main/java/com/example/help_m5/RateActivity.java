@@ -218,12 +218,12 @@ public class RateActivity extends AppCompatActivity {
                 Handler handler1 = new Handler();
                 handler1.postDelayed(new Runnable() {
                     public void run() {
-                        Log.d(TAG,"1 second");
+                        Log.d(TAG,"2 second");
                         NavigationView navigationView = findViewById(R.id.nav_view);
                         DatabaseConnection db = new DatabaseConnection();
                         db.updateUserInfo(navigationView, getApplicationContext(), userEmail, RateActivity.this,true);
                     }
-                }, 3000);
+                }, 2000);
 
                 Handler handler2 = new Handler();
                 handler2.postDelayed(new Runnable() {

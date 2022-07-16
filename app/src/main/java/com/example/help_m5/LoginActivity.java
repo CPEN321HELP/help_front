@@ -113,15 +113,15 @@ public class LoginActivity extends AppCompatActivity {
                             HashMap<String, String> params = new HashMap<String, String>();
                             queue.start();
                             params.put("facility_id", facility_id);
-                            params.put("facility_type", String.valueOf(facility_type_int));
-                            int finalFacility_type_int = facility_type_int;
-                            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+                            params.put("facilityType", String.valueOf(facility_type_int));
+
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("facilityType", facility_type_int);
+                            JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url+"specific", new JSONObject(params), new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     Intent intent = new Intent(getApplicationContext(), FacilityActivity.class);
                                     Log.d(TAG, "response is: " + response.toString());
-                                    Bundle bundle = new Bundle();
-                                    bundle.putInt("facility_type", finalFacility_type_int);
                                     bundle.putString("facility_id", facility_id);
                                     bundle.putString("facility_json", response.toString());
                                     intent.putExtras(bundle);
@@ -135,7 +135,7 @@ public class LoginActivity extends AppCompatActivity {
                             });
                             queue.add(jsObjRequest);
                         }else {
-                            Toast.makeText(getApplicationContext(), "Error when opening posts, please report", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Error when opening facility, please report", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
