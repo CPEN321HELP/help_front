@@ -102,73 +102,113 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityId = bundle.getString("facility_id");
         type = bundle.getInt("facilityType");
         isPost = (POST == type);
-//        Log.d(TAG, "ssss type is "+ type);
-//        Log.d(TAG, "ssss isPost is "+ isPost);
-
         String facilityInfo = bundle.getString("facility_json");
-        Log.d(TAG, "sssssss "+facilityInfo);
 
         try {
             JSONObject facility = new JSONObject(facilityInfo);
-            System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-            System.out.println(facility);
-            title = (String) facility.getJSONObject("facility").getString("facilityTitle");
-            description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-            adderID = facility.getString("adderID");
-//            Log.d(TAG, "sssssss adderID "+adderID);
+            try {
+                title = (String) facility.getJSONObject("facility").getString("facilityTitle");
 
-            image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+            }catch (JSONException e){
+                title = "FacilityActivity does not have field: title";
+                Log.d(TAG, "FacilityActivity does not have field: facilityTitle");
+            }
+
+            try {
+                description = (String) facility.getJSONObject("facility").getString("facilityDescription");
+
+            }catch (JSONException e){
+                description = "FacilityActivity does not have field: facilityDescription";
+                Log.d(TAG, "FacilityActivity does not have field: facilityDescription");
+            }
+
+            try {
+                adderID = facility.getString("adderID");
+            }catch (JSONException e){
+                adderID = "none";
+                Log.d(TAG, "FacilityActivity does not have field: adderID");
+            }
+
             // Facility Image
-            if (Uri.parse(image) == null) {
-                findViewById(R.id.imageView2).setVisibility(View.GONE);
-            } else {
-                Uri uriImage = Uri.parse(image);
-                Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2), new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Log.d(TAG, "image loaded successfully");
-                    }
+            try {
+                image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+                if (Uri.parse(image) == null) {
+                    findViewById(R.id.imageView2).setVisibility(View.GONE);
+                } else {
+                    Uri uriImage = Uri.parse(image);
+                    Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2), new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(TAG, "image loaded successfully");
+                        }
 
-                    @Override
-                    public void onError(Exception e) {
-                        ImageView imageView = (ImageView)findViewById(R.id.imageView2);
-                        imageView.setVisibility(View.GONE);
-                    }
-                });
+                        @Override
+                        public void onError(Exception e) {
+                            ImageView imageView = (ImageView)findViewById(R.id.imageView2);
+                            imageView.setVisibility(View.GONE);
+                        }
+                    });
+                }
+            }catch (JSONException e){
+                image = "none";
+                Log.d(TAG, "FacilityActivity does not have field: image");
             }
-            rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
-            numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
+
+            try {
+                rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
+            }catch (JSONException e){
+                rate = 0;
+                Log.d(TAG, "FacilityActivity does not have field: rate");
+            }
+
+            try {
+                numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
+            }catch (JSONException e){
+                numReviews = 0;
+                Log.d(TAG, "FacilityActivity does not have field: rate");
+            }
+
             if (type != POST) {
-                latitude = facility.getJSONObject("facility").getDouble("latitude");
-                longitude = facility.getJSONObject("facility").getDouble("longitude");
+                try {
+                    latitude = facility.getJSONObject("facility").getDouble("latitude");
+                    longitude = facility.getJSONObject("facility").getDouble("longitude");
+                }catch (JSONException e){
+                    latitude = 49.273570;
+                    longitude = -123.241990;
+                    Log.d(TAG, "FacilityActivity does not have field: latitude or longitude");
+                }
             }
 
-            HashMap<String, String> map = new HashMap<String, String>();
-            JSONArray jsonarray = facility.getJSONArray("reviews");
-            numReviews = (int) jsonarray.length();
-            for (int i = 0; i < jsonarray.length(); i++) {
-                JSONObject jsonobject = jsonarray.getJSONObject(i);
-                if(jsonobject.toString().equals("{}")){
-                    continue;
-                }
-                if(jsonobject.toString().equals("[]")){
-                    continue;
-                }
-                try{
-                    String userName = (String) jsonobject.getString("userName");
-                    String replierID = (String) jsonobject.getString("replierID");
-                    double userRate = (double) jsonobject.getDouble("rateScore");
-                    int downvote = (int) jsonobject.getInt("downVotes");
-                    int upvote =  (int) jsonobject.getInt("upVotes");;
-                    String comment = (String) jsonobject.getString("replyContent");
-                    String time = (String) jsonobject.getString("timeOfReply");
-                    createUserReview((float) userRate, userName, replierID, comment, time, upvote, downvote, isPost);
-                    map.put(replierID,"1");
-                }catch (JSONException e){
-                    e.printStackTrace();
-                    continue;
-                }
+            try {
+                HashMap<String, String> map = new HashMap<String, String>();
 
+                JSONArray jsonarray = facility.getJSONArray("reviews");
+                numReviews = (int) jsonarray.length();
+                for (int i = 0; i < jsonarray.length(); i++) {
+                    JSONObject jsonobject = jsonarray.getJSONObject(i);
+                    if(jsonobject.toString().equals("{}")){
+                        continue;
+                    }
+                    if(jsonobject.toString().equals("[]")){
+                        continue;
+                    }
+                    try{
+                        String userName = (String) jsonobject.getString("userName");
+                        String replierID = (String) jsonobject.getString("replierID");
+                        double userRate = (double) jsonobject.getDouble("rateScore");
+                        int downvote = (int) jsonobject.getInt("downVotes");
+                        int upvote =  (int) jsonobject.getInt("upVotes");;
+                        String comment = (String) jsonobject.getString("replyContent");
+                        String time = (String) jsonobject.getString("timeOfReply");
+                        createUserReview((float) userRate, userName, replierID, comment, time, upvote, downvote, isPost);
+                        map.put(replierID,"1");
+                    }catch (JSONException e){
+                        e.printStackTrace();
+                    }
+
+                }
+            }catch (JSONException e){
+                Log.d(TAG, "FacilityActivity does not have field: reviews");
             }
         } catch (JSONException e) {
             e.printStackTrace();

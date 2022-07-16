@@ -108,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
                             }
 //                            DatabaseConnection DBconnection = new DatabaseConnection();
 //                            DBconnection.getSpecificFacility(facility_type_int, facility_id, getApplicationContext(), LoginActivity.this);
-                            String url = "http://20.213.243.141:8000/specific";
+                            String url = getString(R.string.azure_ip);
                             final RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
                             HashMap<String, String> params = new HashMap<String, String>();
                             queue.start();
