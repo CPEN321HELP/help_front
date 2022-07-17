@@ -220,8 +220,17 @@ public class ReportFragment extends Fragment {
         Log.d(TAG, params.toString());
         Log.d(TAG, "adminEmail" + userEmail);
 
-        String downMessage = "You have recieved a reply in studys, with facility id: 5, click here to view facility";
-        String upMessage = "You have recieved a reply in studys, with facility id: 5, click here to view facility";
+        String upMessage = "Your report of studys, with facility id: 5, admin ";
+        String downMessage = "Your are being report in studys, with facility id: 5, admin";
+
+        if(isApprove){
+            upMessage += "approves your report, you gain one credit";
+            downMessage +="approves this report, you lost one credit";
+        }else {
+            upMessage += "rejects your report.";
+        }
+        params.put("upMessage", upMessage);
+        params.put("downMessage", downMessage);
 
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
@@ -263,6 +272,7 @@ public class ReportFragment extends Fragment {
         try {
             String reportedFacilityType = data.getString("facility_type");
             facility_type_cont_Y1.setText(getTypeInString(reportedFacilityType));
+            Log.d(TAG, "reportedFacilityType: "+ reportedFacilityType);
         } catch (JSONException e) {
             e.printStackTrace();
             facility_type_cont_Y1.setText("none");
@@ -289,7 +299,7 @@ public class ReportFragment extends Fragment {
         report_type_cont_Y1 = binding.reportTypeContY1;
         try {
             String report_type = data.getString("report_type");
-            report_type_cont_Y1.setText((report_type));
+            report_type_cont_Y1.setText(getTypeInString(report_type));
         } catch (JSONException e) {
             e.printStackTrace();
             report_type_cont_Y1.setText("none");
@@ -316,7 +326,7 @@ public class ReportFragment extends Fragment {
         report_id_Y1 = binding.reportIdY1;
         try {
             String report_id = data.getString("_id");
-            report_id_Y1.setText((report_id));
+            report_id_Y1.setText(("Report id: "+report_id));
         } catch (JSONException e) {
             e.printStackTrace();
             report_id_Y1.setText("none");
@@ -365,7 +375,7 @@ public class ReportFragment extends Fragment {
         report_type_cont_y2 = binding.reportTypeContY2;
         try {
             String report_type = data.getString("report_type");
-            report_type_cont_y2.setText((report_type));
+            report_type_cont_y2.setText(getTypeInString(report_type));
         } catch (JSONException e) {
             e.printStackTrace();
             report_type_cont_y2.setText("none");
@@ -392,7 +402,7 @@ public class ReportFragment extends Fragment {
         report_id_y2 = binding.reportIdY2;
         try {
             String report_id = data.getString("_id");
-            report_id_y2.setText((report_id));
+            report_id_y2.setText(("Report id: "+report_id));
         } catch (JSONException e) {
             e.printStackTrace();
             report_id_y2.setText("none");
@@ -411,9 +421,9 @@ public class ReportFragment extends Fragment {
             case "3":
                 return "restaurants";
             case "5":
-                return "report_comment";
+                return "reported comment";
             case "6":
-                return "report_facility";
+                return "reported facility";
         }
         return "none";
     }
