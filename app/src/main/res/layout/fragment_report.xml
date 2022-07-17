@@ -87,7 +87,7 @@
                         android:id="@+id/facility_id_org_y1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3. Original facility type:"
+                        android:text="3. Original facility id:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 
@@ -296,7 +296,7 @@
                         android:id="@+id/facility_id_org_y2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3. Original facility type:"
+                        android:text="3. Original facility id:"
                         android:textColor="@color/text_color"
                         android:textSize="20sp" />
 

@@ -220,6 +220,9 @@ public class ReportFragment extends Fragment {
         Log.d(TAG, params.toString());
         Log.d(TAG, "adminEmail" + userEmail);
 
+        String downMessage = "You have recieved a reply in studys, with facility id: 5, click here to view facility";
+        String upMessage = "You have recieved a reply in studys, with facility id: 5, click here to view facility";
+
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
