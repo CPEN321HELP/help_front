@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentReportBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
@@ -211,11 +214,25 @@ public class ReportFragment extends Fragment {
         params.put("upUserId", which == 1? binding.reporterIdContY1.getText().toString():binding.reporterIdContY2.getText().toString());
         params.put("downUserId",  which == 1? binding.reportedIdContY1.getText().toString():binding.reportedIdContY2.getText().toString());
 
+        GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+        String userEmail = userAccount.getEmail();
+        params.put("adminEmail",userEmail);
         Log.d(TAG, params.toString());
+        Log.d(TAG, "adminEmail" + userEmail);
+
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Toast.makeText(context, "Server has received your decision!" , Toast.LENGTH_SHORT).show();
+                try{
+                    String result = response.getString("result");
+                    if(result.equals("successful")){
+                        Toast.makeText(context, "Server has received your decision!" , Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(context, "Server has received your decision!" , Toast.LENGTH_SHORT).show();
+                    }
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
             }
         }, new Response.ErrorListener() {
             @Override

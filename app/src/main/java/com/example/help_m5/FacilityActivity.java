@@ -292,7 +292,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 bundle.putInt("facility_id", Integer.parseInt(facilityId));
                 bundle.putInt("facility_type", type);
                 bundle.putString("reportedUserId", adderID);
-
+                Log.d(TAG, "adderID "+adderID);
                 bundle.putString("report_type", "6"); //5 means report comment
 
                 reportIntent.putExtras(bundle);
