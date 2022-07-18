@@ -18,7 +18,10 @@ import com.example.help_m5.CustomAdapter;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 
 public class HomeFragment extends Fragment {
 
@@ -325,6 +328,16 @@ public class HomeFragment extends Fragment {
                 return posts;
         }
         return -1;
+    }
+    @Override
+    public void onResume(){
+        super.onResume();
+
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        DatabaseConnection db = new DatabaseConnection();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        String user_email = account.getEmail();
+        db.updateUserInfo(navigationView, getContext(), user_email, getActivity(),true);
     }
 
     @Override

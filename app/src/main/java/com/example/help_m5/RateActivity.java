@@ -111,32 +111,6 @@ public class RateActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(RateActivity.this);
                 queue.start();
 
-//                HashMap<String, String> paramsRate = new HashMap<String, String>();
-//                paramsRate.put("_id", userEmail);
-//                paramsRate.put("rateScore", String.valueOf(rate));
-//                paramsRate.put("facility_type", String.valueOf(facilityType));
-//                paramsRate.put("facility_id", facilityId);
-//                Log.d(TAG, paramsRate.toString());
-//                JsonObjectRequest requestRate = new JsonObjectRequest(Request.Method.POST, vm_ip+"user/RateFacility", new JSONObject(paramsRate),
-//                        new Response.Listener<JSONObject>() {
-//                            @Override
-//                            public void onResponse(JSONObject response) {
-//                                Log.d(TAG,response.toString());
-////                                System.out.println("response is: "+response.toString());
-//                                Toast.makeText(getApplicationContext(), "Your review was successfully submitted!", Toast.LENGTH_SHORT).show();
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                Log.d(TAG,"1 onErrorResponse" + "Error: " + error.getMessage());
-//                                Log.d(TAG, "1 ERROR when connecting to database getSpecificFacility");
-//
-//                                Toast.makeText(getApplicationContext(), "Error submitting review: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                queue.add(requestRate);
-
                 HashMap<String, String> paramsComment = new HashMap<String, String>();
                 paramsComment.put("facilityType", String.valueOf(facilityType));
                 paramsComment.put("facility_id", facilityId);
@@ -185,45 +159,17 @@ public class RateActivity extends AppCompatActivity {
                         });
                 queue.add(requestComment);
 
+//                Handler handler1 = new Handler();
+//                handler1.postDelayed(new Runnable() {
+//                    public void run() {
+//                        Log.d(TAG,"2 second");
+//                        NavigationView navigationView =findViewById(R.id.nav_view);
+//                        Log.d(TAG, "here in rate s " + (navigationView == null));
 //
-//                HashMap<String, String> notify = new HashMap<String, String>();
-//                notify.put("facilityType", String.valueOf(facilityType));
-//                notify.put("facility_id", facilityId);
-//                JSONObject data = new JSONObject(notify);
-//                try {
-//                    data.put("reviewers", new JSONArray(reviewers));
-//                    data.put("length", reviewers.size());
-//                } catch (JSONException e) {
-//                    Log.d(TAG, "unable to add reviewers");
-//                    e.printStackTrace();
-//                }
-//                Log.d(TAG, "requestNotify + "+ data);
-//                JsonObjectRequest requestNotify = new JsonObjectRequest(Request.Method.POST, vm_ip+"sendToDevice3", data,
-//                        new Response.Listener<JSONObject>() {
-//                            @Override
-//                            public void onResponse(JSONObject response) {
-//                                Log.d(TAG,"requestNotify: " + response.toString());
-////                                System.out.println("response is: "+response.toString());
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//                                Log.d(TAG,"23 onErrorResponse" + "Error: " + error.getMessage());
-//                                Log.d(TAG, "23 requestNotify");
-//                            }
-//                        });
-//                queue.add(requestNotify);
-
-                Handler handler1 = new Handler();
-                handler1.postDelayed(new Runnable() {
-                    public void run() {
-                        Log.d(TAG,"2 second");
-                        NavigationView navigationView = findViewById(R.id.nav_view);
-                        DatabaseConnection db = new DatabaseConnection();
-                        db.updateUserInfo(navigationView, getApplicationContext(), userEmail, RateActivity.this,true);
-                    }
-                }, 2000);
+//                        DatabaseConnection db = new DatabaseConnection();
+//                        db.updateUserInfo(navigationView, getApplicationContext(), userEmail, RateActivity.this,true);
+//                    }
+//                }, 2000);
 
                 Handler handler2 = new Handler();
                 handler2.postDelayed(new Runnable() {
