@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private int RC_SIGN_IN = 1;
     final static String TAG = "LoginActivity";
-    private final String vm_ip = "http://20.213.243.141:8000/";
+    private String vm_ip ;
 
     private final int posts = 0;
     private final int study = 1;
@@ -62,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        vm_ip = getString(R.string.azure_ip);
         db = new DatabaseConnection();
         // Enable verbose OneSignal logging to debug issues if needed.
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
@@ -231,6 +231,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "email is none@gmail.com", Toast.LENGTH_SHORT).show();
 
             }
+            Log.d(TAG, "email is: "+email);
 
             // Send token to back-end
             RequestQueue queue = Volley.newRequestQueue(this);
@@ -243,6 +244,7 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 params.put("user_logo", "none");
             }
+            Log.d(TAG,"paar login is "+params );
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, vm_ip+"google_sign_up", new JSONObject(params),
                     new Response.Listener<JSONObject>() {
                         @Override

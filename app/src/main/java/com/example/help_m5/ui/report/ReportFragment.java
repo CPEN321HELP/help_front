@@ -217,11 +217,9 @@ public class ReportFragment extends Fragment {
         GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(getContext());
         String userEmail = userAccount.getEmail();
         params.put("adminEmail",userEmail);
-        Log.d(TAG, params.toString());
-        Log.d(TAG, "adminEmail" + userEmail);
 
-        String upMessage = "Your report of studys, with facility id: 5, admin ";
-        String downMessage = "Your are being report in studys, with facility id: 5, admin";
+        String upMessage = "Your report of "+ ( which == 1? binding.facilityTypeContY1.getText().toString():binding.facilityTypeContY2.getText().toString()) +", with facility id: "+ (which == 1? binding.facilityIdOrgContY1.getText().toString():binding.facilityIdOrgContY2.getText().toString()) +", admin ";
+        String downMessage = "Your are being report in "+ (which == 1? binding.reportTypeContY1.getText().toString() : binding.reportTypeContY2.getText().toString()) +", with facility id: "+ (which == 1? binding.reportIdY1.getText().toString(): binding.reportIdY2.getText().toString()) +", admin ";
 
         if(isApprove){
             upMessage += "approves your report, you gain one credit";
@@ -229,12 +227,16 @@ public class ReportFragment extends Fragment {
         }else {
             upMessage += "rejects your report.";
         }
+
         params.put("upMessage", upMessage);
         params.put("downMessage", downMessage);
 
+        Log.d(TAG, "aass " +params.toString());
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.d(TAG, "sss "+String.valueOf(response));
+
                 try{
                     String result = response.getString("result");
                     if(result.equals("successful")){
@@ -326,7 +328,7 @@ public class ReportFragment extends Fragment {
         report_id_Y1 = binding.reportIdY1;
         try {
             String report_id = data.getString("_id");
-            report_id_Y1.setText(("Report id: "+report_id));
+            report_id_Y1.setText((report_id));
         } catch (JSONException e) {
             e.printStackTrace();
             report_id_Y1.setText("none");
@@ -402,7 +404,7 @@ public class ReportFragment extends Fragment {
         report_id_y2 = binding.reportIdY2;
         try {
             String report_id = data.getString("_id");
-            report_id_y2.setText(("Report id: "+report_id));
+            report_id_y2.setText((report_id));
         } catch (JSONException e) {
             e.printStackTrace();
             report_id_y2.setText("none");

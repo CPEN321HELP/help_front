@@ -37,7 +37,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/layout_border">
 
                     <TextView
                         android:id="@+id/report_title_y1"
@@ -76,7 +77,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Actual facility type"
-                        android:textStyle="bold"
                         android:textColor="@color/text_color"
                         android:textSize="18sp" />
                 </LinearLayout>
