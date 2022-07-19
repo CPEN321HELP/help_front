@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Log.d(TAG,"spinner in hf is nothing is selected");
 
             }
         });
