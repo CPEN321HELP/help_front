@@ -31,7 +31,6 @@ public class ReportActivity extends AppCompatActivity {
     private GoogleSignInAccount account;
     private String userEmail;
     private String reportedUserEmail;
-    private String comment;
     private String report_type;
     private String title;
     private boolean reportUser;
@@ -62,13 +61,10 @@ public class ReportActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 submitButton.setEnabled(true);
                 submitButton.setTextColor(Color.parseColor("#dbba00"));
-                comment = s.toString();
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-                comment = s.toString();
-            }
+            public void afterTextChanged(Editable s) {}
         });
 
         submitButton = findViewById(R.id.submit_button_report);
