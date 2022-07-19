@@ -8,14 +8,19 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public final class MemoryData {
 
     public static void saveData(String data, Context context) {
         try {
             FileOutputStream fileOutputStream = context.openFileOutput("datata.txt", Context.MODE_PRIVATE);
-            fileOutputStream.write(data.getBytes());
-            fileOutputStream.close();
+            OutputStreamWriter osw = new OutputStreamWriter(fileOutputStream);
+            osw.write(data);
+            osw.flush();
+            osw.close();
+            //fileOutputStream.write(data.getBytes());
+            //fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -24,8 +29,12 @@ public final class MemoryData {
     public static void saveName(String data, Context context) {
         try {
             FileOutputStream fileOutputStream = context.openFileOutput("nameee.txt", Context.MODE_PRIVATE);
-            fileOutputStream.write(data.getBytes());
-            fileOutputStream.close();
+            OutputStreamWriter osw = new OutputStreamWriter(fileOutputStream);
+            osw.write(data);
+            osw.flush();
+            osw.close();
+            //fileOutputStream.write(data.getBytes());
+            //fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,8 +43,12 @@ public final class MemoryData {
     public static void saveLastMsgTS(String data, String chatId, Context context) {
         try {
             FileOutputStream fileOutputStream = context.openFileOutput(chatId+".txt", Context.MODE_PRIVATE);
-            fileOutputStream.write(data.getBytes());
-            fileOutputStream.close();
+            OutputStreamWriter osw = new OutputStreamWriter(fileOutputStream);
+            osw.write(data);
+            osw.flush();
+            osw.close();
+            //fileOutputStream.write(data.getBytes());
+            //fileOutputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

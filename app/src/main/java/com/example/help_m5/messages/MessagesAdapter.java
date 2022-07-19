@@ -58,6 +58,45 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             holder.lastMessage.setTextColor(context.getResources().getColor(R.color.theme_color_80));
         }
 
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Chat.class);
+                intent.putExtra("email", list2.getId());
+                intent.putExtra("name", list2.getName());
+                intent.putExtra("profile_pic", list2.getProfilePic());
+                intent.putExtra("chat_key", list2.getChatKey());
+
+                context.startActivity(intent);
+            }
+        });
+
+        holder.profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Chat.class);
+                intent.putExtra("email", list2.getId());
+                intent.putExtra("name", list2.getName());
+                intent.putExtra("profile_pic", list2.getProfilePic());
+                intent.putExtra("chat_key", list2.getChatKey());
+
+                context.startActivity(intent);
+            }
+        });
+
+        holder.lastMessage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, Chat.class);
+                intent.putExtra("email", list2.getId());
+                intent.putExtra("name", list2.getName());
+                intent.putExtra("profile_pic", list2.getProfilePic());
+                intent.putExtra("chat_key", list2.getChatKey());
+
+                context.startActivity(intent);
+            }
+        });
+
         holder.unseenMessages.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,4 +139,5 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             rootLayout = itemView.findViewById(R.id.rootLayout);
         }
     }
+
 }

@@ -40,7 +40,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private RecyclerView messagesRecyclerView;
     private MessagesAdapter messagesAdapter;
-    private GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(ChatActivity.this);
+    //private GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://cpen321help-default-rtdb.firebaseio.com/");
 
@@ -53,9 +53,20 @@ public class ChatActivity extends AppCompatActivity {
 
         messagesRecyclerView = findViewById(R.id.messagesRecyclerView);
 
+        id = "107907242310922747679";
+        name = "Peter Na";
+        email = "lufei8351@gmail.com";
+
+        //email = "ruikangna0605@gmail.com";
+        //name = "Rui Kang Na";
+        //id = "25235231";
+
+        /*
         id = account.getId();
         name = account.getDisplayName();
         email = account.getEmail();
+
+         */
 
         messagesRecyclerView.setHasFixedSize(true);
         messagesRecyclerView.setLayoutManager(new LinearLayoutManager(this));

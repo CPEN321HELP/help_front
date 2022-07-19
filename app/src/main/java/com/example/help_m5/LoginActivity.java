@@ -235,9 +235,12 @@ public class LoginActivity extends AppCompatActivity {
         if (account == null) {
             Log.d(TAG, "There is no user signed in");
         } else {
-            final String email = account.getEmail();
-            final String name = account.getDisplayName();
-            final String id = account.getId();
+            //final String email = account.getEmail();
+            //final String name = account.getDisplayName();
+            //final String id = account.getId();
+            final String email = "ruikangna0605@gmail.com";
+            final String name = "Rui Kang Na";
+            final String id = "25235231";
             if(email!= null){
                 Toast.makeText(getApplicationContext(), "email is "+email, Toast.LENGTH_SHORT).show();
                 OneSignal.setExternalUserId(email);

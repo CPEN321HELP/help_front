@@ -2,6 +2,7 @@ package com.example.help_m5.chat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,12 @@ public class Chat extends AppCompatActivity {
     private ChatAdapter chatAdapter;
     private boolean loadingFirstTime = true;
 
+    // Pre-defined questions and answers
+    private List<String> accountSettingQ;
+    private List<String> accountSettingA;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +69,11 @@ public class Chat extends AppCompatActivity {
         // get user email from memory
         getUserId = MemoryData.getData(Chat.this);
         nameTV.setText(getName);
-        Picasso.get().load(getProfilePic).into(profilePic);
+        if (getProfilePic.isEmpty()) {
+            profilePic.setImageDrawable(AppCompatResources.getDrawable(this, R.drawable.user_icon));
+        } else{
+            Picasso.get().load(getProfilePic).into(profilePic);
+        }
 
         chattingRecyclerView.setHasFixedSize(true);
         chattingRecyclerView.setLayoutManager(new LinearLayoutManager(Chat.this));
