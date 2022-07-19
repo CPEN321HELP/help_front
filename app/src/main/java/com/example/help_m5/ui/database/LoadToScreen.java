@@ -148,9 +148,12 @@ public class LoadToScreen {
      */
     @SuppressLint("SetTextI18n")
     private void load_facility1(Object Binding, JSONArray result) {
-        TextView titleTextView_facility1 = null, dateTextView_facility1 = null, contentTextView_facility1 = null, facilityID_textView1_facility1 = null;
-        RatingBar ratingBar_facility1 = null;
-        ConstraintLayout constraintLayout_facility1 = null;
+        TextView titleTextView_facility1;
+        TextView dateTextView_facility1;
+        TextView contentTextView_facility1;
+        TextView facilityID_textView1_facility1;
+        RatingBar ratingBar_facility1;
+        ConstraintLayout constraintLayout_facility1;
 
         titleTextView_facility1 = ((FragmentHomeBinding) Binding).titleTextViewFacility1;
         dateTextView_facility1 = ((FragmentHomeBinding) Binding).dateTextViewFacility1;
@@ -198,9 +201,12 @@ public class LoadToScreen {
      */
     @SuppressLint("SetTextI18n")
     private void load_facility2(Object Binding, JSONArray result ) {
-        TextView titleTextView_facility2 = null, dateTextView_facility2 = null, contentTextView_facility2 = null, facilityID_textView1_facility2 = null;
-        RatingBar ratingBar_facility2 = null;
-        ConstraintLayout constraintLayout_facility2 = null;
+        TextView titleTextView_facility2;
+        TextView dateTextView_facility2;
+        TextView contentTextView_facility2;
+        TextView facilityID_textView1_facility2;
+        RatingBar ratingBar_facility2;
+        ConstraintLayout constraintLayout_facility2;
 
         titleTextView_facility2 = ((FragmentHomeBinding) Binding).titleTextViewFacility2;
         dateTextView_facility2 = ((FragmentHomeBinding) Binding).dateTextViewFacility2;
@@ -248,9 +254,12 @@ public class LoadToScreen {
      */
     @SuppressLint("SetTextI18n")
     private void load_facility3(Object Binding, JSONArray result) {
-        TextView titleTextView_facility3 = null, dateTextView_facility3 = null, contentTextView_facility3 = null, facilityID_textView1_facility3 = null;
-        RatingBar ratingBar_facility3 = null;
-        ConstraintLayout constraintLayout_facility3 = null;
+        TextView titleTextView_facility3;
+        TextView dateTextView_facility3;
+        TextView contentTextView_facility3;
+        TextView facilityID_textView1_facility3;
+        RatingBar ratingBar_facility3;
+        ConstraintLayout constraintLayout_facility3;
 
         titleTextView_facility3 = ((FragmentHomeBinding) Binding).titleTextViewFacility3;
         dateTextView_facility3 = ((FragmentHomeBinding) Binding).dateTextViewFacility3;
@@ -299,9 +308,12 @@ public class LoadToScreen {
      */
     @SuppressLint("SetTextI18n")
     private void load_facility4(Object Binding, JSONArray result) {
-        TextView titleTextView_facility4 = null, dateTextView_facility4 = null, contentTextView_facility4 = null, facilityID_textView1_facility4 = null;
-        RatingBar ratingBar_facility4 = null;
-        ConstraintLayout constraintLayout_facility4 = null;
+        TextView titleTextView_facility4;
+        TextView dateTextView_facility4;
+        TextView contentTextView_facility4;
+        TextView facilityID_textView1_facility4;
+        RatingBar ratingBar_facility4;
+        ConstraintLayout constraintLayout_facility4;
 
         titleTextView_facility4 = ((FragmentHomeBinding) Binding).titleTextViewFacility4;
         dateTextView_facility4 = ((FragmentHomeBinding) Binding).dateTextViewFacility4;
@@ -349,9 +361,12 @@ public class LoadToScreen {
      */
     @SuppressLint("SetTextI18n")
     private void load_facility5(Object Binding, JSONArray result) {
-        TextView titleTextView_facility5 = null, dateTextView_facility5 = null, contentTextView_facility5 = null, facilityID_textView1_facility5 = null;
-        RatingBar ratingBar_facility5 = null;
-        ConstraintLayout constraintLayout_facility5 = null;
+        TextView titleTextView_facility5;
+        TextView dateTextView_facility5;
+        TextView contentTextView_facility5;
+        TextView facilityID_textView1_facility5;
+        RatingBar ratingBar_facility5;
+        ConstraintLayout constraintLayout_facility5;
 
         titleTextView_facility5 = ((FragmentHomeBinding) Binding).titleTextViewFacility5;
         dateTextView_facility5 = ((FragmentHomeBinding) Binding).dateTextViewFacility5;
