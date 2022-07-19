@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                 new OneSignal.OSNotificationOpenedHandler() {
                     @Override
                     public void notificationOpened(OSNotificationOpenedResult result) {
-                        OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
+//                        OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
                         String message = result.getNotification().getBody();
                         Log.d(TAG,message);
                         Pattern id = Pattern.compile("\\d+"); //match facility id
@@ -85,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Error when opening posts, please report", Toast.LENGTH_LONG).show();
                                 return;
                             }
-                            int facility_type_int = -1;
+                            int facility_type_int;
                             Log.d(TAG, "In regex facility_id is : " + facility_id+ " facility_type is: " + facility_type_s);
                             switch (facility_type_s){
                                 case "posts":
@@ -100,6 +100,8 @@ public class LoginActivity extends AppCompatActivity {
                                 case "restaurants":
                                     facility_type_int =  restaurants;
                                     break;
+                                default:
+                                    facility_type_int = -1;
                             }
                             Log.d(TAG, "In regex facility_id is : " + facility_id+ " facility_type_int is: " + facility_type_int);
                             if(facility_type_int == -1){

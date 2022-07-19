@@ -117,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void displaySharedPreferences() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-    }
+//    private void displaySharedPreferences() {
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

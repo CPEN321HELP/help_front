@@ -1,6 +1,8 @@
 package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -120,15 +122,8 @@ public class ReportActivity extends AppCompatActivity {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
         // Check which checkbox was clicked
-        switch(view.getId()) {
-            case R.id.checkbox_user:
-                if (checked) {
-                    reportUser = true;
-                }
-                else {
-                    reportUser = false;
-                }
-                break;
+        if (view.getId() == R.id.checkbox_user) {
+            reportUser = checked;
         }
     }
 
