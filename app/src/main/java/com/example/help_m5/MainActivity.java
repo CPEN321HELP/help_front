@@ -47,15 +47,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int NORMAL_USER = 0;
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityMainBinding binding;
     private DatabaseConnection db;
-    private String TAG = "MainActivity";
-    private String userInfo = "userInfo.json";
-    private int admin = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        com.example.help_m5.databinding.ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
@@ -101,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
 //        nav_Menu.findItem(R.id.nav_report).setVisible(false);
         DatabaseConnection db = new DatabaseConnection();
         String info = null;
+        String userInfo = "userInfo.json";
+        String TAG = "MainActivity";
         if(db.isCached(getApplicationContext(), userInfo)){
             info = db.readFromJson(getApplicationContext(), userInfo);
             Log.d(TAG,"info in main is  "+info);
@@ -114,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 int userType = user_data.getInt("account_type");
                 Menu processReport = navigationView.getMenu();
+                int admin = 0;
                 processReport.findItem(R.id.nav_report).setVisible(userType == admin);
                 LoadToScreen loader = new LoadToScreen();
                 loader.loadUserInfo(navigationView, user_data, MainActivity.this);

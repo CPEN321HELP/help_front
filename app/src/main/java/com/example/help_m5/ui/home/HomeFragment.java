@@ -46,8 +46,8 @@ public class HomeFragment extends Fragment {
 
     Spinner spin;
 
-    private static String[] countryNames={"Posts","Eat","Study","Play"};
-    private static int flags[] = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
+    private final String[] countryNames={"Posts","Eat","Study","Play"};
+    private final int[] flags = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
     private int facility_type = posts, page = 1;
     private String facility_id = "";

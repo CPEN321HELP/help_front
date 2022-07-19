@@ -1,20 +1,17 @@
 package com.example.help_m5.ui.database;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentHomeBinding;
-import com.example.help_m5.databinding.FragmentReportBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
@@ -26,6 +23,7 @@ public class LoadToScreen {
     private final String TAG = "LoadToScreen";
     private int admin = 0;
 
+    @SuppressLint("SetTextI18n")
     public void loadUserInfo(NavigationView navigationView, JSONObject user_data, Activity activity){
 
         String userName = "error";
@@ -146,6 +144,7 @@ public class LoadToScreen {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
+    @SuppressLint("SetTextI18n")
     private void load_facility1(Object Binding, int facility_type, JSONArray result) {
         TextView titleTextView_facility1 = null, dateTextView_facility1 = null, contentTextView_facility1 = null, facilityID_textView1_facility1 = null;
         RatingBar ratingBar_facility1 = null;
@@ -196,6 +195,7 @@ public class LoadToScreen {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
+    @SuppressLint("SetTextI18n")
     private void load_facility2(Object Binding, int facility_type, JSONArray result ) {
         TextView titleTextView_facility2 = null, dateTextView_facility2 = null, contentTextView_facility2 = null, facilityID_textView1_facility2 = null;
         RatingBar ratingBar_facility2 = null;
@@ -246,6 +246,7 @@ public class LoadToScreen {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
+    @SuppressLint("SetTextI18n")
     private void load_facility3(Object Binding, int facility_type, JSONArray result) {
         TextView titleTextView_facility3 = null, dateTextView_facility3 = null, contentTextView_facility3 = null, facilityID_textView1_facility3 = null;
         RatingBar ratingBar_facility3 = null;
@@ -297,6 +298,7 @@ public class LoadToScreen {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
+    @SuppressLint("SetTextI18n")
     private void load_facility4(Object Binding, int facility_type, JSONArray result) {
         TextView titleTextView_facility4 = null, dateTextView_facility4 = null, contentTextView_facility4 = null, facilityID_textView1_facility4 = null;
         RatingBar ratingBar_facility4 = null;
@@ -347,6 +349,7 @@ public class LoadToScreen {
      * @param result        : a json array that holds information about facilities
      * @Pupose load information from JSONArray to texView
      */
+    @SuppressLint("SetTextI18n")
     private void load_facility5(Object Binding, int facility_type, JSONArray result) {
         TextView titleTextView_facility5 = null, dateTextView_facility5 = null, contentTextView_facility5 = null, facilityID_textView1_facility5 = null;
         RatingBar ratingBar_facility5 = null;

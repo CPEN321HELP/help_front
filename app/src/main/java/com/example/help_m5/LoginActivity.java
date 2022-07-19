@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private int RC_SIGN_IN = 1;
+    private final int RC_SIGN_IN = 1;
     final static String TAG = "LoginActivity";
     private String vm_ip ;
 
@@ -50,13 +50,12 @@ public class LoginActivity extends AppCompatActivity {
     private final int report_comment = 5;
     private final int report_facility = 6;
 
-    private SignInButton signInButton;
     private GoogleSignInClient mGoogleSignInClient;
     private DatabaseConnection db;
 
-    private int userType;
     private String userInfo = "userInfo.json";
     private static final String ONESIGNAL_APP_ID = "f38cdc86-9fb7-40a5-8176-68b4115411da";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
 //        Log.d(TAG, "not cached");
 
         // Google Sign In Button
-        signInButton = findViewById(R.id.sign_in_button);
+        SignInButton signInButton = findViewById(R.id.sign_in_button);
         setButtonText(signInButton, "Sign in with Google");
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,7 +1,6 @@
 package com.example.help_m5;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -13,10 +12,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
@@ -28,8 +25,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -43,30 +38,20 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
-import com.example.help_m5.ui.home.HomeFragment;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
 import java.io.IOException;
-import java.sql.SQLOutput;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "FacilityActivity";
-    private DatabaseConnection DBconnection;
 
     private String facilityId;
     private String title;
@@ -79,18 +64,21 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private double latitude;
     private double longitude;
     private boolean isPost;
-
-    private Button rateButton;
-    private Button reportFacilityButton;
+//    private Button rateButton;
+//    private Button reportFacilityButton;
+//    private MapView mapView;
+//    private GoogleMap mMap;
+//    private ArrayList<CharSequence> reviewers;
+//    private int id = 1;
+//    private final int UPVOTE_BASE_ID = 10000000;
+//    private final int DOWNVOTE_BASE_ID = 20000000;
+//    private final int UPVOTE_TEXTVIEW_BASE_ID = 30000000;
+//    private final int DOWNVOTE_TEXTVIEW_BASE_ID = 40000000;
+//    private final int REPORT_BUTTON_BASE_ID = 50000000;
+//    private final int POST = 0;
     private MapView mapView;
-    private GoogleMap mMap;
     private ArrayList<CharSequence> reviewers;
     private int id = 1;
-    private final int UPVOTE_BASE_ID = 10000000;
-    private final int DOWNVOTE_BASE_ID = 20000000;
-    private final int UPVOTE_TEXTVIEW_BASE_ID = 30000000;
-    private final int DOWNVOTE_TEXTVIEW_BASE_ID = 40000000;
-    private final int REPORT_BUTTON_BASE_ID = 50000000;
     private final int POST = 0;
 
     @Override
@@ -295,7 +283,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
         // Rate Button
-        rateButton = findViewById(R.id.rate_button);
+        Button rateButton = findViewById(R.id.rate_button);
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -310,7 +298,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
-        reportFacilityButton = findViewById(R.id.repor_facility_button);
+        Button reportFacilityButton = findViewById(R.id.repor_facility_button);
         reportFacilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -403,6 +391,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         userDescriptionView.setLayoutParams(layoutParamsDescription);
 
         Button reportCommentButton = new Button(this, null, androidx.appcompat.R.attr.borderlessButtonStyle);
+        int REPORT_BUTTON_BASE_ID = 50000000;
         reportCommentButton.setId(REPORT_BUTTON_BASE_ID + id);
         reportCommentButton.setTag(replierID);
         reportCommentButton.setText("Report");
@@ -432,6 +421,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         TextView upVoteCount = new TextView(this);
         upVoteCount.setText(String.valueOf(upVoteCounter));
+        int UPVOTE_TEXTVIEW_BASE_ID = 30000000;
         upVoteCount.setId(UPVOTE_TEXTVIEW_BASE_ID + id);
         LinearLayout.LayoutParams layoutParamsVoteCount = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         layoutParamsVoteCount.setMargins(dpToPx(2f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
@@ -440,6 +430,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         CheckBox upVote = new CheckBox(this);
         upVote.setTag(replierID);
         upVote.setButtonDrawable(R.drawable.upvote);
+        int UPVOTE_BASE_ID = 10000000;
         upVote.setId(UPVOTE_BASE_ID + id);
         boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
                 .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + id), false);
@@ -471,12 +462,14 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         TextView downVoteCount = new TextView(this);
         downVoteCount.setText(String.valueOf(downVoteCounter));
+        int DOWNVOTE_TEXTVIEW_BASE_ID = 40000000;
         downVoteCount.setId(DOWNVOTE_TEXTVIEW_BASE_ID + id);
         downVoteCount.setLayoutParams(layoutParamsVoteCount);
 
         CheckBox downVote = new CheckBox(this);
         downVote.setTag(replierID);
         downVote.setButtonDrawable(R.drawable.downvote);
+        int DOWNVOTE_BASE_ID = 20000000;
         downVote.setId(DOWNVOTE_BASE_ID + id);
         boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
                 .getBoolean("downVote"+String.valueOf(DOWNVOTE_BASE_ID + id), false);
@@ -598,12 +591,11 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         LatLng marker = new LatLng(latitude, longitude);
-        mMap = googleMap;
-        mMap.addMarker(new MarkerOptions()
+        googleMap.addMarker(new MarkerOptions()
                 .position(marker)
                 .title("Marker"));
         float zoomLevel = 17.0f; //This goes up to 21
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, zoomLevel));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(marker, zoomLevel));
     }
 
     @Override

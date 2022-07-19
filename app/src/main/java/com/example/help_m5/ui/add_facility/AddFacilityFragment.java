@@ -1,16 +1,12 @@
 package com.example.help_m5.ui.add_facility;
 
-import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
-import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -23,7 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,20 +26,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.CustomAdapter;
-import com.example.help_m5.LoginActivity;
-import com.example.help_m5.MainActivity;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentAddFacilityBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
-
 import org.json.JSONObject;
-
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -259,7 +248,6 @@ public class AddFacilityFragment extends Fragment {
                 enableSubmit();
             }
         });
-
         return root;
 
     }
@@ -369,12 +357,10 @@ public class AddFacilityFragment extends Fragment {
             if(titleOK && descriptionOK && imageLinkOK){
                 submit.setEnabled(true);
             }
-
         }else{
             if(titleOK && descriptionOK && imageLinkOK && locationOK && (longitude != null) && (latitude != null)){
                 submit.setEnabled(true);
             }
-
         }
     }
 

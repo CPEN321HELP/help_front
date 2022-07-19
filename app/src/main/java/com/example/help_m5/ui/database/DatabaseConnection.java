@@ -4,15 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,25 +14,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.FacilityActivity;
-import com.example.help_m5.ReportActivity;
 import com.example.help_m5.databinding.FragmentHomeBinding;
-import com.example.help_m5.databinding.FragmentReportBinding;
 import com.google.android.material.navigation.NavigationView;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 //DatabaseConnection
 public class DatabaseConnection {
@@ -342,18 +329,18 @@ public class DatabaseConnection {
         }
     }
 
-    public void removeFile(Context applicationContext, String fileName){
-        if(!isCached(applicationContext, fileName)){
-            File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
-            f.delete();
-        }
-    }
+//    public void removeFile(Context applicationContext, String fileName){
+//        if(!isCached(applicationContext, fileName)){
+//            File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
+//            f.delete();
+//        }
+//    }
+//
+//    public void removeFile(String filePath){
+//        File f = new File(filePath);
+//        f.delete();
+//    }
 
-    public void removeFile(String filePath){
-        File f = new File(filePath);
-        f.delete();
-
-    }
     public int getCurrentPage(Context applicationContext, boolean isSearch, int facility_type){
         String fileName = "";
         if (isSearch) {

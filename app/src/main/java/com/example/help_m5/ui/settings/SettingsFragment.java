@@ -39,7 +39,6 @@ import com.google.android.gms.tasks.Task;
 public class SettingsFragment extends PreferenceFragmentCompat {
     private static final String TAG = "SettingsFragment";
 
-    private Button signOutButton;
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
