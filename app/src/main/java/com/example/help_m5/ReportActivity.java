@@ -29,8 +29,6 @@ public class ReportActivity extends AppCompatActivity {
     private static final String TAG = "ReportActivity";
     private String vm_ip ;
     private Button submitButton;
-    private Button cancelButton;
-    private GoogleSignInAccount account;
     private String userEmail;
     private String reportedUserEmail;
     private String report_type;
@@ -50,7 +48,7 @@ public class ReportActivity extends AppCompatActivity {
         type = bundle.getInt("facility_type");
         facilityId = bundle.getInt("facility_id");
         report_type = bundle.getString("report_type");
-        account = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = account.getEmail();
         title = bundle.getString("title");
 
@@ -109,7 +107,7 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
 
-        cancelButton = findViewById(R.id.cancel_button_report);
+        Button cancelButton = findViewById(R.id.cancel_button_report);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

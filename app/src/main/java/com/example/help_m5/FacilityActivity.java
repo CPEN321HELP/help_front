@@ -55,10 +55,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private String title;
     private float rate;
     private int numReviews;
-    private String description;
     private String adderID;
     private int type;
-    private String image;
     private double latitude;
     private double longitude;
     private boolean isPost;
@@ -83,7 +81,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
-
+        String description = "";
         reviewers = new ArrayList<>();
         // Get data from database
         Bundle bundle = getIntent().getExtras();
@@ -118,6 +116,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
 
             // Facility Image
+            String image;
             try {
                 image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
                 if (Uri.parse(image) == null) {

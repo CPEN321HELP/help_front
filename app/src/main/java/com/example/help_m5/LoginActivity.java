@@ -102,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                                     break;
                                 default:
                                     facility_type_int = -1;
+                                    break;
                             }
                             Log.d(TAG, "In regex facility_id is : " + facility_id+ " facility_type_int is: " + facility_type_int);
                             if(facility_type_int == -1){
