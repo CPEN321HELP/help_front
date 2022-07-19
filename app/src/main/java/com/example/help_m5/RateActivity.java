@@ -1,6 +1,8 @@
 package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,11 +44,12 @@ public class RateActivity extends AppCompatActivity {
     private GoogleSignInAccount userAccount;
     private String userEmail;
     private Button submitButton;
-    private Button cancelButton;
-    private RatingBar ratingBar;
+//    private RatingBar ratingBar;
     private String facilityId;
     private int facilityType;
     private List<CharSequence> reviewers;
+
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,7 +181,7 @@ public class RateActivity extends AppCompatActivity {
             }
         });
 
-        cancelButton = findViewById(R.id.cancel_button);
+        Button cancelButton = findViewById(R.id.cancel_button);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
