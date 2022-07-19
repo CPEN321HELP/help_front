@@ -221,7 +221,9 @@ public class AddFacilityFragment extends Fragment {
                 enableSubmit();
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            public void onNothingSelected(AdapterView<?> parent) {
+                Log.d(TAG, "Nothing is selected");
+            }
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
         spin.setAdapter(customAdapter);
