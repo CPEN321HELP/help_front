@@ -104,7 +104,11 @@ public class AddFacilityFragment extends Fragment {
         newFacilityDescription.setHint("Please enter a description");
         newFacilityDescription.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {comment = s.toString();}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                comment = s.toString();
+                Log.d("not useful", comment);
+            }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
@@ -122,7 +126,10 @@ public class AddFacilityFragment extends Fragment {
                 enableSubmit();
             }
             @Override
-            public void afterTextChanged(Editable s) {comment = s.toString();}
+            public void afterTextChanged(Editable s) {
+                comment = s.toString();
+                Log.d("not useful", comment);
+            }
         });
 
         newFacilityImageLink = binding.newFacilityImageLink;
