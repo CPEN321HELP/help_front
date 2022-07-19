@@ -52,7 +52,11 @@ public class AddFacilityFragment extends Fragment {
     private EditText newFacilityDescription;
     private EditText newFacilityImageLink;
     private EditText newFacilityLocation;
-    private boolean titleOK = false, descriptionOK = false, imageLinkOK = false, locationOK = false, isPost = false;
+    private boolean titleOK = false;
+    private boolean descriptionOK = false;
+    private boolean imageLinkOK = false;
+    private boolean locationOK = false;
+    private boolean isPost = false;
     private String longitude, latitude;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -289,8 +293,9 @@ public class AddFacilityFragment extends Fragment {
                 return "studys";
             case "Posts":
                 return "posts";
+            default:
+                return "";
         }
-        return "";
     }
     /**
      * @param applicationContext : Central interface to provide configuration for an application.

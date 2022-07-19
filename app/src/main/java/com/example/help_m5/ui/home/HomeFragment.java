@@ -52,8 +52,8 @@ public class HomeFragment extends Fragment {
 
     private int facility_type = posts;
     private int page = 1;
-    private String facility_id = "";
-    private String search_content = "";
+    private String facility_id;
+    private String search_content;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);

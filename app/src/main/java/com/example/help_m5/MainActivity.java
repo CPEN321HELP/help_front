@@ -1,7 +1,6 @@
 package com.example.help_m5;
 
 
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,8 +24,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-    private static final int NORMAL_USER = 0;
-
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
