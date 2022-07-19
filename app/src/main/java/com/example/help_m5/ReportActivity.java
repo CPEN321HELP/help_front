@@ -53,7 +53,10 @@ public class ReportActivity extends AppCompatActivity {
         EditText editText = findViewById(R.id.editTextReport);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {comment = s.toString();}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                comment = s.toString();
+                Log.d(TAG, comment);
+            }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -62,7 +65,10 @@ public class ReportActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {comment = s.toString();}
+            public void afterTextChanged(Editable s) {
+                comment = s.toString();
+                Log.d(TAG, comment);
+            }
         });
 
         submitButton = findViewById(R.id.submit_button_report);

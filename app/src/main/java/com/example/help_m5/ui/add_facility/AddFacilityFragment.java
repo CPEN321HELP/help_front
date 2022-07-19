@@ -137,7 +137,10 @@ public class AddFacilityFragment extends Fragment {
         binding.imageFacilityImageLink.setTag("bad");
         newFacilityImageLink.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                comment = s.toString();
+                Log.d(TAG, comment);
+            }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
@@ -164,7 +167,10 @@ public class AddFacilityFragment extends Fragment {
                 enableSubmit();
             }
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                comment = s.toString();
+                Log.d(TAG, comment);
+            }
         });
 
         newFacilityLocation = binding.newFacilityLocation;
