@@ -142,8 +142,9 @@ public class RateActivity extends AppCompatActivity {
                                     String result = response.getString("result");
                                     if(result.equals("already_exist")){
                                         Toast.makeText(getApplicationContext(), "You have reviewed in the past.", Toast.LENGTH_SHORT).show();
+
                                     }else{
-                                        DatabaseConnection db = new DatabaseConnection();
+                                        Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
