@@ -257,7 +257,7 @@ public class DatabaseConnection {
             b1.facility5.setVisibility(View.INVISIBLE);
 //            Log.d(TAG, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             for (int index = start; index < end; index++) {
-                loader.loadToFragment(binding, facility_type, array.getJSONArray(index), counter);
+                loader.loadToFragment(binding, array.getJSONArray(index), counter);
                 counter++;
             }
 
