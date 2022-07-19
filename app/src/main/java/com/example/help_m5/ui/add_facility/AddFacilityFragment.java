@@ -1,15 +1,12 @@
 package com.example.help_m5.ui.add_facility;
 
-import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,17 +18,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.help_m5.CustomAdapter;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentAddFacilityBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.maps.model.LatLng;
-
-import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -41,10 +34,8 @@ public class AddFacilityFragment extends Fragment {
     private static final String TAG = "AddFacilityFragment";
     private FragmentAddFacilityBinding binding;
     private DatabaseConnection DBconnection;
-    private Spinner spin;
-    private Button submit, clean;
-    private static String[] countryNames={"<-Please Select Below->", "Posts","Eat","Study","Play"};
-    private static int flags[] = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
+    private static final String[] countryNames={"<-Please Select Below->", "Posts","Eat","Study","Play"};
+    private static final int[] flags = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
     private String facility_type;
     private EditText newFacilityTitle, newFacilityDescription, newFacilityImageLink, newFacilityLocation;
     private boolean titleOK = false, descriptionOK = false, imageLinkOK = false, locationOK = false, isPost = false;
@@ -165,7 +156,7 @@ public class AddFacilityFragment extends Fragment {
 
         //set up spinner
 
-        spin = binding.newFacilityType;
+        Spinner spin = binding.newFacilityType;
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -196,7 +187,7 @@ public class AddFacilityFragment extends Fragment {
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
         spin.setAdapter(customAdapter);
 
-        submit = binding.submitAll;
+        Button submit = binding.submitAll;
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -230,7 +221,7 @@ public class AddFacilityFragment extends Fragment {
             }
         });
 
-        clean = binding.cleanAll;
+        Button clean = binding.cleanAll;
         clean.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
