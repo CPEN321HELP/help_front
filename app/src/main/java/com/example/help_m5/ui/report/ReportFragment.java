@@ -285,6 +285,7 @@ public class ReportFragment extends Fragment {
             }
         });
         queue.add(jsObjRequest);
+        binding.fabCloseOrRefresh.performClick();
     }
 
     @SuppressLint("SetTextI18n")
