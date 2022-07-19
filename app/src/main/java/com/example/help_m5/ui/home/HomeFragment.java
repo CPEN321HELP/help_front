@@ -37,8 +37,10 @@ public class HomeFragment extends Fragment {
     float transY = 100f;
     OvershootInterpolator interpolator = new OvershootInterpolator();
 
-    boolean onSearch = false;   //if this true means user is viewing search result
-    boolean isMenuOpen = false;
+    private static boolean  onSearch = false;   //if this true means user is viewing search result
+    private static boolean isMenuOpen = false;
+    private static int page = 1;
+    private static String search_content;
 
     private SearchView facilitySearchView;
     private DatabaseConnection DBconnection;
@@ -54,8 +56,7 @@ public class HomeFragment extends Fragment {
     private final int[] flags = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
     private int facility_type = posts;
-    private int page = 1;
-    private String search_content;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
