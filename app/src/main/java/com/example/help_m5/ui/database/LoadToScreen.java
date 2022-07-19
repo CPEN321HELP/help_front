@@ -136,6 +136,8 @@ public class LoadToScreen {
             case 4:
                 load_facility5(binding, facility_info);
                 break;
+            default:
+                break;
         }
     }
 
