@@ -3,6 +3,7 @@ package com.example.help_m5.ui.database;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -109,6 +110,7 @@ public class LoadToScreen {
                 userCreditView.setText("You have: "+numberCredit + "(user)");
             }
         }
+        Log.d(TAG, "Finish load all");
     }
 
     /**
