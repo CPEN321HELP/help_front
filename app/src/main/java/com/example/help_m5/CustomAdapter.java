@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 public class CustomAdapter extends BaseAdapter {
     Context context;
-    int flags[];
+    int[] flags;
     String[] countryNames;
     LayoutInflater inflter;
 

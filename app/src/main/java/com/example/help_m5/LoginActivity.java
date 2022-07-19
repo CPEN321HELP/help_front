@@ -81,6 +81,10 @@ public class LoginActivity extends AppCompatActivity {
                         if(id_m.find() && fc_type_m.find()) {
                             String facility_id = id_m.group(0);
                             String facility_type_s = fc_type_m.group(0);
+                            if(facility_type_s == null){
+                                Toast.makeText(getApplicationContext(), "Error when opening posts, please report", Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             int facility_type_int = -1;
                             Log.d(TAG, "In regex facility_id is : " + facility_id+ " facility_type is: " + facility_type_s);
                             switch (facility_type_s){
