@@ -346,6 +346,9 @@ public class HomeFragment extends Fragment {
         NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
         DatabaseConnection db = new DatabaseConnection();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+        if(account == null){
+            return;
+        }
         String user_email = account.getEmail();
         db.updateUserInfo(navigationView, getContext(),user_email,getActivity(),true);
     }
