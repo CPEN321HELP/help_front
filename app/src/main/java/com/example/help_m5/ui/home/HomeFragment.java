@@ -91,7 +91,7 @@ public class HomeFragment extends Fragment {
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                search_content = new String(query);
+                search_content = query;
                 DBconnection.cleanSearchCaches(getContext());
                 setFacilitiesVisibility(View.INVISIBLE);
                 close_or_refresh.setImageResource(R.drawable.ic_baseline_close_24);
@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                search_content = new String(newText);
+                search_content = newText;
                 DBconnection.cleanSearchCaches(getContext());
                 setFacilitiesVisibility(View.INVISIBLE);
                 close_or_refresh.setImageResource(R.drawable.ic_baseline_close_24);
@@ -113,10 +113,7 @@ public class HomeFragment extends Fragment {
                 return false;
             }
         });
-
-
         setConsOnCl();
-
         //set up p fabs
         initFavMenu();
         return root;
