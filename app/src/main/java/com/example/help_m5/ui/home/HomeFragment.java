@@ -43,7 +43,10 @@ public class HomeFragment extends Fragment {
     private SearchView facilitySearchView;
     private DatabaseConnection DBconnection;
     private FragmentHomeBinding binding;
-    private FloatingActionButton close_or_refresh, page_up, page_down, main;
+    private FloatingActionButton close_or_refresh;
+    private FloatingActionButton page_up;
+    private FloatingActionButton page_down;
+    private FloatingActionButton main;
 
     Spinner spin;
 
