@@ -75,6 +75,8 @@ public class AddFacilityFragment extends Fragment {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //must have
+                comment = s.toString();
+                Log.d("not useful", comment);
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -96,6 +98,8 @@ public class AddFacilityFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 //must have
+                comment = s.toString();
+                Log.d("not useful", comment);
             }
 
         });
@@ -272,7 +276,6 @@ public class AddFacilityFragment extends Fragment {
             }
         });
         return root;
-
     }
 
     /**
