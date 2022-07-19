@@ -13,7 +13,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.preference.PreferenceManager;
 import com.example.help_m5.databinding.ActivityMainBinding;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.ui.database.LoadToScreen;
