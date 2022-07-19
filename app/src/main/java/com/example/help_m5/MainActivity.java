@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int NORMAL_USER = 0;
 
     private AppBarConfiguration mAppBarConfiguration;
-    private DatabaseConnection db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
