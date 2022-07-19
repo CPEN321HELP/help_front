@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/addFacilityScrollView"
     android:background="@color/background_color">
 <!--    presence_online-->
     <LinearLayout

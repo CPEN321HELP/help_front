@@ -26,6 +26,7 @@ import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.LoginActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.RateActivity;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -74,6 +75,8 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             @Override
             public boolean onPreferenceClick(@NonNull Preference preference) {
                 signOut();
+                DatabaseConnection db = new DatabaseConnection();
+                db.cleanAllCaches(getContext());
                 return true;
             }
         });
