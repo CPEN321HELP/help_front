@@ -52,7 +52,6 @@ public class HomeFragment extends Fragment {
 
     private int facility_type = posts;
     private int page = 1;
-    private String facility_id;
     private String search_content;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -174,6 +173,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void ConstraintLayoutOnClickListener(int which){
+        String facility_id;
         switch (which){
             case 1:
                 facility_id = binding.facilityIDTextViewFacility1.getText().toString();
@@ -190,6 +190,8 @@ public class HomeFragment extends Fragment {
             case 5:
                 facility_id = binding.facilityIDTextViewFacility5.getText().toString();
                 break;
+            default:
+                return;
         }
         DBconnection.getSpecificFacility(facility_type, facility_id, getContext(), getActivity());
 
