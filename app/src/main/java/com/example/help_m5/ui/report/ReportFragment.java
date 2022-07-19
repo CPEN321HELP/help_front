@@ -439,8 +439,9 @@ public class ReportFragment extends Fragment {
                 return report_comment;
             case "report_facility":
                 return report_facility;
+            default:
+                return -1;
         }
-        return -1;
     }
 
     @Override
