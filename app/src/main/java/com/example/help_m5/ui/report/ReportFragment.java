@@ -328,7 +328,7 @@ public class ReportFragment extends Fragment {
             Toast.makeText(getContext(),"Error! can not load report 1",Toast.LENGTH_SHORT).show();
         }
     }
-
+//this update method is not good cause it still show up even if data from server missing some filed, but keep it for reference
 //    private void update1(JSONObject data){
 //        //1
 //        TextView report_title_cont_Y1 = binding.reportTitleContY1;
@@ -447,7 +447,7 @@ public class ReportFragment extends Fragment {
             Toast.makeText(getContext(),"Error! can not load report 2",Toast.LENGTH_SHORT).show();
         }
     }
-
+//this update method is not good cause it still show up even if data from server missing some filed, but keep it for reference
 //    private void update2(JSONObject data){
 //        //1
 //        TextView report_title_cont_y2 = binding.reportTitleContY2;
