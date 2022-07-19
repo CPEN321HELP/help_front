@@ -44,23 +44,17 @@ public class AddFacilityFragment extends Fragment {
     private static final String TAG = "AddFacilityFragment";
 
     private FragmentAddFacilityBinding binding;
-    private DatabaseConnection DBconnection;
-
-    private Spinner spin;
     private Button submit, clean;
-    private static String[] countryNames={"<-Please Select Below->", "Posts","Eat","Study","Play"};
-    private static int flags[] = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
+    private final String[] countryNames={"<-Please Select Below->", "Posts","Eat","Study","Play"};
+    private final int[] flags = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
     private String facility_type;
     private EditText newFacilityTitle, newFacilityDescription, newFacilityImageLink, newFacilityLocation;
     private boolean titleOK = false, descriptionOK = false, imageLinkOK = false, locationOK = false, isPost = false;
     private String longitude, latitude;
 
-    private GoogleSignInAccount account;
-
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm_ip = getResources().getString(R.string.azure_ip);
-        account = GoogleSignIn.getLastSignedInAccount(getContext());
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
         String user_email = account.getEmail();
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -181,7 +175,7 @@ public class AddFacilityFragment extends Fragment {
 
         //set up spinner
 
-        spin = binding.newFacilityType;
+        Spinner spin = binding.newFacilityType;
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

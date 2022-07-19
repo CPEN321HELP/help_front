@@ -46,9 +46,6 @@ public class LoginActivity extends AppCompatActivity {
     private final int study = 1;
     private final int entertainments = 2;
     private final int restaurants = 3;
-    private final int report_user = 4;
-    private final int report_comment = 5;
-    private final int report_facility = 6;
 
     private GoogleSignInClient mGoogleSignInClient;
     private DatabaseConnection db;
