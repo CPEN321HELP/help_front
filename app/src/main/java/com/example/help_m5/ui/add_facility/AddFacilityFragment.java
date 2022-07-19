@@ -232,7 +232,8 @@ public class AddFacilityFragment extends Fragment {
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Log.d(TAG, "Nothing is selected");
+                binding.imageFacilityType.setTag("bad");
+                binding.imageFacilityType.setImageResource(android.R.drawable.presence_busy);
             }
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
