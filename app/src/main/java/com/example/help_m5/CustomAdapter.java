@@ -38,7 +38,7 @@ public class CustomAdapter extends BaseAdapter {
         return 0;
     }
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint({"InflateParams", "ViewHolder"})
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         view = inflter.inflate(R.layout.custom_spinner_items, null);
