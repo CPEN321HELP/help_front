@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-// test
+
 public class AddFacilityFragment extends Fragment {
     private String vm_ip;
     private static final String TAG = "AddFacilityFragment";
@@ -48,7 +48,10 @@ public class AddFacilityFragment extends Fragment {
     private final String[] countryNames={"<-Please Select Below->", "Posts","Eat","Study","Play"};
     private final int[] flags = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
     private String facility_type;
-    private EditText newFacilityTitle, newFacilityDescription, newFacilityImageLink, newFacilityLocation;
+    private EditText newFacilityTitle;
+    private EditText newFacilityDescription;
+    private EditText newFacilityImageLink;
+    private EditText newFacilityLocation;
     private boolean titleOK = false, descriptionOK = false, imageLinkOK = false, locationOK = false, isPost = false;
     private String longitude, latitude;
 
