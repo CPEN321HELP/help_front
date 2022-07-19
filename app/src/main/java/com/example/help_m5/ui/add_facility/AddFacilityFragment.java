@@ -208,6 +208,8 @@ public class AddFacilityFragment extends Fragment {
 
         //set up spinner
 
+        setButtons(user_email);
+
         Spinner spin = binding.newFacilityType;
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -239,6 +241,11 @@ public class AddFacilityFragment extends Fragment {
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
         spin.setAdapter(customAdapter);
 
+
+        return root;
+    }
+
+    private void setButtons(String user_email){
         submit = binding.submitAll;
         submit.setEnabled(false);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -276,7 +283,6 @@ public class AddFacilityFragment extends Fragment {
                 enableSubmit();
             }
         });
-        return root;
     }
 
     /**
@@ -285,7 +291,7 @@ public class AddFacilityFragment extends Fragment {
      * @return : LatLng, contains Latitude and Longitude; or null if user typed is not a valid address.
      * @Pupose : get long and lat from the address user typed.
      */
-    public LatLng getLocationFromAddress(Context applicationContext, String strAddress) {
+    private LatLng getLocationFromAddress(Context applicationContext, String strAddress) {
         Geocoder coder = new Geocoder(applicationContext);
         LatLng p1 = null;
         try {
