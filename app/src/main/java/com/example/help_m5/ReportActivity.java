@@ -1,8 +1,6 @@
 package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,9 +31,9 @@ public class ReportActivity extends AppCompatActivity {
     private String reportedUserEmail;
     private String report_type;
     private String title;
-    private boolean reportUser;
     private int type;
     private int facilityId;
+    private String comment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         vm_ip = getString(R.string.azure_ip);
@@ -55,7 +53,7 @@ public class ReportActivity extends AppCompatActivity {
         EditText editText = findViewById(R.id.editTextReport);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {comment = s.toString();}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -64,7 +62,7 @@ public class ReportActivity extends AppCompatActivity {
             }
 
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {comment = s.toString();}
         });
 
         submitButton = findViewById(R.id.submit_button_report);
@@ -121,7 +119,6 @@ public class ReportActivity extends AppCompatActivity {
         boolean checked = ((CheckBox) view).isChecked();
         // Check which checkbox was clicked
         if (view.getId() == R.id.checkbox_user) {
-            reportUser = checked;
         }
     }
 

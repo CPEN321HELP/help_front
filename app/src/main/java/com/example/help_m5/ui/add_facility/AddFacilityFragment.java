@@ -60,6 +60,7 @@ public class AddFacilityFragment extends Fragment {
     private boolean isPost = false;
     private String longitude;
     private String latitude;
+    private String comment;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm_ip = getResources().getString(R.string.azure_ip);
@@ -103,7 +104,7 @@ public class AddFacilityFragment extends Fragment {
         newFacilityDescription.setHint("Please enter a description");
         newFacilityDescription.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {comment = s.toString();}
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
@@ -121,7 +122,7 @@ public class AddFacilityFragment extends Fragment {
                 enableSubmit();
             }
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {comment = s.toString();}
         });
 
         newFacilityImageLink = binding.newFacilityImageLink;
@@ -213,9 +214,7 @@ public class AddFacilityFragment extends Fragment {
                 enableSubmit();
             }
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
         spin.setAdapter(customAdapter);
