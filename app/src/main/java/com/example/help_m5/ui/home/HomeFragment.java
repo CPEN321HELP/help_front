@@ -1,5 +1,6 @@
 package com.example.help_m5.ui.home;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,8 @@ public class HomeFragment extends Fragment {
     private final String[] countryNames={"Posts","Eat","Study","Play"};
     private final int[] flags = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
 
-    private int facility_type = posts, page = 1;
+    private int facility_type = posts;
+    private int page = 1;
     private String facility_id = "";
     private String search_content = "";
 
@@ -326,8 +328,9 @@ public class HomeFragment extends Fragment {
                 return study;
             case "Posts":
                 return posts;
+            default:
+                return -1;
         }
-        return -1;
     }
 
     private void selfUpdate(){
@@ -339,14 +342,17 @@ public class HomeFragment extends Fragment {
             DBconnection.getFacilities(binding, facility_type, getContext(),false, "", false, false, true, page);
         }
     }
-
+    private void updateCredit(Context context){
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        DatabaseConnection db = new DatabaseConnection();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+        String user_email = account.getEmail();
+        db.updateUserInfo(navigationView, getContext(),user_email,getActivity(),true);
+    }
     @Override
     public void onResume(){
         super.onResume();
-        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
-        DatabaseConnection db = new DatabaseConnection();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
-        String user_email = account.getEmail();
+        updateCredit(getContext());
         selfUpdate();
     }
 
