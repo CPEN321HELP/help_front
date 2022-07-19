@@ -18,7 +18,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
-    private static final String TAG = "SettingsFragment";
 
     private GoogleSignInClient mGoogleSignInClient;
 
