@@ -148,7 +148,6 @@ public class DatabaseConnection {
      * @Pupose : to load the content from server our cached file to screen for user to view
      */
     public void searchFacilities(Object binding, int facility_type, Context applicationContext, boolean is_search, String content_to_search, String fileName, boolean nextPage, boolean previousPage, boolean reloadPage, int pageNum) {
-        LoadToScreen loader = new LoadToScreen();
         if (isCached(applicationContext, fileName) && !reloadPage) {//page up and page down should go here
             try {
                 JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
@@ -437,7 +436,9 @@ public class DatabaseConnection {
                 break;
             case report_comment:
                 facilityToFetch = "comment";
-
+                break;
+            default:
+                facilityToFetch = "";
                 break;
         }
         return facilityToFetch;

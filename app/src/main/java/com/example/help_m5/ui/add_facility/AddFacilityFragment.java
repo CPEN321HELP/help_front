@@ -63,7 +63,9 @@ public class AddFacilityFragment extends Fragment {
         newFacilityTitle.setHint("please enter a title");
         newFacilityTitle.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //must have
+            }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String input = s.toString().trim();
@@ -80,8 +82,12 @@ public class AddFacilityFragment extends Fragment {
                 }
                 enableSubmit();
             }
+
             @Override
-            public void afterTextChanged(Editable s) {}
+            public void afterTextChanged(Editable s) {
+                //must have
+            }
+
         });
 
         newFacilityDescription = binding.newFacilityDescription;
