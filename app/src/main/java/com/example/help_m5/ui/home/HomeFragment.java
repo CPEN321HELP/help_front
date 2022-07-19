@@ -97,6 +97,9 @@ public class HomeFragment extends Fragment {
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                if(query.length()<1){
+                    return false;
+                }
                 Log.d(TAG, "onQueryTextSubmit in onResume: "+onSearch);
 
                 search_content = query;
@@ -113,6 +116,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
+                if(newText.length()<1){
+                    return false;
+                }
                 Log.d(TAG, "onQueryTextChange in onResume: "+onSearch);
 
                 search_content = newText;
