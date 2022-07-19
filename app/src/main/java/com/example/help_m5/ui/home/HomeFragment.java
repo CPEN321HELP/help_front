@@ -103,7 +103,7 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "searching: " + query);
                 onSearch = true;
 //                DBconnection.getFacilities(binding, facility_type, getContext(),true, query, false, false,false, 0);
-                DBconnection.getFacilities(binding, facility_type, 0, getContext(),"", new boolean[]{true, false, false, false});
+                DBconnection.getFacilities(binding, facility_type, 0, getContext(), query, new boolean[]{true, false, false, false});
 
                 return false;
             }
@@ -117,7 +117,7 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "searching: " + newText);
                 onSearch = true;
 //                DBconnection.getFacilities(binding, facility_type, getContext(),true, newText, false, false,false, 0);
-                DBconnection.getFacilities(binding, facility_type, 0, getContext(),"", new boolean[]{true, false, false, false});
+                DBconnection.getFacilities(binding, facility_type, 0, getContext(), newText, new boolean[]{true, false, false, false});
 
                 return false;
             }
@@ -351,7 +351,7 @@ public class HomeFragment extends Fragment {
         if(onSearch){
             Log.d(TAG, "current page selfUpdate: "+page);
 //            DBconnection.getFacilities(binding, facility_type, getContext(),true, search_content, false, false, true, page);
-            DBconnection.getFacilities(binding, facility_type, page, getContext(),"", new boolean[]{true, false, false, true});
+            DBconnection.getFacilities(binding, facility_type, page, getContext(), search_content, new boolean[]{true, false, false, true});
         }else {
             Log.d(TAG, "current page selfUpdate: "+page);
 //            DBconnection.getFacilities(binding, facility_type, getContext(),false, "", false, false, true, page);
