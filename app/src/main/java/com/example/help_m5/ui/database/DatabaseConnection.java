@@ -189,6 +189,7 @@ public class DatabaseConnection {
 
                     if(writeToJson(applicationContext, response, fileName) != 0){
                         Toast.makeText(applicationContext, "Error happened when loading data, please report to admin", Toast.LENGTH_SHORT).show();
+                        return;
                     };
 //                    Log.d(TAG, "readFromJson" + readFromJson(applicationContext,fileName));
                     loadToScreen(binding, applicationContext, facility_type, response, nextPage, previousPage, fileName);

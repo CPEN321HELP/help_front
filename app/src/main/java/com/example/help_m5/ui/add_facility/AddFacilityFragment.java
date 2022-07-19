@@ -44,7 +44,8 @@ public class AddFacilityFragment extends Fragment {
     private static final String TAG = "AddFacilityFragment";
 
     private FragmentAddFacilityBinding binding;
-    private Button submit, clean;
+    private Button submit;
+    private Button clean;
     private final String[] countryNames={"<-Please Select Below->", "Posts","Eat","Study","Play"};
     private final int[] flags = {R.drawable.ic_baseline_all_inclusive_24, R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
     private String facility_type;
@@ -57,7 +58,8 @@ public class AddFacilityFragment extends Fragment {
     private boolean imageLinkOK = false;
     private boolean locationOK = false;
     private boolean isPost = false;
-    private String longitude, latitude;
+    private String longitude;
+    private String latitude;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm_ip = getResources().getString(R.string.azure_ip);
