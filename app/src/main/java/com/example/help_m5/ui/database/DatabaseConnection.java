@@ -248,13 +248,13 @@ public class DatabaseConnection {
             FragmentHomeBinding b1 = (FragmentHomeBinding)binding;
             b1.facility1.setVisibility(View.INVISIBLE);
             FragmentHomeBinding b2 = (FragmentHomeBinding)binding;
-            b1.facility2.setVisibility(View.INVISIBLE);
+            b2.facility2.setVisibility(View.INVISIBLE);
             FragmentHomeBinding b3 = (FragmentHomeBinding)binding;
-            b1.facility3.setVisibility(View.INVISIBLE);
+            b3.facility3.setVisibility(View.INVISIBLE);
             FragmentHomeBinding b4 = (FragmentHomeBinding)binding;
-            b1.facility4.setVisibility(View.INVISIBLE);
+            b4.facility4.setVisibility(View.INVISIBLE);
             FragmentHomeBinding b5 = (FragmentHomeBinding)binding;
-            b1.facility5.setVisibility(View.INVISIBLE);
+            b5.facility5.setVisibility(View.INVISIBLE);
 //            Log.d(TAG, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             for (int index = start; index < end; index++) {
                 loader.loadToFragment(binding, array.getJSONArray(index), counter);
@@ -348,7 +348,6 @@ public class DatabaseConnection {
             fileName = getStringType(facility_type) + ".json";
         }
         if(!isCached(applicationContext, fileName)){
-            File f = new File(applicationContext.getFilesDir().toString()+"/"+fileName);
             return 1;
         }else {
             String result = readFromJson(applicationContext, fileName);
