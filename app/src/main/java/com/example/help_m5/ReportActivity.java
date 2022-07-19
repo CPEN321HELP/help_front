@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.android.volley.Request;
@@ -34,6 +35,7 @@ public class ReportActivity extends AppCompatActivity {
     private int type;
     private int facilityId;
     private String comment;
+    private boolean reportUser = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         vm_ip = getString(R.string.azure_ip);
@@ -88,7 +90,7 @@ public class ReportActivity extends AppCompatActivity {
                 params.put("reported_id", reportedUserEmail);
                 params.put("reportReason", editText.getText().toString());
                 params.put("title", title);
-
+                params.put("isUserReported", reportUser? "0" : "1");
                 Log.d(TAG, "aaa" + params.toString());
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
@@ -118,14 +120,21 @@ public class ReportActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
-    public void onCheckboxClicked(View view) {
-        // Is the view now checked?
-        boolean checked = ((CheckBox) view).isChecked();
-        // Check which checkbox was clicked
-        if (view.getId() == R.id.checkbox_user) {
-        }
+        CheckBox cb = findViewById(R.id.checkbox_user);
+
+        cb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(((CompoundButton) v).isChecked()){
+                    reportUser = true;
+                    Log.d(TAG,"reporting user");
+                } else {
+                    reportUser = false;
+                    Log.d(TAG,"not reporting user");
+                }
+            }
+        });
     }
 
     @Override
