@@ -79,16 +79,24 @@ public class ReportFragment extends Fragment {
         String facility_id = "";
         Log.d(TAG, "before facility_type is "+facility_type);
 
-        switch (which){
-            case 1:
-                facility_type = getTypeInt(binding.facilityTypeContY1.getText().toString());
-                facility_id = binding.reportedIdY1.getText().toString();
-                break;
-            case 2:
-                facility_type = getTypeInt(binding.facilityTypeContY2.getText().toString());
-                facility_id = binding.reportedIdY2.getText().toString();
-                break;
+        if(which == 1){
+            facility_type = getTypeInt(binding.facilityTypeContY1.getText().toString());
+            facility_id = binding.reportedIdY1.getText().toString();
+        }else {
+            facility_type = getTypeInt(binding.facilityTypeContY2.getText().toString());
+            facility_id = binding.reportedIdY2.getText().toString();
         }
+//        switch (which){
+//            case 1:
+//                facility_type = getTypeInt(binding.facilityTypeContY1.getText().toString());
+//                facility_id = binding.reportedIdY1.getText().toString();
+//                break;
+//            case 2:
+//                facility_type = getTypeInt(binding.facilityTypeContY2.getText().toString());
+//                facility_id = binding.reportedIdY2.getText().toString();
+//                break;
+//
+//        }
         DBconnection.getSpecificFacility(facility_type, facility_id, getContext(), getActivity());
     }
 
@@ -412,8 +420,9 @@ public class ReportFragment extends Fragment {
                 return "reported comment";
             case "6":
                 return "reported facility";
+            default:
+                return "none";
         }
-        return "none";
     }
 
     private int getTypeInt(String type){
