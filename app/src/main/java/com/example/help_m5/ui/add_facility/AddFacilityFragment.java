@@ -132,7 +132,7 @@ public class AddFacilityFragment extends Fragment {
             @Override
             public void afterTextChanged(Editable s) {
                 comment = s.toString();
-                Log.d("not useful", comment);
+                Log.d("not useful, here because to remove codacy issues", comment);
             }
         });
 
