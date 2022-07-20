@@ -280,6 +280,8 @@ public class AddFacilityFragment extends Fragment {
                 newFacilityDescription.setText("");
                 newFacilityImageLink.setText("");
                 newFacilityLocation.setText("");
+                binding.imageFacilityLocation.setImageResource(android.R.drawable.presence_busy);
+                binding.imageFacilityLocation.setTag("bad");
                 enableSubmit();
             }
         });
