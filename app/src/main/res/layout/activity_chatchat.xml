@@ -26,14 +26,14 @@
             />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profilePic"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_marginTop="40dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/user_icon"
+            android:layout_marginTop="40dp"
             android:layout_toEndOf="@+id/backBtn"
-            android:id="@+id/profilePic"/>
+            android:src="@drawable/ic_baseline_android_24" />
 
         <LinearLayout
             android:layout_marginStart="10dp"
@@ -47,7 +47,7 @@
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="User Name"
+                android:text="Help! ChatBot"
                 android:maxLines="1"
                 android:textColor="#424242"
                 android:textStyle="bold"
@@ -60,41 +60,57 @@
                 android:layout_marginTop="2dp"
                 android:textColor="#00C853"/>
         </LinearLayout>
+
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/topBar"
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/chattingRecyclerView"
-        android:layout_above="@id/bottomBar"/>
+        android:layout_above="@id/bottomBar"
+        android:layout_below="@+id/topBar" />
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/theme_color_8"
+        android:background="#8E48F0"
+        android:orientation="vertical"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
-        <EditText
-            android:id="@+id/messageEditTxt"
-            android:layout_toStartOf="@+id/sendBtn"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:backgroundTint="@android:color/transparent"
-            android:textSize="14sp"
-            android:layout_marginEnd="10dp"
+        <Button
+            android:id="@+id/chatBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
             android:layout_marginStart="20dp"
-            android:hint="Type something..."/>
+            android:textAllCaps="false"/>
+        <Button
+            android:id="@+id/topButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:textAllCaps="false"/>
 
-        <ImageView
-            android:id="@+id/sendBtn"
-            android:src="@drawable/send_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"/>
-    </RelativeLayout>
+        <Button
+            android:id="@+id/midButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/botButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
 </RelativeLayout>

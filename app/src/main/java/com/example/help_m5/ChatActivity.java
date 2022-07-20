@@ -1,179 +1,240 @@
 package com.example.help_m5;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
-import com.example.help_m5.messages.MessagesAdapter;
-import com.example.help_m5.messages.MessagesList;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
+import com.example.help_m5.chat.ChatAdapter;
+import com.example.help_m5.chat.ChatItem;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private final List<MessagesList> messagesLists = new ArrayList<>();
+    private static final String TAG = "ChatActivity";
 
-    private String id;
-    private String name;
-    private String email;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
 
-    private int unseenMessages = 0;
-    private String lastMessage = "";
-    private String chatKey = "";
+    private List<ChatItem> chatItems;
 
-    private boolean dataSet = false;
-
-    private RecyclerView messagesRecyclerView;
-    private MessagesAdapter messagesAdapter;
-    //private GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://cpen321help-default-rtdb.firebaseio.com/");
+    private Button topButton;
+    private Button midButton;
+    private Button botButton;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chat);
+        setContentView(R.layout.activity_chatchat);
 
-        final CircleImageView userProfilePic = findViewById(R.id.userProfilePic);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);  // every item in recyclerView has fixed size
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        messagesRecyclerView = findViewById(R.id.messagesRecyclerView);
+        chatItems = new ArrayList<>();  // contains all the item that needs to be displayed
 
-        id = "107907242310922747679";
-        name = "Peter Na";
-        email = "lufei8351@gmail.com";
+        adapter = new ChatAdapter(chatItems, this);
+        recyclerView.setAdapter(adapter);
 
-        //email = "ruikangna0605@gmail.com";
-        //name = "Rui Kang Na";
-        //id = "25235231";
+        Date date = new Date();
+        ChatItem chatItem = new ChatItem("", "", "Hi there! What can I help you with today?", date.toString().substring(0, 20));
+        chatItems.add(chatItem);
 
-        /*
-        id = account.getId();
-        name = account.getDisplayName();
-        email = account.getEmail();
+        topButton = (Button) findViewById(R.id.topButton);
+        topButton.setText((String) getString(R.string.account_settings));
+        topButton.setOnClickListener(new View.OnClickListener() {
 
-         */
-
-        messagesRecyclerView.setHasFixedSize(true);
-        messagesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // set adapter to recyclerview
-        messagesAdapter = new MessagesAdapter(messagesLists, ChatActivity.this);
-        messagesRecyclerView.setAdapter(messagesAdapter);
-
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
-        progressDialog.setMessage("Loading...");
-        progressDialog.show();
-
-        // get profile pic from firebase database
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onClick(View v) {
+                Button b = (Button) v;
+                String buttonText = b.getText().toString();
+                String myMessage = "";
+                String botMessage = "";
 
-                final String profilePicUrl = snapshot.child("users").child(id).child("profile_pic").getValue(String.class);
-
-                if (!profilePicUrl.isEmpty()) {
-                    Picasso.get().load(profilePicUrl).into(userProfilePic);
+                if (buttonText.equals((String) getString(R.string.account_settings))) {
+                    topButton.setText((String) getString(R.string.account_settings_Q1));
+                    midButton.setText((String) getString(R.string.account_settings_Q2));
+                    botButton.setText((String) getString(R.string.account_settings_Q3));
+                } else if (buttonText.equals(getString(R.string.account_settings_Q1))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.account_settings_A1);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals(getString(R.string.app_settings_Q1))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_settings_A1);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals(getString(R.string.app_functionalities_1))) {
+                    topButton.setText(getString(R.string.app_functionalities_1_Q1));
+                    midButton.setText(getString(R.string.app_functionalities_1_Q2));
+                    botButton.setText(getString(R.string.app_functionalities_1_Q3));
+                } else if (buttonText.equals(getString(R.string.app_functionalities_1_Q1))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_1_A1);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals(getString(R.string.app_functionalities_2_Q1))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_2_A1);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals(getString(R.string.app_functionalities_3_Q1))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_3_A1);
+                    conversation(myMessage, botMessage);
+                } else {
+                    Log.d(TAG, "Error selecting question");
                 }
-
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                progressDialog.dismiss();
             }
         });
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        midButton = (Button) findViewById(R.id.midButton);
+        midButton.setText((String) getString(R.string.app_settings));
+        midButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onClick(View v) {
+                Button b = (Button) v;
+                String buttonText = b.getText().toString();
+                String myMessage = "";
+                String botMessage = "";
 
-                messagesLists.clear();
-                unseenMessages = 0;
-                lastMessage = "";
-                chatKey = "";
-
-                for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()) {
-
-                    final String getId = dataSnapshot.getKey();
-
-                    dataSet = false;
-
-                    if (!getId.equals(id)) {
-                        final String getName = dataSnapshot.child("name").getValue(String.class);
-                        final String getProfilePic = dataSnapshot.child("profile_pic").getValue(String.class);
-
-                        databaseReference.child("chat").addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                int getChatCounts = (int) snapshot.getChildrenCount();
-
-                                if (getChatCounts > 0) {
-
-                                    for (DataSnapshot dataSnapshot1 : snapshot.getChildren()) {
-                                        final String getKey = dataSnapshot1.getKey();
-                                        chatKey = getKey;
-
-                                        if (dataSnapshot1.hasChild("user_1") && dataSnapshot1.hasChild("user_2") && dataSnapshot1.hasChild("messages")) {
-                                            final String getUserOne = dataSnapshot1.child("user_1").getValue(String.class);
-                                            final String getUserTwo = dataSnapshot1.child("user_2").getValue(String.class);
-
-                                            if ((getUserOne.equals(getId) && getUserTwo.equals(id)) || (getUserOne.equals(id) && getUserTwo.equals(getId))) {
-
-                                                for (DataSnapshot chatDataSnapshot : dataSnapshot1.child("messages").getChildren()) {
-                                                    final long getMessageKey = Long.parseLong(chatDataSnapshot.getKey());
-                                                    final long getLastSeenMessage = Long.parseLong(MemoryData.getLastMsgTS(ChatActivity.this, getKey));
-
-                                                    lastMessage = chatDataSnapshot.child("msg").getValue(String.class);
-                                                    if (getMessageKey > getLastSeenMessage) {
-                                                        unseenMessages++;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (!dataSet) {
-                                    dataSet = true;
-                                    MessagesList messagesList = new MessagesList(getName, getId, lastMessage, getProfilePic, unseenMessages, chatKey);
-                                    messagesLists.add(messagesList);
-                                    messagesAdapter.updateData(messagesLists);
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-
-
-                    }
+                if (buttonText.equals(getString(R.string.app_settings))) {
+                    topButton.setText(getString(R.string.app_settings_Q1));
+                    midButton.setText(getString(R.string.app_settings_Q2));
+                    botButton.setText(getString(R.string.app_settings_Q3));
+                } else if (buttonText.equals(getString(R.string.account_settings_Q2))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.account_settings_A2);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals(getString(R.string.app_settings_Q2))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_settings_A2);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals((String) getString(R.string.app_functionalities_2))) {
+                    topButton.setText(getString(R.string.app_functionalities_2_Q1));
+                    midButton.setText(getString(R.string.app_functionalities_2_Q2));
+                    botButton.setText(getString(R.string.app_functionalities_2_Q3));
+                } else if (buttonText.equals((String) getString(R.string.app_functionalities_1_Q2))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_1_A2);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals((String) getString(R.string.app_functionalities_2_Q2))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_2_A2);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals((String) getString(R.string.app_functionalities_3_Q2))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_3_A2);
+                    conversation(myMessage, botMessage);
+                } else {
+                    Log.d(TAG, "Error selecting question");
                 }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
+
+        botButton = (Button) findViewById(R.id.botButton);
+        botButton.setText((String) getString(R.string.app_functionalities));
+        botButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Button b = (Button) v;
+                String buttonText = b.getText().toString();
+                String myMessage = "";
+                String botMessage = "";
+
+                if (buttonText.equals((String) getString(R.string.app_functionalities))) {
+                    topButton.setText((String) getString(R.string.app_functionalities_1));
+                    midButton.setText((String) getString(R.string.app_functionalities_2));
+                    botButton.setText((String) getString(R.string.app_functionalities_3));
+                } else if (buttonText.equals(getString(R.string.account_settings_Q3))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.account_settings_A3);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals(getString(R.string.app_settings_Q3))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_settings_A3);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals((String) getString(R.string.app_functionalities_3))) {
+                    topButton.setText(getString(R.string.app_functionalities_3_Q1));
+                    midButton.setText(getString(R.string.app_functionalities_3_Q2));
+                    botButton.setText(getString(R.string.app_functionalities_3_Q3));
+                } else if (buttonText.equals((String) getString(R.string.app_functionalities_1_Q3))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_1_A3);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals((String) getString(R.string.app_functionalities_2_Q3))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_2_A3);
+                    conversation(myMessage, botMessage);
+                } else if (buttonText.equals((String) getString(R.string.app_functionalities_3_Q3))) {
+                    myMessage = buttonText;
+                    botMessage = getString(R.string.app_functionalities_3_A3);
+                    conversation(myMessage, botMessage);
+                } else {
+                    Log.d(TAG, "Error selecting question");
+                }
+            }
+        });
+
+        backButton = (Button) findViewById(R.id.chatBackButton);
+        backButton.setEnabled(false);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (topButton.getText().equals(getString(R.string.account_settings_Q1))) {
+                    backButton.setEnabled(false);
+                    topButton.setText(getString(R.string.account_settings));
+                    midButton.setText(getString(R.string.app_settings));
+                    botButton.setText(getString(R.string.app_functionalities));
+                } else if (topButton.getText().equals(getString(R.string.app_settings_Q1))) {
+                    backButton.setEnabled(false);
+                    topButton.setText(getString(R.string.account_settings));
+                    midButton.setText(getString(R.string.app_settings));
+                    botButton.setText(getString(R.string.app_functionalities));
+                } else if (topButton.getText().equals(getString(R.string.app_functionalities_1))) {
+                    backButton.setEnabled(false);
+                    topButton.setText(getString(R.string.account_settings));
+                    midButton.setText(getString(R.string.app_settings));
+                    botButton.setText(getString(R.string.app_functionalities));
+                } else if (topButton.getText().equals(getString(R.string.app_functionalities_1_Q1))
+                        || topButton.getText().equals(getString(R.string.app_functionalities_2_Q1))
+                        || topButton.getText().equals(getString(R.string.app_functionalities_3_Q1))) {
+                    topButton.setText(getString(R.string.app_functionalities_1));
+                    midButton.setText(getString(R.string.app_functionalities_2));
+                    botButton.setText(getString(R.string.app_functionalities_3));
+                } else {
+                    Log.d(TAG, "Error going back in chatBot");
+                }
+            }
+        });
+
+    }
+
+    private void conversation(String myMessage, String botMessage1) {
+        final String botMessage = botMessage1;
+        Date date = new Date();
+        ChatItem chatItem = new ChatItem(myMessage, date.toString().substring(0, 20), "", "");
+        chatItems.add(chatItem);
+        adapter.notifyDataSetChanged();
+        recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
+        backButton.setEnabled(true);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Date date = new Date();
+                ChatItem chatItem = new ChatItem("", "", botMessage, date.toString().substring(0, 20));
+                chatItems.add(chatItem);
+                adapter.notifyDataSetChanged();
+                recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
+            }
+        }, 1000);
     }
 }

@@ -10,73 +10,76 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.help_m5.MemoryData;
 import com.example.help_m5.R;
 
 import java.util.List;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
-    private List<ChatList> chatLists;
-    private final Context context;
-    private String userId;
+    private List<ChatItem> chatItems;
+    private Context context;
 
-    public ChatAdapter(List<ChatList> chatLists, Context context) {
-        this.chatLists = chatLists;
+    public ChatAdapter(List<ChatItem> chatItems, Context context) {
+        this.chatItems = chatItems;
         this.context = context;
-        this.userId = MemoryData.getData(context);
     }
 
     @NonNull
     @Override
-    public ChatAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_adapter_layout, null));
+    public ChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_adapter_layout, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ChatAdapter.MyViewHolder holder, int position) {
+    /*
+        Show data onto recyclerview
+        Called after OnCreateViewHolder to bind the views
+     */
+    public void onBindViewHolder(@NonNull ChatAdapter.ViewHolder holder, int position) {
+        ChatItem chatItem = chatItems.get(position);
 
-        ChatList list2 = chatLists.get(position);
-
-        if(list2.getId().equals(userId)){
-            holder.myLayout.setVisibility(View.VISIBLE);
-            holder.oppoLayout.setVisibility(View.GONE);
-
-            holder.myMessage.setText(list2.getMessage());
-            holder.myTime.setText(list2.getDate()+" "+list2.getTime());
-        }
-        else{
+        holder.myMessage.setText(chatItem.getMyMessage());
+        holder.myDateTime.setText(chatItem.getMyDateTime());
+        if (holder.myDateTime.getText().toString().isEmpty() && holder.myMessage.getText().toString().isEmpty()) {
             holder.myLayout.setVisibility(View.GONE);
             holder.oppoLayout.setVisibility(View.VISIBLE);
+        }
 
-            holder.oppoMessage.setText(list2.getMessage());
-            holder.oppoTime.setText(list2.getDate()+" "+list2.getTime());
+        holder.oppoMessage.setText(chatItem.getOppoMessage());
+        holder.oppoDateTime.setText(chatItem.getOppoDateTime());
+        if (holder.oppoDateTime.getText().toString().isEmpty() && holder.oppoMessage.getText().toString().isEmpty()) {
+            holder.oppoLayout.setVisibility(View.GONE);
+            holder.myLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @Override
     public int getItemCount() {
-        return chatLists.size();
+        return chatItems.size();
     }
 
-    public void updateChatList(List<ChatList> chatLists){
-        this.chatLists = chatLists;
-    }
-    static class MyViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private LinearLayout oppoLayout, myLayout;
-        private TextView oppoMessage, myMessage;
-        private TextView oppoTime, myTime;
+        public LinearLayout myLayout;
+        public TextView myMessage;
+        public TextView myDateTime;
+        public LinearLayout oppoLayout;
+        public TextView oppoMessage;
+        public TextView oppoDateTime;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            oppoLayout = itemView.findViewById(R.id.oppoLayout);
-            myLayout = itemView.findViewById(R.id.myLayout);
-            oppoMessage = itemView.findViewById(R.id.oppoMessage);
-            myMessage = itemView.findViewById(R.id.myMessage);
-            oppoTime = itemView.findViewById(R.id.oppoMsgTime);
-            myTime = itemView.findViewById(R.id.myMsgTime);
+            myMessage = (TextView) itemView.findViewById(R.id.myMessage);
+            myDateTime = (TextView) itemView.findViewById(R.id.myMsgTime);
+            myLayout = (LinearLayout) itemView.findViewById(R.id.myLayout);
+
+            oppoMessage = (TextView) itemView.findViewById(R.id.oppoMessage);
+            oppoDateTime = (TextView) itemView.findViewById(R.id.oppoMsgTime);
+            oppoLayout = (LinearLayout) itemView.findViewById(R.id.oppoLayout);
+
         }
     }
+
 }
