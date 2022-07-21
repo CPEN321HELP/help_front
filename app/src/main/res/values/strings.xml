@@ -18,18 +18,12 @@
     <string name="menu_report">Reports</string>
     <string name="menu_report_comment">Reported comments</string>
     <string name="menu_facility">Facility</string>
+    <string name="menu_chat">ChatBot</string>
 
     <string name="button_rate">Rate</string>
     <string name="title_description">Description</string>
     <string name="title_location">Location</string>
     <string name="title_reviews">Reviews</string>
-
-    <!-- Testing purposes, delete later -->
-    <string name="title_timhortons">Tim Hortons</string>
-    <string name="description_timhortons">Tim Hortons Inc., commonly nicknamed Tim\'s or Timmies, is a Canadian multinational fast food restaurant chain. Based in Toronto, Tim Hortons serves coffee, doughnuts, and other fast food items.[3][4] It is Canada\'s largest quick-service restaurant chain, with 4,949 restaurants in 15 countries as of March 2, 2022.</string>
-    <string name="rating_timhortons">★4.5</string>
-    <string name="review_timhortons">324 Reviews</string>
-    <string name="address_timhortons">2424 Main Mall, Vancouver, BC V6T 1Z2</string>
 
     <string name="large_text">Tim Hortons Inc., commonly nicknamed Tim\'s or Timmies, is a Canadian multinational fast food restaurant chain. Based in Toronto, Tim Hortons serves</string>
     <string name="title_activity_rate">RateActivity</string>

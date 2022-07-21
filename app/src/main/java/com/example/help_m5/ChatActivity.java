@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.help_m5.chat.ChatAdapter;
 import com.example.help_m5.chat.ChatItem;
@@ -30,11 +31,12 @@ public class ChatActivity extends AppCompatActivity {
     private Button midButton;
     private Button botButton;
     private Button backButton;
+    private ImageView returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chatchat);
+        setContentView(R.layout.activity_chat);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);  // every item in recyclerView has fixed size
@@ -212,6 +214,14 @@ public class ChatActivity extends AppCompatActivity {
                 } else {
                     Log.d(TAG, "Error going back in chatBot");
                 }
+            }
+        });
+
+        returnButton = (ImageView) findViewById(R.id.backBtn);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 

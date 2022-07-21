@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".chat.Chat">
+    tools:context=".ChatActivity">
 
     <RelativeLayout
         android:id="@+id/topBar"
@@ -16,14 +16,13 @@
             android:id="@+id/backBtn"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:background="@drawable/round_back_light_10"
-            android:paddingStart="12sp"
-            android:paddingEnd="2dp"
             android:layout_centerVertical="true"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
-            android:src="@drawable/back_btn"
-            />
+            android:background="@drawable/round_back_light_10"
+            android:paddingStart="12sp"
+            android:paddingEnd="2dp"
+            android:src="@drawable/back_btn" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profilePic"
