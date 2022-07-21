@@ -7,8 +7,6 @@ public class ChatItem {
     private String oppoMessage;
     private String oppoDateTime;
 
-    private boolean isMyMsg;
-
     public ChatItem(String myMessage, String myDateTime, String oppoMessage, String oppoDateTime) {
         this.myMessage = myMessage;
         this.myDateTime = myDateTime;

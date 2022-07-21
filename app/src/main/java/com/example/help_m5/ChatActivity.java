@@ -31,7 +31,6 @@ public class ChatActivity extends AppCompatActivity {
     private Button midButton;
     private Button botButton;
     private Button backButton;
-    private ImageView returnButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,7 +216,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 
-        returnButton = (ImageView) findViewById(R.id.backBtn);
+        ImageView returnButton = (ImageView) findViewById(R.id.backBtn);
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
