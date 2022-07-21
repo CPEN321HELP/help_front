@@ -17,11 +17,9 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
 
     private List<ChatItem> chatItems;
-    private Context context;
 
-    public ChatAdapter(List<ChatItem> chatItems, Context context) {
+    public ChatAdapter(List<ChatItem> chatItems) {
         this.chatItems = chatItems;
-        this.context = context;
     }
 
     @NonNull

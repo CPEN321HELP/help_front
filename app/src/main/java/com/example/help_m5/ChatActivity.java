@@ -43,7 +43,7 @@ public class ChatActivity extends AppCompatActivity {
 
         chatItems = new ArrayList<>();  // contains all the item that needs to be displayed
 
-        adapter = new ChatAdapter(chatItems, this);
+        adapter = new ChatAdapter(chatItems);
         recyclerView.setAdapter(adapter);
 
         Date date = new Date();
