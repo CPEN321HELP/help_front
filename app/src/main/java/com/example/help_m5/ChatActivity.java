@@ -53,90 +53,22 @@ public class ChatActivity extends AppCompatActivity {
         topButton = (Button) findViewById(R.id.topButton);
         topButton.setText((String) getString(R.string.account_settings));
         topButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Button b = (Button) v;
                 String buttonText = b.getText().toString();
-                String myMessage = "";
-                String botMessage = "";
-
-                if (buttonText.equals((String) getString(R.string.account_settings))) {
-                    topButton.setText((String) getString(R.string.account_settings_Q1));
-                    midButton.setText((String) getString(R.string.account_settings_Q2));
-                    botButton.setText((String) getString(R.string.account_settings_Q3));
-                } else if (buttonText.equals(getString(R.string.account_settings_Q1))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.account_settings_A1);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals(getString(R.string.app_settings_Q1))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_settings_A1);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals(getString(R.string.app_functionalities_1))) {
-                    topButton.setText(getString(R.string.app_functionalities_1_Q1));
-                    midButton.setText(getString(R.string.app_functionalities_1_Q2));
-                    botButton.setText(getString(R.string.app_functionalities_1_Q3));
-                } else if (buttonText.equals(getString(R.string.app_functionalities_1_Q1))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_1_A1);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals(getString(R.string.app_functionalities_2_Q1))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_2_A1);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals(getString(R.string.app_functionalities_3_Q1))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_3_A1);
-                    conversation(myMessage, botMessage);
-                } else {
-                    Log.d(TAG, "Error selecting question");
-                }
+                setTopButton(buttonText);
             }
         });
 
         midButton = (Button) findViewById(R.id.midButton);
         midButton.setText((String) getString(R.string.app_settings));
         midButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Button b = (Button) v;
                 String buttonText = b.getText().toString();
-                String myMessage = "";
-                String botMessage = "";
-
-                if (buttonText.equals(getString(R.string.app_settings))) {
-                    topButton.setText(getString(R.string.app_settings_Q1));
-                    midButton.setText(getString(R.string.app_settings_Q2));
-                    botButton.setText(getString(R.string.app_settings_Q3));
-                } else if (buttonText.equals(getString(R.string.account_settings_Q2))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.account_settings_A2);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals(getString(R.string.app_settings_Q2))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_settings_A2);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals((String) getString(R.string.app_functionalities_2))) {
-                    topButton.setText(getString(R.string.app_functionalities_2_Q1));
-                    midButton.setText(getString(R.string.app_functionalities_2_Q2));
-                    botButton.setText(getString(R.string.app_functionalities_2_Q3));
-                } else if (buttonText.equals((String) getString(R.string.app_functionalities_1_Q2))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_1_A2);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals((String) getString(R.string.app_functionalities_2_Q2))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_2_A2);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals((String) getString(R.string.app_functionalities_3_Q2))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_3_A2);
-                    conversation(myMessage, botMessage);
-                } else {
-                    Log.d(TAG, "Error selecting question");
-                }
+                setMidButton(buttonText);
             }
         });
 
@@ -147,40 +79,7 @@ public class ChatActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Button b = (Button) v;
                 String buttonText = b.getText().toString();
-                String myMessage = "";
-                String botMessage = "";
-
-                if (buttonText.equals((String) getString(R.string.app_functionalities))) {
-                    topButton.setText((String) getString(R.string.app_functionalities_1));
-                    midButton.setText((String) getString(R.string.app_functionalities_2));
-                    botButton.setText((String) getString(R.string.app_functionalities_3));
-                } else if (buttonText.equals(getString(R.string.account_settings_Q3))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.account_settings_A3);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals(getString(R.string.app_settings_Q3))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_settings_A3);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals((String) getString(R.string.app_functionalities_3))) {
-                    topButton.setText(getString(R.string.app_functionalities_3_Q1));
-                    midButton.setText(getString(R.string.app_functionalities_3_Q2));
-                    botButton.setText(getString(R.string.app_functionalities_3_Q3));
-                } else if (buttonText.equals((String) getString(R.string.app_functionalities_1_Q3))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_1_A3);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals((String) getString(R.string.app_functionalities_2_Q3))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_2_A3);
-                    conversation(myMessage, botMessage);
-                } else if (buttonText.equals((String) getString(R.string.app_functionalities_3_Q3))) {
-                    myMessage = buttonText;
-                    botMessage = getString(R.string.app_functionalities_3_A3);
-                    conversation(myMessage, botMessage);
-                } else {
-                    Log.d(TAG, "Error selecting question");
-                }
+                setBotButton(buttonText);
             }
         });
 
@@ -246,4 +145,115 @@ public class ChatActivity extends AppCompatActivity {
             }
         }, 1000);
     }
+
+    private void setTopButton(String buttonText) {
+        String myMessage = "";
+        String botMessage = "";
+
+        if (buttonText.equals((String) getString(R.string.account_settings))) {
+            topButton.setText((String) getString(R.string.account_settings_Q1));
+            midButton.setText((String) getString(R.string.account_settings_Q2));
+            botButton.setText((String) getString(R.string.account_settings_Q3));
+        } else if (buttonText.equals(getString(R.string.account_settings_Q1))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.account_settings_A1);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals(getString(R.string.app_settings_Q1))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_settings_A1);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals(getString(R.string.app_functionalities_1))) {
+            topButton.setText(getString(R.string.app_functionalities_1_Q1));
+            midButton.setText(getString(R.string.app_functionalities_1_Q2));
+            botButton.setText(getString(R.string.app_functionalities_1_Q3));
+        } else if (buttonText.equals(getString(R.string.app_functionalities_1_Q1))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_1_A1);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals(getString(R.string.app_functionalities_2_Q1))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_2_A1);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals(getString(R.string.app_functionalities_3_Q1))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_3_A1);
+            conversation(myMessage, botMessage);
+        } else {
+            Log.d(TAG, "Error selecting question");
+        }
+    }
+
+    private void setMidButton(String buttonText) {
+        String myMessage = "";
+        String botMessage = "";
+
+        if (buttonText.equals(getString(R.string.app_settings))) {
+            topButton.setText(getString(R.string.app_settings_Q1));
+            midButton.setText(getString(R.string.app_settings_Q2));
+            botButton.setText(getString(R.string.app_settings_Q3));
+        } else if (buttonText.equals(getString(R.string.account_settings_Q2))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.account_settings_A2);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals(getString(R.string.app_settings_Q2))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_settings_A2);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals((String) getString(R.string.app_functionalities_2))) {
+            topButton.setText(getString(R.string.app_functionalities_2_Q1));
+            midButton.setText(getString(R.string.app_functionalities_2_Q2));
+            botButton.setText(getString(R.string.app_functionalities_2_Q3));
+        } else if (buttonText.equals((String) getString(R.string.app_functionalities_1_Q2))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_1_A2);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals((String) getString(R.string.app_functionalities_2_Q2))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_2_A2);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals((String) getString(R.string.app_functionalities_3_Q2))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_3_A2);
+            conversation(myMessage, botMessage);
+        } else {
+            Log.d(TAG, "Error selecting question");
+        }
+    }
+
+    private void setBotButton(String buttonText) {
+        String myMessage = "";
+        String botMessage = "";
+        if (buttonText.equals((String) getString(R.string.app_functionalities))) {
+            topButton.setText((String) getString(R.string.app_functionalities_1));
+            midButton.setText((String) getString(R.string.app_functionalities_2));
+            botButton.setText((String) getString(R.string.app_functionalities_3));
+        } else if (buttonText.equals(getString(R.string.account_settings_Q3))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.account_settings_A3);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals(getString(R.string.app_settings_Q3))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_settings_A3);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals((String) getString(R.string.app_functionalities_3))) {
+            topButton.setText(getString(R.string.app_functionalities_3_Q1));
+            midButton.setText(getString(R.string.app_functionalities_3_Q2));
+            botButton.setText(getString(R.string.app_functionalities_3_Q3));
+        } else if (buttonText.equals((String) getString(R.string.app_functionalities_1_Q3))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_1_A3);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals((String) getString(R.string.app_functionalities_2_Q3))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_2_A3);
+            conversation(myMessage, botMessage);
+        } else if (buttonText.equals((String) getString(R.string.app_functionalities_3_Q3))) {
+            myMessage = buttonText;
+            botMessage = getString(R.string.app_functionalities_3_A3);
+            conversation(myMessage, botMessage);
+        } else {
+            Log.d(TAG, "Error selecting question");
+        }
+    }
+
 }
