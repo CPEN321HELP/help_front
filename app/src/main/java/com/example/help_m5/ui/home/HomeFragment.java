@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         DBconnection = new DatabaseConnection();
-        DBconnection.cleanAllCaches(getContext());
+//        DBconnection.cleanAllCaches(getContext());  //disable this line for testing
 
         //set up spinner
         spin = binding.spinnerFacility;
@@ -262,7 +262,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Log.d(TAG, "close_or_refresh in onResume: "+onSearch);
 
-                DBconnection.cleanAllCaches(getContext());
+//                DBconnection.cleanAllCaches(getContext()); //disable this line for testing
                 setFacilitiesVisibility(View.INVISIBLE);
                 if(onSearch){
                     onSearch = false;
