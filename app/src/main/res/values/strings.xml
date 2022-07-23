@@ -127,4 +127,5 @@
     <string name="app_functionalities_3_A2">You will receive 6 credits</string>
     <string name="app_functionalities_3_A3">Unfortunately, you will not receive credits for upvoting and downvoting. You can get credits from reviewing facilities and reporting facilities/reviews/comments!</string>
 
+    <string name="testing_json">{"_id":6,"facility":{"facilityType":"restaurants","facility_status":"normal","facilityTitle":"McDonald's","facilityDescription":"Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options. ","facilityImageLink":"https:\/\/s3-media0.fl.yelpcdn.com\/bphoto\/13GWBclQVEzXzkMkxZXIRA\/o.jpg","facilityOverallRate":0,"numberOfRates":0,"timeAdded":"2022\/6\/11","longitude":-123.24253759999999,"latitude":49.266646699999995},"rated_user":[],"reviews":[],"adderID":""}</string>
 </resources>
