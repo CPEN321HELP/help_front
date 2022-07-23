@@ -1,4 +1,4 @@
 package com.example.help_m5.manageFacilityTests;
 
-public class upvoteDownvoteTests {
+public class upvoteDownVoteTests {
 }
