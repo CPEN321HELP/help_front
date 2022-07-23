@@ -88,8 +88,6 @@ public class DatabaseConnection {
      * server_error, indicate unsuccessfully send the data to server
      * @Pupose : to get a Specific facility by its facility id and type
      */
-    /*
-    */
     public void getSpecificFacility(int facility_type, String facility_id, Context applicationContext, Activity activity){
         String url = vm_ip + "specific";
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
@@ -156,7 +154,7 @@ public class DatabaseConnection {
         if (isCached(applicationContext, fileName) && !reloadPage) {//page up and page down should go here
             try {
                 JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
-                loadToScreen(binding, applicationContext, facility_type, data, nextPage, previousPage, fileName);
+                loadToScreen(binding, applicationContext, facility_type, data, nextPage, previousPage, reloadPage, fileName);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -197,7 +195,7 @@ public class DatabaseConnection {
                         return;
                     }
 //                    Log.d(TAG, "readFromJson" + readFromJson(applicationContext,fileName));
-                    loadToScreen(binding, applicationContext, facility_type, response, nextPage, previousPage, fileName);
+                    loadToScreen(binding, applicationContext, facility_type, response, nextPage, previousPage, reloadPage, fileName);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -216,7 +214,7 @@ public class DatabaseConnection {
      * @param data          : Json format data to be process and show on screen
      * @Pupose : to load the content from server our cached file to screen for user to view
      */
-    public void loadToScreen(Object binding, Context applicationContext, int facility_type, JSONObject data, boolean nextPage, boolean previousPage, String fileName) {
+    public void loadToScreen(Object binding, Context applicationContext, int facility_type, JSONObject data, boolean nextPage, boolean previousPage, boolean reloadPage, String fileName) {
         LoadToScreen loader = new LoadToScreen();
         try {
             int length = data.getInt("length");
@@ -240,15 +238,24 @@ public class DatabaseConnection {
                 current_page += 1;
             }
 //            Log.d(TAG, "2 length is: "+length+", current_page is: "+current_page);
+            if(!previousPage && !nextPage && !reloadPage){
+                start = 0;
+                current_page = 1;
+                data.put("current_page", 1);
+                writeToJson(applicationContext, data, fileName);
+            }else {
+                start = (current_page - 1) * 5;
+                data.put("current_page", current_page);
+                writeToJson(applicationContext, data, fileName);
 
-            start = (current_page - 1) * 5;
-            data.put("current_page", current_page);
-            writeToJson(applicationContext, data, fileName);
-
+            }
             int end = Math.min((current_page * 5), length);
+
 //            Log.d(TAG, "3 startIndex is: "+start+", endIndex is: "+end);
 //            Log.d(TAG, "4 readFromJson" + readFromJson(applicationContext,fileName));
             int counter = 0;
+
+
             JSONArray array = data.getJSONArray("result");
 
             FragmentHomeBinding b1 = (FragmentHomeBinding)binding;
