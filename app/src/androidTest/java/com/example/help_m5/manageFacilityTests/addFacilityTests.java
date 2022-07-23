@@ -1,4 +1,4 @@
-package com.example.help_m5;
+package com.example.help_m5.manageFacilityTests;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
@@ -8,11 +8,14 @@ import static org.hamcrest.Matchers.*;
 
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
+import androidx.test.espresso.matcher.ViewMatchers;
+
+import com.example.help_m5.R;
 import com.example.help_m5.ui.add_facility.AddFacilityFragment;
 import org.junit.Before;
 import org.junit.Test;
 
-public class AddFacilityFragmentTest {
+public class addFacilityTests {
     FragmentScenario<AddFacilityFragment> mfragment;
     @Before
     public void setUp() throws Exception {
@@ -21,7 +24,7 @@ public class AddFacilityFragmentTest {
     }
     @Test
     public void testBadTitle(){
-        onView(withId(R.id.newFacilityTitle)).perform(typeText("Bad"));
+        onView(ViewMatchers.withId(R.id.newFacilityTitle)).perform(typeText("Bad"));
         onView(withId(R.id.imageNewFacilityTitle)).check(matches(withTagValue(equalTo("bad"))));
         onView(withId(R.id.submitAll)).perform(scrollTo());
         onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
