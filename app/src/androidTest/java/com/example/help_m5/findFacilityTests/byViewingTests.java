@@ -2,6 +2,7 @@ package com.example.help_m5.findFacilityTests;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -58,94 +59,121 @@ public class byViewingTests {
     }
 
     @Test
-    public void testPageUpAndDown(){
-        //if first facility and last facility shows up, then  the 3 facility in middle should show up as expected. show facility with id from 11 to 7
-        assertTrue(testFacility1Show(posts, "11"));
-        assertTrue(testFacility5Show(posts, "7"));
-        onView(ViewMatchers.withId(R.id.fab_main)).perform(click());
-        try {//wait for animation
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //test content not change be cause we are on first page
-        onView(ViewMatchers.withId(R.id.fab_previous)).perform(click());
-        assertTrue(testFacility1Show(posts, "11"));
-        assertTrue(testFacility5Show(posts, "7"));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        //test content next page, show facility with id from 6 to 2
-        onView(ViewMatchers.withId(R.id.fab_next)).perform(click());
-        assertTrue(testFacility1Show(posts, "6"));
-        assertTrue(testFacility5Show(posts, "2"));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(ViewMatchers.withId(R.id.fab_next)).perform(click());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        assertTrue(testFacility1Show(posts, "1"));
-        onView(ViewMatchers.withId(R.id.fab_previous)).perform(click());
-        onView(ViewMatchers.withId(R.id.fab_previous)).perform(click());
+    public void TestSearchAndChangeSpinner(){
+        //this test page up, page down, refresh,
+        assertTrue(entertainmentsTests());
+        assertTrue(studyTests());
+        assertTrue(restaurantsTests());
+        assertTrue(postsTests());
     }
 
-    @Test
-    public void testSpinner(){
-        onView(withId(R.id.spinnerFacility)).perform(click());
-        onData(anything()).atPosition(1).perform(click());
-        assertTrue(testFacility1Show(restaurants, "11"));
-        assertTrue(testFacility5Show(restaurants, "7"));
-
-        onView(withId(R.id.spinnerFacility)).perform(click());
-        onData(anything()).atPosition(2).perform(click());
-        assertTrue(testFacility1Show(study, "11"));
-        assertTrue(testFacility5Show(study, "7"));
-
-        onView(withId(R.id.spinnerFacility)).perform(click());
-        onData(anything()).atPosition(3).perform(click());
-        assertTrue(testFacility1Show(entertainments, "11"));
-        assertTrue(testFacility5Show(entertainments, "7"));
-
-        onView(withId(R.id.spinnerFacility)).perform(click());
-        onData(anything()).atPosition(0).perform(click());
-        assertTrue(testFacility1Show(posts, "11"));
-        assertTrue(testFacility5Show(posts, "7"));
-    }
-
-    @Test
-    public void testRefresh(){
-        onView(withId(R.id.spinnerFacility)).perform(click());
-        onData(anything()).atPosition(1).perform(click());
-        onView(ViewMatchers.withId(R.id.fab_main)).perform(click());
-        onView(ViewMatchers.withId(R.id.fab_next)).perform(click());
-        onView(ViewMatchers.withId(R.id.fab_next)).perform(click());
-        onView(ViewMatchers.withId(R.id.fab_next)).perform(click());
-        assertTrue(testFacility1Show(restaurants, "1"));
-        assertFalse(testFacility5Show(restaurants, "7"));
-        onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(click());
-        try {//wait for animation
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
+    private boolean entertainmentsTests(){
+        try{
+            assertTrue(createJsonForTesting(11, entertainments, false));
+            assertTrue(testSpinnerAndSearch(3));
+            onView(withId(R.id.fab_main)).perform(click());
+            onView(withId(R.id.fab_previous)).perform(click());
+            onView(withId(R.id.fab_previous)).perform(click());
+            assertTrue(testFacilitySearch1Show(entertainments, "11",false));
+            assertTrue(testFacilitySearch5Show(entertainments, "7",false));
+            onView(withId(R.id.fab_next)).perform(click());
+            assertTrue(testFacilitySearch1Show(entertainments, "6",false));
+            assertTrue(testFacilitySearch5Show(entertainments, "2",false));
+            onView(withId(R.id.fab_close_or_refresh)).perform(click());
+            assertTrue(testFacilitySearch1Show(entertainments, "11",false));
+            assertTrue(testFacilitySearch5Show(entertainments, "7",false));
+            return true;
+        }catch (Exception e){
             e.printStackTrace();
+            return false;
         }
-        assertTrue(testFacility1Show(restaurants, "11"));
-        assertTrue(testFacility5Show(restaurants, "7"));
-
-
     }
 
-    private boolean testFacility1Show(int facility_type, String facility_id){
-        String title = "title "+getTypeInString(facility_type)+" "+facility_id;
-        String content = "content "+getTypeInString(facility_type)+" "+facility_id;
-        String date = "date "+getTypeInString(facility_type)+" "+facility_id;
+    private boolean studyTests(){
+        try{
+            assertTrue(createJsonForTesting(11, study, false));
+
+            assertTrue(testSpinnerAndSearch(2));
+            onView(withId(R.id.fab_previous)).perform(click());
+            onView(withId(R.id.fab_previous)).perform(click());
+            assertTrue(testFacilitySearch1Show(study, "11",false));
+            assertTrue(testFacilitySearch5Show(study, "7",false));
+            onView(withId(R.id.fab_next)).perform(click());
+            assertTrue(testFacilitySearch1Show(study, "6",false));
+            assertTrue(testFacilitySearch5Show(study, "2",false));
+            onView(withId(R.id.fab_close_or_refresh)).perform(click());
+            assertTrue(testFacilitySearch1Show(study, "11",false));
+            assertTrue(testFacilitySearch5Show(study, "7",false));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean restaurantsTests(){
+        try{
+            assertTrue(createJsonForTesting(11, restaurants, false));
+
+            assertTrue(testSpinnerAndSearch(1));
+            onView(withId(R.id.fab_previous)).perform(click());
+            onView(withId(R.id.fab_previous)).perform(click());
+            assertTrue(testFacilitySearch1Show(restaurants, "11",false));
+            assertTrue(testFacilitySearch5Show(restaurants, "7",false));
+            onView(withId(R.id.fab_next)).perform(click());
+            assertTrue(testFacilitySearch1Show(restaurants, "6",false));
+            assertTrue(testFacilitySearch5Show(restaurants, "2",false));
+            onView(withId(R.id.fab_close_or_refresh)).perform(click());
+            assertTrue(testFacilitySearch1Show(restaurants, "11",false));
+            assertTrue(testFacilitySearch5Show(restaurants, "7",false));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean postsTests(){
+        try{assertTrue(createJsonForTesting(11, posts, false));
+
+            assertTrue(testSpinnerAndSearch(0));
+            onView(withId(R.id.fab_previous)).perform(click());
+            onView(withId(R.id.fab_previous)).perform(click());
+            assertTrue(testFacilitySearch1Show(posts, "11",false));
+            assertTrue(testFacilitySearch5Show(posts, "7",false));
+            onView(withId(R.id.fab_next)).perform(click());
+            assertTrue(testFacilitySearch1Show(posts, "6",false));
+            assertTrue(testFacilitySearch5Show(posts, "2",false));
+            onView(withId(R.id.fab_close_or_refresh)).perform(click());
+            assertTrue(testFacilitySearch1Show(posts, "11",false));
+            assertTrue(testFacilitySearch5Show(posts, "7",false));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean testSpinnerAndSearch(int indexSpinner){
+        try{
+            onView(withId(R.id.spinnerFacility)).perform(click());
+            onData(anything()).atPosition(indexSpinner).perform(click());
+            try{
+                Thread.sleep(1000);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private boolean testFacilitySearch1Show(int facility_type, String facility_id, boolean isSearch){
+        String title = "title "+getTypeInString(facility_type)+ (isSearch ? " search " : " ") +facility_id;
+        String content = "content "+getTypeInString(facility_type)+(isSearch ? " search " : " ")+facility_id;
+        String date = "date "+getTypeInString(facility_type)+ (isSearch ? " search " : " ") +facility_id;
         try{
             onView(ViewMatchers.withId(R.id.titleTextView_facility1)).check(matches(withText(title)));
             onView(ViewMatchers.withId(R.id.dateTextView_facility1)).check(matches(withText(date)));
@@ -156,10 +184,10 @@ public class byViewingTests {
         }
     }
 
-    private boolean testFacility5Show(int facility_type, String facility_id){
-        String title = "title "+getTypeInString(facility_type)+" "+facility_id;
-        String content = "content "+getTypeInString(facility_type)+" "+facility_id;
-        String date = "date "+getTypeInString(facility_type)+" "+facility_id;
+    private boolean testFacilitySearch5Show(int facility_type, String facility_id, boolean isSearch){
+        String title = "title "+getTypeInString(facility_type)+ (isSearch ? " search " : " ") +facility_id;
+        String content = "content "+getTypeInString(facility_type)+(isSearch ? " search " : " ")+facility_id;
+        String date = "date "+getTypeInString(facility_type)+ (isSearch ? " search " : " ") +facility_id;
         try{
             onView(ViewMatchers.withId(R.id.titleTextView_facility5)).check(matches(withText(title)));
             onView(ViewMatchers.withId(R.id.dateTextView_facility5)).check(matches(withText(date)));
@@ -213,4 +241,7 @@ public class byViewingTests {
             return false;
         }
     }
+
+
+
 }
