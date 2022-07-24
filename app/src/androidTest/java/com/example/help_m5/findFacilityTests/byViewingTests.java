@@ -2,6 +2,7 @@ package com.example.help_m5.findFacilityTests;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
+import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
@@ -46,6 +47,30 @@ public class byViewingTests {
     public void setUp() throws Exception {
         db = new DatabaseConnection();
         mfragment = FragmentScenario.launchInContainer(HomeFragment.class, null, R.style.MyMaterialTheme, Lifecycle.State.STARTED);
+    }
+
+    @Test
+    public void testNoResult(){
+        assertTrue(testNoResultHelper(posts,3));
+        assertTrue(testNoResultHelper(restaurants,2));
+        assertTrue(testNoResultHelper(study,1));
+        assertTrue(testNoResultHelper(posts,0));
+    }
+
+    public boolean testNoResultHelper(int facility_type, int indexSpinner){
+        onView(withId(R.id.spinnerFacility)).perform(click());
+        onData(anything()).atPosition(indexSpinner).perform(click());
+        try {
+            createJsonForTesting(0, facility_type, false);
+            onView(withId(R.id.facility1)).check(matches(not(isDisplayed())));
+            onView(withId(R.id.facility2)).check(matches(not(isDisplayed())));
+            onView(withId(R.id.facility3)).check(matches(not(isDisplayed())));
+            onView(withId(R.id.facility4)).check(matches(not(isDisplayed())));
+            onView(withId(R.id.facility5)).check(matches(not(isDisplayed())));
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 
     @Test
