@@ -9,6 +9,7 @@ import static org.junit.Assert.*;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
@@ -20,8 +21,12 @@ import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.ui.add_facility.AddFacilityFragment;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.ui.home.HomeFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -43,12 +48,13 @@ public class byViewingTests {
     final int restaurants = 3;
     final int search = 4;
 
+    DatabaseConnection db;
     FragmentScenario<HomeFragment> mfragment;
     ActivityScenarioRule<FacilityActivity> mActivity;
     @Before
     public void setUp() throws Exception {
+        db = new DatabaseConnection();
         mfragment = FragmentScenario.launchInContainer(HomeFragment.class, null, R.style.MyMaterialTheme, Lifecycle.State.STARTED);
-
     }
 
     @Test
@@ -178,6 +184,33 @@ public class byViewingTests {
                 return "search";
             default:
                 return "none";
+        }
+    }
+
+    private boolean createJsonForTesting(int length, int facility_type,boolean isSearch){
+        try{
+            JSONArray ja = new JSONArray();
+            JSONObject jo = new JSONObject();
+            jo.put("length" , length);
+            jo.put("current_page" , 1);
+
+            for(int i = length; i>0; i--){
+                ja.put(new JSONArray(new Object[]{i, 0, "title " + getTypeInString(facility_type) + (isSearch ? " search " : " ")+i, "content " + getTypeInString(facility_type) + (isSearch ? " search " : " ")+i, "date " + getTypeInString(facility_type) + (isSearch ? " search " : " ")+i}));
+            }
+            jo.put("result", ja);
+
+            String fileName = "";
+            if (isSearch) {
+                fileName = getTypeInString(facility_type) +"Search.json";
+            } else {
+                fileName = getTypeInString(facility_type) + ".json";
+            }
+            db.writeToJsonForTesting("/data/data/com.example.help_m5/files/", jo, fileName);
+            Log.d("TESTING", ja.toString());
+            return true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
