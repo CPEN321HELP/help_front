@@ -2,29 +2,20 @@ package com.example.help_m5.findFacilityTests;
 
 import static androidx.test.espresso.Espresso.*;
 import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.assertion.ViewAssertions.*;
 import static androidx.test.espresso.matcher.ViewMatchers.*;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
-
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-
 import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
-import com.example.help_m5.databinding.FragmentHomeBinding;
-import com.example.help_m5.ui.add_facility.AddFacilityFragment;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.ui.home.HomeFragment;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
