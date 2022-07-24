@@ -130,7 +130,7 @@ public class DatabaseConnection {
     public void getFacilities (Object binding, int facility_type, int pageNum, Context applicationContext,  String content_to_search, boolean[] options){
         String fileName = "";
         if (options[0]) {
-            fileName = "search.json";
+            fileName = getStringType(facility_type) +"Search.json";
         } else {
             fileName = getStringType(facility_type) + ".json";
         }

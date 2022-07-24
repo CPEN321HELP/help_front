@@ -79,8 +79,11 @@ public class HomeFragment extends Fragment {
                 setFacilitiesVisibility(View.INVISIBLE);
                 Log.d(TAG, "facility_type in onItemSelected "+facility_type);
 //                DBconnection.getFacilities(binding, facility_type, getContext(),false,"", false, false,false, 0);
-                DBconnection.getFacilities(binding, facility_type, 0, getContext(),"", new boolean[]{false, false, false, false});
-
+                if(onSearch){
+                    DBconnection.getFacilities(binding, facility_type, 0, getContext(),search_content, new boolean[]{true, false, false, false});
+                }else {
+                    DBconnection.getFacilities(binding, facility_type, 0, getContext(),"", new boolean[]{false, false, false, false});
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -94,10 +97,19 @@ public class HomeFragment extends Fragment {
         //load initial page
         //set up search function
         facilitySearchView = binding.searchFacility;
+        facilitySearchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                facilitySearchView.setIconified(false);
+            }
+        });
         facilitySearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 if(query.length()<1){
+                    DBconnection.getFacilities(binding, facility_type, 0, getContext(), query, new boolean[]{false, false, false, false});
+                    onSearch = false;
+                    close_or_refresh.setImageResource(R.drawable.ic_baseline_close_24);
                     return false;
                 }
                 Log.d(TAG, "onQueryTextSubmit in onResume: "+onSearch);
@@ -105,7 +117,7 @@ public class HomeFragment extends Fragment {
                 search_content = query;
                 DBconnection.cleanSearchCaches(getContext());
                 setFacilitiesVisibility(View.INVISIBLE);
-                close_or_refresh.setImageResource(R.drawable.ic_baseline_close_24);
+                close_or_refresh.setImageResource(R.drawable.ic_baseline_refresh_24);
                 Log.d(TAG, "searching: " + query);
                 onSearch = true;
 //                DBconnection.getFacilities(binding, facility_type, getContext(),true, query, false, false,false, 0);
@@ -117,6 +129,9 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 if(newText.length()<1){
+                    DBconnection.getFacilities(binding, facility_type, 0, getContext(), newText, new boolean[]{false, false, false, false});
+                    onSearch = false;
+                    close_or_refresh.setImageResource(R.drawable.ic_baseline_refresh_24);
                     return false;
                 }
                 Log.d(TAG, "onQueryTextChange in onResume: "+onSearch);

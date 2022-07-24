@@ -52,7 +52,7 @@ public class byViewingTests {
     }
 
     @Test
-    public void testPosts(){
+    public void testPageUpAndDown(){
         //if first facility and last facility shows up, then  the 3 facility in middle should show up as expected. show facility with id from 11 to 7
         assertTrue(testFacility1Show(posts, "11"));
         assertTrue(testFacility5Show(posts, "7"));
@@ -89,7 +89,6 @@ public class byViewingTests {
         assertTrue(testFacility1Show(posts, "1"));
         onView(ViewMatchers.withId(R.id.fab_previous)).perform(click());
         onView(ViewMatchers.withId(R.id.fab_previous)).perform(click());
-
     }
 
     @Test
