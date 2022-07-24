@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         DBconnection = new DatabaseConnection();
-//        DBconnection.cleanAllCaches(getContext());  //disable this line for testing
+        DBconnection.cleanAllCaches(getContext());  //disable this line for testing
 
         //set up spinner
         spin = binding.spinnerFacility;

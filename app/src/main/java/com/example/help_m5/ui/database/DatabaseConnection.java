@@ -152,13 +152,15 @@ public class DatabaseConnection {
         boolean reloadPage = options[3];
 
         if (isCached(applicationContext, fileName) && !reloadPage) {//page up and page down should go here
+            Log.d("TESTING", "Goes here");
             try {
                 JSONObject data = new JSONObject(readFromJson(applicationContext, fileName));
                 loadToScreen(binding, applicationContext, facility_type, data, nextPage, previousPage, reloadPage, fileName);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-        } else { //search should go here
+        } else {
+            Log.d("TESTING", "Not here");
             final RequestQueue queue = Volley.newRequestQueue(applicationContext);
             HashMap<String, String> params = new HashMap<String, String>();
             queue.start();
@@ -301,6 +303,29 @@ public class DatabaseConnection {
     public int writeToJson(Context applicationContext, JSONObject response, String fileName) {
         try {
             File file = new File(applicationContext.getFilesDir(), fileName);
+            FileOutputStream writer = new FileOutputStream(file);
+            writer.write(response.toString().getBytes());
+            writer.close();
+//            Log.d(TAG, "write to file" + fileName + " path is: " + file.getCanonicalPath());
+        } catch (FileAlreadyExistsException e) {
+            e.printStackTrace();
+            return 1;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return 2;
+        }
+        return 0;
+    }
+
+    /**
+     * @param response           : response from server
+     * @return 0 if cached successfully; 1, if File Already Exists; 2 if IOException.
+     * @Pupose write json response from server to a file
+     */
+    public int writeToJsonForTesting(String path, JSONObject response, String fileName) {
+        try {
+            Log.d("TESTING", "Here: " +path+fileName);
+            File file = new File(path, fileName);
             FileOutputStream writer = new FileOutputStream(file);
             writer.write(response.toString().getBytes());
             writer.close();
