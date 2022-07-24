@@ -36,7 +36,6 @@ public class bySearchingTests {
         please put all files in "JsonForTesting" folder to path "/data/data/com.example.help_m5/files"
         on the simulator.
         Then disable the clean cache function in DatabaseConnection by comment out following lines:
-            line 66, DBconnection.cleanAllCaches(getContext());
             Line 265, DBconnection.cleanAllCaches(getContext());
      */
 
