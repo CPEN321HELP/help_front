@@ -48,6 +48,7 @@ public class bySearchingTests {
     FragmentScenario<HomeFragment> mfragment;
     ActivityScenarioRule<FacilityActivity> mActivity;
     DatabaseConnection db;
+
     @Before
     public void setUp() throws Exception {
         db = new DatabaseConnection();

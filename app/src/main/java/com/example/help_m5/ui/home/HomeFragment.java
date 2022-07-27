@@ -233,9 +233,6 @@ public class HomeFragment extends Fragment {
             }
             DBconnection.getSpecificFacility(facility_type, facility_id, getContext(), getActivity());
         }
-
-
-
 //        String url = "specific";
 //        final RequestQueue queue = Volley.newRequestQueue(getContext());
 //        HashMap<String, String> params = new HashMap<String, String>();
@@ -284,7 +281,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 Log.d(TAG, "close_or_refresh in onResume: "+onSearch);
 
-//                DBconnection.cleanAllCaches(getContext()); //disable this line for testing
+                DBconnection.cleanAllCaches(getContext()); //disable this line for testing
                 setFacilitiesVisibility(View.INVISIBLE);
                 if(onSearch){
                     onSearch = false;
