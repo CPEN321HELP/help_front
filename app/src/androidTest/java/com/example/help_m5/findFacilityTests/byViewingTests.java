@@ -30,8 +30,9 @@ public class byViewingTests {
         please use the predefined json files in the folder name "JsonForTesting"
         please put all files in "JsonForTesting" folder to path "/data/data/com.example.help_m5/files"
         on the simulator.
-        Then disable the clean cache function in DatabaseConnection by comment out following lines:
-            Line 265, DBconnection.cleanAllCaches(getContext());
+        Then disable the clean cache function in DatabaseConnection by comment out following line:
+            DBconnection.cleanAllCaches(getContext());
+            in private void initFavMenu(),
      */
 
     final int posts = 0;
