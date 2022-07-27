@@ -69,8 +69,6 @@ public class RateActivity extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                submitButton.setEnabled(true);
-                submitButton.setTextColor(Color.parseColor("#dbba00"));
                 rate = rating;
             }
         });
@@ -86,6 +84,8 @@ public class RateActivity extends AppCompatActivity {
         EditText editText = findViewById(R.id.editTextTextMultiLine);
 
         submitButton = findViewById(R.id.submit_button);
+        submitButton.setTextColor(Color.parseColor("#dbba00"));
+        submitButton.setEnabled(true);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,7 +94,7 @@ public class RateActivity extends AppCompatActivity {
 
                 if (ratingBar.getRating() == 0 && editText.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please do not submit an empty form", Toast.LENGTH_SHORT).show();
-                } else if (ratingBar.getRating() == 0) {
+                } else if (ratingBar.getRating() == 0 && facilityType != POST) {
                     Toast.makeText(getApplicationContext(), "Please rate the facility from 0.5 to 5", Toast.LENGTH_SHORT).show();
                     return;
                 } else if (editText.getText().toString().isEmpty()){
