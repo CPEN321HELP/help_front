@@ -43,8 +43,9 @@ public class DatabaseConnection {
     final int report_facility = 6;
     //above are types of facility
     private String userInfo = "userInfo.json";
-
+    
     public void updateUserInfo(NavigationView navigationView, Context context, String user_id, Activity activity,boolean load){
+
         RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<String, String>();
         queue.start();
@@ -175,7 +176,7 @@ public class DatabaseConnection {
                 url += "/newest";
             }
 
-            Log.d(TAG,url);
+            Log.d(TAG,"url in searchFacilities is :"+ url);
             Log.d(TAG, params.toString());
             JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
                 @Override
