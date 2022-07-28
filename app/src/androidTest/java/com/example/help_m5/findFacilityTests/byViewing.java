@@ -49,10 +49,16 @@ public class byViewing {
 
     @Test
     public void testNoResult(){
+        Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
         Assert.assertTrue(testNoResultHelper(posts,3));
         Assert.assertTrue(testNoResultHelper(restaurants,2));
         Assert.assertTrue(testNoResultHelper(study,1));
         Assert.assertTrue(testNoResultHelper(posts,0));
+        try{
+            Thread.sleep(11111);
+        }catch (Exception e){
+
+        }
     }
 
     public boolean testNoResultHelper(int facility_type, int indexSpinner){
@@ -61,9 +67,13 @@ public class byViewing {
         try {
             createJsonForTesting(0, facility_type, false);
             Espresso.onView(ViewMatchers.withId(R.id.facility1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.facility2)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.facility3)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.facility4)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.facility5)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
             return true;
         }catch (Exception e){
