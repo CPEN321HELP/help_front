@@ -1,15 +1,13 @@
 package com.example.help_m5.manageFacilityTests;
 
-import static androidx.test.espresso.Espresso.*;
-import static androidx.test.espresso.action.ViewActions.*;
-import static androidx.test.espresso.assertion.ViewAssertions.*;
-import static androidx.test.espresso.matcher.ViewMatchers.*;
-import static org.hamcrest.Matchers.*;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.action.ViewActions;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.matcher.ViewMatchers;
+import org.hamcrest.Matchers;
 
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
-import androidx.test.espresso.matcher.ViewMatchers;
-
 import com.example.help_m5.R;
 import com.example.help_m5.ui.add_facility.AddFacilityFragment;
 import org.junit.Before;
@@ -24,129 +22,95 @@ public class addFacility {
     }
     @Test
     public void testBadTitle(){
-        onView(ViewMatchers.withId(R.id.newFacilityTitle)).perform(typeText("Bad"));
-        onView(withId(R.id.imageNewFacilityTitle)).check(matches(withTagValue(equalTo("bad"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityTitle)).perform(ViewActions.typeText("Bad"));
+        Espresso.onView(ViewMatchers.withId(R.id.imageNewFacilityTitle)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("bad"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void testGoodTitle(){
-        onView(withId(R.id.newFacilityTitle)).perform(typeText("Long enough"));
-        onView(withId(R.id.imageNewFacilityTitle)).check(matches(withTagValue(equalTo("good"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityTitle)).perform(ViewActions.typeText("Long enough"));
+        Espresso.onView(ViewMatchers.withId(R.id.imageNewFacilityTitle)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("good"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void testBadDescription(){
-        onView(withId(R.id.newFacilityDescription)).perform(typeText("This is a bad description because it is too short"));
-        onView(withId(R.id.imageFacilityDescription)).check(matches(withTagValue(equalTo("bad"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityDescription)).perform(ViewActions.typeText("This is a bad description because it is too short"));
+        Espresso.onView(ViewMatchers.withId(R.id.imageFacilityDescription)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("bad"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void testGoodDescription(){
-        onView(withId(R.id.newFacilityDescription)).perform(typeText("This is a excellent description because it is not too short, and more than 50 characters"));
-        onView(withId(R.id.imageFacilityDescription)).check(matches(withTagValue(equalTo("good"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityDescription)).perform(ViewActions.typeText("This is a excellent description because it is Matchers.not too short, and more than 50 characters"));
+        Espresso.onView(ViewMatchers.withId(R.id.imageFacilityDescription)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("good"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void testBadImageLink(){
-        onView(withId(R.id.newFacilityImageLink)).perform(typeText("BAD URL"));
-        onView(withId(R.id.imageFacilityImageLink)).check(matches(withTagValue(equalTo("bad"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.typeText("BAD URL"));
+        Espresso.onView(ViewMatchers.withId(R.id.imageFacilityImageLink)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("bad"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void testGoodImageLink(){
-        onView(withId(R.id.newFacilityImageLink)).perform(typeText("https://imgtu.com/i/jwCDjH"));
-        onView(withId(R.id.imageFacilityImageLink)).check(matches(withTagValue(equalTo("good"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.typeText("https://imgtu.com/i/jwCDjH"));
+        Espresso.onView(ViewMatchers.withId(R.id.imageFacilityImageLink)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("good"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void testBadLocation(){
-        onView(withId(R.id.newFacilityLocation)).perform(typeText("Not_A_Address"));
-        onView(withId(R.id.newFacilityDescription)).perform(click());
-        onView(withId(R.id.imageFacilityLocation)).check(matches(withTagValue(equalTo("bad"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.typeText("Matchers.Not_A_Address"));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityDescription)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imageFacilityLocation)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("bad"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void testGoodLocation(){
-        onView(withId(R.id.newFacilityLocation)).perform(typeText("650 W 41st Ave, Vancouver, BC V5Z 2M9"));
-        onView(withId(R.id.newFacilityDescription)).perform(click());
-        onView(withId(R.id.newFacilityLocation)).perform(click());
-        onView(withId(R.id.imageFacilityLocation)).check(matches(withTagValue(equalTo("good"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.typeText("650 W 41st Ave, Vancouver, BC V5Z 2M9"));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityDescription)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imageFacilityLocation)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("good"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void testGoodType(){
-        onView(withId(R.id.imageFacilityType)).check(matches(withTagValue(equalTo("bad"))));
-        onView(withId(R.id.newFacilityType)).perform(click());
-        onData(anything()).atPosition(1).perform(click());
-        onView(withId(R.id.imageFacilityType)).check(matches(withTagValue(equalTo("good"))));
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.imageFacilityType)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("bad"))));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityType)).perform(ViewActions.click());
+        Espresso.onData(Matchers.anything()).atPosition(1).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.imageFacilityType)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("good"))));
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
 
     @Test
     public void ReadyToSubmit(){
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(not(isEnabled())));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withId(R.id.newFacilityTitle)).perform(scrollTo());
-        onView(withId(R.id.newFacilityTitle)).perform(typeText("Long enough"));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.newFacilityDescription)).perform(typeText("This is a excellent description because it is not too short, and more than 50 characters"));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.newFacilityLocation)).perform(typeText("650 W 41st Ave, Vancouver, BC V5Z 2M9"));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.newFacilityImageLink)).perform(scrollTo(), click());
-        onView(withId(R.id.newFacilityImageLink)).perform(typeText("https://imgtu.com/i/jwCDjH"));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        onView(withId(R.id.newFacilityType)).perform(scrollTo(), click());
-        onData(anything()).atPosition(2).perform(click());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        onView(withId(R.id.submitAll)).perform(scrollTo());
-        onView(withId(R.id.submitAll)).check(matches(isEnabled()));
-
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityTitle)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityTitle)).perform(ViewActions.typeText("Long enough"));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityDescription)).perform(ViewActions.typeText("This is a excellent description because it is Matchers.not too short, and more than 50 characters"));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.typeText("650 W 41st Ave, Vancouver, BC V5Z 2M9"));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.scrollTo(), ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.typeText("https://imgtu.com/i/jwCDjH"));
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityType)).perform(ViewActions.scrollTo(), ViewActions.click());
+        Espresso.onData(Matchers.anything()).atPosition(2).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
+        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(ViewMatchers.isEnabled()));
     }
 }

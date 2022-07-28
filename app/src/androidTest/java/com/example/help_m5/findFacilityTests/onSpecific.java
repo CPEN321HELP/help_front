@@ -42,6 +42,5 @@ public class onSpecific {
         onView(withId(R.id.facilityDescription)).check(matches(withText(containsString("Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options."))));
         onView(withId(R.id.facilityAddress)).check(matches(withText(("5728 University Blvd, Vancouver, BC V6T 1K6, Canada"))));
         Thread.sleep(10000);
-
     }
 }
