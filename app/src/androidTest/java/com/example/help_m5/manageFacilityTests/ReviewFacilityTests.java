@@ -35,25 +35,31 @@ import androidx.test.rule.ActivityTestRule;
 import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.junit.Rule;
 import org.junit.Test;
 
 public class ReviewFacilityTests {
 
+    @Rule
+    public ActivityScenarioRule<FacilityActivity> mActivityRule =
+            new ActivityScenarioRule<FacilityActivity>(intent);
+
     static Intent intent;
     static {
         intent = new Intent(ApplicationProvider.getApplicationContext(), FacilityActivity.class);
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(ApplicationProvider.getApplicationContext());
         Bundle bundle = new Bundle();
+        intent.putExtra("userEmail", account.getEmail());
+        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        System.out.println(account.getEmail());
         intent.putExtra("facility_id", "6");
         intent.putExtra("facilityType", 3);
         intent.putExtra("facility_json", "{\"_id\":6,\"facility\":{\"facilityType\":\"restaurants\",\"facility_status\":\"normal\",\"facilityTitle\":\"McDonald's\",\"facilityDescription\":\"Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options. \",\"facilityImageLink\":\"https:\\/\\/s3-media0.fl.yelpcdn.com\\/bphoto\\/13GWBclQVEzXzkMkxZXIRA\\/o.jpg\",\"facilityOverallRate\":0,\"numberOfRates\":0,\"timeAdded\":\"2022\\/6\\/11\",\"longitude\":-123.24253759999999,\"latitude\":49.266646699999995},\"rated_user\":[],\"reviews\":[],\"adderID\":\"\"}");
         intent.putExtras(bundle);
     }
-
-    @Rule
-    public ActivityScenarioRule<FacilityActivity> mActivityRule =
-            new ActivityScenarioRule<FacilityActivity>(intent);
 
     @Test
     public void testRateAndCancelButton() {

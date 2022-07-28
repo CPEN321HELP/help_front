@@ -15,6 +15,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.databinding.FragmentHomeBinding;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.material.navigation.NavigationView;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,6 +93,7 @@ public class DatabaseConnection {
      * @Pupose : to get a Specific facility by its facility id and type
      */
     public void getSpecificFacility(int facility_type, String facility_id, Context applicationContext, Activity activity){
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(applicationContext);
         String url = vm_ip + "specific";
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
         queue.start();
@@ -104,6 +108,7 @@ public class DatabaseConnection {
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "response getSpecificFacility is: " + response.toString());
                 Bundle bundle = new Bundle();
+                bundle.putString("userEmail", account.getEmail());
                 bundle.putInt("facilityType", facility_type);
                 bundle.putString("facility_id", facility_id);
                 bundle.putString("facility_json", response.toString());

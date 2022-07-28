@@ -37,6 +37,8 @@ import com.example.help_m5.chat.ChatAdapter;
 import com.example.help_m5.chat.ChatItem;
 import com.example.help_m5.reviews.ReviewAdapter;
 import com.example.help_m5.reviews.ReviewItem;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -59,227 +61,87 @@ import java.util.UUID;
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = "FacilityActivity";
+    private static final int POST = 0;
 
+    private ArrayList<CharSequence> reviewers;
     private String facilityId;
     private String title;
+    private String description;
     private float rate;
     private int numReviews;
-    private String adderID;
     private int type;
     private double latitude;
     private double longitude;
     private boolean isPost;
 
+    private String adderID;
+    private String userID;
+
     private MapView mapView;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private List<ReviewItem> reviewItems;
-    private ArrayList<CharSequence> reviewers;
     private int id = 1;
-    private final int POST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
 
+        // recycler view initialization
         recyclerView = (RecyclerView) findViewById(R.id.facilityScrollView);
         recyclerView.setHasFixedSize(true);  // every item in recyclerView has fixed size
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        reviewItems = new ArrayList<>();  // contains all the item that needs to be displayed
+        reviewItems = new ArrayList<>();
 
-        adapter = new ReviewAdapter(reviewItems);
+        adapter = new ReviewAdapter(getApplicationContext(),reviewItems);
         recyclerView.setAdapter(adapter);
 
-        String description = "";
+        isPost = (POST == type);
         reviewers = new ArrayList<>();
-        // Get data from database
+
+        // Handle JSON file from backend
         Bundle bundle = getIntent().getExtras();
+        userID = bundle.getString("userEmail");
         facilityId = bundle.getString("facility_id");
         type = bundle.getInt("facilityType");
-        isPost = (POST == type);
         String facilityInfo = bundle.getString("facility_json");
         Log.d(TAG,"type is "+type+", is Post: "+isPost);
         try {
             JSONObject facility = new JSONObject(facilityInfo);
-            try {
-                title = (String) facility.getJSONObject("facility").getString("facilityTitle");
-
-            }catch (JSONException e){
-                title = "FacilityActivity does not have field: title";
-                Log.d(TAG, "FacilityActivity does not have field: facilityTitle");
-            }
-
-            try {
-                description = (String) facility.getJSONObject("facility").getString("facilityDescription");
-
-            }catch (JSONException e){
-                description = "FacilityActivity does not have field: facilityDescription";
-                Log.d(TAG, "FacilityActivity does not have field: facilityDescription");
-            }
-
-            try {
-                adderID = facility.getString("adderID");
-            }catch (JSONException e){
-                adderID = "none";
-                Log.d(TAG, "FacilityActivity does not have field: adderID");
-            }
-
-            // Facility Image
-            String image;
-            try {
-                image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
-                if (Uri.parse(image) == null) {
-                    findViewById(R.id.imageView2).setVisibility(View.GONE);
-                } else {
-                    Uri uriImage = Uri.parse(image);
-                    Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2), new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Log.d(TAG, "image loaded successfully");
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-                            ImageView imageView = (ImageView)findViewById(R.id.imageView2);
-                            imageView.setVisibility(View.GONE);
-                        }
-                    });
-                }
-            }catch (JSONException e){
-                image = "none";
-                Log.d(TAG, "FacilityActivity does not have field: image");
-            }
-
-            reCreatePart1(facility);
-
+            loadFacilityTexts(facility);
+            loadFacilityImage(facility);
+            loadFacilityLocation(facility);
+            loadReviews(facility);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        // Facility Title
+        // Set Android Views
         TextView facilityTitle = findViewById(R.id.facilityTitle);
         facilityTitle.setText(title);
 
-        // Facility Description
         TextView facilityDescription = findViewById(R.id.facilityDescription);
         facilityDescription.setText(description);
 
-        reCreatePart2();
-
-        // Google Maps Location
-        if ((Double) latitude != null && (Double) longitude != null) {
-            mapView = findViewById(R.id.mapView);
-            mapView.getMapAsync(FacilityActivity.this);
-            mapView.onCreate(savedInstanceState);
-        }
-    }
-
-    private void reCreatePart1(JSONObject facility){
-        try {
-            rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
-        }catch (JSONException e){
-            rate = 0;
-            Log.d(TAG, "FacilityActivity does not have field: rate");
-        }
-
-        try {
-            numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
-        }catch (JSONException e){
-            numReviews = 0;
-            Log.d(TAG, "FacilityActivity does not have field: rate");
-        }
-
-        if (type != POST) {
-            try {
-                latitude = facility.getJSONObject("facility").getDouble("latitude");
-                longitude = facility.getJSONObject("facility").getDouble("longitude");
-            }catch (JSONException e){
-                latitude = 49.273570;
-                longitude = -123.241990;
-                Log.d(TAG, "FacilityActivity does not have field: latitude or longitude");
-            }
-        }
-
-        try {
-            HashMap<String, String> map = new HashMap<String, String>();
-
-            JSONArray jsonarray = facility.getJSONArray("reviews");
-            numReviews = (int) jsonarray.length();
-            for (int i = 0; i < jsonarray.length(); i++) {
-                JSONObject jsonobject = jsonarray.getJSONObject(i);
-                if(jsonobject.toString().equals("{}")){
-                    continue;
-                }
-                if(jsonobject.toString().equals("[]")){
-                    continue;
-                }
-                try{
-                    String replierID = (String) jsonobject.getString("replierID");
-                    if(reviewers.contains(replierID)){
-                        continue;
-                    }
-                    String userName = (String) jsonobject.getString("userName");
-                    double userRate = (double) jsonobject.getDouble("rateScore");
-                    int downVote = (int) jsonobject.getInt("downVotes");
-                    int upvote =  (int) jsonobject.getInt("upVotes");
-                    String comment = (String) jsonobject.getString("replyContent");
-                    String time = (String) jsonobject.getString("timeOfReply");
-                    String upVoteID = UUID.randomUUID().toString();
-                    String downVoteID = UUID.randomUUID().toString();
-                    ReviewItem reviewItem = new ReviewItem(userName, userName, replierID, time, comment, userRate, upvote, downVote, upVoteID, downVoteID, title, Integer.parseInt(facilityId), type, isPost);
-                    reviewItems.add(reviewItem);
-                    reviewers.add(replierID);
-                    //createUserReview((float) userRate, userName, replierID, comment, time, upvote, downVote, isPost);
-                    map.put(replierID,"1");
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-
-            }
-        }catch (JSONException e){
-            Log.d(TAG, "FacilityActivity does not have field: reviews");
-        }
-    }
-
-    private void reCreatePart2(){
-        // Facility Rate
         TextView facilityRate = findViewById(R.id.facilityRatingText);
         facilityRate.setText("★" + String.valueOf(rate));
 
-        // Rating bar
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
         ratingBar.setRating(rate);
 
-        // Facility Number of Reviews/Rates
         TextView facilityNumReviews = findViewById(R.id.facilityNumberOfRates);
         facilityNumReviews.setText(String.valueOf(numReviews) + " Reviews");
 
-        // Address
-        if (type != POST) {
-            Geocoder geocoder;
-            List<Address> addresses;
-            geocoder = new Geocoder(this, Locale.getDefault());
-            try {
-                if (geocoder.getFromLocation(latitude, longitude, 1) == null) {
-                    mapView.setVisibility(View.GONE);
-                    TextView addressView = (TextView) findViewById(R.id.facilityAddress);
-                    addressView.setText("Address not avaliable yet");
-                } else {
-                    addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-                    String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                    TextView addressView = (TextView) findViewById(R.id.facilityAddress);
-                    addressView.setText(address);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if ((Double) latitude != null && (Double) longitude != null) {
+            mapView = findViewById(R.id.mapView);
+            mapView.getMapAsync(FacilityActivity.this);
+            mapView.onCreate(savedInstanceState);
         }
 
-        // Rate Button
         Button rateButton = findViewById(R.id.rate_button);
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -316,6 +178,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
+        // Handler for Posts
         if (type == POST) {
             LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             marginParams.setMargins(0, 5, 0, 0);
@@ -329,6 +192,143 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             mapLayout.setVisibility(View.GONE);
             TextView comments = (TextView) findViewById(R.id.facilityReviewsTitle);
             comments.setText("Comments");
+        }
+
+    }
+
+    private void loadFacilityLocation(JSONObject facility){
+        if (type != POST) {
+            try {
+                latitude = facility.getJSONObject("facility").getDouble("latitude");
+                longitude = facility.getJSONObject("facility").getDouble("longitude");
+            }catch (JSONException e){
+                latitude = 49.273570;
+                longitude = -123.241990;
+                Log.d(TAG, "FacilityActivity does not have field: latitude or longitude");
+            }
+
+            Geocoder geocoder;
+            List<Address> addresses;
+            geocoder = new Geocoder(this, Locale.getDefault());
+            try {
+                if (geocoder.getFromLocation(latitude, longitude, 1) == null) {
+                    mapView.setVisibility(View.GONE);
+                    TextView addressView = (TextView) findViewById(R.id.facilityAddress);
+                    addressView.setText("Address not avaliable yet");
+                } else {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+                    String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+                    TextView addressView = (TextView) findViewById(R.id.facilityAddress);
+                    addressView.setText(address);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    private void loadReviews(JSONObject facility) {
+        try {
+            HashMap<String, String> map = new HashMap<String, String>();
+            JSONArray jsonarray = facility.getJSONArray("reviews");
+            numReviews = (int) jsonarray.length();
+            for (int i = 0; i < jsonarray.length(); i++) {
+                JSONObject jsonobject = jsonarray.getJSONObject(i);
+                if(jsonobject.toString().equals("{}")){
+                    continue;
+                }
+                if(jsonobject.toString().equals("[]")){
+                    continue;
+                }
+                try{
+                    String replierID = (String) jsonobject.getString("replierID");
+                    if(reviewers.contains(replierID)){
+                        continue;
+                    }
+                    String userName = (String) jsonobject.getString("userName");
+                    double userRate = (double) jsonobject.getDouble("rateScore");
+                    int downVote = (int) jsonobject.getInt("downVotes");
+                    int upvote =  (int) jsonobject.getInt("upVotes");
+                    String comment = (String) jsonobject.getString("replyContent");
+                    String time = (String) jsonobject.getString("timeOfReply");
+                    String upVoteID = UUID.randomUUID().toString();
+                    String downVoteID = UUID.randomUUID().toString();
+                    ReviewItem reviewItem = new ReviewItem(userName, userID, replierID, time, comment, userRate, upvote, downVote, upVoteID, downVoteID, title, Integer.parseInt(facilityId), type, isPost);
+                    reviewItems.add(reviewItem);
+                    reviewers.add(replierID);
+                    //createUserReview((float) userRate, userName, replierID, comment, time, upvote, downVote, isPost);
+                    map.put(replierID,"1");
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        }catch (JSONException e){
+            Log.d(TAG, "FacilityActivity does not have field: reviews");
+        }
+    }
+
+    private void loadFacilityImage(JSONObject facility) {
+        String image;
+        try {
+            image = (String) facility.getJSONObject("facility").getString("facilityImageLink");
+            if (Uri.parse(image) == null) {
+                findViewById(R.id.imageView2).setVisibility(View.GONE);
+            } else {
+                Uri uriImage = Uri.parse(image);
+                Picasso.get().load(uriImage).into((ImageView)findViewById(R.id.imageView2), new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d(TAG, "image loaded successfully");
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        ImageView imageView = (ImageView)findViewById(R.id.imageView2);
+                        imageView.setVisibility(View.GONE);
+                    }
+                });
+            }
+        }catch (JSONException e){
+            image = "none";
+            Log.d(TAG, "FacilityActivity does not have field: image");
+        }
+    }
+
+    private void loadFacilityTexts(JSONObject facility){
+        try {
+            title = (String) facility.getJSONObject("facility").getString("facilityTitle");
+        } catch (JSONException e){
+            title = "FacilityActivity does not have field: title";
+            Log.d(TAG, "FacilityActivity does not have field: facilityTitle");
+        }
+
+        try {
+            description = (String) facility.getJSONObject("facility").getString("facilityDescription");
+        } catch (JSONException e){
+            description = "FacilityActivity does not have field: facilityDescription";
+            Log.d(TAG, "FacilityActivity does not have field: facilityDescription");
+        }
+
+        try {
+            adderID = facility.getString("adderID");
+        } catch (JSONException e){
+            adderID = "none";
+            Log.d(TAG, "FacilityActivity does not have field: adderID");
+        }
+
+        try {
+            rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
+        } catch (JSONException e){
+            rate = 0;
+            Log.d(TAG, "FacilityActivity does not have field: rate");
+        }
+
+        try {
+            numReviews = (int) facility.getJSONObject("facility").getInt("numberOfRates");
+        } catch (JSONException e){
+            numReviews = 0;
+            Log.d(TAG, "FacilityActivity does not have field: rate");
         }
     }
 
@@ -573,8 +573,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                reCreatePart1(response);
-                reCreatePart2();
+                loadFacilityImage(response);
+                loadFacilityLocation(response);
+                loadFacilityTexts(response);
+                loadReviews(response);
             }
         }, new Response.ErrorListener() {
             @Override
