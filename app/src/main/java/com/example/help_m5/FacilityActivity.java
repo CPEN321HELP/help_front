@@ -2,6 +2,9 @@ package com.example.help_m5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -30,6 +33,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.help_m5.chat.ChatAdapter;
+import com.example.help_m5.chat.ChatItem;
+import com.example.help_m5.reviews.ReviewAdapter;
+import com.example.help_m5.reviews.ReviewItem;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -43,9 +50,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.UUID;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -60,19 +69,11 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private double latitude;
     private double longitude;
     private boolean isPost;
-//    private Button rateButton;
-//    private Button reportFacilityButton;
-//    private MapView mapView;
-//    private GoogleMap mMap;
-//    private ArrayList<CharSequence> reviewers;
-//    private int id = 1;
-//    private final int UPVOTE_BASE_ID = 10000000;
-//    private final int DOWNVOTE_BASE_ID = 20000000;
-//    private final int UPVOTE_TEXTVIEW_BASE_ID = 30000000;
-//    private final int DOWNVOTE_TEXTVIEW_BASE_ID = 40000000;
-//    private final int REPORT_BUTTON_BASE_ID = 50000000;
-//    private final int POST = 0;
+
     private MapView mapView;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter adapter;
+    private List<ReviewItem> reviewItems;
     private ArrayList<CharSequence> reviewers;
     private int id = 1;
     private final int POST = 0;
@@ -81,6 +82,16 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
+
+        recyclerView = (RecyclerView) findViewById(R.id.facilityScrollView);
+        recyclerView.setHasFixedSize(true);  // every item in recyclerView has fixed size
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        reviewItems = new ArrayList<>();  // contains all the item that needs to be displayed
+
+        adapter = new ReviewAdapter(reviewItems);
+        recyclerView.setAdapter(adapter);
+
         String description = "";
         reviewers = new ArrayList<>();
         // Get data from database
@@ -156,21 +167,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityDescription.setText(description);
 
         reCreatePart2();
-        /*
-        for (int i = 1; i < id; i++) {
-            CheckBox checkUpvote = (CheckBox) findViewById(UPVOTE_BASE_ID + i);
-            boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
-                    .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + i), false);
-            checkUpvote.setOnCheckedChangeListener(null);
-            checkUpvote.setChecked(checkedUp);
 
-            CheckBox checkDownvote = (CheckBox) findViewById(DOWNVOTE_BASE_ID + i);
-            boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
-                    .getBoolean("downVote"+String.valueOf(DOWNVOTE_BASE_ID + i), false);
-            checkDownvote.setOnCheckedChangeListener(null);
-            checkDownvote.setChecked(checkedDown);
-        }
-        */
         // Google Maps Location
         if ((Double) latitude != null && (Double) longitude != null) {
             mapView = findViewById(R.id.mapView);
@@ -229,7 +226,12 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                     int upvote =  (int) jsonobject.getInt("upVotes");
                     String comment = (String) jsonobject.getString("replyContent");
                     String time = (String) jsonobject.getString("timeOfReply");
-                    createUserReview((float) userRate, userName, replierID, comment, time, upvote, downVote, isPost);
+                    String upVoteID = UUID.randomUUID().toString();
+                    String downVoteID = UUID.randomUUID().toString();
+                    ReviewItem reviewItem = new ReviewItem(userName, userName, replierID, time, comment, userRate, upvote, downVote, upVoteID, downVoteID, title, Integer.parseInt(facilityId), type, isPost);
+                    reviewItems.add(reviewItem);
+                    reviewers.add(replierID);
+                    //createUserReview((float) userRate, userName, replierID, comment, time, upvote, downVote, isPost);
                     map.put(replierID,"1");
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -255,8 +257,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         // Facility Number of Reviews/Rates
         TextView facilityNumReviews = findViewById(R.id.facilityNumberOfRates);
         facilityNumReviews.setText(String.valueOf(numReviews) + " Reviews");
-
-
 
         // Address
         if (type != POST) {

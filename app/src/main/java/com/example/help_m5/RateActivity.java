@@ -133,7 +133,11 @@ public class RateActivity extends AppCompatActivity {
                                     try {
                                         String result = response.getString("result");
                                         if (result.equals("already_exist")) {
-                                            Toast.makeText(getApplicationContext(), "You have reviewed in the past.", Toast.LENGTH_SHORT).show();
+                                            if (facilityType == POST) {
+                                                Toast.makeText(getApplicationContext(), "You have commented in the past.", Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "You have reviewed in the past.", Toast.LENGTH_SHORT).show();
+                                            }
 
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();

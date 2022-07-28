@@ -12,6 +12,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertSame;
@@ -20,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.test.InstrumentationRegistry;
@@ -54,7 +56,7 @@ public class ReviewFacilityTests {
             new ActivityScenarioRule<FacilityActivity>(intent);
 
     @Test
-    public void testRateButton() {
+    public void testRateAndCancelButton() {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
@@ -70,46 +72,70 @@ public class ReviewFacilityTests {
         onView(withId(R.id.submit_button)).perform(click());
         onView(withText("Please do not submit an empty form")).inRoot(new ToastMatcher())
                 .check(matches(withText("Please do not submit an empty form")));
+
+        onView(withId(R.id.cancel_button_review)).perform(click());
     }
 
     @Test
-    public void testPartialSubmission() {
+    public void testPartialSubmissionRating() {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Very good! Great overall experience"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button)).perform(click());
         onView(withText("Please rate the facility from 0.5 to 5")).inRoot(new ToastMatcher())
                 .check(matches(withText("Please rate the facility from 0.5 to 5")));
 
-        onView(withId(R.id.editTextTextMultiLine)).perform(typeText(""));
+        onView(withId(R.id.cancel_button_review)).perform(click());
+    }
+
+    @Test
+    public void testPartialSubmissionComment() {
+        onView(withId(R.id.rate_button)).perform(click());
+        onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
+
         onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
         onView(withId(R.id.submit_button)).perform(click());
         onView(withText("Please add a comment")).inRoot(new ToastMatcher())
                 .check(matches(withText("Please add a comment")));
+
+        onView(withId(R.id.cancel_button_review)).perform(click());
     }
 
     @Test
-    public void testFullSubmission() {
+    public void testFullSubmission() throws InterruptedException {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
         onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Very good! Great overall experience"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button)).perform(click());
 
         onView(withText("Success!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Success!")));
 
+        Thread.sleep(2000);
+
+        onView(withId(R.id.facilityNumberOfRates)).check(matches(withText(containsString("1"))));
+        onView(withId(R.id.facilityRatingText)).check(matches(withText(containsString("★3"))));
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
         onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Very good! Great overall experience"));
+        Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button)).perform(click());
 
         onView(withText("You have reviewed in the past.")).inRoot(new ToastMatcher())
                 .check(matches(withText("You have reviewed in the past.")));
+
+        Thread.sleep(2000);
+
+        onView(withId(R.id.facilityNumberOfRates)).check(matches(withText(containsString("1"))));
+        onView(withId(R.id.facilityRatingText)).check(matches(withText(containsString("★3"))));
+
     }
 
     private String getResourceString(int id) {
