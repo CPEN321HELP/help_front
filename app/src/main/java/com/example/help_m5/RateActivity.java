@@ -66,12 +66,7 @@ public class RateActivity extends AppCompatActivity {
         userEmail = userAccount.getEmail();
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            public void onRatingChanged(RatingBar ratingBar, float rating,
-                                        boolean fromUser) {
-                rate = rating;
-            }
-        });
+
         if (facilityType == POST) {
             ratingBar.setVisibility(View.INVISIBLE);
             TextView textTitle = (TextView) findViewById(R.id.RateFacilityTitle);
@@ -107,7 +102,7 @@ public class RateActivity extends AppCompatActivity {
                     paramsComment.put("user_id", userEmail);
                     paramsComment.put("replyContent", editText.getText().toString());
                     paramsComment.put("username", userAccount.getDisplayName());
-                    paramsComment.put("rateScore", String.valueOf(rate));
+                    paramsComment.put("rateScore", String.valueOf(ratingBar.getRating()));
 
                     //for add credit
                     paramsComment.put("AdditionType", "comment");
@@ -145,6 +140,7 @@ public class RateActivity extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
+                                    finish();
                                 }
                             },
                             new Response.ErrorListener() {
@@ -168,12 +164,15 @@ public class RateActivity extends AppCompatActivity {
                     //                    }
                     //                }, 2000);
 
+                    /*
                     Handler handler2 = new Handler();
                     handler2.postDelayed(new Runnable() {
                         public void run() {
                             finish();
                         }
                     }, 1000);
+
+                     */
                 }
             }
         });

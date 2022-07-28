@@ -1,40 +1,22 @@
 package com.example.help_m5.manageFacilityTests;
 
-import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.intent.Intents.intended;
-import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withTagValue;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 
-import androidx.lifecycle.Lifecycle;
 import androidx.test.InstrumentationRegistry;
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.rule.ActivityTestRule;
 
 import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
@@ -45,7 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class ReviewFacilityTests {
+public class ReportCommentTests {
 
     @Rule
     public ActivityScenarioRule<FacilityActivity> mActivityRule =
@@ -91,7 +73,7 @@ public class ReviewFacilityTests {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Great overall experience!"));
+        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Very good! Great overall experience"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button)).perform(click());
         onView(withText("Please rate the facility from 0.5 to 5")).inRoot(new ToastMatcher())
@@ -119,37 +101,33 @@ public class ReviewFacilityTests {
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
-        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Great overall experience!"));
+        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Very good! Great overall experience"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button)).perform(click());
 
-        /*
         onView(withText("Success!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Success!")));
-         */
 
-        onView(withText("You have reviewed in the past.")).inRoot(new ToastMatcher())
-                .check(matches(withText("You have reviewed in the past.")));
-
-        Thread.sleep(3000);
+        Thread.sleep(2000);
 
         onView(withId(R.id.facilityNumberOfRates)).check(matches(withText(containsString("1"))));
-        onView(withId(R.id.facilityRatingText)).check(matches(withText(containsString("3"))));
-        onView(withId(R.id.facilityRecyclerView)).perform(RecyclerViewActions.scrollToPosition(0));
-        //onData(withId(R.id.facilityRecyclerView)).perform(matches(RecyclerViewActions.actionOnItemAtPosition(0, )))
-
-        onView(withId(R.id.userDescriptionView)).check(matches(withText("Great overall experience!")));
+        onView(withId(R.id.facilityRatingText)).check(matches(withText(containsString("★3"))));
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
-        onView(withId(R.id.editTextTextMultiLine))
-                .perform(typeText("Great overall experience!"));
+        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Very good! Great overall experience"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button)).perform(click());
 
         onView(withText("You have reviewed in the past.")).inRoot(new ToastMatcher())
                 .check(matches(withText("You have reviewed in the past.")));
+
+        Thread.sleep(2000);
+
+        onView(withId(R.id.facilityNumberOfRates)).check(matches(withText(containsString("1"))));
+        onView(withId(R.id.facilityRatingText)).check(matches(withText(containsString("★3"))));
+
     }
 
     private String getResourceString(int id) {

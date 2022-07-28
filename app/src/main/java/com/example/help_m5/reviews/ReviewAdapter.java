@@ -23,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.ReportActivity;
 
@@ -67,8 +68,17 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         }
         holder.userDescriptionView.setText(reviewItem.getUserDescription());
 
-        holder.upVoteCountView.setText(reviewItem.getUpVoteCount());
-        holder.downVoteCountView.setText(reviewItem.getDownVoteCount());
+        holder.upVoteCountView.setText(String.valueOf(reviewItem.getUpVoteCount()));
+        holder.downVoteCountView.setText(String.valueOf(reviewItem.getDownVoteCount()));
+
+        /*
+        boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + id), false);
+        if (checkedUp) {
+            holder.upVoteView.setChecked(checkedUp);
+        }
+
+         */
 
         holder.upVoteView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
@@ -90,7 +100,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         holder.downVoteView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityId()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "down", "pend");
-                holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) - 1));
+                holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
                         .putBoolean(reviewItem.getDownVoteId(), true).commit();
                 if (holder.upVoteView.isChecked()) {
@@ -98,7 +108,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                 }
             } else {
                 AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityId()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "down", "cancel");
-                holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) + 1));
+                holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
                         .putBoolean(reviewItem.getDownVoteId(), false).commit();
             }
@@ -116,9 +126,9 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                 bundle.putString("report_type", "5"); //5 means report comment
                 bundle.putString("reportedUserId", reviewItem.getReportedUserEmail());
                 reportIntent.putExtras(bundle);
-                Activity activity = (Activity) context;
+                reportIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(reportIntent);
-                activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }

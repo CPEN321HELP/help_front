@@ -139,7 +139,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/facilityScrollView"
+            android:id="@+id/facilityRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"/>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:elevation="300dp"
+    android:background="#FFFFFF">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,9 +15,7 @@
             android:orientation="vertical"
             android:layout_marginHorizontal="15dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:elevation="30dp"
-            android:backgroundTint="@color/white">
+            android:layout_marginBottom="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -109,16 +109,6 @@
                     android:text="Report"/>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:backgroundTint="@color/white">
-
-
-            </LinearLayout>
-
 
         </LinearLayout>
 

@@ -89,7 +89,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.activity_facility);
 
         // recycler view initialization
-        recyclerView = (RecyclerView) findViewById(R.id.facilityScrollView);
+        recyclerView = (RecyclerView) findViewById(R.id.facilityRecyclerView);
         recyclerView.setHasFixedSize(true);  // every item in recyclerView has fixed size
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -98,15 +98,14 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         adapter = new ReviewAdapter(getApplicationContext(),reviewItems);
         recyclerView.setAdapter(adapter);
 
-        isPost = (POST == type);
-        reviewers = new ArrayList<>();
-
         // Handle JSON file from backend
         Bundle bundle = getIntent().getExtras();
         userID = bundle.getString("userEmail");
         facilityId = bundle.getString("facility_id");
         type = bundle.getInt("facilityType");
         String facilityInfo = bundle.getString("facility_json");
+        isPost = (POST == type);
+        reviewers = new ArrayList<>();
         Log.d(TAG,"type is "+type+", is Post: "+isPost);
         try {
             JSONObject facility = new JSONObject(facilityInfo);
@@ -252,8 +251,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                     int upvote =  (int) jsonobject.getInt("upVotes");
                     String comment = (String) jsonobject.getString("replyContent");
                     String time = (String) jsonobject.getString("timeOfReply");
-                    String upVoteID = UUID.randomUUID().toString();
-                    String downVoteID = UUID.randomUUID().toString();
+                    String upVoteID = "upVote"+title+String.valueOf(i);
+                    String downVoteID = "downVote"+title+String.valueOf(i);
                     ReviewItem reviewItem = new ReviewItem(userName, userID, replierID, time, comment, userRate, upvote, downVote, upVoteID, downVoteID, title, Integer.parseInt(facilityId), type, isPost);
                     reviewItems.add(reviewItem);
                     reviewers.add(replierID);
