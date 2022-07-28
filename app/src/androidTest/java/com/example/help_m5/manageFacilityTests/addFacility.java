@@ -10,6 +10,8 @@ import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import com.example.help_m5.R;
 import com.example.help_m5.ui.add_facility.AddFacilityFragment;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,6 +53,25 @@ public class addFacility {
         Espresso.onView(ViewMatchers.withId(R.id.imageFacilityDescription)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("good"))));
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.scrollTo());
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
+    }
+
+    @Test
+    public void testSpinnerPost(){
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityType)).perform(ViewActions.scrollTo(), ViewActions.click());
+        Espresso.onData(Matchers.anything()).atPosition(1).perform(ViewActions.click());
+        try {
+            Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.scrollTo());
+            Assert.fail();
+        }catch (Exception e){
+            //should go here since it is not visible so can not be scrollTo
+        }
+    }
+
+    @Test
+    public void testSpinnerNotPost(){
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityType)).perform(ViewActions.scrollTo(), ViewActions.click());
+        Espresso.onData(Matchers.anything()).atPosition(2).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.scrollTo());
     }
 
     @Test
