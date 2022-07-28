@@ -34,7 +34,7 @@ public class onSpecific {
             new ActivityScenarioRule<FacilityActivity>(intent);
 
     @Test
-    public void testRateButton() throws InterruptedException {
+    public void specificFacilityShowTest() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.facilityTitle)).check(ViewAssertions.matches(ViewMatchers.withText(containsString("test Title"))));
         Espresso.onView(ViewMatchers.withId(R.id.facilityDescription)).check(ViewAssertions.matches(ViewMatchers.withText(containsString("Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options."))));
         Espresso.onView(ViewMatchers.withId(R.id.facilityAddress)).check(ViewAssertions.matches(ViewMatchers.withText(("5728 University Blvd, Vancouver, BC V6T 1K6, Canada"))));

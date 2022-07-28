@@ -44,7 +44,19 @@ public class bySearching {
     }
 
     @Test
+    public void testRefreshButtonIconChange(){
+        Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("refresh"))));
+        Espresso.onView(ViewMatchers.withId(R.id.searchFacility)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.searchFacility)).perform(ViewActions.typeText("a"));
+        Espresso.onView(ViewMatchers.withId(R.id.searchFacility)).perform(ViewActions.closeSoftKeyboard());
+        Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("close"))));
+    }
+
+    @Test
     public void testNoResult(){
+        Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
+
         Assert.assertTrue(testNoResultHelper(posts,3));
         Assert.assertTrue(testNoResultHelper(restaurants,2));
         Assert.assertTrue(testNoResultHelper(study,1));
@@ -60,9 +72,13 @@ public class bySearching {
             Espresso.onView(ViewMatchers.withId(R.id.searchFacility)).perform(ViewActions.typeText("a"));
             Espresso.onView(ViewMatchers.withId(R.id.searchFacility)).perform(ViewActions.closeSoftKeyboard());
             Espresso.onView(ViewMatchers.withId(R.id.facility1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.facility2)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.facility3)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.facility4)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
+            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.facility5)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
             return true;
         }catch (Exception e){
@@ -112,102 +128,73 @@ public class bySearching {
         }
     }
 
+
     @Test
-    public void TestSearchAndChangeSpinner(){
-        //this test page up, page down, refresh,
-        Assert.assertTrue(entertainmentsTests());
-        Assert.assertTrue(studyTests());
-        Assert.assertTrue(restaurantsTests());
-        Assert.assertTrue(postsTests());
+    public void entertainmentsTests(){
+        Assert.assertTrue(createJsonForTesting(11, entertainments, true));
+        Assert.assertTrue(testSpinnerAndSearch(3));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(entertainments, "11",true));
+        Assert.assertTrue(testFacilitySearch5Show(entertainments, "7",true));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(entertainments, "6",true));
+        Assert.assertTrue(testFacilitySearch5Show(entertainments, "2",true));
+        Assert.assertTrue(createJsonForTesting(11, entertainments, false));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(entertainments, "11",false));
+        Assert.assertTrue(testFacilitySearch5Show(entertainments, "7",false));
     }
 
-    private boolean entertainmentsTests(){
-        try{
-            Assert.assertTrue(createJsonForTesting(11, entertainments, true));
-            Assert.assertTrue(testSpinnerAndSearch(3));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
-            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(entertainments, "11",true));
-            Assert.assertTrue(testFacilitySearch5Show(entertainments, "7",true));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(entertainments, "6",true));
-            Assert.assertTrue(testFacilitySearch5Show(entertainments, "2",true));
-            Assert.assertTrue(createJsonForTesting(11, entertainments, false));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(entertainments, "11",false));
-            Assert.assertTrue(testFacilitySearch5Show(entertainments, "7",false));
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
+    @Test
+    public void studyTests(){
+        Assert.assertTrue(createJsonForTesting(11, study, true));
+        Assert.assertTrue(testSpinnerAndSearch(2));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(study, "11",true));
+        Assert.assertTrue(testFacilitySearch5Show(study, "7",true));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(study, "6",true));
+        Assert.assertTrue(testFacilitySearch5Show(study, "2",true));
+        Assert.assertTrue(createJsonForTesting(11, study, false));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(study, "11",false));
+        Assert.assertTrue(testFacilitySearch5Show(study, "7",false));
     }
 
-    private boolean studyTests(){
-        try{
-            Assert.assertTrue(createJsonForTesting(11, study, true));
-            Assert.assertTrue(testSpinnerAndSearch(2));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(study, "11",true));
-            Assert.assertTrue(testFacilitySearch5Show(study, "7",true));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(study, "6",true));
-            Assert.assertTrue(testFacilitySearch5Show(study, "2",true));
-            Assert.assertTrue(createJsonForTesting(11, study, false));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(study, "11",false));
-            Assert.assertTrue(testFacilitySearch5Show(study, "7",false));
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
+    @Test
+    public void restaurantsTests(){
+        Assert.assertTrue(createJsonForTesting(11, restaurants, true));
+        Assert.assertTrue(testSpinnerAndSearch(1));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(restaurants, "11",true));
+        Assert.assertTrue(testFacilitySearch5Show(restaurants, "7",true));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(restaurants, "6",true));
+        Assert.assertTrue(testFacilitySearch5Show(restaurants, "2",true));
+        Assert.assertTrue(createJsonForTesting(11, restaurants, false));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(restaurants, "11",false));
+        Assert.assertTrue(testFacilitySearch5Show(restaurants, "7",false));
     }
 
-    private boolean restaurantsTests(){
-        try{
-            Assert.assertTrue(createJsonForTesting(11, restaurants, true));
-            Assert.assertTrue(testSpinnerAndSearch(1));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(restaurants, "11",true));
-            Assert.assertTrue(testFacilitySearch5Show(restaurants, "7",true));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(restaurants, "6",true));
-            Assert.assertTrue(testFacilitySearch5Show(restaurants, "2",true));
-            Assert.assertTrue(createJsonForTesting(11, restaurants, false));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(restaurants, "11",false));
-            Assert.assertTrue(testFacilitySearch5Show(restaurants, "7",false));
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    private boolean postsTests(){
-        try{
-            Assert.assertTrue(createJsonForTesting(11, posts, true));
-            Assert.assertTrue(testSpinnerAndSearch(0));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-            Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(posts, "11",true));
-            Assert.assertTrue(testFacilitySearch5Show(posts, "7",true));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(posts, "6",true));
-            Assert.assertTrue(testFacilitySearch5Show(posts, "2",true));
-            Assert.assertTrue(createJsonForTesting(11, posts, false));
-            Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
-            Assert.assertTrue(testFacilitySearch1Show(posts, "11",false));
-            Assert.assertTrue(testFacilitySearch5Show(posts, "7",false));
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
+    @Test
+    public void postsTests(){
+        Assert.assertTrue(createJsonForTesting(11, posts, true));
+        Assert.assertTrue(testSpinnerAndSearch(0));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(posts, "11",true));
+        Assert.assertTrue(testFacilitySearch5Show(posts, "7",true));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(posts, "6",true));
+        Assert.assertTrue(testFacilitySearch5Show(posts, "2",true));
+        Assert.assertTrue(createJsonForTesting(11, posts, false));
+        Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
+        Assert.assertTrue(testFacilitySearch1Show(posts, "11",false));
+        Assert.assertTrue(testFacilitySearch5Show(posts, "7",false));
     }
 
     private boolean testSpinnerAndSearch(int indexSpinner){
