@@ -1,11 +1,8 @@
 package com.example.help_m5.findFacilityTests;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.action.ViewActions.click;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.withId;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.espresso.matcher.ViewMatchers;
 
 import static org.hamcrest.CoreMatchers.containsString;
 
@@ -21,7 +18,7 @@ import com.example.help_m5.R;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class onSpecificTests {
+public class onSpecific {
     static Intent intent;
     static {
         intent = new Intent(ApplicationProvider.getApplicationContext(), FacilityActivity.class);
@@ -38,10 +35,9 @@ public class onSpecificTests {
 
     @Test
     public void testRateButton() throws InterruptedException {
-        onView(withId(R.id.facilityTitle)).check(matches(withText(containsString("test Title"))));
-        onView(withId(R.id.facilityDescription)).check(matches(withText(containsString("Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options."))));
-        onView(withId(R.id.facilityAddress)).check(matches(withText(("5728 University Blvd, Vancouver, BC V6T 1K6, Canada"))));
+        Espresso.onView(ViewMatchers.withId(R.id.facilityTitle)).check(ViewAssertions.matches(ViewMatchers.withText(containsString("test Title"))));
+        Espresso.onView(ViewMatchers.withId(R.id.facilityDescription)).check(ViewAssertions.matches(ViewMatchers.withText(containsString("Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options."))));
+        Espresso.onView(ViewMatchers.withId(R.id.facilityAddress)).check(ViewAssertions.matches(ViewMatchers.withText(("5728 University Blvd, Vancouver, BC V6T 1K6, Canada"))));
         Thread.sleep(10000);
-
     }
 }
