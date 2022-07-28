@@ -15,7 +15,7 @@ import com.example.help_m5.ui.add_facility.AddFacilityFragment;
 import org.junit.Before;
 import org.junit.Test;
 
-public class addFacilityTests {
+public class addFacility {
     FragmentScenario<AddFacilityFragment> mfragment;
     @Before
     public void setUp() throws Exception {

@@ -24,7 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class bySearchingTests {
+public class bySearching {
         /*
         In order to test the facility shows up in correct place with expected content,
         please use the predefined json files in the folder name "JsonForTesting"
