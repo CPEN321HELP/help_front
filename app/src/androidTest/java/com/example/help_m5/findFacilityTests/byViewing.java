@@ -54,11 +54,6 @@ public class byViewing {
         Assert.assertTrue(testNoResultHelper(restaurants,2));
         Assert.assertTrue(testNoResultHelper(study,1));
         Assert.assertTrue(testNoResultHelper(posts,0));
-        try{
-            Thread.sleep(11111);
-        }catch (Exception e){
-
-        }
     }
 
     public boolean testNoResultHelper(int facility_type, int indexSpinner){
