@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
-public class byViewing {
+public class FindByViewingTests {
 
     /*
         In order to test the facility shows up in correct place with expected content,

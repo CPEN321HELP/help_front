@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class addFacility {
+public class AddFacilityTests {
     FragmentScenario<AddFacilityFragment> mfragment;
     @Before
     public void setUp() throws Exception {

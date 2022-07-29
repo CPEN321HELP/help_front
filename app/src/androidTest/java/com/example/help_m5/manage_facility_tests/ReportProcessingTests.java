@@ -25,7 +25,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class processReports {
+public class ReportProcessingTests {
     FragmentScenario<ReportFragment> mfragment;
     DatabaseConnection db;
 

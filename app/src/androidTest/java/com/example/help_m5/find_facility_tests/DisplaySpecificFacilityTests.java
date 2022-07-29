@@ -18,7 +18,7 @@ import com.example.help_m5.R;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class onSpecific {
+public class DisplaySpecificFacilityTests {
     static Intent intent;
     static {
         intent = new Intent(ApplicationProvider.getApplicationContext(), FacilityActivity.class);
