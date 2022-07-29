@@ -85,6 +85,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         // Handle JSON file from backend
         Bundle bundle = getIntent().getExtras();
         String facilityInfo = bundle.getString("facility_json");
+        System.out.println(facilityInfo);
         userID = bundle.getString("userEmail");
         facilityId = bundle.getString("facility_id");
         type = bundle.getInt("facilityType");
