@@ -246,7 +246,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                     String time = (String) jsonobject.getString("timeOfReply");
                     String upVoteID = "upVote"+title+String.valueOf(i);
                     String downVoteID = "downVote"+title+String.valueOf(i);
-                    ReviewItem reviewItem = new ReviewItem(userName, userID, replierID, time, comment, userRate, upvote, downVote, upVoteID, downVoteID, title, Integer.parseInt(facilityId), type, isPost);
+                    ReviewItem reviewItem = new ReviewItem(userName, userID, replierID, time, comment, userRate, upvote, downVote, title, Integer.parseInt(facilityId), type, isPost);
                     reviewItems.add(reviewItem);
                     reviewers.add(replierID);
                     //createUserReview((float) userRate, userName, replierID, comment, time, upvote, downVote, isPost);

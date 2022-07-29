@@ -10,15 +10,13 @@ public class ReviewItem {
 
     private int upVoteCount;
     private int downVoteCount;
-    private String upVoteId;
-    private String downVoteId;
 
     private String title;
     private int facilityId;
     private int facilityType;
     private boolean post;
 
-    public ReviewItem(String userName, String userEmail, String reportedUserEmail, String userDate, String userDescription, double userRate, int upVoteCount, int downVoteCount, String upVoteId, String downVoteId, String title, int facilityId, int facilityType, boolean post) {
+    public ReviewItem(String userName, String userEmail, String reportedUserEmail, String userDate, String userDescription, double userRate, int upVoteCount, int downVoteCount, String title, int facilityId, int facilityType, boolean post) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.reportedUserEmail = reportedUserEmail;
@@ -27,8 +25,6 @@ public class ReviewItem {
         this.userRate = userRate;
         this.upVoteCount = upVoteCount;
         this.downVoteCount = downVoteCount;
-        this.upVoteId = upVoteId;
-        this.downVoteId = downVoteId;
         this.title = title;
         this.facilityId = facilityId;
         this.facilityType = facilityType;
@@ -83,11 +79,4 @@ public class ReviewItem {
         return post;
     }
 
-    public String getUpVoteId() {
-        return upVoteId;
-    }
-
-    public String getDownVoteId() {
-        return downVoteId;
-    }
 }

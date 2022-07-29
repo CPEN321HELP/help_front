@@ -72,21 +72,24 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         holder.upVoteCountView.setText(String.valueOf(reviewItem.getUpVoteCount()));
         holder.downVoteCountView.setText(String.valueOf(reviewItem.getDownVoteCount()));
 
-        /*
         boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + id), false);
+                .getBoolean("upvote"+reviewItem.getTitle()+String.valueOf(position), false);
         if (checkedUp) {
             holder.upVoteView.setChecked(checkedUp);
         }
 
-         */
+        boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean("downvote"+reviewItem.getTitle()+String.valueOf(position), false);
+        if (checkedDown) {
+            holder.upVoteView.setChecked(checkedDown);
+        }
 
         holder.upVoteView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityType()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "up", "pend");
                 holder.upVoteCountView.setText(String.valueOf(Integer.parseInt(holder.upVoteCountView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                        .putBoolean(reviewItem.getUpVoteId(), true).apply();
+                        .putBoolean("upvote"+reviewItem.getTitle()+String.valueOf(position), true).apply();
                 if (holder.downVoteView.isChecked()) {
                     holder.downVoteView.setChecked(false);
                 }
@@ -94,7 +97,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                 AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityType()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "up", "cancel");
                 holder.upVoteCountView.setText(String.valueOf(Integer.parseInt(holder.upVoteCountView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                        .putBoolean(reviewItem.getUpVoteId(), false).apply();
+                        .putBoolean("upvote"+reviewItem.getTitle()+String.valueOf(position), false).apply();
             }
         });
 
@@ -103,7 +106,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                 AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityId()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "down", "pend");
                 holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                        .putBoolean(reviewItem.getDownVoteId(), true).commit();
+                        .putBoolean("downvote"+reviewItem.getTitle()+String.valueOf(position), true).apply();
                 if (holder.upVoteView.isChecked()) {
                     holder.upVoteView.setChecked(false);
                 }
@@ -111,7 +114,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                 AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityId()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "down", "cancel");
                 holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                        .putBoolean(reviewItem.getDownVoteId(), false).commit();
+                        .putBoolean("downvote"+reviewItem.getTitle()+String.valueOf(position), false).apply();
             }
 
         });

@@ -24,7 +24,6 @@ public class ReportActivity extends AppCompatActivity {
 
     private static final String TAG = "ReportActivity";
     private String vm_ip ;
-    private Button submitButton;
     private String userEmail;
     private String reportedUserEmail;
     private String report_type;
@@ -50,7 +49,7 @@ public class ReportActivity extends AppCompatActivity {
 
         EditText editText = findViewById(R.id.editTextReport);
 
-        submitButton = findViewById(R.id.submit_button_report);
+        Button submitButton = findViewById(R.id.submit_button_report);
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

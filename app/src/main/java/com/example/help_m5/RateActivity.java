@@ -37,7 +37,6 @@ public class RateActivity extends AppCompatActivity {
 
     private GoogleSignInAccount userAccount;
     private String userEmail;
-    private Button submitButton;
     private String facilityId;
     private int facilityType;
     private List<CharSequence> reviewers;
@@ -72,7 +71,7 @@ public class RateActivity extends AppCompatActivity {
 
         EditText editText = findViewById(R.id.editTextTextMultiLine);
 
-        submitButton = findViewById(R.id.submit_button_review);
+        Button submitButton = findViewById(R.id.submit_button_review);
         submitButton.setTextColor(Color.parseColor("#dbba00"));
         submitButton.setEnabled(true);
         submitButton.setOnClickListener(new View.OnClickListener() {
