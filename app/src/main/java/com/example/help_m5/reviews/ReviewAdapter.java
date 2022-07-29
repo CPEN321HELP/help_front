@@ -59,9 +59,17 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ReviewAdapter.ViewHolder holder, int position) {
         ReviewItem reviewItem = reviewItems.get(position);
 
+        String getTitle = reviewItem.getFacilityInformation().get(0);
+        int getFacilityId = Integer.parseInt(reviewItem.getFacilityInformation().get(1));
+        int getFacilityType = Integer.parseInt(reviewItem.getFacilityInformation().get(2));
+        boolean isPost = (reviewItem.getFacilityInformation().get(3).equals("true"));
+
+        int getUpVoteCount = reviewItem.getVoteCounts().get(0);
+        int getDownVoteCount = reviewItem.getVoteCounts().get(1);
+
         holder.userNameView.setText(reviewItem.getUserName());
         holder.userDateView.setText(reviewItem.getUserDate());
-        if (reviewItem.isPost()) {
+        if (isPost) {
             holder.userRateView.setVisibility(View.GONE);
         } else {
             holder.userRateView.setVisibility(View.VISIBLE);
@@ -69,52 +77,52 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         }
         holder.userDescriptionView.setText(reviewItem.getUserDescription());
 
-        holder.upVoteCountView.setText(String.valueOf(reviewItem.getUpVoteCount()));
-        holder.downVoteCountView.setText(String.valueOf(reviewItem.getDownVoteCount()));
+        holder.upVoteCountView.setText(String.valueOf(getUpVoteCount));
+        holder.downVoteCountView.setText(String.valueOf(getDownVoteCount));
 
         boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("upvote"+reviewItem.getTitle()+String.valueOf(position), false);
+                .getBoolean("upvote"+getTitle+String.valueOf(position), false);
         if (checkedUp) {
             holder.upVoteView.setChecked(checkedUp);
         }
 
         boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(context)
-                .getBoolean("downvote"+reviewItem.getTitle()+String.valueOf(position), false);
+                .getBoolean("downvote"+getTitle+String.valueOf(position), false);
         if (checkedDown) {
-            holder.upVoteView.setChecked(checkedDown);
+            holder.downVoteView.setChecked(checkedDown);
         }
 
         holder.upVoteView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityType()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "up", "pend");
+                AdjustVote(buttonView.getContext(), String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getUserEmail(), "up", "pend");
                 holder.upVoteCountView.setText(String.valueOf(Integer.parseInt(holder.upVoteCountView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                        .putBoolean("upvote"+reviewItem.getTitle()+String.valueOf(position), true).apply();
+                        .putBoolean("upvote"+getTitle+String.valueOf(position), true).apply();
                 if (holder.downVoteView.isChecked()) {
                     holder.downVoteView.setChecked(false);
                 }
             } else {
-                AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityType()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "up", "cancel");
+                AdjustVote(buttonView.getContext(), String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getUserEmail(), "up", "cancel");
                 holder.upVoteCountView.setText(String.valueOf(Integer.parseInt(holder.upVoteCountView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                        .putBoolean("upvote"+reviewItem.getTitle()+String.valueOf(position), false).apply();
+                        .putBoolean("upvote"+getTitle+String.valueOf(position), false).apply();
             }
         });
 
         holder.downVoteView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityId()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "down", "pend");
+                AdjustVote(buttonView.getContext(), String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getUserEmail(), "down", "pend");
                 holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                        .putBoolean("downvote"+reviewItem.getTitle()+String.valueOf(position), true).apply();
+                        .putBoolean("downvote"+getTitle+String.valueOf(position), true).apply();
                 if (holder.upVoteView.isChecked()) {
                     holder.upVoteView.setChecked(false);
                 }
             } else {
-                AdjustVote(buttonView.getContext(), String.valueOf(reviewItem.getFacilityId()), String.valueOf(reviewItem.getFacilityId()), reviewItem.getUserEmail(), "down", "cancel");
+                AdjustVote(buttonView.getContext(), String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getUserEmail(), "down", "cancel");
                 holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
-                        .putBoolean("downvote"+reviewItem.getTitle()+String.valueOf(position), false).apply();
+                        .putBoolean("downvote"+getTitle+String.valueOf(position), false).apply();
             }
 
         });
@@ -123,10 +131,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             public void onClick(View v) {
                 Intent reportIntent = new Intent(context, ReportActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("title", reviewItem.getTitle());
+                bundle.putString("title", getTitle);
                 bundle.putString("user_email", reviewItem.getUserEmail());
-                bundle.putInt("facility_id", reviewItem.getFacilityId());
-                bundle.putInt("facility_type", reviewItem.getFacilityType());
+                bundle.putInt("facility_id", getFacilityId);
+                bundle.putInt("facility_type", getFacilityType);
                 bundle.putString("report_type", "5"); //5 means report comment
                 bundle.putString("reportedUserId", reviewItem.getReportedUserEmail());
                 reportIntent.putExtras(bundle);
@@ -179,17 +187,25 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         params.put("user_id", userId);
         params.put("vote", vote);
         params.put("isCancelled", isCancelled);
+        System.out.println("INFORMATION BELOW VOTING");
+        System.out.println(facilityType);
+        System.out.println(facilityId);
+        System.out.println(userId);
+        System.out.println(vote);
+        System.out.println(isCancelled);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                         Log.d(TAG,"response is: "+response.toString());
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        System.out.println("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
                         Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
                     }
                 });

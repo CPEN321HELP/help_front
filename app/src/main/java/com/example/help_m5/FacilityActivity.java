@@ -96,10 +96,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityId = bundle.getString("facility_id");
         type = bundle.getInt("facilityType");
         String facilityInfo = bundle.getString("facility_json");
-        System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
-        System.out.println(facilityInfo);
-        isPost = (POST == type);
         reviewers = new ArrayList<>();
+        isPost = (POST == type);
         Log.d(TAG,"type is "+type+", is Post: "+isPost);
         try {
             JSONObject facility = new JSONObject(facilityInfo);
@@ -233,18 +231,25 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 }
                 try{
                     String replierID = (String) jsonobject.getString("replierID");
-                    if(reviewers.contains(replierID)){
-                        continue;
-                    }
+                    if(reviewers.contains(replierID)){ continue; }
                     String userName = (String) jsonobject.getString("userName");
                     double userRate = (double) jsonobject.getDouble("rateScore");
                     int downVote = (int) jsonobject.getInt("downVotes");
                     int upvote =  (int) jsonobject.getInt("upVotes");
                     String comment = (String) jsonobject.getString("replyContent");
                     String time = (String) jsonobject.getString("timeOfReply");
-                    String upVoteID = "upVote"+title+String.valueOf(i);
-                    String downVoteID = "downVote"+title+String.valueOf(i);
-                    ReviewItem reviewItem = new ReviewItem(userName, userID, replierID, time, comment, userRate, upvote, downVote, title, Integer.parseInt(facilityId), type, isPost);
+
+                    List<String> facilityInformation = new ArrayList<>();
+                    facilityInformation.add(title);
+                    facilityInformation.add(facilityId);
+                    facilityInformation.add(String.valueOf(type));
+                    facilityInformation.add(String.valueOf(isPost));
+
+                    List<Integer> voteCounts = new ArrayList<>();
+                    voteCounts.add(upvote);
+                    voteCounts.add(downVote);
+
+                    ReviewItem reviewItem = new ReviewItem(userName, userID, replierID, time, comment, userRate, voteCounts, facilityInformation);
                     reviewItems.add(reviewItem);
                     reviewers.add(replierID);
                     //createUserReview((float) userRate, userName, replierID, comment, time, upvote, downVote, isPost);

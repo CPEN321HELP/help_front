@@ -1,5 +1,7 @@
 package com.example.help_m5.reviews;
 
+import java.util.List;
+
 public class ReviewItem {
     private String userName;
     private String userEmail;
@@ -8,27 +10,18 @@ public class ReviewItem {
     private String userDescription;
     private double userRate;
 
-    private int upVoteCount;
-    private int downVoteCount;
+    private List<Integer> voteCounts;
+    private List<String> facilityInformation;
 
-    private String title;
-    private int facilityId;
-    private int facilityType;
-    private boolean post;
-
-    public ReviewItem(String userName, String userEmail, String reportedUserEmail, String userDate, String userDescription, double userRate, int upVoteCount, int downVoteCount, String title, int facilityId, int facilityType, boolean post) {
+    public ReviewItem(String userName, String userEmail, String reportedUserEmail, String userDate, String userDescription, double userRate, List<Integer> voteCounts, List<String> facilityInformation) {
         this.userName = userName;
         this.userEmail = userEmail;
         this.reportedUserEmail = reportedUserEmail;
         this.userDate = userDate;
         this.userDescription = userDescription;
         this.userRate = userRate;
-        this.upVoteCount = upVoteCount;
-        this.downVoteCount = downVoteCount;
-        this.title = title;
-        this.facilityId = facilityId;
-        this.facilityType = facilityType;
-        this.post = post;
+        this.voteCounts = voteCounts;
+        this.facilityInformation = facilityInformation;
     }
 
     public String getUserName() {
@@ -55,28 +48,11 @@ public class ReviewItem {
         return userRate;
     }
 
-    public int getUpVoteCount() {
-        return upVoteCount;
+    public List<Integer> getVoteCounts() {
+        return voteCounts;
     }
 
-    public int getDownVoteCount() {
-        return downVoteCount;
+    public List<String> getFacilityInformation() {
+        return facilityInformation;
     }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public int getFacilityId() {
-        return facilityId;
-    }
-
-    public int getFacilityType() {
-        return facilityType;
-    }
-
-    public boolean isPost() {
-        return post;
-    }
-
 }

@@ -70,6 +70,8 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    implementation "androidx.recyclerview:recyclerview:1.2.0-alpha04"
+
 
 }
 apply plugin: 'com.android.application'
