@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -66,7 +63,6 @@ public class RateActivity extends AppCompatActivity {
 
         if (facilityType == POST) {
             ratingBar.setVisibility(View.INVISIBLE);
-            System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
             TextView textTitle = (TextView) findViewById(R.id.RateFacilityTitle);
             textTitle.setText("Comment on a Post");
 
@@ -147,6 +143,7 @@ public class RateActivity extends AppCompatActivity {
                                 public void onErrorResponse(VolleyError error) {
                                     Log.d(TAG, "2 onErrorResponse" + "Error: " + error.getMessage());
                                     Log.d(TAG, "2 ERROR when connecting to database getSpecificFacility");
+                                    finish();
                                 }
                             });
                     queue.add(requestComment);
