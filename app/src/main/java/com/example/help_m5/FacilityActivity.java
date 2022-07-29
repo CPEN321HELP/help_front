@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
@@ -14,16 +13,11 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.PersistableBundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.util.TypedValue;
-import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -61,8 +55,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private ArrayList<CharSequence> reviewers;
     private String facilityId;
     private String title;
-    private String description;
-    private float rate;
     private int numReviews;
     private int type;
     private double latitude;
@@ -75,7 +67,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private RecyclerView.Adapter adapter;
     private MapView mapView;
     private List<ReviewItem> reviewItems;
-    private int id = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -271,6 +262,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             Log.d(TAG, "FacilityActivity does not have field: facilityTitle");
         }
 
+        String description;
         try {
             description = (String) facility.getJSONObject("facility").getString("facilityDescription");
         } catch (JSONException e){
@@ -285,6 +277,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             Log.d(TAG, "FacilityActivity does not have field: adderID");
         }
 
+        float rate;
         try {
             rate = (float) facility.getJSONObject("facility").getDouble("facilityOverallRate");
         } catch (JSONException e){
