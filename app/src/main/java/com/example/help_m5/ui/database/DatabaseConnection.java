@@ -317,12 +317,7 @@ public class DatabaseConnection {
         }
         return 0;
     }
-
-    /**
-     * @param response           : response from server
-     * @return 0 if cached successfully; 1, if File Already Exists; 2 if IOException.
-     * @Pupose write json response from server to a file
-     */
+    //used by tests, not application
     public int writeToJsonForTesting(String path, JSONObject response, String fileName) {
         try {
             Log.d("TESTING", "Here: " +path+fileName);
