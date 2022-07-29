@@ -33,12 +33,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.help_m5.chat.ChatAdapter;
-import com.example.help_m5.chat.ChatItem;
 import com.example.help_m5.reviews.ReviewAdapter;
 import com.example.help_m5.reviews.ReviewItem;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -52,11 +48,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.UUID;
 
 public class FacilityActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -95,7 +89,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         reviewItems = new ArrayList<>();
 
-        adapter = new ReviewAdapter(getApplicationContext(),reviewItems);
+        adapter = new ReviewAdapter(getApplicationContext(), FacilityActivity.this, reviewItems);
         recyclerView.setAdapter(adapter);
 
         // Handle JSON file from backend

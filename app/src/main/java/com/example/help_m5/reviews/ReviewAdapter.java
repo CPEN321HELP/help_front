@@ -1,5 +1,6 @@
 package com.example.help_m5.reviews;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,10 +35,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     private static final String TAG = "ReviewAdapter";
     private Context context;
+    private Activity activity;
     private List<ReviewItem> reviewItems;
 
-    public ReviewAdapter(Context context, List<ReviewItem> reviewItems) {
+    public ReviewAdapter(Context context, Activity activity, List<ReviewItem> reviewItems) {
         this.context = context;
+        this.activity = activity;
         this.reviewItems = reviewItems;
     }
 
@@ -126,7 +129,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                 reportIntent.putExtras(bundle);
                 reportIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(reportIntent);
-                //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }
