@@ -61,11 +61,17 @@ public class AddFacilityFragment extends Fragment {
     private String longitude;
     private String latitude;
     private String comment;
-
+    private String user_email ;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm_ip = getResources().getString(R.string.azure_ip);
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+        try {
+            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+            user_email = account.getEmail();
+        }catch (Exception e){
+            user_email = "testing@gmail.com";
+        }
 
         newFacilityTitle = binding.newFacilityTitle;
         newFacilityTitle.setHint("please enter a title");
@@ -246,9 +252,8 @@ public class AddFacilityFragment extends Fragment {
     private void setButtons(){
         submit = binding.submitAll;
         submit.setEnabled(false);
-//        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
-//        String user_email = account.getEmail();
-        String user_email = "testing@gmail.com";
+
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
