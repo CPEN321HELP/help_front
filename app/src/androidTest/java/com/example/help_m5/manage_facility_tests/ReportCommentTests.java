@@ -77,7 +77,7 @@ public class ReportCommentTests {
     }
 
     @Test
-    public void testReportCommentButtonsAndLayout() throws InterruptedException {
+    public void testReportCommentButtonsAndLayout() {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         onView(withId(R.id.facilityRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withText("Report")))));

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -134,7 +135,6 @@ public class RateActivity extends AppCompatActivity {
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    finish();
                                 }
                             },
                             new Response.ErrorListener() {
@@ -142,7 +142,6 @@ public class RateActivity extends AppCompatActivity {
                                 public void onErrorResponse(VolleyError error) {
                                     Log.d(TAG, "2 onErrorResponse" + "Error: " + error.getMessage());
                                     Log.d(TAG, "2 ERROR when connecting to database getSpecificFacility");
-                                    finish();
                                 }
                             });
                     queue.add(requestComment);
@@ -159,15 +158,13 @@ public class RateActivity extends AppCompatActivity {
                     //                    }
                     //                }, 2000);
 
-                    /*
-                    Handler handler2 = new Handler();
-                    handler2.postDelayed(new Runnable() {
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
                         public void run() {
                             finish();
                         }
-                    }, 1000);
+                    }, 2000);
 
-                     */
                 }
             }
         });

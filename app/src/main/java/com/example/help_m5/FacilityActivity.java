@@ -14,6 +14,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -71,6 +72,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private String adderID;
     private String userID;
 
+    private RecyclerView.Adapter adapter;
     private MapView mapView;
     private List<ReviewItem> reviewItems;
     private int id = 1;
@@ -80,27 +82,27 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facility);
 
-        // recycler view initialization
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.facilityRecyclerView);
         recyclerView.setHasFixedSize(true);  // every item in recyclerView has fixed size
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         reviewItems = new ArrayList<>();
 
-        RecyclerView.Adapter<ReviewAdapter.ViewHolder> adapter = new ReviewAdapter(getApplicationContext(), FacilityActivity.this, reviewItems);
+        adapter = new ReviewAdapter(getApplicationContext(), FacilityActivity.this, reviewItems);
         recyclerView.setAdapter(adapter);
 
         // Handle JSON file from backend
         Bundle bundle = getIntent().getExtras();
+        String facilityInfo = bundle.getString("facility_json");
         userID = bundle.getString("userEmail");
         facilityId = bundle.getString("facility_id");
         type = bundle.getInt("facilityType");
-        String facilityInfo = bundle.getString("facility_json");
         reviewers = new ArrayList<>();
         isPost = (POST == type);
         Log.d(TAG,"type is "+type+", is Post: "+isPost);
         try {
             JSONObject facility = new JSONObject(facilityInfo);
+            // Load page
             loadFacilityTexts(facility);
             loadFacilityImage(facility);
             loadFacilityLocation(facility);
@@ -109,31 +111,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             e.printStackTrace();
         }
 
-        // Set Android Views
-        TextView facilityTitle = findViewById(R.id.facilityTitle);
-        facilityTitle.setText(title);
-
-        TextView facilityDescription = findViewById(R.id.facilityDescription);
-        facilityDescription.setText(description);
-
-        TextView facilityRate = findViewById(R.id.facilityRatingText);
-        facilityRate.setText("★" + String.valueOf(rate));
-
-        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
-        ratingBar.setRating(rate);
-
-        TextView facilityNumReviews = findViewById(R.id.facilityNumberOfRates);
-        facilityNumReviews.setText(String.valueOf(numReviews) + " Reviews");
-
-        if ((Double) latitude != null && (Double) longitude != null) {
-            mapView = findViewById(R.id.mapView);
-            mapView.getMapAsync(FacilityActivity.this);
-            mapView.onCreate(savedInstanceState);
-        }
-
         Button rateButton = findViewById(R.id.rate_button);
+        if (POST == type) { rateButton.setText("Comment"); }
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -169,17 +148,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
-        // Handler for Posts
-        if (type == POST) {
-            facilityRate.setVisibility(View.GONE);
-            rateButton.setText("Comment");
-            ratingBar.setVisibility(View.GONE);
-            facilityNumReviews.setTextSize(dpToPx(7f));
-            facilityNumReviews.setGravity(Gravity.CENTER);
-            LinearLayout mapLayout = (LinearLayout) findViewById(R.id.facilityMap);
-            mapLayout.setVisibility(View.GONE);
-            TextView comments = (TextView) findViewById(R.id.facilityReviewsTitle);
-            comments.setText("Comments");
+        if ((Double) latitude != null && (Double) longitude != null) {
+            mapView = findViewById(R.id.mapView);
+            mapView.getMapAsync(FacilityActivity.this);
+            mapView.onCreate(savedInstanceState);
         }
 
     }
@@ -217,6 +189,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     }
 
     private void loadReviews(JSONObject facility) {
+
         try {
             HashMap<String, String> map = new HashMap<String, String>();
             JSONArray jsonarray = facility.getJSONArray("reviews");
@@ -251,8 +224,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
                     ReviewItem reviewItem = new ReviewItem(userName, userID, replierID, time, comment, userRate, voteCounts, facilityInformation);
                     reviewItems.add(reviewItem);
+                    adapter.notifyDataSetChanged();
                     reviewers.add(replierID);
-                    //createUserReview((float) userRate, userName, replierID, comment, time, upvote, downVote, isPost);
                     map.put(replierID,"1");
                 }catch (JSONException e){
                     e.printStackTrace();
@@ -325,236 +298,34 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             numReviews = 0;
             Log.d(TAG, "FacilityActivity does not have field: rate");
         }
-    }
 
-    public void createUserReview(float userRate, String userName, String replierID, String userDescription, String userDate, int upVoteCounter, int downVoteCounter, boolean isPost) {
-        // Linear Layouts
-        reviewers.add(replierID);
-        LinearLayout review = new LinearLayout(this);
-        review.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        review.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(dpToPx(15f), dpToPx(5f), dpToPx(15f), dpToPx(10f));
-        review.setElevation(30);
-        review.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        review.setLayoutParams(layoutParams);
+        TextView facilityTitle = findViewById(R.id.facilityTitle);
+        facilityTitle.setText(title);
 
-        LinearLayout usernameAndDate = new LinearLayout(this);
-        usernameAndDate.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        usernameAndDate.setOrientation(LinearLayout.HORIZONTAL);
-        usernameAndDate.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        TextView facilityDescription = findViewById(R.id.facilityDescription);
+        facilityDescription.setText(description);
 
-        LinearLayout descriptionAndReport = new LinearLayout(this);
-        descriptionAndReport.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        descriptionAndReport.setOrientation(LinearLayout.HORIZONTAL);
-        descriptionAndReport.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        TextView facilityRate = findViewById(R.id.facilityRatingText);
+        facilityRate.setText("★" + String.valueOf(rate));
 
-        LinearLayout votingSystem = new LinearLayout(this);
-        votingSystem.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        votingSystem.setOrientation(LinearLayout.HORIZONTAL);
-        votingSystem.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+        ratingBar.setRating(rate);
 
-        // Specific Element Views
-        TextView userNameView = new TextView(this);
-        userNameView.setText(userName);
-        userNameView.setTextSize(15f);
-        userNameView.setTextColor(Color.parseColor("#000000"));
-        LinearLayout.LayoutParams layoutMargin = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutMargin.setMargins(dpToPx(5f), dpToPx(5f), dpToPx(5f), dpToPx(0f));
-        userNameView.setLayoutParams(layoutMargin);
+        TextView facilityNumReviews = findViewById(R.id.facilityNumberOfRates);
+        facilityNumReviews.setText(String.valueOf(numReviews) + " Reviews");
 
-        TextView userDateView = new TextView(this);
-        userDateView.setText(userDate);
-        userDateView.setTextSize(15f);
-        userDateView.setTextColor(Color.parseColor("#626062"));
-        LinearLayout.LayoutParams layoutParamsDate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsDate.setMargins(dpToPx(210f), dpToPx(3f), dpToPx(5f), dpToPx(0f));
-        layoutParamsDate.gravity = Gravity.CENTER_VERTICAL;
-        userDateView.setLayoutParams(layoutParamsDate);
-
-        TextView userDescriptionView = new TextView(this);
-        userDescriptionView.setText(userDescription);
-        userDescriptionView.setTextSize(15f);
-        userDescriptionView.setTextColor(Color.parseColor("#000000"));
-        userDescriptionView.setWidth(dpToPx(300f));
-        LinearLayout.LayoutParams layoutParamsDescription = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsDescription.setMargins(dpToPx(5f), dpToPx(7f), dpToPx(5f), dpToPx(3f));
-        layoutParamsDescription.gravity = Gravity.CENTER;
-        userDescriptionView.setLayoutParams(layoutParamsDescription);
-
-        Button reportCommentButton = new Button(this, null, androidx.appcompat.R.attr.borderlessButtonStyle);
-        int REPORT_BUTTON_BASE_ID = 50000000;
-        reportCommentButton.setId(REPORT_BUTTON_BASE_ID + id);
-        reportCommentButton.setTag(replierID);
-        reportCommentButton.setText("Report");
-        reportCommentButton.setTextSize(dpToPx(5f));
-        reportCommentButton.setTextColor(Color.parseColor("#626062"));
-        reportCommentButton.setAllCaps(false);
-        LinearLayout.LayoutParams layoutParamsReport = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsReport.setMargins(dpToPx(170f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
-        reportCommentButton.setLayoutParams(layoutParamsReport);
-        reportCommentButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent reportIntent = new Intent(FacilityActivity.this, ReportActivity.class);
-                Bundle bundle = new Bundle();
-                Button button = (Button) v;
-                bundle.putString("title", title);
-                bundle.putString("user_email", (String) button.getTag());
-                bundle.putInt("facility_id", Integer.parseInt(facilityId));
-                bundle.putInt("facility_type", type);
-                bundle.putString("report_type", "5"); //5 means report comment
-                bundle.putString("reportedUserId", replierID); //5 means report comment
-                Log.d(TAG, "replierID is: " + replierID);
-                reportIntent.putExtras(bundle);
-                startActivity(reportIntent);
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-
-        TextView upVoteCount = new TextView(this);
-        upVoteCount.setText(String.valueOf(upVoteCounter));
-        int UPVOTE_TEXTVIEW_BASE_ID = 30000000;
-        upVoteCount.setId(UPVOTE_TEXTVIEW_BASE_ID + id);
-        LinearLayout.LayoutParams layoutParamsVoteCount = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsVoteCount.setMargins(dpToPx(2f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
-        upVoteCount.setLayoutParams(layoutParamsVoteCount);
-
-        CheckBox upVote = new CheckBox(this);
-        upVote.setTag(replierID);
-        upVote.setButtonDrawable(R.drawable.upvote);
-        int UPVOTE_BASE_ID = 10000000;
-        upVote.setId(UPVOTE_BASE_ID + id);
-        boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
-                .getBoolean("upVote"+String.valueOf(UPVOTE_BASE_ID + id), false);
-        if (checkedUp) {
-            upVote.setChecked(checkedUp);
+        if (type == POST) {
+            facilityRate.setVisibility(View.GONE);
+            ratingBar.setVisibility(View.GONE);
+            facilityNumReviews.setTextSize(15f);
+            facilityNumReviews.setGravity(Gravity.CENTER);
+            LinearLayout mapLayout = (LinearLayout) findViewById(R.id.facilityMap);
+            mapLayout.setVisibility(View.GONE);
+            TextView comments = (TextView) findViewById(R.id.facilityReviewsTitle);
+            comments.setText("Comments");
         }
-        LinearLayout.LayoutParams layoutParamsUpvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsUpvote.setMargins(dpToPx(5f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
-        upVote.setLayoutParams(layoutParamsUpvote);
-        upVote.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            LinearLayout linearLayout = (LinearLayout) buttonView.getParent();
-            TextView textView = (TextView) linearLayout.getChildAt(1);
-            if (isChecked) {
-                AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "up", "pend");
-                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) + 1));
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("upVote"+String.valueOf(buttonView.getId()), true).commit();
-                CheckBox oppositeBox = (CheckBox)findViewById((int)buttonView.getId() + 10000000);
-                if (oppositeBox.isChecked()) {
-                    oppositeBox.setChecked(false);
-                }
-            } else {
-                AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "up", "cancel");
-                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) - 1));
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("upVote"+String.valueOf(buttonView.getId()), false).commit();
-            }
-        });
-
-        TextView downVoteCount = new TextView(this);
-        downVoteCount.setText(String.valueOf(downVoteCounter));
-        int DOWNVOTE_TEXTVIEW_BASE_ID = 40000000;
-        downVoteCount.setId(DOWNVOTE_TEXTVIEW_BASE_ID + id);
-        downVoteCount.setLayoutParams(layoutParamsVoteCount);
-
-        CheckBox downVote = new CheckBox(this);
-        downVote.setTag(replierID);
-        downVote.setButtonDrawable(R.drawable.downvote);
-        int DOWNVOTE_BASE_ID = 20000000;
-        downVote.setId(DOWNVOTE_BASE_ID + id);
-        boolean checkedDown = PreferenceManager.getDefaultSharedPreferences(FacilityActivity.this)
-                .getBoolean("downVote"+String.valueOf(DOWNVOTE_BASE_ID + id), false);
-        if (checkedDown) {
-            downVote.setChecked(checkedDown);
-        }
-        LinearLayout.LayoutParams layoutParamsDownvote = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layoutParamsDownvote.setMargins(dpToPx(10f), dpToPx(0f), dpToPx(0f), dpToPx(0f));
-        downVote.setLayoutParams(layoutParamsDownvote);
-        downVote.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            LinearLayout linearLayout = (LinearLayout) buttonView.getParent();
-            TextView textView = (TextView) linearLayout.getChildAt(3);
-            if (isChecked) {
-                AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "down", "pend");
-                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) - 1));
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("downVote"+String.valueOf(buttonView.getId()), true).commit();
-                CheckBox oppositeBox = (CheckBox)findViewById((int)buttonView.getId() - 10000000);
-                if (oppositeBox.isChecked()) {
-                    oppositeBox.setChecked(false);
-                }
-            } else {
-                AdjustVote(String.valueOf(type), facilityId, (String) buttonView.getTag(), "down", "cancel");
-                textView.setText(String.valueOf(Integer.parseInt(textView.getText().toString()) + 1));
-                PreferenceManager.getDefaultSharedPreferences(this).edit()
-                        .putBoolean("downVote"+String.valueOf(buttonView.getId()), false).commit();
-            }
-        });
-
-        // Define Parent-Child relationships
-        usernameAndDate.addView(userNameView);
-        usernameAndDate.addView(userDateView);
-        descriptionAndReport.addView(userDescriptionView);
-
-        votingSystem.addView(upVote);
-        votingSystem.addView(upVoteCount);
-        votingSystem.addView(downVote);
-        votingSystem.addView(downVoteCount);
-        votingSystem.addView(reportCommentButton);
-        review.addView(usernameAndDate);
-        if (!isPost) {
-            RatingBar userRateView = new RatingBar(new ContextThemeWrapper(this, R.style.RatingBar), null, android.R.attr.ratingBarStyleSmall);
-            userRateView.setRating(userRate);
-            userRateView.setNumStars(5);
-            LinearLayout.LayoutParams layoutParamsRate = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            layoutParamsRate.setMargins(dpToPx(4f), dpToPx(0f), dpToPx(5f), dpToPx(0f));
-            layoutParamsRate.gravity = Gravity.CENTER_VERTICAL;
-            userRateView.setLayoutParams(layoutParamsRate);
-            review.addView(userRateView);
-        }
-        review.addView(descriptionAndReport);
-        review.addView(votingSystem);
-
-        LinearLayout linearLayout = findViewById(R.id.facilityReviews);
-        linearLayout.addView(review);
-        id++;
-    }
-
-    private void AdjustVote(String facilityType, String facilityId, String userId, String vote, String isCancelled) {
-        String url = "http://20.213.243.141:8000/Votes";
-        RequestQueue queue = Volley.newRequestQueue(FacilityActivity.this);
-        HashMap<String, String> params = new HashMap<String, String>();
-        queue.start();
-        params.put("facilityType", facilityType);
-        params.put("facility_id", facilityId);
-        params.put("user_id", userId);
-        params.put("vote", vote);
-        params.put("isCancelled", isCancelled);
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(params),
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d(TAG,"response is: "+response.toString());
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
-                    }
-                });
-        queue.add(request);
-    }
-
-    private int dpToPx(float dp) {
-        Resources r = getResources();
-        float px = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dp,
-                r.getDisplayMetrics()
-        );
-        return (int) px;
     }
 
     private void selfUpdate(String facility_id, int facility_type){
@@ -568,8 +339,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                loadFacilityImage(response);
-                loadFacilityLocation(response);
                 loadFacilityTexts(response);
                 loadReviews(response);
             }
