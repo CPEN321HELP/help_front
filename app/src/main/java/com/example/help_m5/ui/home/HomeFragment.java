@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton page_up;
     private FloatingActionButton page_down;
     private static boolean isLoadingFacility;
+    private FloatingActionButton main;
     Spinner spin;
 
     private final String[] countryNames={"Posts","Eat","Study","Play"};
@@ -242,7 +243,7 @@ public class HomeFragment extends Fragment {
         close_or_refresh = binding.fabCloseOrRefresh;
         page_up = binding.fabPrevious;
         page_down = binding.fabNext;
-        FloatingActionButton main = binding.fabMain;
+        main = binding.fabMain;
 
         close_or_refresh.setAlpha(0f);
         page_up.setAlpha(0f);

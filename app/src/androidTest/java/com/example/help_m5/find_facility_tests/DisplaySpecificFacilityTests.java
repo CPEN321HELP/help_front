@@ -1,5 +1,7 @@
 package com.example.help_m5.find_facility_tests;
 
+import androidx.fragment.app.testing.FragmentScenario;
+import androidx.lifecycle.Lifecycle;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
@@ -13,8 +15,12 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.example.help_m5.FacilityActivity;
+import com.example.help_m5.MainActivity;
 import com.example.help_m5.R;
+import com.example.help_m5.ui.database.DatabaseConnection;
+import com.example.help_m5.ui.home.HomeFragment;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -35,9 +41,9 @@ public class DisplaySpecificFacilityTests {
 
     @Test
     public void specificFacilityShowTest() throws InterruptedException {
+        Thread.sleep(20000);
         Espresso.onView(ViewMatchers.withId(R.id.facilityTitle)).check(ViewAssertions.matches(ViewMatchers.withText(containsString("test Title"))));
         Espresso.onView(ViewMatchers.withId(R.id.facilityDescription)).check(ViewAssertions.matches(ViewMatchers.withText(containsString("Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options."))));
         Espresso.onView(ViewMatchers.withId(R.id.facilityAddress)).check(ViewAssertions.matches(ViewMatchers.withText(("5728 University Blvd, Vancouver, BC V6T 1K6, Canada"))));
-        Thread.sleep(10000);
     }
 }
