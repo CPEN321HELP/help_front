@@ -72,8 +72,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private String userID;
 
     private MapView mapView;
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
     private List<ReviewItem> reviewItems;
     private int id = 1;
 
@@ -83,13 +81,13 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.activity_facility);
 
         // recycler view initialization
-        recyclerView = (RecyclerView) findViewById(R.id.facilityRecyclerView);
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.facilityRecyclerView);
         recyclerView.setHasFixedSize(true);  // every item in recyclerView has fixed size
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         reviewItems = new ArrayList<>();
 
-        adapter = new ReviewAdapter(getApplicationContext(), FacilityActivity.this, reviewItems);
+        RecyclerView.Adapter<ReviewAdapter.ViewHolder> adapter = new ReviewAdapter(getApplicationContext(), FacilityActivity.this, reviewItems);
         recyclerView.setAdapter(adapter);
 
         // Handle JSON file from backend
