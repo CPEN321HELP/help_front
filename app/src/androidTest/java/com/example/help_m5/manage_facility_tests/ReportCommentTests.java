@@ -1,4 +1,4 @@
-package com.example.help_m5.manageFacilityTests;
+package com.example.help_m5.manage_facility_tests;
 
 import static androidx.core.util.Preconditions.checkNotNull;
 import static androidx.test.espresso.Espresso.onView;

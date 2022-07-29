@@ -1,4 +1,4 @@
-package com.example.help_m5.manageFacilityTests;
+package com.example.help_m5.manage_facility_tests;
 
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;

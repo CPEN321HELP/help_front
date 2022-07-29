@@ -1,19 +1,16 @@
-package com.example.help_m5.manageFacilityTests;
+package com.example.help_m5.manage_facility_tests;
 
 import android.util.Log;
 
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import com.example.help_m5.R;
 import com.example.help_m5.ui.database.DatabaseConnection;
-import com.example.help_m5.ui.home.HomeFragment;
 import com.example.help_m5.ui.report.ReportFragment;
 
 import org.json.JSONArray;

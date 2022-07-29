@@ -1,4 +1,4 @@
-package com.example.help_m5.manageFacilityTests;
+package com.example.help_m5.manage_facility_tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -24,10 +24,11 @@ import com.example.help_m5.ToastMatcher;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import org.hamcrest.Matchers;
 import org.junit.Rule;
 import org.junit.Test;
 
-public class ReviewFacilityTests {
+public class ReviewPostTests {
 
     @Rule
     public ActivityScenarioRule<FacilityActivity> mActivityRule =
@@ -36,24 +37,25 @@ public class ReviewFacilityTests {
     static Intent intent;
     static {
         intent = new Intent(ApplicationProvider.getApplicationContext(), FacilityActivity.class);
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(ApplicationProvider.getApplicationContext());
+        GoogleSignInAccount account = GoogleSignIn
+                .getLastSignedInAccount(ApplicationProvider.getApplicationContext());
         Bundle bundle = new Bundle();
         intent.putExtra("userEmail", account.getEmail());
-        intent.putExtra("facility_id", "6");
-        intent.putExtra("facilityType", 3);
-        intent.putExtra("facility_json", "{\"_id\":6,\"facility\":{\"facilityType\":\"restaurants\",\"facility_status\":\"normal\",\"facilityTitle\":\"McDonald's\",\"facilityDescription\":\"Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options. \",\"facilityImageLink\":\"https:\\/\\/s3-media0.fl.yelpcdn.com\\/bphoto\\/13GWBclQVEzXzkMkxZXIRA\\/o.jpg\",\"facilityOverallRate\":0,\"numberOfRates\":0,\"timeAdded\":\"2022\\/6\\/11\",\"longitude\":-123.24253759999999,\"latitude\":49.266646699999995},\"rated_user\":[],\"reviews\":[],\"adderID\":\"\",\"ratedUser\":[]}");
+        intent.putExtra("facility_id", "13");
+        intent.putExtra("facilityType", 0);
+        intent.putExtra("facility_json", "{\"_id\":13,\"facility\":{\"facility_status\":\"normal\",\"facilityType\":\"posts\",\"facilityTitle\":\"CPEN321 Midterm is coming\",\"facilityDescription\":\"• Requirements and Design  \\n– types of requirements \\n– use cases \\n– components and interfaces \\n– sequence diagrams \\n• Code quality, code smells \\n• Testing and analysis \\n– test coverage \\n– control flow \\n– data flow \\n– symbolic execution\",\"timeAdded\":\"2022\\/6\\/19\",\"facilityImageLink\":\"https:\\/\\/imgtu.com\\/i\\/jTiAY9\",\"facilityOverallRate\":0,\"numberOfRates\":2,\"longitude\":null,\"latitude\":null},\"rated_user\":[{}],\"reviews\":[{\"replierID\":\"lufei8351@gmail.com\",\"userName\":\"Peter Na\",\"rateScore\":0,\"upVotes\":0,\"downVotes\":0,\"replyContent\":\"Nice Post!\",\"timeOfReply\":\"2022\\/6\\/29\\/1\\/11\\/52\"}],\"adderID\":\"wuyuheng0525@gmail.com\",\"ratedUser\":[{\"replierID\":\"lufei8351@gmail.com\"}]}");
         intent.putExtras(bundle);
     }
 
     @Test
     public void testButtonsAndLayout() {
-        onView(withId(R.id.rate_button)).check(matches(withText("RATE")));
+        onView(withId(R.id.rate_button)).check(matches(withText("COMMENT")));
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
-        onView(withId(R.id.RateFacilityTitle)).check(matches(withText("Rate this Facility")));
+        onView(withId(R.id.RateFacilityTitle)).check(matches(withText("Comment on a Post")));
         onView(withId(R.id.RateFacilityDescription))
-                .check(matches(withText("Please select some stars and give\nyour feedback")));
-        onView(withId(R.id.ratingBar2)).check(matches(isDisplayed()));
+                .check(matches(withText("Please leave your comments\nbelow")));
+        onView(withId(R.id.ratingBar2)).check(matches(Matchers.not(isDisplayed())));
         onView(withId(R.id.cancel_button_review)).check(matches(isEnabled()));
         onView(withId(R.id.submit_button_review)).check(matches(isEnabled()));
         onView(withId(R.id.cancel_button_review)).perform(click());
@@ -73,68 +75,33 @@ public class ReviewFacilityTests {
     }
 
     @Test
-    public void testPartialSubmissionRating() {
-        onView(withId(R.id.rate_button)).perform(click());
-        onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
-
-        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Great overall experience!"));
-        Espresso.closeSoftKeyboard();
-        onView(withId(R.id.submit_button_review)).perform(click());
-        onView(withText("Please rate the facility from 0.5 to 5")).inRoot(new ToastMatcher())
-                .check(matches(withText("Please rate the facility from 0.5 to 5")));
-
-        onView(withId(R.id.cancel_button_review)).perform(click());
-    }
-
-    @Test
-    public void testPartialSubmissionComment() {
-        onView(withId(R.id.rate_button)).perform(click());
-        onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
-
-        onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
-        onView(withId(R.id.submit_button_review)).perform(click());
-        onView(withText("Please add a comment")).inRoot(new ToastMatcher())
-                .check(matches(withText("Please add a comment")));
-
-        onView(withId(R.id.cancel_button_review)).perform(click());
-    }
-
-    @Test
     public void testFullSubmission() throws InterruptedException {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
-        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Great overall experience!"));
+        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Nice Post!"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button_review)).perform(click());
 
-        /*
         onView(withText("Success!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Success!")));
-
-         */
-
-        onView(withText("You have reviewed in the past.")).inRoot(new ToastMatcher())
-                .check(matches(withText("You have reviewed in the past.")));
 
         Thread.sleep(2000);
 
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
-        onView(withId(R.id.editTextTextMultiLine))
-                .perform(typeText("Great overall experience!"));
+        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Nice Post!"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button_review)).perform(click());
 
-        onView(withText("You have reviewed in the past.")).inRoot(new ToastMatcher())
-                .check(matches(withText("You have reviewed in the past.")));
+        onView(withText("You have commented in the past.")).inRoot(new ToastMatcher())
+                .check(matches(withText("You have commented in the past.")));
     }
 
     private String getResourceString(int id) {
         Context targetContext = InstrumentationRegistry.getTargetContext();
         return targetContext.getResources().getString(id);
     }
+
 }
