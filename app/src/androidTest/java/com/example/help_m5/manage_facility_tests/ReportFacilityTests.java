@@ -108,8 +108,4 @@ public class ReportFacilityTests {
 
     }
 
-    private String getResourceString(int id) {
-        Context targetContext = InstrumentationRegistry.getTargetContext();
-        return targetContext.getResources().getString(id);
-    }
 }

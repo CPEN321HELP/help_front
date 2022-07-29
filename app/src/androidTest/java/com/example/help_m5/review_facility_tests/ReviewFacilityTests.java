@@ -1,4 +1,4 @@
-package com.example.help_m5.manage_facility_tests;
+package com.example.help_m5.review_facility_tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -21,6 +21,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
+import com.example.help_m5.SetRating;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -133,8 +134,4 @@ public class ReviewFacilityTests {
                 .check(matches(withText("You have reviewed in the past.")));
     }
 
-    private String getResourceString(int id) {
-        Context targetContext = InstrumentationRegistry.getTargetContext();
-        return targetContext.getResources().getString(id);
-    }
 }

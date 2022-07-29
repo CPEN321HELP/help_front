@@ -1,4 +1,4 @@
-package com.example.help_m5.manage_facility_tests;
+package com.example.help_m5;
 
 import android.view.View;
 import android.widget.RatingBar;

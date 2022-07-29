@@ -142,9 +142,4 @@ public class ReportCommentTests {
                 .check(matches(withText("Report successfully sent with associated user!")));
     }
 
-    private String getResourceString(int id) {
-        Context targetContext = InstrumentationRegistry.getTargetContext();
-        return targetContext.getResources().getString(id);
-    }
-
 }

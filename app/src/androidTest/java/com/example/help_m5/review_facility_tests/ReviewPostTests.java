@@ -1,4 +1,4 @@
-package com.example.help_m5.manage_facility_tests;
+package com.example.help_m5.review_facility_tests;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -97,11 +97,6 @@ public class ReviewPostTests {
 
         onView(withText("You have commented in the past.")).inRoot(new ToastMatcher())
                 .check(matches(withText("You have commented in the past.")));
-    }
-
-    private String getResourceString(int id) {
-        Context targetContext = InstrumentationRegistry.getTargetContext();
-        return targetContext.getResources().getString(id);
     }
 
 }
