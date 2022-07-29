@@ -212,7 +212,7 @@ public class HomeFragment extends Fragment {
 
     private void ConstraintLayoutOnClickListener(int which){
         if(isLoadingFacility){// if is loading, then do not load again
-            Toast.makeText(getContext(), "Loading!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Loading! Don't click again!", Toast.LENGTH_SHORT).show();
         }else {
             isLoadingFacility = true;
             String facility_id;
@@ -237,33 +237,6 @@ public class HomeFragment extends Fragment {
             }
             DBconnection.getSpecificFacility(facility_type, facility_id, getContext(), getActivity());
         }
-//        String url = "specific";
-//        final RequestQueue queue = Volley.newRequestQueue(getContext());
-//        HashMap<String, String> params = new HashMap<String, String>();
-//        queue.start();
-//        params.put("facility_id", facility_id);
-//        params.put("facility_type", String.valueOf(facility_type));
-//        Log.d(TAG, "eeee: "+params.toString());
-//        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Intent intent = new Intent(getActivity(), FacilityActivity.class);
-//                Log.d(TAG, "response is: " + response.toString());
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("facility_type", facility_type);
-//                bundle.putString("facility_id", facility_id);
-//                bundle.putString("facility_json", response.toString());
-//                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+bundle.getInt("facility_type"));
-//                intent.putExtras(bundle);
-//                startActivity(intent);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getContext(), "ERROR when connecting to database getSpecificFacility: " + error, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        queue.add(jsObjRequest);
     }
 
     private void initFavMenu(){
