@@ -48,7 +48,6 @@ public class HomeFragment extends Fragment {
     private FloatingActionButton close_or_refresh;
     private FloatingActionButton page_up;
     private FloatingActionButton page_down;
-    private FloatingActionButton main;
     private static boolean isLoadingFacility;
     Spinner spin;
 
@@ -243,7 +242,7 @@ public class HomeFragment extends Fragment {
         close_or_refresh = binding.fabCloseOrRefresh;
         page_up = binding.fabPrevious;
         page_down = binding.fabNext;
-        main = binding.fabMain;
+        FloatingActionButton main = binding.fabMain;
 
         close_or_refresh.setAlpha(0f);
         page_up.setAlpha(0f);
