@@ -38,12 +38,9 @@ public class RateActivity extends AppCompatActivity {
     private String vm_ip;
     private final static int POST = 0;
 
-    private float rate;
-    private String comment;
     private GoogleSignInAccount userAccount;
     private String userEmail;
     private Button submitButton;
-//    private RatingBar ratingBar;
     private String facilityId;
     private int facilityType;
     private List<CharSequence> reviewers;
@@ -69,6 +66,7 @@ public class RateActivity extends AppCompatActivity {
 
         if (facilityType == POST) {
             ratingBar.setVisibility(View.INVISIBLE);
+            System.out.println("VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV");
             TextView textTitle = (TextView) findViewById(R.id.RateFacilityTitle);
             textTitle.setText("Comment on a Post");
 
@@ -78,7 +76,7 @@ public class RateActivity extends AppCompatActivity {
 
         EditText editText = findViewById(R.id.editTextTextMultiLine);
 
-        submitButton = findViewById(R.id.submit_button);
+        submitButton = findViewById(R.id.submit_button_review);
         submitButton.setTextColor(Color.parseColor("#dbba00"));
         submitButton.setEnabled(true);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +85,8 @@ public class RateActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(RateActivity.this);
                 queue.start();
 
-                if (ratingBar.getRating() == 0 && editText.getText().toString().isEmpty()) {
+                if ((ratingBar.getRating() == 0 && editText.getText().toString().isEmpty() && facilityType != POST)
+                    || (editText.getText().toString().isEmpty() && facilityType == POST)) {
                     Toast.makeText(getApplicationContext(), "Please do not submit an empty form", Toast.LENGTH_SHORT).show();
                 } else if (ratingBar.getRating() == 0 && facilityType != POST) {
                     Toast.makeText(getApplicationContext(), "Please rate the facility from 0.5 to 5", Toast.LENGTH_SHORT).show();

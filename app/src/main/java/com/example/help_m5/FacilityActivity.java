@@ -104,6 +104,8 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityId = bundle.getString("facility_id");
         type = bundle.getInt("facilityType");
         String facilityInfo = bundle.getString("facility_json");
+        System.out.println("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC");
+        System.out.println(facilityInfo);
         isPost = (POST == type);
         reviewers = new ArrayList<>();
         Log.d(TAG,"type is "+type+", is Post: "+isPost);
@@ -156,7 +158,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             }
         });
 
-        Button reportFacilityButton = findViewById(R.id.repor_facility_button);
+        Button reportFacilityButton = findViewById(R.id.report_facility_button);
         reportFacilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,13 +181,10 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         // Handler for Posts
         if (type == POST) {
-            LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            marginParams.setMargins(0, 5, 0, 0);
             facilityRate.setVisibility(View.GONE);
             rateButton.setText("Comment");
             ratingBar.setVisibility(View.GONE);
             facilityNumReviews.setTextSize(dpToPx(7f));
-            facilityNumReviews.setLayoutParams(marginParams);
             facilityNumReviews.setGravity(Gravity.CENTER);
             LinearLayout mapLayout = (LinearLayout) findViewById(R.id.facilityMap);
             mapLayout.setVisibility(View.GONE);

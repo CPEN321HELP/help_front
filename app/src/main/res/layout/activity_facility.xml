@@ -150,7 +150,7 @@
             android:id="@+id/facilityReport"
             android:orientation="vertical">
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/repor_facility_button"
+                android:id="@+id/report_facility_button"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
