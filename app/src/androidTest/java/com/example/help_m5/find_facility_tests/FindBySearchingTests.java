@@ -22,7 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
-public class bySearching {
+public class FindBySearchingTests {
         /*
         Please see m8 document for set up
      */
