@@ -1,0 +1,906 @@
+07-29 20:29:32.486 25934 25972 I TestRunner: started: testLogOutFromFacility(com.example.help_m5.non_functional_tests.LogOutTests)
+07-29 20:29:32.494 25934 25965 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getUnsafe()Lsun/misc/Unsafe; (greylist,core-platform-api, linking, allowed)
+07-29 20:29:32.495 25934 25965 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->objectFieldOffset(Ljava/lang/reflect/Field;)J (greylist,core-platform-api, linking, allowed)
+07-29 20:29:32.495 25934 25965 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:32.503 25934 25972 W Settings: Setting always_finish_activities has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+07-29 20:29:32.511 25934 25975 D NetworkSecurityConfig: No Network Security Config specified, using platform default
+07-29 20:29:32.521 25934 25975 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:32.521 25934 25975 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:32.545 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:32.549 20940 22097 I chatty  : uid=1000(system) Binder:20940_14 identical 28 lines
+07-29 20:29:32.549 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:32.553 25934 25934 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@e68b01f
+07-29 20:29:32.553 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:32.554 20940 22097 I chatty  : uid=1000(system) Binder:20940_14 identical 8 lines
+07-29 20:29:32.554 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:32.561 20940 20962 E system_server: Invalid ID 0x00000000.
+07-29 20:29:32.572 13505 13510 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+07-29 20:29:32.575 13505 13662 E SurfaceFlinger: ro.sf.lcd_density must be defined as a build property
+07-29 20:29:32.594 25934 25982 D libEGL  : Emulator has host GPU support, qemu.gles is set to 1.
+07-29 20:29:32.600 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935 in: PRE_ON_CREATE
+07-29 20:29:32.604  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:32.621 25934 25982 W libc    : Unable to set property "qemu.gles" to "1": connection failed; errno=13 (Permission denied)
+07-29 20:29:32.669 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity (has extras) }, activity=androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:32.579 25934 25934 W RenderThread: type=1400 audit(0.0:542): avc: denied { write } for name="property_service" dev="tmpfs" ino=6938 scontext=u:r:untrusted_app:s0:c135,c256,c512,c768 tcontext=u:object_r:property_socket:s0 tclass=sock_file permissive=0
+07-29 20:29:32.772 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:32.773 20940 20962 I chatty  : uid=1000(system) android.anim identical 8 lines
+07-29 20:29:32.773 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:32.789 21271 21814 D EGL_emulation: eglMakeCurrent: 0xd7e1a2a0: ver 2 0 (tinfo 0xd7e0f520)
+07-29 20:29:32.791 21929 22311 D EGL_emulation: eglMakeCurrent: 0xd7e1c580: ver 2 0 (tinfo 0xd7e22580)
+07-29 20:29:32.801 25934 25982 D libEGL  : loaded /vendor/lib/egl/libEGL_emulation.so
+07-29 20:29:32.805 25934 25982 D libEGL  : loaded /vendor/lib/egl/libGLESv1_CM_emulation.so
+07-29 20:29:32.805 21066 21362 D EGL_emulation: eglMakeCurrent: 0xd7e1a1e0: ver 2 0 (tinfo 0xd7e0f610)
+07-29 20:29:32.835 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935 in: CREATED
+07-29 20:29:32.836 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity (has extras) }, activity=androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:32.838 25934 25982 D libEGL  : loaded /vendor/lib/egl/libGLESv2_emulation.so
+07-29 20:29:32.844 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935 in: STARTED
+07-29 20:29:32.845 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity (has extras) }, activity=androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:32.887 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935 in: RESUMED
+07-29 20:29:32.892 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity (has extras) }, activity=androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:32.903 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935 in: PAUSED
+07-29 20:29:32.905 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity (has extras) }, activity=androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:32.908 20940 21719 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:32.922 20940 21719 I chatty  : uid=1000(system) Binder:20940_B identical 58 lines
+07-29 20:29:32.922 20940 21719 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:32.926 25934 25934 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@76f7022
+07-29 20:29:32.969 21929 20914 I PBSessionCacheImpl: (REDACTED) Deleted sessionId[%d] from persistence.
+07-29 20:29:33.000 21929 22182 I A       : getLocaleToModelSpecsMap
+07-29 20:29:33.001 21929 22182 I A       : Using proto config with mendel
+07-29 20:29:33.003 21929 22182 I A       : getLocaleToModelSpecsMap
+07-29 20:29:33.003 21929 22182 I A       : Using proto config with mendel
+07-29 20:29:33.004 21929 22182 W SearchServiceCore: Abort, client detached.
+07-29 20:29:33.008 21929 22182 I MicroDetectionState: (REDACTED) Should stop hotword detection immediately - %b
+07-29 20:29:33.010 21929 22182 I A       : getLocaleToModelSpecsMap
+07-29 20:29:33.011 21929 22182 I A       : Using proto config with mendel
+07-29 20:29:33.012 21929 22182 I A       : getLocaleToModelSpecsMap
+07-29 20:29:33.012 21929 22182 I A       : Using proto config with mendel
+07-29 20:29:33.108 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: PRE_ON_CREATE
+07-29 20:29:33.109 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the reported transition was not ON_CREATE while the last known transition was PRE_ON_CREATE
+07-29 20:29:33.220 25934 25934 W example.help_m: Accessing hidden method Landroid/view/View;->computeFitSystemWindows(Landroid/graphics/Rect;Landroid/graphics/Rect;)Z (greylist, reflection, allowed)
+07-29 20:29:33.220 25934 25934 W example.help_m: Accessing hidden method Landroid/view/ViewGroup;->makeOptionalFitsSystemWindows()V (greylist, reflection, allowed)
+07-29 20:29:33.386 25934 25934 I example.help_m: The ClassLoaderContext is a special shared library.
+07-29 20:29:33.400 25934 25934 I example.help_m: The ClassLoaderContext is a special shared library.
+07-29 20:29:33.458 25934 25934 I DynamiteModule: Considering local module com.google.android.gms.signinbutton_dynamite:0 and remote module com.google.android.gms.signinbutton_dynamite:2
+07-29 20:29:33.463 25934 25934 I DynamiteModule: Selected remote version of com.google.android.gms.signinbutton_dynamite, version >= 2
+07-29 20:29:33.469  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:33.469  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:33.811 25934 25934 D OneSignal: Adding a task to the pending queue with ID: 1
+07-29 20:29:33.811 25934 25934 D OneSignal: startPendingTasks with task queue quantity: 1
+07-29 20:29:33.823 25934 25988 D OneSignal: Retrieved IAMs from DB redisplayedInAppMessages: []
+07-29 20:29:33.824 25934 25988 I OneSignal: Last Pending Task has ran, shutting down
+07-29 20:29:33.830 25934 25989 D OneSignal: Attempted to clean 6 month old IAM data, but none exists!
+07-29 20:29:33.847 25934 25934 D OneSignal: OneSignal InAppMessageTracker initInfluencedTypeFromCache: OSChannelTracker{tag=iam_id, influenceType=UNATTRIBUTED, indirectIds=null, directId=null}
+07-29 20:29:33.848 25934 25934 D OneSignal: OneSignal NotificationTracker initInfluencedTypeFromCache: OSChannelTracker{tag=notification_id, influenceType=UNATTRIBUTED, indirectIds=null, directId=null}
+07-29 20:29:33.855 25934 25934 D OneSignal: OneSignal getUnattributedUniqueOutcomeEventsSentByChannel: []
+07-29 20:29:33.860 25934 25934 V OneSignal: appContext set and cached app id found, calling setAppId with: f38cdc86-9fb7-40a5-8176-68b4115411da
+07-29 20:29:33.860 25934 25934 V OneSignal: setAppId called with id: f38cdc86-9fb7-40a5-8176-68b4115411da changing id from: null
+07-29 20:29:33.861 25934 25934 V OneSignal: Starting OneSignal initialization!
+07-29 20:29:33.864 25934 25934 V OneSignal: No class found, not setting up OSRemoteNotificationReceivedHandler
+07-29 20:29:33.864 25934 25934 V OneSignal: OneSignal SDK initialization delayed, waiting for remote params.
+07-29 20:29:33.868 25934 25934 D OneSignal: Starting request to get Android parameters.
+07-29 20:29:33.872 25934 25934 V OneSignal: setAppId called with id: f38cdc86-9fb7-40a5-8176-68b4115411da changing id from: null
+07-29 20:29:33.872 25934 25934 V OneSignal: Starting OneSignal initialization!
+07-29 20:29:33.874 25934 25934 V OneSignal: No class found, not setting up OSRemoteNotificationReceivedHandler
+07-29 20:29:33.875 25934 25934 V OneSignal: OneSignal SDK initialization delayed, waiting for remote params.
+07-29 20:29:33.874 25934 25993 D OneSignal: OneSignalRestClient: Making request to: https://api.onesignal.com/apps/f38cdc86-9fb7-40a5-8176-68b4115411da/android_params.js?player_id=7ce44931-8db3-4aa9-b2be-68c8cab00713
+07-29 20:29:33.875 25934 25934 I System.out: 21231
+07-29 20:29:33.896  1679  1679 E SELinux : avc:  denied  { find } for interface=android.hardware.memtrack::IMemtrack sid=u:r:priv_app:s0:c512,c768 pid=24128 scontext=u:r:priv_app:s0:c512,c768 tcontext=u:object_r:hal_memtrack_hwservice:s0 tclass=hwservice_manager permissive=0
+07-29 20:29:33.896 24128 25990 E memtrack: Couldn't load memtrack module
+07-29 20:29:33.896 24128 25990 W android.os.Debug: failed to get memory consumption info: -1
+07-29 20:29:33.916 25934 25993 D OneSignal: OneSignalRestClient: Adding header if-none-match: W/"a9afb8ce30d91d014f1a005c8f7f071c"
+07-29 20:29:34.059 21558 21558 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.auth.api.signin.service.START pkg=com.google.android.gms }
+07-29 20:29:34.060 21558 21558 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.auth.api.signin.service.START pkg=com.google.android.gms }
+07-29 20:29:34.100 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: CREATED
+07-29 20:29:34.100 25934 25934 V ActivityScenario: Update currentActivityStage to CREATED, currentActivity=com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:34.124 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: STARTED
+07-29 20:29:34.125 25934 25934 V ActivityScenario: Update currentActivityStage to STARTED, currentActivity=com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:34.126 25934 25934 D OneSignal: onActivityResumed: com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:34.127 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.LoginActivity:com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:34.127 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:34.127 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:34.141 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: RESUMED
+07-29 20:29:34.142 25934 25934 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:34.222 21441 23658 I FontLog : Received query Noto Color Emoji Compat, URI content://com.google.android.gms.fonts [CONTEXT service_id=132 ]
+07-29 20:29:34.222 21441 23658 I FontLog : Query [emojicompat-emoji-font] resolved to {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} [CONTEXT service_id=132 ]
+07-29 20:29:34.227 21441 23658 I FontLog : Fetch {Noto Color Emoji Compat, wdth 100.0, wght 400, ital 0.0, bestEffort false} end status Status{statusCode=SUCCESS, resolution=null} [CONTEXT service_id=132 ]
+07-29 20:29:34.252 21441  7271 I FontLog : Pulling font file for id = 81, cache size = 4 [CONTEXT service_id=132 ]
+07-29 20:29:34.270 25934 25980 D HostConnection: HostConnection::get() New Host Connection established 0xd4977670, tid 25980
+07-29 20:29:34.277 21441  7271 I FontLog : Pulling font file for id = 81, cache size = 4 [CONTEXT service_id=132 ]
+07-29 20:29:34.284 25934 25980 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_2
+07-29 20:29:34.294 25934 25980 W OpenGLRenderer: Failed to choose config with EGL_SWAP_BEHAVIOR_PRESERVED, retrying without...
+07-29 20:29:34.316 25934 25980 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 0 0
+07-29 20:29:34.317 25934 25980 D EGL_emulation: eglCreateContext: 0xeb0541c0: maj 2 min 0 rcv 2
+07-29 20:29:34.322 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:34.333 25934 25972 D EventInjectionStrategy: Creating injection strategy with input manager.
+07-29 20:29:34.337 25934 25972 W example.help_m: Accessing hidden method Landroid/hardware/input/InputManager;->getInstance()Landroid/hardware/input/InputManager; (greylist, reflection, allowed)
+07-29 20:29:34.337 25934 25972 W example.help_m: Accessing hidden method Landroid/hardware/input/InputManager;->injectInputEvent(Landroid/view/InputEvent;I)Z (greylist, reflection, allowed)
+07-29 20:29:34.337 25934 25972 W example.help_m: Accessing hidden field Landroid/hardware/input/InputManager;->INJECT_INPUT_EVENT_MODE_WAIT_FOR_FINISH:I (greylist, reflection, allowed)
+07-29 20:29:34.349  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:34.361  1679  1679 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.mapper@3.0::IMapper/default in either framework or device manifest.
+07-29 20:29:34.361 25934 25980 W Gralloc3: mapper 3.x is not supported
+07-29 20:29:34.448 25934 25980 D HostConnection: createUnique: call
+07-29 20:29:34.452 25934 25980 D HostConnection: HostConnection::get() New Host Connection established 0xbfd8bff0, tid 25980
+07-29 20:29:34.457 25934 25980 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_2
+07-29 20:29:34.460  1920  1920 E wifi_forwarder: RemoteConnection failed to initialize: RemoteConnection failed to open pipe
+07-29 20:29:34.460 25934 25980 D eglCodecCommon: allocate: Ask for block of size 0x1000
+07-29 20:29:34.461 25934 25980 D eglCodecCommon: allocate: ioctl allocate returned offset 0x3ff708000 size 0x2000
+07-29 20:29:34.469  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:34.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:34.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:34.482  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:34.534 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:34.573 25934 25980 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 1 0
+07-29 20:29:34.634 25934 25993 V OneSignal: OneSignalRestClient: After con.getResponseCode to: https://api.onesignal.com/apps/f38cdc86-9fb7-40a5-8176-68b4115411da/android_params.js?player_id=7ce44931-8db3-4aa9-b2be-68c8cab00713
+07-29 20:29:34.634 25934 25993 D OneSignal: OneSignalRestClient: GET - Using Cached response due to 304: {"awl_list":{},"android_sender_id":"156856657649","chnl_lst":[],"enterp":true,"outcomes":{"direct":{"enabled":false},"indirect":{"notification_attribution":{"minutes_since_displayed":60,"limit":10},"enabled":false},"unattributed":{"enabled":false}},"receive_receipts_enable":true}
+07-29 20:29:34.686 25934 26003 D OneSignal: OneSignal saveInfluenceParams: InfluenceParams{indirectNotificationAttributionWindow=60, notificationLimit=10, indirectIAMAttributionWindow=1440, iamLimit=10, directEnabled=false, indirectEnabled=false, unattributedEnabled=false}
+07-29 20:29:34.688 25934 26003 D OneSignal: reassignDelayedInitParams with appContext: android.app.Application@a9a40c8
+07-29 20:29:34.689 25934 26003 V OneSignal: setAppId called with id: f38cdc86-9fb7-40a5-8176-68b4115411da changing id from: null
+07-29 20:29:34.689 25934 26003 V OneSignal: Starting OneSignal initialization!
+07-29 20:29:34.695 25934 26003 V OneSignal: No class found, not setting up OSRemoteNotificationReceivedHandler
+07-29 20:29:34.705 25934 26003 D OneSignal: OneSignal handleActivityLifecycleHandler inForeground: true
+07-29 20:29:34.755 25934 26003 D OneSignal: Application foregrounded focus time: 71401619
+07-29 20:29:34.846 25934 26003 D OneSignal: isPastOnSessionTime currentTimeMillis: 1659151774845 lastSessionTime: 1659151649861 difference: 124984
+07-29 20:29:34.848 25934 26003 D OneSignal: Starting new session with appEntryState: APP_CLOSE
+07-29 20:29:34.873 25934 26003 D OneSignal: OneSignal cleanOutcomes for session
+07-29 20:29:34.874 25934 26003 D OneSignal: OneSignal save unattributedUniqueOutcomeEvents: []
+07-29 20:29:34.876 25934 26003 D OneSignal: OneSignal SessionManager restartSessionIfNeeded with entryAction: APP_CLOSE
+07-29 20:29:34.876 25934 26003 D OneSignal:  channelTrackers: []
+07-29 20:29:34.876 25934 26003 D OneSignal: OneSignal SessionManager sendSessionEndingWithInfluences with influences: []
+07-29 20:29:34.876 25934 26003 D OneSignal: Last session time set to: 1659151774876
+07-29 20:29:34.879 25934 26003 D OneSignal: initWithCachedInAppMessages: null
+07-29 20:29:34.881 25934 25934 I Choreographer: Skipped 41 frames!  The application may be doing too much work on its main thread.
+07-29 20:29:34.892 20940 20966 I ActivityTaskManager: Displayed com.example.help_m5/.LoginActivity: +2s366ms
+07-29 20:29:34.900 25934 26003 D OneSignal: LocationController sendAndClearPromptHandlers from non prompt flow
+07-29 20:29:34.921 25934 25947 I example.help_m: NativeAlloc concurrent copying GC freed 39620(3249KB) AllocSpace objects, 22(544KB) LOS objects, 49% free, 3581KB/7163KB, paused 2.300ms total 571.030ms
+07-29 20:29:34.952 25934 26003 D OneSignal: registerUser:registerForPushFired:false, locationFired: true, remoteParams: com.onesignal.OneSignalRemoteParams$2@d3d13e0, appId: f38cdc86-9fb7-40a5-8176-68b4115411da
+07-29 20:29:34.952 25934 26003 D OneSignal: registerUser not possible
+07-29 20:29:34.966 25934 26007 I OneSignal: Restoring notifications
+07-29 20:29:34.968 25934 26007 I OneSignal: Querying DB for notifications to restore: created_time > 1658546974 AND dismissed = 0 AND opened = 0 AND is_summary = 0 AND expire_time > 1659151774
+07-29 20:29:34.970 25934 25934 D OneSignal: onActivityStopped: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:34.972 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.LoginActivity:com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:34.972 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935 in: STOPPED
+07-29 20:29:34.973 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity (has extras) }, activity=androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:35.004 25934 25972 W example.help_m: Accessing hidden method Landroid/view/ViewConfiguration;->getDoubleTapMinTime()I (greylist, reflection, allowed)
+07-29 20:29:35.025 25934 25971 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=bc5f9aa9-633e-4a28-849f-60664ecf58c1, tags={ com.onesignal.OSNotificationRestoreWorkManager$NotificationRestoreWorker } ]
+07-29 20:29:35.028 25934 26003 V OneSignal: OneSignal SDK initialization done.
+07-29 20:29:35.033 25934 26003 D OneSignal: startPendingTasks with task queue quantity: 0
+07-29 20:29:35.056 25934 25934 W example.help_m: Accessing hidden method Landroid/os/MessageQueue;->next()Landroid/os/Message; (greylist, reflection, allowed)
+07-29 20:29:35.056 25934 25934 W example.help_m: Accessing hidden field Landroid/os/MessageQueue;->mMessages:Landroid/os/Message; (greylist, reflection, allowed)
+07-29 20:29:35.056 25934 25934 W example.help_m: Accessing hidden method Landroid/os/Message;->recycleUnchecked()V (greylist, reflection, allowed)
+07-29 20:29:35.072 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:35.078 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:35.080 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:35.091 25934 26008 I OneSignal: FirebaseMessaging.getToken not found, attempting to use FirebaseInstanceId.getToken
+07-29 20:29:35.106 25934 25934 W example.help_m: Accessing hidden method Landroid/view/WindowManagerGlobal;->getInstance()Landroid/view/WindowManagerGlobal; (greylist, reflection, allowed)
+07-29 20:29:35.106 25934 25934 W example.help_m: Accessing hidden field Landroid/view/WindowManagerGlobal;->mViews:Ljava/util/ArrayList; (greylist, reflection, allowed)
+07-29 20:29:35.107 25934 25934 W example.help_m: Accessing hidden field Landroid/view/WindowManagerGlobal;->mParams:Ljava/util/ArrayList; (greylist, reflection, allowed)
+07-29 20:29:35.127 25934 25934 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131296831/com.example.help_m5:id/sign_in_button>
+07-29 20:29:35.130 25934 26008 I OneSignal: Device registered, push token = f2W52guVwW0:APA91bFR9XUhr4TAtGZNULFcMhAsULc9XRoktFmivgzwSJBX2IKDxvLqZ8QR59dgwSL-hllGIKreSVp6ZlT5sMnMaLkfwUtkuibrrrHUI2QfL7Pt8d7t_38Ml34AOfDxvzjLBghehEm2
+07-29 20:29:35.130 25934 26008 D OneSignal: registerForPushToken completed with id: f2W52guVwW0:APA91bFR9XUhr4TAtGZNULFcMhAsULc9XRoktFmivgzwSJBX2IKDxvLqZ8QR59dgwSL-hllGIKreSVp6ZlT5sMnMaLkfwUtkuibrrrHUI2QfL7Pt8d7t_38Ml34AOfDxvzjLBghehEm2 status: 1
+07-29 20:29:35.132 25934 26008 D OneSignal: registerUser:registerForPushFired:true, locationFired: true, remoteParams: com.onesignal.OneSignalRemoteParams$2@d3d13e0, appId: f38cdc86-9fb7-40a5-8176-68b4115411da
+07-29 20:29:35.208 25934 26013 D OneSignal: registerUserTask calling readyToUpdate
+07-29 20:29:35.253 20881 23137 W audio_hw_generic: Not supplying enough data to HAL, expected position 37519059 , only wrote 37519021
+07-29 20:29:35.293 25934 25934 D OneSignal: onActivityPaused: com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:35.294 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:35.295 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 1
+07-29 20:29:35.300 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:35.302 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34007
+07-29 20:29:35.302 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34008
+07-29 20:29:35.305 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:35.310 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: PAUSED
+07-29 20:29:35.311 25934 25934 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:35.313 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:35.319 20940 22097 I chatty  : uid=1000(system) Binder:20940_14 identical 38 lines
+07-29 20:29:35.319 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:35.329 25934 25934 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@5c029b3
+07-29 20:29:35.333 20876 20913 D AF::Track: interceptBuffer: took 227us to intercept 0 tracks
+07-29 20:29:35.349 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: PRE_ON_CREATE
+07-29 20:29:35.352 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:35.380 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: CREATED
+07-29 20:29:35.382 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:35.389 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: STARTED
+07-29 20:29:35.389 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:35.391 25934 25934 D OneSignal: onActivityResumed: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:35.392 25934 25934 D OneSignal: curActivity is NOW: com.google.android.gms.auth.api.signin.internal.SignInHubActivity:com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:35.392 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:35.392 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:35.392 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: RESUMED
+07-29 20:29:35.395 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:35.446  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:35.464  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:35.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:35.471  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:35.537  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:35.590 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:35.663 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:35.680 25934 25934 D OneSignal: onActivityPaused: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:35.680 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:35.680 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 1
+07-29 20:29:35.681 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:35.681 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34008
+07-29 20:29:35.681 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34009
+07-29 20:29:35.682 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:35.683 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: PAUSED
+07-29 20:29:35.683 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:35.685 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:35.689 20940 22097 I chatty  : uid=1000(system) Binder:20940_14 identical 28 lines
+07-29 20:29:35.689 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:35.691 19478 19478 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@bfe20fc
+07-29 20:29:35.693 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:35.693 20940 22097 I chatty  : uid=1000(system) Binder:20940_14 identical 8 lines
+07-29 20:29:35.693 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:35.714 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:35.756 21558 21558 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.signin.service.START dat=chimera-action:com.google.android.gms.signin.service.START cmp=com.google.android.gms/.chimera.GmsApiService }
+07-29 20:29:35.756 21558 21558 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.signin.service.START dat=chimera-action:com.google.android.gms.signin.service.START cmp=com.google.android.gms/.chimera.GmsApiService }
+07-29 20:29:35.810  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4096
+07-29 20:29:35.818  1803  8841 I chatty  : uid=1000(system) HwBinder:1803_3 identical 1 line
+07-29 20:29:35.828  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 4096
+07-29 20:29:35.831 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:35.834 20940 20962 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-29 20:29:35.834 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:35.839 20940 21024 I InputReader: Reconfiguring input devices.  changes=0x00000010
+07-29 20:29:35.988 20940 20966 I ActivityTaskManager: Displayed com.google.android.gms/.auth.api.signin.ui.SignInActivity: +319ms
+07-29 20:29:36.050 21177 21177 D CarrierSvcBindHelper: No carrier app for: 0
+07-29 20:29:36.112 21441 26021 I Fitness : OnPackageChangedOperation got intent: Intent { act=android.intent.action.PACKAGE_CHANGED dat=package:com.example.help_m5 flg=0x45000010 pkg=com.google.android.gms cmp=com.google.android.gms/.chimera.PersistentIntentOperationService (has extras) } [CONTEXT service_id=17 ]
+07-29 20:29:36.128 21441 26027 I Fitness : FitCleanupIntentOperation received Intent android.intent.action.PACKAGE_CHANGED [CONTEXT service_id=17 ]
+07-29 20:29:36.136 21441 10556 W ChimeraUtils: Module com.google.android.gms.nearby_en has empty metadata display_name_string_id
+07-29 20:29:36.142 21441 10556 W ChimeraUtils: Module com.google.android.gms.nearby_en has empty metadata display_name_string_id
+07-29 20:29:36.147 21558 25888 I Icing   : Indexing com.google.android.gms-apps from com.google.android.gms
+07-29 20:29:36.162 21558 25888 I Icing   : Indexing done com.google.android.gms-apps
+07-29 20:29:36.162 21441 21441 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.auth.account.workaccount.START dat=chimera-action:com.google.android.gms.auth.account.workaccount.START cmp=com.google.android.gms/.chimera.PersistentApiService }
+07-29 20:29:36.162 21441 21441 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.auth.account.workaccount.START dat=chimera-action:com.google.android.gms.auth.account.workaccount.START cmp=com.google.android.gms/.chimera.PersistentApiService }
+07-29 20:29:36.301 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.302 20940 22097 I chatty  : uid=1000(system) Binder:20940_14 identical 8 lines
+07-29 20:29:36.302 20940 22097 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.314 20940 23426 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.324 20940 23426 I chatty  : uid=1000(system) Binder:20940_19 identical 38 lines
+07-29 20:29:36.324 20940 23426 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.393 25934 25934 D OneSignal: onActivityResumed: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:36.394 25934 25934 D OneSignal: curActivity is NOW: com.google.android.gms.auth.api.signin.internal.SignInHubActivity:com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:36.394 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:36.398 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:36.405 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: RESUMED
+07-29 20:29:36.412 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:36.434 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.434 20940 21225 I chatty  : uid=1000(system) Binder:20940_6 identical 8 lines
+07-29 20:29:36.434 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.449 25934 25934 D OneSignal: onActivityPaused: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:36.449 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:36.454 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 2
+07-29 20:29:36.456 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:36.456 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34009
+07-29 20:29:36.457 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34011
+07-29 20:29:36.459 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:36.465 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: PAUSED
+07-29 20:29:36.466 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:36.468 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.469 20940 21225 I chatty  : uid=1000(system) Binder:20940_6 identical 8 lines
+07-29 20:29:36.470 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.472  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:36.472  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:36.473 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.486 20940 21225 I chatty  : uid=1000(system) Binder:20940_6 identical 28 lines
+07-29 20:29:36.486 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:36.523 25934 25934 D LoginActivity: email is: lufei8351@gmail.com
+07-29 20:29:36.652 21558 21572 I gle.android.gm: Background young concurrent copying GC freed 80322(4847KB) AllocSpace objects, 23(908KB) LOS objects, 33% free, 12MB/18MB, paused 8.802ms total 53.845ms
+07-29 20:29:36.653 25934 25934 D LoginActivity: paar login is {user_logo=none, _id=lufei8351@gmail.com, username=Peter Na}
+07-29 20:29:36.672 25934 25934 D LoginActivity: Trying to load device phone model information
+07-29 20:29:36.673 25934 25934 D OneSignal: onActivityResumed: com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:36.674 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.LoginActivity:com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:36.674 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:36.675 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:36.676 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: RESUMED
+07-29 20:29:36.676 25934 25934 V ActivityScenario: Update currentActivityStage to RESUMED, currentActivity=com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:36.716 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:36.748  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 356352
+07-29 20:29:36.775  1803  8841 I chatty  : uid=1000(system) HwBinder:1803_3 identical 1 line
+07-29 20:29:36.781  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 356352
+07-29 20:29:36.784 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:36.859 25934 25934 D OneSignal: onActivityStopped: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:36.860 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.LoginActivity:com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:36.860 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: STOPPED
+07-29 20:29:36.862 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:36.865 25934 25934 D OneSignal: onActivityDestroyed: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:36.865 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.LoginActivity:com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:36.866 25934 25934 D LifecycleMonitor: Lifecycle status change: com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221 in: DESTROYED
+07-29 20:29:36.867 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=com.google.android.gms.auth.GOOGLE_SIGN_IN flg=0x800000 pkg=com.example.help_m5 cmp=com.example.help_m5/com.google.android.gms.auth.api.signin.internal.SignInHubActivity (has extras) }, activity=com.google.android.gms.auth.api.signin.internal.SignInHubActivity@948221
+07-29 20:29:37.147 25934 25934 D LoginActivity: response in loingin is: {"_id":"lufei8351@gmail.com","account_type":0,"account_status":0,"username":"Peter Na","user_logo":"https:\/\/lh3.googleusercontent.com\/a-\/AOh14Gj8GMMhE_szu5WGr9670fHSjtKnVXth36eNHkk5Rw","number_of_credit":18,"number_of_rate":1650,"number_of_reply":28,"number_of_facility":0}
+07-29 20:29:37.184 25934 25934 D LoginActivity: start next activity
+07-29 20:29:37.186 25934 25934 D OneSignal: onActivityPaused: com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:37.186 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:37.187 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 2
+07-29 20:29:37.188 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:37.188 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34011
+07-29 20:29:37.188 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34013
+07-29 20:29:37.189 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:37.189 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: PAUSED
+07-29 20:29:37.190 25934 25934 V ActivityScenario: Update currentActivityStage to PAUSED, currentActivity=com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:37.198 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:37.204 20940 21225 I chatty  : uid=1000(system) Binder:20940_6 identical 48 lines
+07-29 20:29:37.204 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:37.208 25934 25934 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@7237553
+07-29 20:29:37.230 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: PRE_ON_CREATE
+07-29 20:29:37.231 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:37.469  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:37.469  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:37.484 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:37.484 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:37.983 25934 25934 D databaseConnection: delete filename is: posts.json
+07-29 20:29:38.037 21441 21441 D BoundBrokerSvc: onBind: Intent { act=com.google.android.contextmanager.service.ContextManagerService.START pkg=com.google.android.gms }
+07-29 20:29:38.037 21441 21441 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.contextmanager.service.ContextManagerService.START pkg=com.google.android.gms }
+07-29 20:29:38.286 25934 25934 D MainActivity: info in main is  {"_id":"lufei8351@gmail.com","account_type":0,"account_status":0,"username":"Peter Na","user_logo":"https:\/\/lh3.googleusercontent.com\/a-\/AOh14Gj8GMMhE_szu5WGr9670fHSjtKnVXth36eNHkk5Rw","number_of_credit":18,"number_of_rate":1650,"number_of_reply":28,"number_of_facility":0}
+07-29 20:29:38.374 25934 25934 W example.help_m: Accessing hidden method Ldalvik/system/CloseGuard;->get()Ldalvik/system/CloseGuard; (greylist,core-platform-api, reflection, allowed)
+07-29 20:29:38.374 25934 25934 W example.help_m: Accessing hidden method Ldalvik/system/CloseGuard;->open(Ljava/lang/String;)V (greylist,core-platform-api, reflection, allowed)
+07-29 20:29:38.374 25934 25934 W example.help_m: Accessing hidden method Ldalvik/system/CloseGuard;->warnIfOpen()V (greylist,core-platform-api, reflection, allowed)
+07-29 20:29:38.387 20881 20902 W audio_hw_generic: Not supplying enough data to HAL, expected position 37793656 , only wrote 37657170
+07-29 20:29:38.415 25934 25934 D LoadToScreen: Finish load all
+07-29 20:29:38.415 25934 25934 D MainActivity: userInfo finished set up
+07-29 20:29:38.418 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: CREATED
+07-29 20:29:38.419 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:38.429 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: STARTED
+07-29 20:29:38.429 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:38.430 25934 25934 D OneSignal: onActivityResumed: com.example.help_m5.MainActivity@157fa8
+07-29 20:29:38.431 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.MainActivity:com.example.help_m5.MainActivity@157fa8
+07-29 20:29:38.431 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:38.431 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:38.432 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: RESUMED
+07-29 20:29:38.433 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:38.433 25934 25934 D EntertainmentsFragment: onSearch in onResume: false
+07-29 20:29:38.467 25934 25934 D databaseConnection: updateUserInfo params is {user_logo=, _id=lufei8351@gmail.com, username=}
+07-29 20:29:38.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:38.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:38.471 25934 25934 D EntertainmentsFragment: current page selfUpdate: 1
+07-29 20:29:38.471 25934 25934 D TESTING : posts.json
+07-29 20:29:38.471 25934 25934 D TESTING : Not here
+07-29 20:29:38.522 25934 25934 D databaseConnection: url in searchFacilities is :http://20.213.243.141:8080/facility/newest
+07-29 20:29:38.522 25934 25934 D databaseConnection: {type=0}
+07-29 20:29:38.568 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:38.639 25934 25934 W example.help_m: Accessing hidden method Landroid/view/View;->getViewRootImpl()Landroid/view/ViewRootImpl; (greylist, reflection, allowed)
+07-29 20:29:38.639 25934 25934 W example.help_m: Accessing hidden field Landroid/view/View$AttachInfo;->mVisibleInsets:Landroid/graphics/Rect; (greylist, reflection, allowed)
+07-29 20:29:38.639 25934 25934 W example.help_m: Accessing hidden field Landroid/view/ViewRootImpl;->mAttachInfo:Landroid/view/View$AttachInfo; (greylist, reflection, allowed)
+07-29 20:29:38.998  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:39.015  1803  8841 I chatty  : uid=1000(system) HwBinder:1803_3 identical 1 line
+07-29 20:29:39.021  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:39.294 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:39.465 25934 25980 I OpenGLRenderer: Davey! duration=903ms; Flags=1, IntendedVsync=71405410854364, Vsync=71405444187696, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=71405448144960, AnimationStart=71405448253760, PerformTraversalsStart=71405448350760, DrawStart=71406123315960, SyncQueued=71406145682860, SyncStart=71406160674460, IssueDrawCommandsStart=71406161018560, SwapBuffers=71406285245560, FrameCompleted=71406328898360, DequeueBufferDuration=393000, QueueBufferDuration=823000,
+07-29 20:29:39.468 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:39.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:39.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:39.471 25934 25934 I Choreographer: Skipped 52 frames!  The application may be doing too much work on its main thread.
+07-29 20:29:39.474 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:39.475 20940 20962 I chatty  : uid=1000(system) android.anim identical 8 lines
+07-29 20:29:39.475 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:39.479 25934 25980 I OpenGLRenderer: Davey! duration=929ms; Flags=1, IntendedVsync=71405410854364, Vsync=71405444187696, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=71405448144960, AnimationStart=71405448253760, PerformTraversalsStart=71405448350760, DrawStart=71406329978160, SyncQueued=71406330459060, SyncStart=71406333016760, IssueDrawCommandsStart=71406333160960, SwapBuffers=71406337369860, FrameCompleted=71406343023660, DequeueBufferDuration=737000, QueueBufferDuration=401000,
+07-29 20:29:39.480 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:39.481 20940 20962 I chatty  : uid=1000(system) android.anim identical 8 lines
+07-29 20:29:39.481 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:39.497 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:39.511 25934 25980 I OpenGLRenderer: Davey! duration=915ms; Flags=1, IntendedVsync=71405457403806, Vsync=71406324070438, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=71406335455760, AnimationStart=71406335552860, PerformTraversalsStart=71406336087460, DrawStart=71406356886460, SyncQueued=71406359424360, SyncStart=71406361910660, IssueDrawCommandsStart=71406363989760, SwapBuffers=71406369470360, FrameCompleted=71406375041760, DequeueBufferDuration=89000, QueueBufferDuration=235000,
+07-29 20:29:39.532 25934 25934 D databaseConnection: updateUserInfo response is {"_id":"lufei8351@gmail.com","account_type":0,"account_status":0,"username":"Peter Na","user_logo":"https:\/\/lh3.googleusercontent.com\/a-\/AOh14Gj8GMMhE_szu5WGr9670fHSjtKnVXth36eNHkk5Rw","number_of_credit":18,"number_of_rate":1650,"number_of_reply":28,"number_of_facility":0}
+07-29 20:29:39.535 25934 25934 D LoadToScreen: Finish load all
+07-29 20:29:39.550 25934 25934 D databaseConnection: current page db: 1
+07-29 20:29:39.554 25934 25934 D databaseConnection: response searchFacilities is: {"result":[[25,0,"the post","this is only used for testing, no meanning for information inside","2022\/6\/30"],[24,0,"the Marit Boys Collage","Royal Canadian College has built up a solid reputation as a caring institution that brings out the best in students. The College offers a first-rate high school ...","2022\/6\/29"],[23,0,"the Vancouver College","Vancouver College is an independent university-preparatory Catholic school for boys located in the Shaughnessy neighbourhood of Vancouver, British Columbia, Canada. Founded in 1922, it is the only independent Catholic all-boys school in British Columbia. Wikipedia","2022\/6\/29"],[22,0,"the alexander college","Alexander College is a private post-secondary institution in Burnaby, British Columbia, Canada. It was established in 2006 under the British Columbia Ministry of Advanced Education.","2022\/6\/29"],[21,0,"the langara college","Langara College is a public degree-granting college in Vancouver, British Columbia, Canada, which serves approximately 22,000 students annually through its university, career, and continuing studies programs.","2022\/6\/29"],[20,0,"the Thompson Rivers University","Thompson Rivers University is a public teaching and research university offering undergraduate and graduate degrees and vocational training. Its main campus is in Kamloops, British Columbia, Canada, and its name comes from the two rivers which converge in Kamloops, the North Thompson and South Thompson.","2022\/6\/29"],[19,0,"the Simon Fraser University","Simon Fraser University is a public research university in British Columbia, Canada, with three campuses: Burnaby, Surrey, and Vancouver.","2022\/6\/29"],[18,0,"the University of Victoria","The University of Victoria is a public research university located in the municipalities of Oak Bay and Saanich, British Columbia, Canada. The university traces its roots to Victoria College, the first post-secondary institution established in the province of British Columbia in 1903.","2022\/6\/29"],[17,0,"the best lol player","Lee \"Faker\" Sang-hyeok  is a League of Legends esports player, currently mid laner and part owner at T1.","2022\/6\/29"],[16,0,"the best singer: Michael Jackson","Michael Joseph Jackson was an American singer, songwriter, and dancer. Dubbed the \"King of Pop\", he is regarded as one of the most significant cultural figures of the 20th century.","2022\/6\/29"],[15,null,"Hello Everyone","hello fellow humans. I am a robot and I have come here to greet everyone here","2022\/6\/27"],[14,null,"Party at tom's house","let's gooooooooooo0ooooooooooooo0ooooooooo0oooooooooo0","2022\/6\/27"],[13,0,"CPEN321 Midterm is coming","• Requirements and Design  \n– types of requirements \n– use cases \n– components and interfaces \n– sequence diagrams \n• Code quality, code smells \n• Testing and analysis \n– test coverage \n– control flow \n– data flow \n– symbolic execution","2022\/6\/19"],[12,0,"test 5","ajo;dfm,ahdflah. ajhfakldmadh aeihd ad. iedfhaldfha. fuiajdfl","2022\/6\/14"],[11,0,"engineering","Engineering is the use of scientific principles to design and build machines, structures, and other items, including bridges, tunnels, roads, vehicles, ...","2022\/6\/11"],[10,null,"The University of British Columbia","The University of British Columbia is a global centre for research and teaching, consistently ranked among the top 20 public universities in the world.","2022\/6\/11"],[9,0,"water consumption per canadian per day","If we look at how much we're using every day just at home, the average Canadian uses about 329L of water, the average Quebecer uses 400L of water per person, and, according to the Ville de Montréal, the average Montrealer uses 225 L of water per person.","2022\/6\/11"],[8,0,"Ice cream","Ice cream is a sweetened frozen food typically eaten as a snack or dessert. It may be made from milk or cream and is flavoured with a sweetener, either sugar or an alternative, and a spice, such as cocoa or vanilla, or with fruit suc
+07-29 20:29:39.594 25934 25934 D EntertainmentsFragment: facility_type in onItemSelected 0
+07-29 20:29:39.595 25934 25934 D TESTING : posts.json
+07-29 20:29:39.595 25934 25934 D TESTING : Goes here
+07-29 20:29:39.744 25934 25934 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131296846/com.example.help_m5:id/spinnerFacility>
+07-29 20:29:39.820 25934 25934 W example.help_m: Accessing hidden field Landroid/widget/AbsListView;->mIsChildViewEnabled:Z (greylist, reflection, allowed)
+07-29 20:29:39.942  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 1732608
+07-29 20:29:39.945  1803  8841 I chatty  : uid=1000(system) HwBinder:1803_3 identical 1 line
+07-29 20:29:39.950  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 1732608
+07-29 20:29:40.045 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.070 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.097 25934 25934 D OneSignal: onActivityStopped: com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:40.097 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.MainActivity:com.example.help_m5.MainActivity@157fa8
+07-29 20:29:40.098 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: STOPPED
+07-29 20:29:40.098 25934 25934 V ActivityScenario: Update currentActivityStage to STOPPED, currentActivity=com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:40.116 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.130 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.173 20940 20966 E memtrack: Couldn't load memtrack module
+07-29 20:29:40.174 20940 20966 W android.os.Debug: failed to get memory consumption info: -1
+07-29 20:29:40.194 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.286 25934 25980 I chatty  : uid=10135(com.example.help_m5) RenderThread identical 5 lines
+07-29 20:29:40.301 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.469  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:40.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:40.508 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:40.508 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:40.511 25934 25934 I ViewInteraction: Performing 'load adapter data' action on view is assignable from class <class android.widget.AdapterView>
+07-29 20:29:40.545 25934 25934 I ViewInteraction: Performing 'single click' action on view  displaying data matching: ANYTHING within adapter view matching: is assignable from class <class android.widget.AdapterView>
+07-29 20:29:40.675 20881 23137 W audio_hw_generic: Not supplying enough data to HAL, expected position 37657204 , only wrote 37657170
+07-29 20:29:40.761 20876 20913 D AF::Track: interceptBuffer: took 491us to intercept 0 tracks
+07-29 20:29:40.837 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.870 25934 25980 I chatty  : uid=10135(com.example.help_m5) RenderThread identical 2 lines
+07-29 20:29:40.884 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.892 25934 25934 D EntertainmentsFragment: facility_type in onItemSelected 1
+07-29 20:29:40.892 25934 25934 D TESTING : studys.json
+07-29 20:29:40.892 25934 25934 D TESTING : Not here
+07-29 20:29:40.942 25934 25934 D databaseConnection: url in searchFacilities is :http://20.213.243.141:8080/facility/newest
+07-29 20:29:40.942 25934 25934 D databaseConnection: {type=1}
+07-29 20:29:40.955 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:40.968 25934 25980 I chatty  : uid=10135(com.example.help_m5) RenderThread identical 1 line
+07-29 20:29:41.171 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:41.223 25934 25934 D databaseConnection: current page db: 0
+07-29 20:29:41.224 25934 25934 D databaseConnection: response searchFacilities is: {"result":[[10,0,"the studys","used for testing purpose, do not have any usefuil onformation,","2022\/6\/30"],[9,null,"study for midterm","lets study together in the library\n\nmidterm is coming\n\noh god 50 characters","2022\/6\/27"],[8,0.04216867469879518,"ICICS Building","The ICICS building is open 8 am - 5 pm, after which an active key fob or access card is required for access (contact access@icics.ubc.ca to renew\/request). ","2022\/7\/10"],[7,0.0379746835443038,"Fred Kaiser Building","Place for UBC ECE students and stuff with Starbucks and Engineering Services first floor.","2022\/6\/11"],[6,4.2272727272727275,"Earth Sciences Building","The former proposal is for the current Earth Systems Science Building (ESSB) which includes teaching, laboratory, and office spaces for the Department of Earth and Ocean Science (EOS), the Department of Statistics, the Pacific Institute for Mathematical Sciences (PIMS), the Dean of Science, and the Pacific Museum of the Earth (PME).","2022\/07\/06"],[5,0.09090909090909091,"UBC Life Building","The UBC Life Building is a central and vibrant hub to study, work out, grab a bite to eat, and access student services and programs.","2022\/07\/06"],[4,4.3061224489795915,"Ponderosa Study Rooms","Three study rooms located next to Mercante Café are available on a first-come, first-serve basis. Rooms are furnished with group tables and chairs.","2022\/07\/06"],[3,4.346153846153846,"Woodward Library","The Woodward Library is located on the east side of Health Sciences Mall in the Health Sciences Complex northwest of the UBC Hospital.","2022\/07\/06"],[2,4.276595744680851,"Walter C. Koerner Library","The Walter C. Koerner Library is an academic library at the Vancouver campus of the University of British Columbia. The library is named after Walter C. Koerner, a Canadian businessman and philanthropist.","2022\/07\/06"],[1,2.5,"The Irving K. Barber Learning Centre","The Irving K. Barber Learning Centre is a facility at the Vancouver campus of the University of British Columbia. The Learning Centre is built around the refurbished core of the 1925 UBC Main Library.","2022\/07\/06"]],"length":10,"current_page":1}
+07-29 20:29:41.277 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:41.331 25934 25947 I example.help_m: Background young concurrent copying GC freed 18821(1702KB) AllocSpace objects, 6(124KB) LOS objects, 25% free, 5305KB/7163KB, paused 795us total 105.597ms
+07-29 20:29:41.469  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:41.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:41.530 25934 26005 D OneSignal: UserStateSynchronizer internalSyncUserState from session call: true jsonBody: {"app_id":"f38cdc86-9fb7-40a5-8176-68b4115411da"}
+07-29 20:29:41.532 25934 26083 D OneSignal: OneSignalRestClient: Making request to: https://api.onesignal.com/players/688b76a7-121d-4e32-b180-2ccaf153874b/on_session
+07-29 20:29:41.534 25934 26083 D OneSignal: OneSignalRestClient: POST SEND JSON: {"app_id":"f38cdc86-9fb7-40a5-8176-68b4115411da","device_type":11,"device_player_id":"7ce44931-8db3-4aa9-b2be-68c8cab00713"}
+07-29 20:29:41.534 25934 26004 D OneSignal: UserStateSynchronizer internalSyncUserState from session call: true jsonBody: {"app_id":"f38cdc86-9fb7-40a5-8176-68b4115411da"}
+07-29 20:29:41.540 25934 26084 D OneSignal: OneSignalRestClient: Making request to: https://api.onesignal.com/players/7ce44931-8db3-4aa9-b2be-68c8cab00713/on_session
+07-29 20:29:41.541 25934 26084 D OneSignal: OneSignalRestClient: POST SEND JSON: {"app_id":"f38cdc86-9fb7-40a5-8176-68b4115411da"}
+07-29 20:29:41.550 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:41.556 25934 25934 I ViewInteraction: Performing 'single click' action on view view.getId() is <2131296499/com.example.help_m5:id/facility3>
+07-29 20:29:41.729 25934 26083 V OneSignal: OneSignalRestClient: After con.getResponseCode to: https://api.onesignal.com/players/688b76a7-121d-4e32-b180-2ccaf153874b/on_session
+07-29 20:29:41.729 25934 26083 D OneSignal: OneSignalRestClient: Successfully finished request to: https://api.onesignal.com/players/688b76a7-121d-4e32-b180-2ccaf153874b/on_session
+07-29 20:29:41.733 25934 26083 D OneSignal: OneSignalRestClient: POST RECEIVED JSON: {"success":true,"id":"688b76a7-121d-4e32-b180-2ccaf153874b"}
+07-29 20:29:41.740 25934 26096 D OneSignal: doCreateOrNewSession:response: {"success":true,"id":"688b76a7-121d-4e32-b180-2ccaf153874b"}
+07-29 20:29:41.743 25934 26096 I OneSignal: Device registered, UserId = 688b76a7-121d-4e32-b180-2ccaf153874b
+07-29 20:29:41.768 25934 26084 V OneSignal: OneSignalRestClient: After con.getResponseCode to: https://api.onesignal.com/players/7ce44931-8db3-4aa9-b2be-68c8cab00713/on_session
+07-29 20:29:41.768 25934 26084 D OneSignal: OneSignalRestClient: Successfully finished request to: https://api.onesignal.com/players/7ce44931-8db3-4aa9-b2be-68c8cab00713/on_session
+07-29 20:29:41.771 25934 26084 D OneSignal: OneSignalRestClient: POST RECEIVED JSON: {"success":true,"id":"7ce44931-8db3-4aa9-b2be-68c8cab00713"}
+07-29 20:29:41.775 25934 26097 D OneSignal: doCreateOrNewSession:response: {"success":true,"id":"7ce44931-8db3-4aa9-b2be-68c8cab00713"}
+07-29 20:29:41.776 25934 26097 I OneSignal: Device registered, UserId = 7ce44931-8db3-4aa9-b2be-68c8cab00713
+07-29 20:29:41.904 21558 21558 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.signin.service.START dat=chimera-action:com.google.android.gms.signin.service.START cmp=com.google.android.gms/.chimera.GmsApiService }
+07-29 20:29:41.906 25934 25934 D databaseConnection: response getSpecificFacility is: {"_id":8,"facility":{"facility_status":"normal","facilityType":"studys","facilityTitle":"ICICS Building","facilityDescription":"The ICICS building is open 8 am - 5 pm, after which an active key fob or access card is required for access (contact access@icics.ubc.ca to renew\/request). ","timeAdded":"2022\/7\/10","facilityImageLink":"https:\/\/cdn.discordapp.com\/attachments\/984213736652935230\/995916264289599568\/unknown.png","facilityOverallRate":0.04216867469879518,"numberOfRates":83,"longitude":-123.248931,"latitude":49.261267},"reviews":[{"replierID":"deany.y.ca@gmail.com","userName":"Dean Yang","rateScore":0.5,"upVotes":0,"downVotes":0,"replyContent":"sucks","timeOfReply":"2022\/6\/27\/1\/6\/16"},{"replierID":"lufei8351@gmail.com","userName":"Peter Na","rateScore":3,"upVotes":0,"downVotes":0,"replyContent":"cs","timeOfReply":"2022\/6\/29\/8\/41\/13"}],"ratedUser":[{"replierID":"deany.y.ca@gmail.com"},{"replierID":"lufei8351@gmail.com"}],"adderID":""}
+07-29 20:29:41.963 25934 25934 D OneSignal: onActivityPaused: com.example.help_m5.MainActivity@157fa8
+07-29 20:29:41.963 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:41.964 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 7
+07-29 20:29:41.964 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:41.964 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34013
+07-29 20:29:41.964 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34020
+07-29 20:29:41.965 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:41.967 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: PAUSED
+07-29 20:29:41.970 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:41.977 20940 24268 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:41.984 20940 24268 I chatty  : uid=1000(system) Binder:20940_1C identical 48 lines
+07-29 20:29:41.984 20940 24268 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:42.006  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 217088
+07-29 20:29:42.018  1803  8841 I chatty  : uid=1000(system) HwBinder:1803_3 identical 1 line
+07-29 20:29:42.020  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 217088
+07-29 20:29:42.023 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:42.037 25934 25934 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@b0077b0
+07-29 20:29:42.066 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.FacilityActivity@29d9147 in: PRE_ON_CREATE
+07-29 20:29:42.066 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.FacilityActivity (has extras) }, activity=com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:42.170 25934 25934 I System.out: {"_id":8,"facility":{"facility_status":"normal","facilityType":"studys","facilityTitle":"ICICS Building","facilityDescription":"The ICICS building is open 8 am - 5 pm, after which an active key fob or access card is required for access (contact access@icics.ubc.ca to renew\/request). ","timeAdded":"2022\/7\/10","facilityImageLink":"https:\/\/cdn.discordapp.com\/attachments\/984213736652935230\/995916264289599568\/unknown.png","facilityOverallRate":0.04216867469879518,"numberOfRates":83,"longitude":-123.248931,"latitude":49.261267},"reviews":[{"replierID":"deany.y.ca@gmail.com","userName":"Dean Yang","rateScore":0.5,"upVotes":0,"downVotes":0,"replyContent":"sucks","timeOfReply":"2022\/6\/27\/1\/6\/16"},{"replierID":"lufei8351@gmail.com","userName":"Peter Na","rateScore":3,"upVotes":0,"downVotes":0,"replyContent":"cs","timeOfReply":"2022\/6\/29\/8\/41\/13"}],"ratedUser":[{"replierID":"deany.y.ca@gmail.com"},{"replierID":"lufei8351@gmail.com"}],"adderID":""}
+07-29 20:29:42.170 25934 25934 D FacilityActivity: type is 1, is Post: false
+07-29 20:29:42.195 25934 25934 D MapsInitializer: preferredRenderer: null
+07-29 20:29:42.196 25934 25934 D zzca    : preferredRenderer: null
+07-29 20:29:42.205 25934 25934 I zzca    : Making Creator dynamically
+07-29 20:29:42.218 25934 25934 I DynamiteModule: Considering local module com.google.android.gms.maps_dynamite:0 and remote module com.google.android.gms.maps_dynamite:203115000
+07-29 20:29:42.219 25934 25934 I DynamiteModule: Selected remote version of com.google.android.gms.maps_dynamite, version >= 203115000
+07-29 20:29:42.219 25934 25934 V DynamiteModule: Dynamite loader version >= 2, using loadModule2NoCrashUtils
+07-29 20:29:42.269 25934 25934 I example.help_m: Waiting for a blocking GC ClassLinker
+07-29 20:29:42.280 25934 25934 I example.help_m: WaitForGcToComplete blocked ClassLinker on ClassLinker for 10.617ms
+07-29 20:29:42.316 25934 25934 I Google Maps Android API: Google Play services client version: 12451000
+07-29 20:29:42.384 21441 21441 D BoundBrokerSvc: onBind: Intent { act=com.google.android.gms.phenotype.service.START pkg=com.google.android.gms }
+07-29 20:29:42.385 21441 21441 D BoundBrokerSvc: Loading bound service for intent: Intent { act=com.google.android.gms.phenotype.service.START pkg=com.google.android.gms }
+07-29 20:29:42.386 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:42.394 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:42.394 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:42.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:42.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:42.484 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-29 20:29:42.484 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:42.484 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:42.484 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:42.484 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:42.485 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-29 20:29:42.498 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->allocateInstance(Ljava/lang/Class;)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:42.500 25934 25934 W example.help_m: Accessing hidden method Llibcore/io/Memory;->peekLong(JZ)J (greylist, reflection, allowed)
+07-29 20:29:42.501 25934 25934 W example.help_m: Accessing hidden method Llibcore/io/Memory;->pokeLong(JJZ)V (greylist, reflection, allowed)
+07-29 20:29:42.501 25934 25934 W example.help_m: Accessing hidden method Llibcore/io/Memory;->pokeInt(JIZ)V (greylist, reflection, allowed)
+07-29 20:29:42.501 25934 25934 W example.help_m: Accessing hidden method Llibcore/io/Memory;->peekInt(JZ)I (greylist, reflection, allowed)
+07-29 20:29:42.501 25934 25934 W example.help_m: Accessing hidden method Llibcore/io/Memory;->pokeByte(JB)V (greylist, reflection, allowed)
+07-29 20:29:42.501 25934 25934 W example.help_m: Accessing hidden method Llibcore/io/Memory;->peekByte(J)B (greylist, reflection, allowed)
+07-29 20:29:42.501 25934 25934 W example.help_m: Accessing hidden method Llibcore/io/Memory;->pokeByteArray(J[BII)V (greylist, reflection, allowed)
+07-29 20:29:42.502 25934 25934 W example.help_m: Accessing hidden method Llibcore/io/Memory;->peekByteArray(J[BII)V (greylist, reflection, allowed)
+07-29 20:29:42.503 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->arrayBaseOffset(Ljava/lang/Class;)I (greylist,core-platform-api, linking, allowed)
+07-29 20:29:42.504 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:42.505 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-29 20:29:42.505 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:42.506 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-29 20:29:42.506 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:42.507 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:42.507 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->arrayIndexScale(Ljava/lang/Class;)I (greylist, linking, allowed)
+07-29 20:29:42.508 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, reflection, allowed)
+07-29 20:29:42.508 25934 25934 W example.help_m: Accessing hidden field Ljava/nio/Buffer;->address:J (greylist, reflection, allowed)
+07-29 20:29:42.508 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, reflection, allowed)
+07-29 20:29:42.509 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, reflection, allowed)
+07-29 20:29:42.509 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, reflection, allowed)
+07-29 20:29:42.509 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, reflection, allowed)
+07-29 20:29:42.509 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, reflection, allowed)
+07-29 20:29:42.509 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, reflection, allowed)
+07-29 20:29:42.515 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:42.515 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-29 20:29:42.518 21441 21441 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.nearby.exposurenotification.START dat=chimera-action:com.google.android.gms.nearby.exposurenotification.START cmp=com.google.android.gms/.chimera.PersistentApiService }
+07-29 20:29:42.518 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:42.536 25934 25934 I Google Maps Android API: Google Play services package version: 222615031
+07-29 20:29:42.536 25934 25934 I Google Maps Android API: Google Play services maps renderer version(legacy): 203115000
+07-29 20:29:42.558 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:42.688 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:42.692 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-29 20:29:42.692 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:42.773 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:42.782 25934 25934 D MapsInitializer: loadedRenderer: LEGACY
+07-29 20:29:42.782 25934 25934 D zzca    : preferredRenderer: null
+07-29 20:29:42.791 25934 25934 I Google Maps Android API: Google Play services package version: 222615031
+07-29 20:29:42.792 25934 25934 I Google Maps Android API: Google Play services maps renderer version(legacy): 203115000
+07-29 20:29:42.893 21558 21558 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.feedback.internal.IFeedbackService dat=chimera-action:com.google.android.gms.feedback.internal.IFeedbackService cmp=com.google.android.gms/.chimera.GmsBoundBrokerService }
+07-29 20:29:42.943 21441 21441 D BoundBrokerSvc: onUnbind: Intent { act=com.google.android.gms.icing.LIGHTWEIGHT_INDEX_SERVICE dat=chimera-action:com.google.android.gms.icing.LIGHTWEIGHT_INDEX_SERVICE cmp=com.google.android.gms/.chimera.PersistentApiService }
+07-29 20:29:42.992 21929 22182 I WorkerManager: dispose()
+07-29 20:29:42.992 21929 22182 W A       : (REDACTED) Queue length for executor %s is now %d. Perhaps some tasks are too long, or the pool is too small.
+07-29 20:29:43.015 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:43.160  9764  9764 I Finsky  : [2] rww.onStartJob(4): SCH: job service start with id 9149.
+07-29 20:29:43.171  9764 25819 I Finsky  : [1376] rva.a(45): SCH: Satisfied jobs for 9149 are: 12-1
+07-29 20:29:43.174  9764 26129 I Finsky  : [1389] rew.accept(8): SCH: Job 12-1 starting
+07-29 20:29:43.175  9764  9764 I Finsky  : [2] ContentSyncJob.v(3): [ContentSync] job started
+07-29 20:29:43.183 25934 25949 W System  : A resource failed to call close.
+07-29 20:29:43.183 25934 25949 I chatty  : uid=10135(com.example.help_m5) FinalizerDaemon identical 2 lines
+07-29 20:29:43.183 25934 25949 W System  : A resource failed to call close.
+07-29 20:29:43.269 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:43.269 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:43.278 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:43.282 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:43.282 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-29 20:29:43.289 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.FacilityActivity@29d9147 in: CREATED
+07-29 20:29:43.290 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.FacilityActivity (has extras) }, activity=com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:43.292  9764 25900 I Finsky  : [1388] frc.i(1): Completed 0 account content syncs with 0 successful.
+07-29 20:29:43.293  9764  9764 I Finsky  : [2] ContentSyncJob.a(1): [ContentSync] Installation state replication succeeded.
+07-29 20:29:43.293  9764  9764 I Finsky  : [2] rve.r(4): SCH: jobFinished: 12-1. TimeElapsed: 118ms.
+07-29 20:29:43.294 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.FacilityActivity@29d9147 in: STARTED
+07-29 20:29:43.295 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.FacilityActivity (has extras) }, activity=com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:43.296 25934 25934 D OneSignal: onActivityResumed: com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:43.296 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.FacilityActivity:com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:43.297 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:43.297 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:43.299 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:43.324  9764  9816 I Finsky  : [777] rou.accept(43): SCH: Scheduling phonesky job Id: 1-1337, CT: 1659142452490, Constraints: [{ L: 42800740, D: 86000740, C: 1, I: 1, N: 1 }]
+07-29 20:29:43.331  9764  9815 I Finsky  : [776] roq.apply(22): SCH: Scheduling 1 system job(s)
+07-29 20:29:43.332  9764  9815 I Finsky  : [776] roq.apply(28): SCH: Scheduling system job Id: 9152, L: 33469898, D: 76669898, C: false, I: false, N: 1
+07-29 20:29:43.343  9764 26129 I Finsky  : [1389] rww.a(16): SCH: job service finished with id 9149.
+07-29 20:29:43.375 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.FacilityActivity@29d9147 in: RESUMED
+07-29 20:29:43.376 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.FacilityActivity (has extras) }, activity=com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:43.411 25934 25934 D FacilityActivity: image loaded successfully
+07-29 20:29:43.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:43.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:43.492 25934 25954 I ba      : Successfully registered with Phenotype.
+07-29 20:29:43.597  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:43.609  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:43.610 25934 26150 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:43.610 25934 26150 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:43.616  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:43.631 25934 26132 D HostConnection: HostConnection::get() New Host Connection established 0xb54aa200, tid 26132
+07-29 20:29:43.633 25934 26132 D HostConnection: HostComposition ext ANDROID_EMU_CHECKSUM_HELPER_v1 ANDROID_EMU_dma_v1 ANDROID_EMU_direct_mem ANDROID_EMU_host_composition_v1 ANDROID_EMU_host_composition_v2 ANDROID_EMU_vulkan ANDROID_EMU_deferred_vulkan_commands ANDROID_EMU_vulkan_null_optional_strings ANDROID_EMU_vulkan_create_resources_with_requirements ANDROID_EMU_YUV420_888_to_NV21 ANDROID_EMU_YUV_Cache ANDROID_EMU_vulkan_free_memory_sync ANDROID_EMU_vulkan_shader_float16_int8 ANDROID_EMU_vulkan_async_queue_submit ANDROID_EMU_sync_buffer_data GL_OES_vertex_array_object GL_KHR_texture_compression_astc_ldr ANDROID_EMU_host_side_tracing ANDROID_EMU_gles_max_version_2
+07-29 20:29:43.670 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:43.670 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:43.683 25934 26132 D eglCodecCommon: setVertexArrayObject: set vao to 0 (0) 0 0
+07-29 20:29:43.683 25934 26132 D EGL_emulation: eglCreateContext: 0xb543b360: maj 1 min 0 rcv 1
+07-29 20:29:43.685  1679  1679 I hwservicemanager: getTransport: Cannot find entry android.hardware.graphics.allocator@3.0::IAllocator/default in either framework or device manifest.
+07-29 20:29:43.685 25934 26132 W Gralloc3: allocator 3.x is not supported
+07-29 20:29:43.687  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 1593344
+07-29 20:29:43.716 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:43.721 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:43.722 25934 26161 I chatty  : uid=10135(com.example.help_m5) androidmapsapi- identical 1 line
+07-29 20:29:43.727 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:43.912 25934 25947 I example.help_m: Background concurrent copying GC freed 20879(1135KB) AllocSpace objects, 3(60KB) LOS objects, 49% free, 6087KB/11MB, paused 758us total 128.215ms
+07-29 20:29:44.163 25934 26132 D EGL_emulation: eglMakeCurrent: 0xb543b360: ver 1 0 (tinfo 0xbfd562a0)
+07-29 20:29:44.177 25934 25980 I OpenGLRenderer: Davey! duration=756ms; Flags=1, IntendedVsync=71410254147483, Vsync=71410337480813, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=71410348567560, AnimationStart=71410348656660, PerformTraversalsStart=71410348721660, DrawStart=71410477097860, SyncQueued=71410551384860, SyncStart=71410581832260, IssueDrawCommandsStart=71410582335860, SwapBuffers=71411022549960, FrameCompleted=71411041103960, DequeueBufferDuration=233000, QueueBufferDuration=2341000,
+07-29 20:29:44.184 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:44.194 25934 25934 I Choreographer: Skipped 41 frames!  The application may be doing too much work on its main thread.
+07-29 20:29:44.198 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:44.198 25934 25980 I OpenGLRenderer: Davey! duration=801ms; Flags=1, IntendedVsync=71410254147483, Vsync=71410337480813, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=71410348567560, AnimationStart=71410348656660, PerformTraversalsStart=71410348721660, DrawStart=71411044091160, SyncQueued=71411046464960, SyncStart=71411053569360, IssueDrawCommandsStart=71411054153160, SwapBuffers=71411058182460, FrameCompleted=71411062329060, DequeueBufferDuration=84000, QueueBufferDuration=357000,
+07-29 20:29:44.198 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:44.199 20940 20962 I chatty  : uid=1000(system) android.anim identical 7 lines
+07-29 20:29:44.199 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:44.199 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:44.203 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:44.204 20940 20962 I chatty  : uid=1000(system) android.anim identical 8 lines
+07-29 20:29:44.204 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:44.220 25934 25980 I OpenGLRenderer: Davey! duration=716ms; Flags=0, IntendedVsync=71410364306155, Vsync=71411047639461, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=71411058560460, AnimationStart=71411058786560, PerformTraversalsStart=71411059477760, DrawStart=71411060129560, SyncQueued=71411060220560, SyncStart=71411064306360, IssueDrawCommandsStart=71411065111560, SwapBuffers=71411074704660, FrameCompleted=71411084617360, DequeueBufferDuration=1215000, QueueBufferDuration=1956000,
+07-29 20:29:44.223 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:44.240 25934 25980 I OpenGLRenderer: Davey! duration=716ms; Flags=0, IntendedVsync=71410364306155, Vsync=71411047639461, OldestInputEvent=9223372036854775807, NewestInputEvent=0, HandleInputStart=71411058560460, AnimationStart=71411058786560, PerformTraversalsStart=71411059477760, DrawStart=71411065923160, SyncQueued=71411066101960, SyncStart=71411089402960, IssueDrawCommandsStart=71411089616060, SwapBuffers=71411093663660, FrameCompleted=71411104525860, DequeueBufferDuration=1976000, QueueBufferDuration=1877000,
+07-29 20:29:44.277 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:44.278 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:44.278 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putInt(Ljava/lang/Object;JI)V (greylist, linking, allowed)
+07-29 20:29:44.278 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.292 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:44.294 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-29 20:29:44.330 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:44.330 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.337 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:44.338 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.341 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:44.341 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.351 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-29 20:29:44.371 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:44.373 25934 26161 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.404 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:44.473  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:44.473  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:44.478 25934 26132 W example.help_m: Accessing hidden field Ljava/nio/Buffer;->position:I (greylist, JNI, allowed)
+07-29 20:29:44.478 25934 26132 W example.help_m: Accessing hidden field Ljava/nio/Buffer;->limit:I (greylist, JNI, allowed)
+07-29 20:29:44.479 25934 26132 W example.help_m: Accessing hidden field Ljava/nio/Buffer;->_elementSizeShift:I (greylist, JNI, allowed)
+07-29 20:29:44.480 25934 26164 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.506 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.518  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 1593344
+07-29 20:29:44.527 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.549 25934 26166 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.561  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 1593344
+07-29 20:29:44.590 25934 26164 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.601 25934 26164 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.641 25934 25934 D OneSignal: onActivityStopped: com.example.help_m5.MainActivity@157fa8
+07-29 20:29:44.642 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.FacilityActivity:com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:44.648 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: STOPPED
+07-29 20:29:44.649 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:44.656 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:44.656 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.678 25934 26166 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.680 25934 26166 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.754 20881 20902 W audio_hw_generic: Not supplying enough data to HAL, expected position 38015212 , only wrote 37836962
+07-29 20:29:44.767 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:44.767 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.777 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.800 25934 26168 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:44.800 25934 26113 W DynamiteModule: Local module descriptor class for com.google.android.gms.googlecertificates not found.
+07-29 20:29:44.800 25934 26168 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.808 25934 26169 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.816 25934 26113 I DynamiteModule: Considering local module com.google.android.gms.googlecertificates:0 and remote module com.google.android.gms.googlecertificates:7
+07-29 20:29:44.819 25934 26113 I DynamiteModule: Selected remote version of com.google.android.gms.googlecertificates, version >= 7
+07-29 20:29:44.821 25934 26170 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.846 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.867 25934 26169 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.867 25934 26169 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:44.867 25934 26169 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.868 25934 26169 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:44.868 25934 26169 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getLong(Ljava/lang/Object;J)J (greylist,core-platform-api, linking, allowed)
+07-29 20:29:44.872 25934 26169 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.872 25934 26169 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:44.891 25934 26171 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.895 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.915 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.920 25934 26113 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:44.920 25934 26113 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.921 25934 26113 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:44.935 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.936 25934 26170 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.936 25934 26170 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.938 25934 26168 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:44.947 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:44.949 25934 26170 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.966 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:44.981 25934 26127 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:44.991 25934 26127 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:45.011 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:45.011 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:45.011 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:45.019 25934 26171 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:45.021 25934 26103 I SnapshotHandler: Unable to retrieve flag snapshot for com.google.android.libraries.consentverifier#com.example.help_m5, using defaults.
+07-29 20:29:45.021 25934 26171 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:45.022 25934 26171 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:45.033 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:45.034 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:45.034 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:45.045 25934 26165 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getInt(Ljava/lang/Object;J)I (greylist, linking, allowed)
+07-29 20:29:45.046 25934 25940 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:45.059 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: Unable to update local snapshot for com.google.android.libraries.consentverifier#com.example.help_m5, may result in stale flags.
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: java.util.concurrent.ExecutionException: java.lang.SecurityException: GoogleCertificatesRslt: not allowed: pkg=com.example.help_m5, sha256=[cdc0133cc2c5f4279fa0dc2bcf656bd7e675c2c4f1a5a5657496156457ae9b5f], atk=false, ver=222615031.true (go/gsrlt)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at aif.s(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):3)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at aif.get(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at ajp.g(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at yg.d(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):1)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at yi.run(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):0)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:462)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:301)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1167)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:641)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at java.lang.Thread.run(Thread.java:919)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: Caused by: java.lang.SecurityException: GoogleCertificatesRslt: not allowed: pkg=com.example.help_m5, sha256=[cdc0133cc2c5f4279fa0dc2bcf656bd7e675c2c4f1a5a5657496156457ae9b5f], atk=false, ver=222615031.true (go/gsrlt)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at android.os.Parcel.createException(Parcel.java:2071)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at android.os.Parcel.readException(Parcel.java:2039)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at android.os.Parcel.readException(Parcel.java:1987)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at es.bc(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at rs.a(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):4)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at iz.e(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at jy.t(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at jy.u(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):3)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at jy.e(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):2)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at kc.handleMessage(:com.google.android.gms.dynamite_mapsdynamite@222615068@22.26.15 (100700-0):69)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at android.os.Handler.dispatchMessage(Handler.java:103)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at android.os.Looper.loop(Looper.java:214)
+07-29 20:29:45.062 25934 26104 W MobStoreFlagStore: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+07-29 20:29:45.096 21441 21450 I .gms.persisten: Background concurrent copying GC freed 149557(6046KB) AllocSpace objects, 5(228KB) LOS objects, 35% free, 10MB/16MB, paused 997us total 105.492ms
+07-29 20:29:45.297 25934 26133 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:45.297 25934 26133 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putObject(Ljava/lang/Object;JLjava/lang/Object;)V (greylist, linking, allowed)
+07-29 20:29:45.297 25934 26133 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:45.299 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:45.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:45.471  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:45.816 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:45.819 25934 25934 I ViewInteraction: Performing 'send keyCode: 4, metaState: 0 key event' action on view view.getRootView() to equal view
+07-29 20:29:45.832 20940 22765 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:45.832 20940 22765 I chatty  : uid=1000(system) Binder:20940_18 identical 8 lines
+07-29 20:29:45.832 20940 22765 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:45.837 25934 25934 D OneSignal: onActivityPaused: com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:45.837 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:45.837 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 11
+07-29 20:29:45.838 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:45.838 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34020
+07-29 20:29:45.838 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34031
+07-29 20:29:45.839 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:45.847 25934 25934 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->getObject(Ljava/lang/Object;J)Ljava/lang/Object; (greylist, linking, allowed)
+07-29 20:29:45.849 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.FacilityActivity@29d9147 in: PAUSED
+07-29 20:29:45.849 25934 26103 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->putLong(Ljava/lang/Object;JJ)V (greylist, linking, allowed)
+07-29 20:29:45.850 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.FacilityActivity (has extras) }, activity=com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:45.856 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:45.864 20940 21225 I chatty  : uid=1000(system) Binder:20940_6 identical 28 lines
+07-29 20:29:45.864 20940 21225 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:45.871 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: RESTARTED
+07-29 20:29:45.871 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:45.873 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: STARTED
+07-29 20:29:45.873 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:45.874 25934 25934 D OneSignal: onActivityResumed: com.example.help_m5.MainActivity@157fa8
+07-29 20:29:45.875 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.MainActivity:com.example.help_m5.MainActivity@157fa8
+07-29 20:29:45.875 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:45.875 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:45.875 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: RESUMED
+07-29 20:29:45.875 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:45.876 25934 25934 D EntertainmentsFragment: onSearch in onResume: false
+07-29 20:29:45.909 25934 25934 D databaseConnection: updateUserInfo params is {user_logo=, _id=lufei8351@gmail.com, username=}
+07-29 20:29:45.910 25934 25934 D EntertainmentsFragment: current page selfUpdate: 1
+07-29 20:29:45.910 25934 25934 D TESTING : studys.json
+07-29 20:29:45.911 25934 25934 D TESTING : Not here
+07-29 20:29:45.984 25934 25934 D databaseConnection: url in searchFacilities is :http://20.213.243.141:8080/facility/newest
+07-29 20:29:45.985 25934 25934 D databaseConnection: {type=1}
+07-29 20:29:45.990 25934 25934 E libprocessgroup: set_timerslack_ns write failed: Operation not permitted
+07-29 20:29:46.009  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:46.029  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:46.034  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:46.085 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:46.107 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:46.118 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:46.124 20940 20962 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-29 20:29:46.124 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:46.139 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:46.264 25934 25934 D databaseConnection: updateUserInfo response is {"_id":"lufei8351@gmail.com","account_type":0,"account_status":0,"username":"Peter Na","user_logo":"https:\/\/lh3.googleusercontent.com\/a-\/AOh14Gj8GMMhE_szu5WGr9670fHSjtKnVXth36eNHkk5Rw","number_of_credit":18,"number_of_rate":1650,"number_of_reply":28,"number_of_facility":0}
+07-29 20:29:46.268 25934 25934 D LoadToScreen: Finish load all
+07-29 20:29:46.419 25934 25934 D databaseConnection: current page db: 1
+07-29 20:29:46.420 25934 25934 D databaseConnection: response searchFacilities is: {"result":[[10,0,"the studys","used for testing purpose, do not have any usefuil onformation,","2022\/6\/30"],[9,null,"study for midterm","lets study together in the library\n\nmidterm is coming\n\noh god 50 characters","2022\/6\/27"],[8,0.04216867469879518,"ICICS Building","The ICICS building is open 8 am - 5 pm, after which an active key fob or access card is required for access (contact access@icics.ubc.ca to renew\/request). ","2022\/7\/10"],[7,0.0379746835443038,"Fred Kaiser Building","Place for UBC ECE students and stuff with Starbucks and Engineering Services first floor.","2022\/6\/11"],[6,4.2272727272727275,"Earth Sciences Building","The former proposal is for the current Earth Systems Science Building (ESSB) which includes teaching, laboratory, and office spaces for the Department of Earth and Ocean Science (EOS), the Department of Statistics, the Pacific Institute for Mathematical Sciences (PIMS), the Dean of Science, and the Pacific Museum of the Earth (PME).","2022\/07\/06"],[5,0.09090909090909091,"UBC Life Building","The UBC Life Building is a central and vibrant hub to study, work out, grab a bite to eat, and access student services and programs.","2022\/07\/06"],[4,4.3061224489795915,"Ponderosa Study Rooms","Three study rooms located next to Mercante Café are available on a first-come, first-serve basis. Rooms are furnished with group tables and chairs.","2022\/07\/06"],[3,4.346153846153846,"Woodward Library","The Woodward Library is located on the east side of Health Sciences Mall in the Health Sciences Complex northwest of the UBC Hospital.","2022\/07\/06"],[2,4.276595744680851,"Walter C. Koerner Library","The Walter C. Koerner Library is an academic library at the Vancouver campus of the University of British Columbia. The library is named after Walter C. Koerner, a Canadian businessman and philanthropist.","2022\/07\/06"],[1,2.5,"The Irving K. Barber Learning Centre","The Irving K. Barber Learning Centre is a facility at the Vancouver campus of the University of British Columbia. The Learning Centre is built around the refurbished core of the 1925 UBC Main Library.","2022\/07\/06"]],"length":10,"current_page":1}
+07-29 20:29:46.471  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:46.471  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:46.572 25934 25934 D OneSignal: onActivityStopped: com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:46.572 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.MainActivity:com.example.help_m5.MainActivity@157fa8
+07-29 20:29:46.573 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.FacilityActivity@29d9147 in: STOPPED
+07-29 20:29:46.573 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.FacilityActivity (has extras) }, activity=com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:46.577 25934 25934 D OneSignal: onActivityDestroyed: com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:46.577 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.MainActivity:com.example.help_m5.MainActivity@157fa8
+07-29 20:29:46.578 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.FacilityActivity@29d9147 in: DESTROYED
+07-29 20:29:46.579 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.FacilityActivity (has extras) }, activity=com.example.help_m5.FacilityActivity@29d9147
+07-29 20:29:46.657 25934 25972 W example.help_m: Accessing hidden method Lsun/misc/Unsafe;->compareAndSwapObject(Ljava/lang/Object;JLjava/lang/Object;Ljava/lang/Object;)Z (greylist, linking, allowed)
+07-29 20:29:46.663 25934 25934 I ViewInteraction: Performing 'open drawer with gravity 8388611' action on view view.getId() is <2131296470/com.example.help_m5:id/drawer_layout>
+07-29 20:29:46.779 25934 26005 D OneSignal: UserStateSynchronizer internalSyncUserState from session call: false jsonBody: null
+07-29 20:29:46.780 25934 26005 V OneSignal: Completed request to update external user id for channel: email and success: true
+07-29 20:29:46.780 25934 26005 V OneSignal: External user id handlers are still being processed for channel: push , wait until finished before proceeding
+07-29 20:29:46.784 25934 26004 D OneSignal: UserStateSynchronizer internalSyncUserState from session call: false jsonBody: null
+07-29 20:29:46.786 25934 26004 V OneSignal: Completed request to update external user id for channel: push and success: true
+07-29 20:29:46.978 25934 25947 I example.help_m: Background young concurrent copying GC freed 50808(3749KB) AllocSpace objects, 29(1008KB) LOS objects, 41% free, 7168KB/11MB, paused 7.595ms total 92.776ms
+07-29 20:29:47.108 25934 25934 I ViewInteraction: Performing 'click on menu item with id' action on view view.getId() is <2131296685/com.example.help_m5:id/nav_view>
+07-29 20:29:47.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: a: input svInfo.flags is 8
+07-29 20:29:47.470  1791 21167 E GnssHAL_GnssInterface: gnssSvStatusCb: b: input svInfo.flags is 8
+07-29 20:29:47.584 25934 25934 D OneSignal: onActivityPaused: com.example.help_m5.MainActivity@157fa8
+07-29 20:29:47.584 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:47.584 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 13
+07-29 20:29:47.585 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:47.585 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34031
+07-29 20:29:47.585 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34044
+07-29 20:29:47.587 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:47.589 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: PAUSED
+07-29 20:29:47.589 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:47.591 20940 24268 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:47.602 20940 24268 I chatty  : uid=1000(system) Binder:20940_1C identical 48 lines
+07-29 20:29:47.602 20940 24268 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:47.608 25934 25934 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@8da25ad
+07-29 20:29:47.627 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73 in: PRE_ON_CREATE
+07-29 20:29:47.636 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.653 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73 in: CREATED
+07-29 20:29:47.654 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.658 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73 in: STARTED
+07-29 20:29:47.666 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.668 25934 25934 D OneSignal: onActivityResumed: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.669 25934 25934 D OneSignal: curActivity is NOW: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.669 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:47.671 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:47.674 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73 in: RESUMED
+07-29 20:29:47.674 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.728  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:47.749 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:47.749  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:47.761  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:47.817 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:47.823 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:47.824 20940 20962 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-29 20:29:47.824 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:47.838 25934 25934 D OneSignal: onActivityDestroyed: com.example.help_m5.LoginActivity@6c95d2b
+07-29 20:29:47.838 25934 25934 D OneSignal: curActivity is NOW: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.841 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.LoginActivity@6c95d2b in: DESTROYED
+07-29 20:29:47.841 25934 25934 V ActivityScenario: Update currentActivityStage to DESTROYED, currentActivity=null
+07-29 20:29:47.863 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:47.878 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:47.881 25934 25934 D OneSignal: onActivityPaused: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.881 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:47.881 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 13
+07-29 20:29:47.882 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:47.882 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34044
+07-29 20:29:47.882 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34057
+07-29 20:29:47.883 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:47.884 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73 in: PAUSED
+07-29 20:29:47.890 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@1799c73
+07-29 20:29:47.893 20940 24268 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:47.900 20940 24268 I chatty  : uid=1000(system) Binder:20940_1C identical 48 lines
+07-29 20:29:47.900 20940 24268 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:47.904 25934 25934 D OneSignal: onActivityDestroyed: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:47.904 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:47.906 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935 in: DESTROYED
+07-29 20:29:47.911 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity (has extras) }, activity=androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity@85cf935
+07-29 20:29:47.924 25934 25934 W ActivityThread: handleWindowVisibility: no activity for token android.os.BinderProxy@40b47bf
+07-29 20:29:47.935 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c in: PRE_ON_CREATE
+07-29 20:29:47.936 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:47.945 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c in: CREATED
+07-29 20:29:47.945 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:47.948 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c in: STARTED
+07-29 20:29:47.948 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:47.949 25934 25934 D OneSignal: onActivityResumed: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:47.949 25934 25934 D OneSignal: curActivity is NOW: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:47.949 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:47.949 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:47.950 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c in: RESUMED
+07-29 20:29:47.951 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:47.964 25934 25934 D OneSignal: onActivityStopped: com.example.help_m5.MainActivity@157fa8
+07-29 20:29:47.964 25934 25934 D OneSignal: curActivity is NOW: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity:androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:47.966 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: STOPPED
+07-29 20:29:47.966 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:48.006  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:48.022  1803  8841 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:48.027  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:48.107 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:48.132 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:48.133 20940 20962 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-29 20:29:48.133 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:48.160 20940 24268 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:48.160 20940 24268 I chatty  : uid=1000(system) Binder:20940_1C identical 8 lines
+07-29 20:29:48.160 20940 24268 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:48.193 25934 25934 D OneSignal: onActivityPaused: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:48.194 25934 25934 D OneSignal: ActivityLifecycleHandler Handling lost focus
+07-29 20:29:48.194 25934 25934 D OneSignal: Application stopped focus time: 71401619 timeElapsed: 13
+07-29 20:29:48.195 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveData with lastFocusTimeInfluences: [SessionInfluence{influenceChannel=iam, influenceType=DISABLED, ids=null}, SessionInfluence{influenceChannel=notification, influenceType=DISABLED, ids=null}]
+07-29 20:29:48.197 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:getUnsentActiveTime: 34057
+07-29 20:29:48.197 25934 25934 D OneSignal: FocusTimeProcessorUnattributed:saveUnsentActiveTime: 34070
+07-29 20:29:48.198 25934 25934 D OneSignal: curActivity is NOW: null
+07-29 20:29:48.199 25934 25934 D LifecycleMonitor: Lifecycle status change: androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c in: PAUSED
+07-29 20:29:48.200 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=com.example.help_m5/androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity }, activity=androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity@563ee8c
+07-29 20:29:48.204 20940 23588 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:48.208 20940 23588 I chatty  : uid=1000(system) Binder:20940_1A identical 28 lines
+07-29 20:29:48.208 20940 23588 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:48.215 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: RESTARTED
+07-29 20:29:48.215 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:48.220 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: STARTED
+07-29 20:29:48.222 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:48.224 25934 25934 D OneSignal: onActivityResumed: com.example.help_m5.MainActivity@157fa8
+07-29 20:29:48.225 25934 25934 D OneSignal: curActivity is NOW: com.example.help_m5.MainActivity:com.example.help_m5.MainActivity@157fa8
+07-29 20:29:48.226 25934 25934 D OneSignal: ActivityLifecycleHandler handleFocus, nextResumeIsFirstActivity: false
+07-29 20:29:48.227 25934 25934 D OneSignal: ActivityLifecycleHandler cancel background lost focus worker
+07-29 20:29:48.227 25934 25934 D LifecycleMonitor: Lifecycle status change: com.example.help_m5.MainActivity@157fa8 in: RESUMED
+07-29 20:29:48.228 25934 25934 V ActivityScenario: Activity lifecycle changed event received but ignored because the intent does not match. startActivityIntent=Intent { cmp=com.example.help_m5/.LoginActivity }, activity.getIntent()=Intent { cmp=com.example.help_m5/.MainActivity (has extras) }, activity=com.example.help_m5.MainActivity@157fa8
+07-29 20:29:48.253  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:48.266  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:48.286 25934 25980 D EGL_emulation: eglMakeCurrent: 0xeb0541c0: ver 2 0 (tinfo 0xdfec7300)
+07-29 20:29:48.287  1803  2665 D gralloc_ranchu: gralloc_alloc: Creating ashmem region of size 9334784
+07-29 20:29:48.308 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:48.310 20940 20962 I chatty  : uid=1000(system) android.anim identical 18 lines
+07-29 20:29:48.310 20940 20962 W InputReader: Device has associated, but no associated display id.
+07-29 20:29:48.367 25934 25972 I TestRunner: finished: testLogOutFromFacility(com.example.help_m5.non_functional_tests.LogOutTests)
