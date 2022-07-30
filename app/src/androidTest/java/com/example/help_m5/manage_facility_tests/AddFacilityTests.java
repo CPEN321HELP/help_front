@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class AddFacilityTests {
+
     FragmentScenario<AddFacilityFragment> mfragment;
     @Before
     public void setUp() throws Exception {
@@ -164,4 +165,5 @@ public class AddFacilityTests {
         Espresso.onView(ViewMatchers.withId(R.id.cleanAll)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
+    
 }
