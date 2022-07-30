@@ -1,5 +1,9 @@
 package com.example.help_m5.manage_facility_tests;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
 import android.util.Log;
 
 import androidx.fragment.app.testing.FragmentScenario;
@@ -10,6 +14,7 @@ import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 
 import com.example.help_m5.R;
+import com.example.help_m5.ToastMatcher;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.ui.report.ReportFragment;
 
@@ -47,6 +52,12 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.reported_id_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText("reported_user1")));
         Espresso.onView(ViewMatchers.withId(R.id.reported_reason_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText("test1reson")));
 
+        try {
+            Thread.sleep(2000);
+        }catch (Exception e){
+
+        }
+
         Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText("Party at tom's house")));
         Espresso.onView(ViewMatchers.withId(R.id.facility_id_org_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText("14")));
         Espresso.onView(ViewMatchers.withId(R.id.reporter_id_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText("reporter2")));
@@ -72,7 +83,15 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.s1)).perform(ViewActions.swipeUp());
         Espresso.onView(ViewMatchers.withId(R.id.reportApprove_y1)).perform(ViewActions.swipeUp(), ViewActions.click());
         String jsonToSend = readFromJson();
-        Assert.assertNotNull(result);
+        Assert.assertNotNull(jsonToSend);
+        onView(withText("Sending result to server!")).inRoot(new ToastMatcher())
+                .check(matches(withText("Sending result to server!")));
+        try{
+            onView(withText("Server has received your decision!")).inRoot(new ToastMatcher())
+                    .check(matches(withText("Server has received your decision!")));
+        }catch (Exception e){
+            //server is not running
+        }
 
         try {
             JSONObject jsonToSendJ = new JSONObject(result);
@@ -83,6 +102,7 @@ public class ReportProcessingTests {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
     }
 
     @Test
@@ -103,8 +123,15 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.s2)).perform(ViewActions.swipeUp());
         Espresso.onView(ViewMatchers.withId(R.id.reportNot_y2)).perform(ViewActions.swipeUp(), ViewActions.click());
         String jsonToSend = readFromJson();
-        Assert.assertNotNull(result);
-
+        Assert.assertNotNull(jsonToSend);
+        onView(withText("Sending result to server!")).inRoot(new ToastMatcher())
+                .check(matches(withText("Sending result to server!")));
+        try{
+            onView(withText("Server has received your decision!")).inRoot(new ToastMatcher())
+                    .check(matches(withText("Server has received your decision!")));
+        }catch (Exception e){
+            //server is not running
+        }
         try {
             JSONObject jsonToSendJ = new JSONObject(result);
             Assert.assertEquals("reporter2", jsonToSendJ.get("upUserId"));

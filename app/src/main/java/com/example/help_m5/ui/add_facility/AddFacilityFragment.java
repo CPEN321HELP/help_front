@@ -62,6 +62,7 @@ public class AddFacilityFragment extends Fragment {
     private String latitude;
     private String comment;
     private String user_email ;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         vm_ip = getResources().getString(R.string.azure_ip);
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
@@ -284,7 +285,7 @@ public class AddFacilityFragment extends Fragment {
             public void onClick(View v) {
                 newFacilityTitle.setText("");
                 newFacilityDescription.setText("");
-                newFacilityImageLink.setText("");
+//                newFacilityImageLink.setText("");
                 newFacilityLocation.setText("");
                 binding.imageFacilityLocation.setImageResource(android.R.drawable.presence_busy);
                 binding.imageFacilityLocation.setTag("bad");
@@ -360,7 +361,7 @@ public class AddFacilityFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "response in addFacility is: " + response.toString());
-                Toast.makeText(getContext(), "Success! Server received your submission", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Server received your submission", Toast.LENGTH_SHORT).show();
 
                 clean.performClick();
             }

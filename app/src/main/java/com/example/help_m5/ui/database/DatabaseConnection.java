@@ -155,7 +155,7 @@ public class DatabaseConnection {
         boolean nextPage = options[1];
         boolean previousPage = options[2];
         boolean reloadPage = options[3];
-
+        Log.d("TESTING", fileName);
         if (isCached(applicationContext, fileName) && !reloadPage) {//page up and page down should go here
             Log.d("TESTING", "Goes here");
             try {
@@ -325,8 +325,10 @@ public class DatabaseConnection {
     public int writeToJsonForTesting(String path, JSONObject response, String fileName) {
         try {
             Log.d("TESTING", "Here: " +path+fileName);
-            File file = new File(path, fileName);
-            FileOutputStream writer = new FileOutputStream(file);
+//            File file = new File(path, fileName);
+//            file.delete();
+            File file2 = new File(path, fileName);
+            FileOutputStream writer = new FileOutputStream(file2);
             writer.write(response.toString().getBytes());
             writer.close();
 //            Log.d(TAG, "write to file" + fileName + " path is: " + file.getCanonicalPath());
@@ -438,7 +440,7 @@ public class DatabaseConnection {
         }
         for(File f : files){
             String filename = f.getName();
-            if(!filename.equals("search.json") || f.isDirectory()){
+            if(!filename.contains("Search.json") || f.isDirectory()){
                 continue;
             }
 //            Log.d(TAG, "delete filename is: " + filename);

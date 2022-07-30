@@ -86,17 +86,6 @@ public class ReportFragment extends Fragment {
             facility_type = getTypeInt(binding.facilityTypeContY2.getText().toString());
             facility_id = binding.reportedIdY2.getText().toString();
         }
-//        switch (which){
-//            case 1:
-//                facility_type = getTypeInt(binding.facilityTypeContY1.getText().toString());
-//                facility_id = binding.reportedIdY1.getText().toString();
-//                break;
-//            case 2:
-//                facility_type = getTypeInt(binding.facilityTypeContY2.getText().toString());
-//                facility_id = binding.reportedIdY2.getText().toString();
-//                break;
-//
-//        }
         DBconnection.getSpecificFacility(facility_type, facility_id, getContext(), getActivity());
     }
 
@@ -284,14 +273,7 @@ public class ReportFragment extends Fragment {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "sss "+response);
-                try{
-                    String result = response.getString("result");
-                    if(result.equals("successful")){
-                        Toast.makeText(context, "Server has received your decision!" , Toast.LENGTH_SHORT).show();
-                    }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
+                Toast.makeText(context, "Server has received your decision!" , Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
