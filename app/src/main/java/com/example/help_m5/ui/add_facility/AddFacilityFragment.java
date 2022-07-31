@@ -224,9 +224,7 @@ public class AddFacilityFragment extends Fragment {
         });
 
         //set up spinner
-
         setButtons();
-
         Spinner spin = binding.newFacilityType;
         spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -258,7 +256,7 @@ public class AddFacilityFragment extends Fragment {
                 binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
             }
         });
-        CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
+        CustomAdapter customAdapter = new CustomAdapter(getContext(), flags, countryNames, 1);
         spin.setAdapter(customAdapter);
 
 

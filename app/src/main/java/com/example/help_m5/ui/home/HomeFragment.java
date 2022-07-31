@@ -104,7 +104,7 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "nothing is selected");
             }
         });
-        CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
+        CustomAdapter customAdapter = new CustomAdapter(getContext(), flags, countryNames, 0);
         spin.setAdapter(customAdapter);
 
         //load initial page

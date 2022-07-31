@@ -18,7 +18,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginEnd="25dp"
         android:layout_marginBottom="25dp"
-        android:background="@color/entertainments_color"
+        android:background="@color/posts_color"
         android:elevation="18dp"
         android:orientation="vertical">
 
@@ -57,7 +57,7 @@
                 android:id="@+id/newFacilityTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/entertainments_color_dark"
+                android:background="@color/posts_color_dark"
                 android:defaultFocusHighlightEnabled="true"
                 android:textColor="@color/white_light"
                 android:textColorHint="@color/white_light"
@@ -104,7 +104,7 @@
                     android:id="@+id/newFacilityDescription"
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:background="@color/entertainments_color_dark"
+                    android:background="@color/posts_color_dark"
                     android:defaultFocusHighlightEnabled="true"
                     android:textColor="@color/white_light"
                     android:textColorHint="@color/white_light"
@@ -148,7 +148,7 @@
                     android:id="@+id/newFacilityLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/entertainments_color_dark"
+                    android:background="@color/posts_color_dark"
                     android:defaultFocusHighlightEnabled="true"
                     android:textColor="@color/white_light"
                     android:textColorHint="@color/white_light"
@@ -189,7 +189,7 @@
                     android:id="@+id/newFacilityImageLink"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/entertainments_color_dark"
+                    android:background="@color/posts_color_dark"
                     android:defaultFocusHighlightEnabled="true"
                     android:textColor="@color/white_light"
                     android:textColorHint="@color/white_light"
@@ -231,7 +231,9 @@
                     android:id="@+id/newFacilityType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/UBCBlue"
+                    android:popupBackground="@color/posts_color_dark"
+                    android:popupTheme="@style/spinnerTheme"
+                    android:theme="@style/spinnerTheme"
                     android:dropDownWidth="match_parent"
                     android:spinnerMode="dropdown" />
             </LinearLayout>
@@ -250,21 +252,27 @@
 
                     <Button
                         android:id="@+id/submitAll"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:textStyle="bold"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/UBCBlue"
                         android:text="Submit"
+                        android:textSize="18sp"
                         android:textColor="@color/UBCyellow"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
                         android:id="@+id/cleanAll"
+                        style="?android:attr/borderlessButtonStyle"
+                        android:textStyle="bold"
                         android:layout_width="130dp"
                         android:layout_height="wrap_content"
                         android:backgroundTint="@color/UBCNavyBlue"
                         android:text="Clean All"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
