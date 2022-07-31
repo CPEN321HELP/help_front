@@ -29,10 +29,11 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:spinnerMode="dropdown"
             android:dropDownWidth="match_parent"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintWidth_percent="0.5"
-            app:layout_constraintEnd_toEndOf="parent" />
+            tools:ignore="SpeakableTextPresentCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -563,24 +564,26 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:backgroundTint="@color/black"
-            app:tint="@color/white"
             android:id="@+id/fab_close_or_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+            android:backgroundTint="@color/black"
             app:elevation="0dp"
-            app:srcCompat="@drawable/ic_baseline_refresh_24" />
+            app:srcCompat="@drawable/ic_baseline_refresh_24"
+            app:tint="@color/white"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            app:elevation="0dp"
             android:backgroundTint="@color/black"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/ic_up_facility"
             app:tint="@color/white"
-            app:srcCompat="@drawable/ic_up_facility" />
+            tools:ignore="SpeakableTextPresentCheck" />
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -588,20 +591,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            app:elevation="0dp"
             android:backgroundTint="@color/black"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/ic_down_facility"
             app:tint="@color/white"
-            app:srcCompat="@drawable/ic_down_facility" />
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            app:elevation="0dp"
             android:backgroundTint="@color/black"
+            app:elevation="0dp"
+            app:srcCompat="@drawable/ic_show_mnu"
             app:tint="@color/white"
-            app:srcCompat="@drawable/ic_show_mnu" />
+            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

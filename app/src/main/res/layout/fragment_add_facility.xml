@@ -3,6 +3,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/addFacilityScrollView"
@@ -59,11 +60,12 @@
                 android:layout_height="wrap_content"
                 android:background="@color/posts_color_dark"
                 android:defaultFocusHighlightEnabled="true"
+                android:inputType="textMultiLine"
+                android:padding="5dp"
                 android:textColor="@color/white_light"
                 android:textColorHint="@color/white_light"
-                android:inputType="textMultiLine"
                 android:textSize="15sp"
-                android:padding="5dp"/>
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <LinearLayout
@@ -106,12 +108,13 @@
                     android:layout_height="120dp"
                     android:background="@color/posts_color_dark"
                     android:defaultFocusHighlightEnabled="true"
-                    android:textColor="@color/white_light"
-                    android:textColorHint="@color/white_light"
                     android:gravity="start"
                     android:inputType="textMultiLine"
+                    android:padding="5dp"
+                    android:textColor="@color/white_light"
+                    android:textColorHint="@color/white_light"
                     android:textSize="15sp"
-                    android:padding="5dp"/>
+                    tools:ignore="SpeakableTextPresentCheck" />
             </LinearLayout>
 
             <LinearLayout
@@ -150,10 +153,11 @@
                     android:layout_height="wrap_content"
                     android:background="@color/posts_color_dark"
                     android:defaultFocusHighlightEnabled="true"
+                    android:padding="5dp"
                     android:textColor="@color/white_light"
                     android:textColorHint="@color/white_light"
                     android:textSize="15sp"
-                    android:padding="5dp"/>
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
 
             <LinearLayout
@@ -191,10 +195,11 @@
                     android:layout_height="wrap_content"
                     android:background="@color/posts_color_dark"
                     android:defaultFocusHighlightEnabled="true"
+                    android:padding="5dp"
                     android:textColor="@color/white_light"
                     android:textColorHint="@color/white_light"
                     android:textSize="15sp"
-                    android:padding="5dp"/>
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
 
             <LinearLayout
@@ -231,11 +236,12 @@
                     android:id="@+id/newFacilityType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:dropDownWidth="match_parent"
                     android:popupBackground="@color/posts_color_dark"
                     android:popupTheme="@style/spinnerTheme"
+                    android:spinnerMode="dropdown"
                     android:theme="@style/spinnerTheme"
-                    android:dropDownWidth="match_parent"
-                    android:spinnerMode="dropdown" />
+                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
             </LinearLayout>
 
             <LinearLayout
