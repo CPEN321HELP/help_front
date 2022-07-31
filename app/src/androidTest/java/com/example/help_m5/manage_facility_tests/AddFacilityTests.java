@@ -165,5 +165,5 @@ public class AddFacilityTests {
         Espresso.onView(ViewMatchers.withId(R.id.cleanAll)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
-    
+
 }

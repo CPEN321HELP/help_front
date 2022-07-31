@@ -1,11 +1,13 @@
 package com.example.help_m5.ui.home;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,10 +73,22 @@ public class HomeFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 facility_type = getTypeInt(countryNames[position]);
+                System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"+facility_type);
                 if (facility_type == posts){
-                    setRateBarVisibility(View.INVISIBLE);
-                }else {
+                    setRateBarVisibility(View.GONE);
+                    setDateVisibility(View.VISIBLE);
+                    setViewColor("#2B3A70");
+                } else {
                     setRateBarVisibility(View.VISIBLE);
+                    setDateVisibility(View.GONE);
+                    if (facility_type == restaurants) {
+                        setViewColor("#D2887A");
+                    } else if (facility_type == entertainments) {
+                        setViewColor("#00BA98");
+                        setTextColor("#FFFFFF");
+                    } else if (facility_type == study) {
+                        setViewColor("#7781AE");
+                    }
                 }
                 setFacilitiesVisibility(View.INVISIBLE);
                 Log.d(TAG, "facility_type in onItemSelected "+facility_type);
@@ -88,7 +102,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Log.d(TAG, "nothing is selected");
-
             }
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
@@ -172,7 +185,30 @@ public class HomeFragment extends Fragment {
         binding.ratingBarFacility3.setVisibility(Visibility);
         binding.ratingBarFacility4.setVisibility(Visibility);
         binding.ratingBarFacility5.setVisibility(Visibility);
+    }
 
+    private void setDateVisibility(int Visibility){
+        binding.dateTextViewFacility1.setVisibility(Visibility);
+        binding.dateTextViewFacility2.setVisibility(Visibility);
+        binding.dateTextViewFacility3.setVisibility(Visibility);
+        binding.dateTextViewFacility4.setVisibility(Visibility);
+        binding.dateTextViewFacility5.setVisibility(Visibility);
+    }
+
+    private void setViewColor(String colorCode){
+        binding.ViewFacility1.setBackgroundColor(Color.parseColor(colorCode));
+        binding.ViewFacility2.setBackgroundColor(Color.parseColor(colorCode));
+        binding.ViewFacility3.setBackgroundColor(Color.parseColor(colorCode));
+        binding.ViewFacility4.setBackgroundColor(Color.parseColor(colorCode));
+        binding.ViewFacility5.setBackgroundColor(Color.parseColor(colorCode));
+    }
+
+    private void setTextColor(String colorCode){
+        binding.contentTextViewFacility1.setTextColor(Color.parseColor(colorCode));
+        binding.contentTextViewFacility2.setTextColor(Color.parseColor(colorCode));
+        binding.contentTextViewFacility3.setTextColor(Color.parseColor(colorCode));
+        binding.contentTextViewFacility4.setTextColor(Color.parseColor(colorCode));
+        binding.contentTextViewFacility5.setTextColor(Color.parseColor(colorCode));
     }
 
     private void setConsOnCl(){

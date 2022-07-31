@@ -75,7 +75,8 @@ public class AddFacilityFragment extends Fragment {
         }
 
         newFacilityTitle = binding.newFacilityTitle;
-        newFacilityTitle.setHint("please enter a title");
+        //newFacilityTitle.setHint("please enter a title");
+        newFacilityTitle.setHint("please enter at least 5 characters");
         newFacilityTitle.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -90,11 +91,13 @@ public class AddFacilityFragment extends Fragment {
                 int length = input.replaceAll("[^a-zA-Z0-9]","").length();
                 if(length > 5){
                     titleOK = true;
-                    binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
+                    //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
+                    binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
                     binding.imageNewFacilityTitle.setTag("good");
                 }else{
                     titleOK = false;
-                    binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_busy);
+                    //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                    binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
                     binding.imageNewFacilityTitle.setTag("bad");
                 }
                 enableSubmit();
@@ -110,7 +113,8 @@ public class AddFacilityFragment extends Fragment {
         });
 
         newFacilityDescription = binding.newFacilityDescription;
-        newFacilityDescription.setHint("Please enter a description");
+        //newFacilityDescription.setHint("Please enter a description");
+        newFacilityDescription.setHint("Please enter at least 50 characters");
         newFacilityDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -125,11 +129,13 @@ public class AddFacilityFragment extends Fragment {
                 int length = input.replaceAll("[^a-zA-Z0-9]","").length();
                 if(length > 50){
                     descriptionOK = true;
-                    binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_online);
+                    //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
+                    binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
                     binding.imageFacilityDescription.setTag("good");
                 }else{
                     descriptionOK = false;
-                    binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                    //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                    binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
                     binding.imageFacilityDescription.setTag("bad");
                 }
                 enableSubmit();
@@ -142,7 +148,8 @@ public class AddFacilityFragment extends Fragment {
         });
 
         newFacilityImageLink = binding.newFacilityImageLink;
-        newFacilityImageLink.setHint("Please enter an valid url");
+        //newFacilityImageLink.setHint("Please enter an valid url");
+        newFacilityImageLink.setHint("i.e. https://imgtu.come/i/jwCDjH");
         binding.imageFacilityImageLink.setTag("bad");
         newFacilityImageLink.addTextChangedListener(new TextWatcher() {
             @Override
@@ -164,12 +171,14 @@ public class AddFacilityFragment extends Fragment {
 
                 if(matcher1.matches() || matcher2.matches()){
                     imageLinkOK = true;
-                    binding.imageFacilityImageLink.setImageResource(android.R.drawable.presence_online);
+                    //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
+                    binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
                     binding.imageFacilityImageLink.setTag("good");
 
                 }else{
                     imageLinkOK = false;
-                    binding.imageFacilityImageLink.setImageResource(android.R.drawable.presence_busy);
+                    //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                    binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
                     binding.imageFacilityImageLink.setTag("bad");
                 }
 //                Log.d(TAG, "\""+s.toString().trim()+"\"");
@@ -183,7 +192,8 @@ public class AddFacilityFragment extends Fragment {
         });
 
         newFacilityLocation = binding.newFacilityLocation;
-        newFacilityLocation.setHint("Please enter an valid address");
+        newFacilityLocation.setHint("i.e. 650 W 41st Ave, Vancouver, BC, V5Z2M9");
+        //newFacilityLocation.setHint("Please enter an valid address");
         newFacilityLocation.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -195,12 +205,14 @@ public class AddFacilityFragment extends Fragment {
                     if (result == null){
                         Log.d(TAG, "error");
                         locationOK = false;
-                        binding.imageFacilityLocation.setImageResource(android.R.drawable.presence_busy);
+                        //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                        binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
                         binding.imageFacilityLocation.setTag("bad");
 
                     }else {
                         locationOK = true;
-                        binding.imageFacilityLocation.setImageResource(android.R.drawable.presence_online);
+                        //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
+                        binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
                         binding.imageFacilityLocation.setTag("good");
                         latitude = Double.toString(result.latitude);
                         longitude = Double.toString(result.longitude);
@@ -230,17 +242,20 @@ public class AddFacilityFragment extends Fragment {
                         isPost = false;
                     }
                     binding.imageFacilityType.setTag("good");
-                    binding.imageFacilityType.setImageResource(android.R.drawable.presence_online);
+                    //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
+                    binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
                 }else{
                     binding.imageFacilityType.setTag("bad");
-                    binding.imageFacilityType.setImageResource(android.R.drawable.presence_busy);
+                    //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                    binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
                 }
                 enableSubmit();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 binding.imageFacilityType.setTag("bad");
-                binding.imageFacilityType.setImageResource(android.R.drawable.presence_busy);
+                //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
             }
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(),flags,countryNames);
@@ -268,6 +283,7 @@ public class AddFacilityFragment extends Fragment {
                     addFacility(getContext(), newFacilityTitle.getText().toString().trim(), newFacilityDescription.getText().toString().trim(), facility_type,newFacilityImageLink.getText().toString().trim(), longitude, latitude, user_email, clean);
                 }
                 enableSubmit();
+                /*
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     public void run() {
@@ -276,6 +292,8 @@ public class AddFacilityFragment extends Fragment {
                         db.updateUserInfo(navigationView, getContext(), user_email, getActivity(),true);
                     }
                 }, 1000);
+                */
+
             }
         });
 
@@ -287,7 +305,8 @@ public class AddFacilityFragment extends Fragment {
                 newFacilityDescription.setText("");
 //                newFacilityImageLink.setText("");
                 newFacilityLocation.setText("");
-                binding.imageFacilityLocation.setImageResource(android.R.drawable.presence_busy);
+                //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
+                binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
                 binding.imageFacilityLocation.setTag("bad");
                 enableSubmit();
             }

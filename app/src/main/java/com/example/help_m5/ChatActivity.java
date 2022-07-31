@@ -109,6 +109,7 @@ public class ChatActivity extends AppCompatActivity {
                 } else if (topButton.getText().equals(getString(R.string.app_functionalities_1_Q1))
                         || topButton.getText().equals(getString(R.string.app_functionalities_2_Q1))
                         || topButton.getText().equals(getString(R.string.app_functionalities_3_Q1))) {
+                    backButton.setEnabled(true);
                     topButton.setText(getString(R.string.app_functionalities_1));
                     midButton.setText(getString(R.string.app_functionalities_2));
                     botButton.setText(getString(R.string.app_functionalities_3));
@@ -159,6 +160,7 @@ public class ChatActivity extends AppCompatActivity {
         String botMessage = "";
         long endTime;
         if (buttonText.equals((String) getString(R.string.account_settings))) {
+            backButton.setEnabled(true);
             topButton.setText((String) getString(R.string.account_settings_Q1));
             midButton.setText((String) getString(R.string.account_settings_Q2));
             botButton.setText((String) getString(R.string.account_settings_Q3));
@@ -196,6 +198,7 @@ public class ChatActivity extends AppCompatActivity {
         String botMessage = "";
 
         if (buttonText.equals(getString(R.string.app_settings))) {
+            backButton.setEnabled(true);
             topButton.setText(getString(R.string.app_settings_Q1));
             midButton.setText(getString(R.string.app_settings_Q2));
             botButton.setText(getString(R.string.app_settings_Q3));
@@ -232,6 +235,7 @@ public class ChatActivity extends AppCompatActivity {
         String myMessage = "";
         String botMessage = "";
         if (buttonText.equals((String) getString(R.string.app_functionalities))) {
+            backButton.setEnabled(true);
             topButton.setText((String) getString(R.string.app_functionalities_1));
             midButton.setText((String) getString(R.string.app_functionalities_2));
             botButton.setText((String) getString(R.string.app_functionalities_3));

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,7 +13,7 @@
         android:layout_height="0dp"
         android:background="@drawable/layout_border"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
+        app:layout_constraintHeight_percent="0.08"
         app:layout_constraintTop_toTopOf="parent">
 
         <SearchView
@@ -34,79 +33,110 @@
             android:dropDownWidth="match_parent"
             app:layout_constraintWidth_percent="0.5"
             app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@drawable/layout_border"
         android:id="@+id/facility1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="invisible"
+        android:background="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.184"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_layout">
 
-        <TextView
-            android:id="@+id/titleTextView_facility1"
-            android:layout_width="200dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/text_color"
-            android:text="Title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/View_facility1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:elevation="9dp">
+                <TextView
+                    android:id="@+id/titleTextView_facility1"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:text="Title"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/dateTextView_facility1"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:textColor="@color/text_color"
+                <RatingBar
+                    android:id="@+id/ratingBar_facility1"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:secondaryProgressTint="@color/UBCyellow"
+                    android:progressTint="@color/UBCyellow"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility1"/>
 
-            android:text="yyyymmdd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/dateTextView_facility1"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:layout_marginBottom="3dp"
+                    android:textColor="@color/white_light"
+                    android:visibility="gone"
+                    android:text="yyyymmdd"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/contentTextView_facility1"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:textColor="@color/text_color"
-            android:text="This will be the content. "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/contentTextView_facility1"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginLeft="72dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:maxLines="3"
+                    android:text="This will be the content. "
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility1"/>
 
-        <RatingBar
-            android:id="@+id/ratingBar_facility1"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:stepSize="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility1" />
-
-        <TextView
-            android:id="@+id/facilityID_textView_facility1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            android:text="ID"
-            android:textColor="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
+                <TextView
+                    android:id="@+id/facilityID_textView_facility1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="ID"
+                    android:textColor="@color/white_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/tim_hortons"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -114,69 +144,103 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="invisible"
-
-        android:background="@drawable/layout_border"
+        android:background="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.184"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/facility1">
 
-        <TextView
-            android:id="@+id/titleTextView_facility2"
-            android:layout_width="200dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="Title"
-            android:textColor="@color/text_color"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/View_facility2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:elevation="9dp">
+                <TextView
+                    android:id="@+id/titleTextView_facility2"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:text="Title"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/dateTextView_facility2"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:text="yyyymmdd"
-            android:textColor="@color/text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <RatingBar
+                    android:id="@+id/ratingBar_facility2"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:secondaryProgressTint="@color/UBCyellow"
+                    android:progressTint="@color/UBCyellow"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility2"/>
 
-        <TextView
-            android:id="@+id/contentTextView_facility2"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:text="This will be the content. "
-            android:textColor="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/dateTextView_facility2"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:layout_marginBottom="3dp"
+                    android:textColor="@color/white_light"
+                    android:visibility="gone"
+                    android:text="yyyymmdd"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <RatingBar
-            android:id="@+id/ratingBar_facility2"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:stepSize="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility2" />
-        <TextView
-            android:id="@+id/facilityID_textView_facility2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID"
-            android:textColor="@color/text_color"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/contentTextView_facility2"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginLeft="72dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:maxLines="3"
+                    android:text="This will be the content. "
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility2"/>
+
+                <TextView
+                    android:id="@+id/facilityID_textView_facility2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="ID"
+                    android:textColor="@color/white_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/tim_hortons"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -184,207 +248,308 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="invisible"
-
-        android:background="@drawable/layout_border"
+        android:background="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.184"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/facility2">
 
-        <TextView
-            android:id="@+id/titleTextView_facility3"
-            android:layout_width="200dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="Title"
-            android:textColor="@color/text_color"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/View_facility3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="9dp"
+                android:elevation="9dp">
+                <TextView
+                    android:id="@+id/titleTextView_facility3"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:text="Title"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/dateTextView_facility3"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:text="yyyymmdd"
-            android:textColor="@color/text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <RatingBar
+                    android:id="@+id/ratingBar_facility3"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:secondaryProgressTint="@color/UBCyellow"
+                    android:progressTint="@color/UBCyellow"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility3"/>
 
-        <TextView
-            android:id="@+id/contentTextView_facility3"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:text="This will be the content. "
-            android:textColor="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/dateTextView_facility3"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:layout_marginBottom="3dp"
+                    android:textColor="@color/white_light"
+                    android:visibility="gone"
+                    android:text="yyyymmdd"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility3"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <RatingBar
-            android:id="@+id/ratingBar_facility3"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:stepSize="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility3" />
-        <TextView
-            android:id="@+id/facilityID_textView_facility3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID"
-            android:textColor="@color/text_color"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/contentTextView_facility3"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginLeft="72dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:maxLines="3"
+                    android:text="This will be the content. "
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility3"/>
+
+                <TextView
+                    android:id="@+id/facilityID_textView_facility3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="ID"
+                    android:textColor="@color/white_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/tim_hortons"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/facility4"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/layout_border"
         android:visibility="invisible"
+        android:background="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.184"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/facility3">
 
-        <TextView
-            android:id="@+id/titleTextView_facility4"
-            android:layout_width="200dp"
-            android:layout_height="22dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="Title"
-            android:textColor="@color/text_color"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/View_facility4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="9dp"
+                android:elevation="9dp">
+                <TextView
+                    android:id="@+id/titleTextView_facility4"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:text="Title"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/dateTextView_facility4"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:text="yyyymmdd"
-            android:textColor="@color/text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                <RatingBar
+                    android:id="@+id/ratingBar_facility4"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:secondaryProgressTint="@color/UBCyellow"
+                    android:progressTint="@color/UBCyellow"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility4"/>
 
-        <TextView
-            android:id="@+id/contentTextView_facility4"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:text="This will be the content. "
-            android:textColor="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-        <RatingBar
-            android:id="@+id/ratingBar_facility4"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:stepSize="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility4" />
+                <TextView
+                    android:id="@+id/dateTextView_facility4"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:layout_marginBottom="3dp"
+                    android:textColor="@color/white_light"
+                    android:visibility="gone"
+                    android:text="yyyymmdd"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility4"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/facilityID_textView_facility4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID"
-            android:textColor="@color/text_color"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/contentTextView_facility4"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginLeft="72dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:maxLines="3"
+                    android:text="This will be the content. "
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility4"/>
+
+                <TextView
+                    android:id="@+id/facilityID_textView_facility4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="ID"
+                    android:textColor="@color/white_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/tim_hortons"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/facility5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/layout_border"
         android:visibility="invisible"
+        android:background="@color/light_grey"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.18"
+        app:layout_constraintHeight_percent="0.184"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/facility4">
-        <TextView
-            android:id="@+id/titleTextView_facility5"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:text="Title"
-            android:textColor="@color/text_color"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/dateTextView_facility5"
-            android:layout_width="80dp"
-            android:layout_height="22dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="5dp"
-            android:text="yyyymmdd"
-            android:textColor="@color/text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/View_facility5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="9dp"
+                android:elevation="9dp">
+                <TextView
+                    android:id="@+id/titleTextView_facility5"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:text="Title"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/contentTextView_facility5"
-            android:layout_width="300dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:text="This will be the content. "
-            android:textColor="@color/text_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <RatingBar
+                    android:id="@+id/ratingBar_facility5"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:secondaryProgressTint="@color/UBCyellow"
+                    android:progressTint="@color/UBCyellow"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:stepSize="0.1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility5"/>
 
-        <RatingBar
-            android:id="@+id/ratingBar_facility5"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="5dp"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:stepSize="0.1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility5" />
+                <TextView
+                    android:id="@+id/dateTextView_facility5"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="-100dp"
+                    android:layout_marginBottom="3dp"
+                    android:textColor="@color/white_light"
+                    android:visibility="gone"
+                    android:text="yyyymmdd"
+                    android:textSize="13sp"
+                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
-        <TextView
-            android:id="@+id/facilityID_textView_facility5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ID"
-            android:textColor="@color/text_color"
-            android:layout_marginStart="5dp"
-            android:layout_marginBottom="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+                <TextView
+                    android:id="@+id/contentTextView_facility5"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginLeft="72dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:maxLines="3"
+                    android:text="This will be the content. "
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility5"/>
+
+                <TextView
+                    android:id="@+id/facilityID_textView_facility5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="ID"
+                    android:textColor="@color/white_light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <ImageView
+                android:layout_width="95dp"
+                android:layout_height="95dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/tim_hortons"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -398,6 +563,8 @@
         app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:backgroundTint="@color/black"
+            app:tint="@color/white"
             android:id="@+id/fab_close_or_refresh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -411,6 +578,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             app:elevation="0dp"
+            android:backgroundTint="@color/black"
+            app:tint="@color/white"
             app:srcCompat="@drawable/ic_up_facility" />
 
 
@@ -420,6 +589,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             app:elevation="0dp"
+            android:backgroundTint="@color/black"
+            app:tint="@color/white"
             app:srcCompat="@drawable/ic_down_facility" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -428,8 +599,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             app:elevation="0dp"
+            android:backgroundTint="@color/black"
+            app:tint="@color/white"
             app:srcCompat="@drawable/ic_show_mnu" />
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

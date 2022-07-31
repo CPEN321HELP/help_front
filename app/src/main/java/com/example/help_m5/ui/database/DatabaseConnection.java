@@ -3,6 +3,7 @@ package com.example.help_m5.ui.database;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.FacilityActivity;
+import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -275,7 +277,27 @@ public class DatabaseConnection {
             b4.facility4.setVisibility(View.INVISIBLE);
             FragmentHomeBinding b5 = (FragmentHomeBinding)binding;
             b5.facility5.setVisibility(View.INVISIBLE);
-//            Log.d(TAG, "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+            /*
+            String colorCode = "";
+            System.out.println("IDKKKKKKKKKKKKKKKKKKLKKKKKK"+facility_type);
+            if (facility_type == posts) {
+                colorCode = "#7781AE";
+            } else if (facility_type == restaurants) {
+                colorCode = "#D2887A";
+            } else if (facility_type == entertainments) {
+                colorCode = "#00E5BC";
+            } else if (facility_type == study) {
+                colorCode = "#2B3858";
+            }
+            b1.ViewFacility1.setBackgroundColor(Color.parseColor(colorCode));
+            b2.ViewFacility2.setBackgroundColor(Color.parseColor(colorCode));
+            b3.ViewFacility3.setBackgroundColor(Color.parseColor(colorCode));
+            b4.ViewFacility4.setBackgroundColor(Color.parseColor(colorCode));
+            b5.ViewFacility5.setBackgroundColor(Color.parseColor(colorCode));
+
+             */
+
             for (int index = start; index < end; index++) {
                 loader.loadToFragment(binding, array.getJSONArray(index), counter);
                 counter++;

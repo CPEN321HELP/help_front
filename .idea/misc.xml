@@ -61,10 +61,16 @@
         <entry key="..\:/Users/HizanLi/AndroidStudioProjects/help_m5/app/src/main/res/layout/nav_header_main.xml" value="0.26874366767983787" />
         <entry key="..\:/Users/HizanLi/AndroidStudioProjects/help_m5/app/src/main/res/menu/activity_main_drawer.xml" value="0.5441025641025641" />
         <entry key="..\:/Users/HizanLi/AppData/Local/Android/Sdk/platforms/android-32/data/res/drawable/btn_dropdown.xml" value="0.369" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/button_selector.xml" value="0.2385" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/ic_baseline_check_circle_24.xml" value="0.1455" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/opo_msg_back.xml" value="0.1365" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/presence_busy.xml" value="0.1365" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/round_style.xml" value="0.1" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/roundstyle.xml" value="0.279" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/roundstyle2.xml" value="0.2675" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/roundstyle3.xml" value="0.2675" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/drawable/shadow.xml" value="0.1" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/activity_chat.xml" value="0.536" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/activity_facility.xml" value="0.264" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/activity_login.xml" value="0.4" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/activity_main.xml" value="0.264" />
@@ -74,10 +80,10 @@
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/content_main.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/content_scrolling.xml" value="0.4244791666666667" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/custom_spinner_items.xml" value="0.2557291666666667" />
-        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/fragment_add_facility.xml" value="0.2557291666666667" />
-        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/fragment_home.xml" value="0.2265625" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/fragment_add_facility.xml" value="0.1" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/fragment_report.xml" value="0.27447916666666666" />
-        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/nav_header_main.xml" value="0.24114583333333334" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/nav_header_main.xml" value="0.264" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/notification.xml" value="0.2557291666666667" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/review_adapter_layout.xml" value="0.4" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/layout/roundstyle.xml" value="0.2734375" />
@@ -85,7 +91,7 @@
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/menu/activity_report.xml" value="0.1390625" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/menu/main.xml" value="0.29074074074074074" />
         <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/menu/menu_facility.xml" value="0.29074074074074074" />
-        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/xml/root_preferences.xml" value="0.24320652173913043" />
+        <entry key="..\:/Users/lufei/Desktop/help_front/app/src/main/res/xml/root_preferences.xml" value="0.264" />
       </map>
     </option>
   </component>
