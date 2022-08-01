@@ -1,5 +1,6 @@
 package com.example.help_m5.ui.home;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -28,6 +29,7 @@ import java.util.Date;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
+    private ActionBar actionBar;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -50,15 +52,16 @@ public class HomeFragment extends Fragment {
         Date date = new Date();
         binding.homeDateTime.setText(date.toString().substring(0, 10));
 
+        actionBar = getActivity().getActionBar();
+
         binding.homeReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                getActivity().setTitle("Browse");
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new BrowseFragment(), "NewFragment TAG");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(1).setChecked(true);
                 navigationView.getMenu().getItem(0).setEnabled(true);
@@ -68,6 +71,7 @@ public class HomeFragment extends Fragment {
         binding.homeAddFacilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().setTitle("Add Facility");
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new AddFacilityFragment(), "NewFragment TAG");
                 fragmentTransaction.addToBackStack(null);
@@ -81,6 +85,7 @@ public class HomeFragment extends Fragment {
         binding.homeSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().setTitle("Settings");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(4).setChecked(true);
                 navigationView.getMenu().getItem(0).setEnabled(true);
@@ -94,11 +99,12 @@ public class HomeFragment extends Fragment {
         binding.homeChatbotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getActivity().setTitle("ChatBot");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-                navigationView.getMenu().getItem(3).setChecked(true);
+                navigationView.getMenu().getItem(0).setChecked(true);
+                navigationView.getMenu().getItem(0).setEnabled(false);
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 startActivity(intent);
-
             }
         });
 
@@ -108,8 +114,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.remove(HomeFragment.this).commit();
         binding = null;
     }
 }

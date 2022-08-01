@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -37,9 +38,6 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(3).setChecked(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);  // every item in recyclerView has fixed size
@@ -127,7 +125,7 @@ public class ChatActivity extends AppCompatActivity {
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                onBackPressed();
             }
         });
 

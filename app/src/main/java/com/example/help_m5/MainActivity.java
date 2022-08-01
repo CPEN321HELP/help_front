@@ -77,6 +77,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        navigationView.getMenu().getItem(3).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                navigationView.getMenu().getItem(0).setEnabled(false);
+                return false;
+            }
+        });
+
+        navigationView.getMenu().getItem(4).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                navigationView.getMenu().getItem(0).setEnabled(true);
+                return false;
+            }
+        });
+
         navigationView.getMenu().getItem(5).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
