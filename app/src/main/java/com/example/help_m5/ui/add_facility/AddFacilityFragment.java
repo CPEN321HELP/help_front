@@ -6,6 +6,8 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -425,7 +427,10 @@ public class AddFacilityFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        getFragmentManager().beginTransaction().remove(AddFacilityFragment.this).commitAllowingStateLoss();
         binding = null;
     }
+
+
 
 }

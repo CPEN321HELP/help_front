@@ -53,24 +53,28 @@ public class HomeFragment extends Fragment {
         binding.homeReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.home_activity_container, new BrowseFragment(), "NewFragment TAG");
+                fragmentTransaction.replace(R.id.home_fragment_layout, new BrowseFragment(), "NewFragment TAG");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(1).setChecked(true);
+                navigationView.getMenu().getItem(0).setEnabled(true);
             }
         });
 
         binding.homeAddFacilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-                navigationView.getMenu().getItem(2).setChecked(true);
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.home_activity_container, new AddFacilityFragment(), "NewFragment TAG");
+                fragmentTransaction.replace(R.id.home_fragment_layout, new AddFacilityFragment(), "NewFragment TAG");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+                navigationView.getMenu().getItem(2).setChecked(true);
+                navigationView.getMenu().getItem(0).setEnabled(true);
             }
         });
 
@@ -79,8 +83,9 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(4).setChecked(true);
+                navigationView.getMenu().getItem(0).setEnabled(true);
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.home_activity_container, new SettingsFragment(), "NewFragment TAG");
+                fragmentTransaction.replace(R.id.home_fragment_layout, new SettingsFragment(), "NewFragment TAG");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
@@ -93,6 +98,7 @@ public class HomeFragment extends Fragment {
                 navigationView.getMenu().getItem(3).setChecked(true);
                 Intent intent = new Intent(getActivity(), ChatActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -102,6 +108,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+        fragmentTransaction.remove(HomeFragment.this).commit();
         binding = null;
     }
 }
