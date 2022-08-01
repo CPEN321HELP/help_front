@@ -4,18 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import com.example.help_m5.chat.ChatAdapter;
 import com.example.help_m5.chat.ChatItem;
-import com.google.android.material.navigation.NavigationView;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -152,6 +148,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 // For testing non functional requirements
                 long endTime = System.currentTimeMillis();
+                Log.d(TAG, "endTime is: "+endTime);
                 backButton.setTag(String.valueOf((endTime - startTime) < 900));
             }
         }, 800);
