@@ -7,8 +7,12 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_baseline_all_inclusive_24"
+            android:icon="@drawable/ic_baseline_home_24"
             android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_browse"
+            android:icon="@drawable/ic_baseline_reviews_24"
+            android:title="@string/menu_browse"/>
 
         <item
             android:id="@+id/nav_add_facility"
@@ -16,9 +20,9 @@
             android:title="@string/menu_add_facility"/>
 
         <item
-            android:id="@+id/nav_report"
-            android:icon="@drawable/ic_report_facility"
-            android:title="@string/menu_report"/>
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_baseline_android_24"
+            android:title="@string/menu_chat" />
 
         <item
             android:id="@+id/nav_settings"
@@ -26,9 +30,8 @@
             android:title="@string/menu_settings"/>
 
         <item
-            android:id="@+id/nav_chat"
-            android:icon="@drawable/ic_baseline_android_24"
-            android:title="@string/menu_chat" />
+            android:id="@+id/nav_report"
+            android:icon="@drawable/ic_report_facility"
+            android:title="@string/menu_report"/>
     </group>
-
 </menu>

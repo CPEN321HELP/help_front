@@ -16,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
+import com.example.help_m5.databinding.FragmentBrowseBinding;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -267,15 +268,15 @@ public class DatabaseConnection {
 
             JSONArray array = data.getJSONArray("result");
 
-            FragmentHomeBinding b1 = (FragmentHomeBinding)binding;
+            FragmentBrowseBinding b1 = (FragmentBrowseBinding)binding;
             b1.facility1.setVisibility(View.INVISIBLE);
-            FragmentHomeBinding b2 = (FragmentHomeBinding)binding;
+            FragmentBrowseBinding b2 = (FragmentBrowseBinding)binding;
             b2.facility2.setVisibility(View.INVISIBLE);
-            FragmentHomeBinding b3 = (FragmentHomeBinding)binding;
+            FragmentBrowseBinding b3 = (FragmentBrowseBinding)binding;
             b3.facility3.setVisibility(View.INVISIBLE);
-            FragmentHomeBinding b4 = (FragmentHomeBinding)binding;
+            FragmentBrowseBinding b4 = (FragmentBrowseBinding)binding;
             b4.facility4.setVisibility(View.INVISIBLE);
-            FragmentHomeBinding b5 = (FragmentHomeBinding)binding;
+            FragmentBrowseBinding b5 = (FragmentBrowseBinding)binding;
             b5.facility5.setVisibility(View.INVISIBLE);
 
             /*

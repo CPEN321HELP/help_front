@@ -1,612 +1,171 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/search_layout"
+    style="@style/home_screen_theme"
+    android:orientation="vertical"
+    tools:context=".HomeFragment"
+    android:id="@+id/home_fragment_layout">
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/layout_border"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.08"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <SearchView
-            android:id="@+id/searchFacility"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            app:layout_constraintWidth_percent="0.5"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Spinner
-            android:id="@+id/spinnerFacility"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:dropDownWidth="match_parent"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintWidth_percent="0.5"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/facility1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:background="@color/light_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.184"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_layout">
-
-        <FrameLayout
+        android:layout_height="match_parent"
+        android:id="@+id/home_activity_container">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/View_facility1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="9dp"
-                android:elevation="9dp">
-                <TextView
-                    android:id="@+id/titleTextView_facility1"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp"
-                    android:text="Title"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <RatingBar
-                    android:id="@+id/ratingBar_facility1"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:secondaryProgressTint="@color/UBCyellow"
-                    android:progressTint="@color/UBCyellow"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility1"/>
-
-                <TextView
-                    android:id="@+id/dateTextView_facility1"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:layout_marginBottom="3dp"
-                    android:textColor="@color/white_light"
-                    android:visibility="gone"
-                    android:text="yyyymmdd"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <TextView
-                    android:id="@+id/contentTextView_facility1"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginLeft="72dp"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:maxLines="3"
-                    android:text="This will be the content. "
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility1"/>
-
-                <TextView
-                    android:id="@+id/facilityID_textView_facility1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="ID"
-                    android:textColor="@color/white_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <ImageView
-                android:layout_width="95dp"
-                android:layout_height="95dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
-                android:background="#FFFFFF"
-                android:elevation="10dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000" />
-        </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/facility2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:background="@color/light_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.184"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facility1">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/View_facility2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="9dp"
-                android:layout_marginBottom="9dp"
-                android:elevation="9dp">
-                <TextView
-                    android:id="@+id/titleTextView_facility2"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp"
-                    android:text="Title"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <RatingBar
-                    android:id="@+id/ratingBar_facility2"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:secondaryProgressTint="@color/UBCyellow"
-                    android:progressTint="@color/UBCyellow"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility2"/>
-
-                <TextView
-                    android:id="@+id/dateTextView_facility2"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:layout_marginBottom="3dp"
-                    android:textColor="@color/white_light"
-                    android:visibility="gone"
-                    android:text="yyyymmdd"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility2"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <TextView
-                    android:id="@+id/contentTextView_facility2"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginLeft="72dp"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:maxLines="3"
-                    android:text="This will be the content. "
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility2"/>
-
-                <TextView
-                    android:id="@+id/facilityID_textView_facility2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="ID"
-                    android:textColor="@color/white_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <ImageView
-                android:layout_width="95dp"
-                android:layout_height="95dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
-                android:background="#FFFFFF"
-                android:elevation="10dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000" />
-        </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/facility3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:background="@color/light_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.184"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facility2">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/View_facility3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="9dp"
-                android:elevation="9dp">
-                <TextView
-                    android:id="@+id/titleTextView_facility3"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp"
-                    android:text="Title"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <RatingBar
-                    android:id="@+id/ratingBar_facility3"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:secondaryProgressTint="@color/UBCyellow"
-                    android:progressTint="@color/UBCyellow"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility3"/>
-
-                <TextView
-                    android:id="@+id/dateTextView_facility3"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:layout_marginBottom="3dp"
-                    android:textColor="@color/white_light"
-                    android:visibility="gone"
-                    android:text="yyyymmdd"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility3"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <TextView
-                    android:id="@+id/contentTextView_facility3"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginLeft="72dp"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:maxLines="3"
-                    android:text="This will be the content. "
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility3"/>
-
-                <TextView
-                    android:id="@+id/facilityID_textView_facility3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="ID"
-                    android:textColor="@color/white_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <ImageView
-                android:layout_width="95dp"
-                android:layout_height="95dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
-                android:background="#FFFFFF"
-                android:elevation="10dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000" />
-        </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/facility4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:background="@color/light_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.184"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facility3">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/View_facility4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="9dp"
-                android:elevation="9dp">
-                <TextView
-                    android:id="@+id/titleTextView_facility4"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp"
-                    android:text="Title"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <RatingBar
-                    android:id="@+id/ratingBar_facility4"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:secondaryProgressTint="@color/UBCyellow"
-                    android:progressTint="@color/UBCyellow"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility4"/>
-
-                <TextView
-                    android:id="@+id/dateTextView_facility4"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:layout_marginBottom="3dp"
-                    android:textColor="@color/white_light"
-                    android:visibility="gone"
-                    android:text="yyyymmdd"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility4"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <TextView
-                    android:id="@+id/contentTextView_facility4"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginLeft="72dp"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:maxLines="3"
-                    android:text="This will be the content. "
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility4"/>
-
-                <TextView
-                    android:id="@+id/facilityID_textView_facility4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="ID"
-                    android:textColor="@color/white_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <ImageView
-                android:layout_width="95dp"
-                android:layout_height="95dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
-                android:background="#FFFFFF"
-                android:elevation="10dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000" />
-        </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/facility5"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="invisible"
-        android:background="@color/light_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.184"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facility4">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/View_facility5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="9dp"
-                android:elevation="9dp">
-                <TextView
-                    android:id="@+id/titleTextView_facility5"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="#FFFFFF"
-                    android:textSize="17sp"
-                    android:text="Title"
-                    android:textStyle="bold"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <RatingBar
-                    android:id="@+id/ratingBar_facility5"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:secondaryProgressTint="@color/UBCyellow"
-                    android:progressTint="@color/UBCyellow"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:stepSize="0.1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility5"/>
-
-                <TextView
-                    android:id="@+id/dateTextView_facility5"
-                    android:layout_width="80dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="-100dp"
-                    android:layout_marginBottom="3dp"
-                    android:textColor="@color/white_light"
-                    android:visibility="gone"
-                    android:text="yyyymmdd"
-                    android:textSize="13sp"
-                    app:layout_constraintTop_toBottomOf="@+id/titleTextView_facility5"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-                <TextView
-                    android:id="@+id/contentTextView_facility5"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginLeft="72dp"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-                    android:maxLines="3"
-                    android:text="This will be the content. "
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/titleTextView_facility5"/>
-
-                <TextView
-                    android:id="@+id/facilityID_textView_facility5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="ID"
-                    android:textColor="@color/white_light"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-            <ImageView
-                android:layout_width="95dp"
-                android:layout_height="95dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
-                android:background="#FFFFFF"
-                android:elevation="10dp"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000" />
-        </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_close_or_refresh"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:backgroundTint="@color/black"
-            app:elevation="0dp"
-            app:srcCompat="@drawable/ic_baseline_refresh_24"
-            app:tint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:orientation="vertical">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_previous"
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:text="Welcome,"
+                android:textColor="@color/home_main_text_color"
+                android:textSize="45dp"
+                android:textStyle="bold"
+                android:elevation="3dp"/>
+
+            <TextView
+                android:id="@+id/home_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:text="User"
+                android:textColor="@color/home_main_text_color"
+                android:textSize="35dp"
+                android:textStyle="bold"
+                android:elevation="3dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/home_date_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="25dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/home_third_text_color"
+                    android:textSize="20dp"
+                    android:elevation="3dp"/>
+                <TextClock
+                    android:id="@+id/textClock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:textStyle="bold"
+                    android:format24Hour="hh:mm"
+                    android:textColor="@color/home_third_text_color"
+                    android:textSize="20dp"
+                    android:elevation="3dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:backgroundTint="@color/black"
-            app:elevation="0dp"
-            app:srcCompat="@drawable/ic_up_facility"
-            app:tint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="390dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/getStartedTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start"
+                    android:textSize="30dp"
+                    android:textColor="@color/home_main_text_color"
+                    android:textStyle="bold"
+                    android:elevation="3dp" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_gravity="center_vertical"
+                    style="@style/home_arrow_theme"/>
+            </LinearLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/home_review_button"
+                    style="@style/home_button_browse_theme"
+                    android:layout_width="165dp"
+                    android:layout_height="90dp"
+                    android:text="Review"
+                    android:textColor="@color/home_secondary_text_color"
+                    android:elevation="5dp"
+                    android:backgroundTint="@color/home_button_background"
+                    android:gravity="center"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <Button
+                    android:id="@+id/home_add_facility_button"
+                    style="@style/home_button_add_theme"
+                    android:layout_width="165dp"
+                    android:layout_height="90dp"
+                    android:text="Add Facility"
+                    android:textColor="@color/home_secondary_text_color"
+                    android:elevation="5dp"
+                    android:backgroundTint="@color/home_button_background"
+                    android:gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <Button
+                    android:id="@+id/home_chatbot_button"
+                    style="@style/home_button_chat_theme"
+                    android:layout_width="165dp"
+                    android:layout_height="90dp"
+                    android:text="ChatBot"
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    android:textColor="@color/home_secondary_text_color"
+                    android:backgroundTint="@color/home_button_background"
+                    app:layout_constraintTop_toBottomOf="@+id/home_review_button"
+                    app:layout_constraintStart_toStartOf="parent"/>
+                <Button
+                    android:id="@+id/home_settings_button"
+                    android:layout_width="165dp"
+                    android:layout_height="90dp"
+                    android:text="Settings"
+                    android:textColor="@color/home_secondary_text_color"
+                    android:backgroundTint="@color/home_button_background"
+                    android:gravity="center"
+                    android:elevation="5dp"
+                    style="@style/home_button_settings_theme"
+                    app:layout_constraintTop_toBottomOf="@+id/home_add_facility_button"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:backgroundTint="@color/black"
-            app:elevation="0dp"
-            app:srcCompat="@drawable/ic_down_facility"
-            app:tint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:backgroundTint="@color/black"
-            app:elevation="0dp"
-            app:srcCompat="@drawable/ic_show_mnu"
-            app:tint="@color/white"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="end"
+                android:text="Artwork: Cliff Walk at Pourville by Claude Monet"
+                android:textColor="@color/home_third_text_color"
+                android:textSize="14dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+</LinearLayout>
