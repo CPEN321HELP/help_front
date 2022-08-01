@@ -57,8 +57,9 @@ public class AddFacilityFragment extends Fragment {
     private String latitude;
     private String comment;
     private String user_email ;
-
+    private boolean isAdding;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        isAdding = false;
         vm_ip = getResources().getString(R.string.azure_ip);
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -92,7 +93,7 @@ public class AddFacilityFragment extends Fragment {
                 }else{
                     titleOK = false;
                     //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
-                    binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
+                    binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_warning_24);
                     binding.imageNewFacilityTitle.setTag("bad");
                 }
                 enableSubmit();
@@ -109,7 +110,7 @@ public class AddFacilityFragment extends Fragment {
 
         newFacilityDescription = binding.newFacilityDescription;
         //newFacilityDescription.setHint("Please enter a description");
-        newFacilityDescription.setHint("Please enter at least 50 characters");
+        newFacilityDescription.setHint("Please enter at least 25 characters");
         newFacilityDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -122,10 +123,10 @@ public class AddFacilityFragment extends Fragment {
                 String input = s.toString().trim();
 //                Log.d(TAG, "\""+s.toString().trim()+"\"");
                 int length = input.replaceAll("[^a-zA-Z0-9]","").length();
-                if(length > 50){
+                if(length > 25){
                     descriptionOK = true;
                     //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
-                    binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
+                    binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_check_circle_24);
                     binding.imageFacilityDescription.setTag("good");
                 }else{
                     descriptionOK = false;
@@ -167,13 +168,13 @@ public class AddFacilityFragment extends Fragment {
                 if(matcher1.matches() || matcher2.matches()){
                     imageLinkOK = true;
                     //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
-                    binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
+                    binding.imageFacilityImageLink.setImageResource(R.drawable.ic_baseline_check_circle_24);
                     binding.imageFacilityImageLink.setTag("good");
 
                 }else{
                     imageLinkOK = false;
                     //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
-                    binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
+                    binding.imageFacilityImageLink.setImageResource(R.drawable.ic_baseline_warning_24);
                     binding.imageFacilityImageLink.setTag("bad");
                 }
 //                Log.d(TAG, "\""+s.toString().trim()+"\"");
@@ -208,13 +209,13 @@ public class AddFacilityFragment extends Fragment {
                         Log.d(TAG, "error");
                         locationOK = false;
                         //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
-                        binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
+                        binding.imageFacilityLocation.setImageResource(R.drawable.ic_baseline_warning_24);
                         binding.imageFacilityLocation.setTag("bad");
 
                     }else {
                         locationOK = true;
                         //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
-                        binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
+                        binding.imageFacilityLocation.setImageResource(R.drawable.ic_baseline_check_circle_24);
                         binding.imageFacilityLocation.setTag("good");
                         latitude = Double.toString(result.latitude);
                         longitude = Double.toString(result.longitude);
@@ -242,11 +243,11 @@ public class AddFacilityFragment extends Fragment {
                     }
                     binding.imageFacilityType.setTag("good");
                     //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
-                    binding.imageNewFacilityTitle.setImageResource(R.drawable.ic_baseline_check_circle_24);
+                    binding.imageFacilityType.setImageResource(R.drawable.ic_baseline_check_circle_24);
                 }else{
                     binding.imageFacilityType.setTag("bad");
                     //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
-                    binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
+                    binding.imageFacilityType.setImageResource(R.drawable.ic_baseline_warning_24);
                 }
                 enableSubmit();
             }
@@ -254,7 +255,7 @@ public class AddFacilityFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
                 binding.imageFacilityType.setTag("bad");
                 //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
-                binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);
+                binding.imageFacilityType.setImageResource(R.drawable.ic_baseline_warning_24);
             }
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(), flags, countryNames, 1);
@@ -336,13 +337,13 @@ public class AddFacilityFragment extends Fragment {
     private String getString(String selected){
         switch (selected){
             case "Play":
-                return "entertainments";
+                return "2";
             case "Eat":
-                return "restaurants";
+                return "3";
             case "Study":
-                return "studys";
+                return "1";
             case "Posts":
-                return "posts";
+                return "0";
             default:
                 return "";
         }
@@ -354,6 +355,10 @@ public class AddFacilityFragment extends Fragment {
      * @Pupose : to add a new facility in to database
      */
     public void addFacility(Context applicationContext,String title, String description, String type, String imageLink, String longitude, String latitude, String user_id, Button clean){
+        if(isAdding){
+            Toast.makeText(getContext(), "Please do not click again", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String url = vm_ip + "addFacility";
 //        Log.d(TAG, url);
         final RequestQueue queue = Volley.newRequestQueue(applicationContext);
@@ -371,43 +376,24 @@ public class AddFacilityFragment extends Fragment {
         newFacilityParam.put("AdditionType", "addFacility");
         newFacilityParam.put("upUserId", user_id);
         Log.d(TAG, "newFacilityParam" + newFacilityParam.toString());
-
+        isAdding = true;
         JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(newFacilityParam), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                isAdding = false;
                 Log.d(TAG, "response in addFacility is: " + response.toString());
                 Toast.makeText(getContext(), "Server received your submission", Toast.LENGTH_SHORT).show();
-
                 clean.performClick();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                isAdding = false;
                 Log.d(TAG, "onErrorResponse addFacility " + "Error: " + error.getMessage());
                 Toast.makeText(getContext(), "Error happened when connecting to server, please try again later.", Toast.LENGTH_SHORT).show();
             }
         });
         queue.add(jsObjRequest);
-
-        HashMap<String, String> creditParams = new HashMap<String, String>();
-        String credit_url = vm_ip + "creditHandling/normal";
-        creditParams.put("AdditionType", "addFacility");
-        creditParams.put("upUserId", user_id);
-        Log.d(TAG, "addCredit credit_url: " + credit_url);
-        Log.d(TAG, "addCredit creditParams: " + creditParams.toString());
-        JsonObjectRequest crejsObjRequest = new JsonObjectRequest(Request.Method.POST, credit_url, new JSONObject(creditParams), new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, "response in addFacility's credit is: " + response.toString());
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "addCredit onErrorResponse" + "Error: " + error.getMessage());
-            }
-        });
-        queue.add(crejsObjRequest);
     }
 
     private void enableSubmit(){
@@ -420,6 +406,12 @@ public class AddFacilityFragment extends Fragment {
                 submit.setEnabled(true);
             }
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        isAdding = false;
     }
 
     @Override

@@ -32,8 +32,10 @@ public class ReportActivity extends AppCompatActivity {
     private int type;
     private int facilityId;
     private boolean reportUser = false;
+    private boolean isReporting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isReporting = false;
         vm_ip = getString(R.string.azure_ip);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
@@ -54,6 +56,11 @@ public class ReportActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isReporting){
+                    Toast.makeText(getApplicationContext(), "Please do not click again", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                isReporting = true;
                 String url = vm_ip + "user/Report/commentAndfacility";
                 Log.d(TAG, "bbb" + url);
                 RequestQueue queue = Volley.newRequestQueue(ReportActivity.this);
@@ -78,6 +85,7 @@ public class ReportActivity extends AppCompatActivity {
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
+                                isReporting = false;
                                 Log.d(TAG,"response is: "+response.toString());
                                 if (reportUser) {
                                     Toast.makeText(ReportActivity.this, "Report successfully sent with associated user!", Toast.LENGTH_SHORT).show();
@@ -89,6 +97,7 @@ public class ReportActivity extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                isReporting = false;
                                 Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
                                 Toast.makeText(ReportActivity.this, "Error sending report" + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -103,6 +112,7 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                isReporting = false;
             }
         });
 
@@ -121,7 +131,11 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        isReporting = false;
+    }
     @Override
     public void finish() {
         super.finish();

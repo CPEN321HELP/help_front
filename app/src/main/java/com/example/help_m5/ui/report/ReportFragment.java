@@ -81,11 +81,12 @@ public class ReportFragment extends Fragment {
 
         if(which == 1){
             facility_type = getTypeInt(binding.facilityTypeContY1.getText().toString());
-            facility_id = binding.reportedIdY1.getText().toString();
+            facility_id = binding.facilityIdOrgContY1.getText().toString();
         }else {
             facility_type = getTypeInt(binding.facilityTypeContY2.getText().toString());
-            facility_id = binding.reportedIdY2.getText().toString();
+            facility_id = binding.facilityIdOrgContY2.getText().toString();
         }
+        Log.d(TAG," facility_type is: "+facility_type +" facility_id is: "+ facility_id );
         DBconnection.getSpecificFacility(facility_type, facility_id, getContext(), getActivity());
     }
 
@@ -187,7 +188,6 @@ public class ReportFragment extends Fragment {
 
     private void approve(boolean isApprove, int which, Context context){
         Toast.makeText(context, "Sending result to server!" , Toast.LENGTH_SHORT).show();
-        String url = vm_ip + "admin/reportApproval";
         final RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<String, String>();
         if(isApprove){
@@ -270,7 +270,7 @@ public class ReportFragment extends Fragment {
 //        params.put("upMessage", upMessage);
 //        params.put("downMessage", downMessage);
         Log.d(TAG, "aass " +params.toString());
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params), new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest(Request.Method.POST, vm_ip + "admin/reportApproval", new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "sss "+response);
@@ -284,7 +284,7 @@ public class ReportFragment extends Fragment {
             }
         });
         queue.add(jsObjRequest);
-        binding.fabRefresh.performClick();
+//        binding.fabRefresh.performClick();
     }
 
     @SuppressLint("SetTextI18n")

@@ -42,10 +42,12 @@ public class RateActivity extends AppCompatActivity {
     private String facilityId;
     private int facilityType;
     private List<CharSequence> reviewers;
+    private boolean isRating;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isRating = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
         vm_ip = getString(R.string.azure_ip);
@@ -79,6 +81,11 @@ public class RateActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isRating){
+                    Toast.makeText(getApplicationContext(), "Please do not click again", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                isRating = true;
                 RequestQueue queue = Volley.newRequestQueue(RateActivity.this);
                 queue.start();
 
@@ -120,6 +127,7 @@ public class RateActivity extends AppCompatActivity {
                             new Response.Listener<JSONObject>() {
                                 @Override
                                 public void onResponse(JSONObject response) {
+                                    isRating = false;
                                     Log.d(TAG, "requestComment" + response.toString());
                                     try {
                                         String result = response.getString("result");
@@ -141,6 +149,7 @@ public class RateActivity extends AppCompatActivity {
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
+                                    isRating = false;
                                     Log.d(TAG, "2 onErrorResponse" + "Error: " + error.getMessage());
                                     Log.d(TAG, "2 ERROR when connecting to database getSpecificFacility");
                                 }
@@ -178,7 +187,11 @@ public class RateActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        isRating = false;
+    }
     @Override
     public void finish() {
         super.finish();
