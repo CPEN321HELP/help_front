@@ -1,6 +1,6 @@
 package com.example.help_m5.find_facility_tests;
 
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import android.util.Log;
 
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
@@ -40,6 +40,7 @@ public class FindByViewingOffineTests {
     FragmentScenario<BrowseFragment> mfragment;
     @Before
     public void setUp() throws Exception {
+        Log.d(TAG, "start testing FindByViewingOffineTests");
         InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("svc wifi disable");
         InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("svc data disable");
         db = new DatabaseConnection();
