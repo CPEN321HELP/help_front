@@ -30,7 +30,7 @@ import java.util.Date;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private ActionBar actionBar;
+//    private ActionBar actionBar;
     private final String TAG = "HomeFragment";
 
     public HomeFragment() {
@@ -54,7 +54,7 @@ public class HomeFragment extends Fragment {
         Date date = new Date();
         binding.homeDateTime.setText(date.toString().substring(0, 10));
 
-        actionBar = getActivity().getActionBar();
+//        actionBar = getActivity().getActionBar();
         binding.homeReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
