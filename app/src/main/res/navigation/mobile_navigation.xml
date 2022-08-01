@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_add_facility"
-        android:name="com.example.help_m5.ui.add_facility.AddFacilityFragment"
+        android:name="com.example.help_m5.ui.add.AddFacilityFragment"
         android:label="Add Facility"
         tools:layout="@layout/fragment_add_facility"/>
 

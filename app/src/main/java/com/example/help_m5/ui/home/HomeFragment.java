@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import com.example.help_m5.ChatActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentHomeBinding;
-import com.example.help_m5.ui.add_facility.AddFacilityFragment;
+import com.example.help_m5.ui.add.AddFacilityFragment;
 import com.example.help_m5.ui.browse.BrowseFragment;
 import com.example.help_m5.ui.settings.SettingsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

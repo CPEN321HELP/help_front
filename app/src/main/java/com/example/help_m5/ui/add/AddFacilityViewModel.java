@@ -1,4 +1,4 @@
-package com.example.help_m5.ui.add_facility;
+package com.example.help_m5.ui.add;
 
 import androidx.lifecycle.ViewModel;
 

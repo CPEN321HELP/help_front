@@ -1,4 +1,4 @@
-package com.example.help_m5.ui.add_facility;
+package com.example.help_m5.ui.add;
 
 import android.content.Context;
 import android.location.Address;
@@ -6,7 +6,6 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,13 +25,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.CustomAdapter;
-import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentAddFacilityBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.navigation.NavigationView;
+
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
@@ -301,7 +299,7 @@ public class AddFacilityFragment extends Fragment {
             public void onClick(View v) {
                 newFacilityTitle.setText("");
                 newFacilityDescription.setText("");
-//                newFacilityImageLink.setText("");
+                newFacilityImageLink.setText("");
                 newFacilityLocation.setText("");
                 //binding.imageFacilityDescription.setImageResource(android.R.drawable.presence_busy);
                 binding.imageFacilityDescription.setImageResource(R.drawable.ic_baseline_warning_24);

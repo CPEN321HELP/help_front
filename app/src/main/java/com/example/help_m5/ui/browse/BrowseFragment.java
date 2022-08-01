@@ -295,6 +295,7 @@ public class BrowseFragment extends Fragment {
         close_or_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isLoadingFacility = false;
                 Log.d(TAG, "close_or_refresh in onResume: "+onSearch);
 
                 DBconnection.cleanAllCaches(getContext()); //disable this line for testing
@@ -437,8 +438,8 @@ public class BrowseFragment extends Fragment {
         isLoadingFacility = false;
         Log.d(TAG, "onSearch in onResume: "+onSearch);
         super.onResume();
-        updateCredit(getContext());
         selfUpdate();
+        updateCredit(getContext());
     }
 
     @Override
