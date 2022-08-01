@@ -55,7 +55,6 @@ public class HomeFragment extends Fragment {
         binding.homeDateTime.setText(date.toString().substring(0, 10));
 
         actionBar = getActivity().getActionBar();
-        Log.d(TAG, actionBar.toString());
         binding.homeReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
