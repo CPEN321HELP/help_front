@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 
 import org.hamcrest.Matcher;
 
-public final class setRating {
+public final class SetRating {
 
     public static ViewAction setRatingBar() {
         return new ViewAction() {

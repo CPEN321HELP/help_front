@@ -19,7 +19,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import com.example.help_m5.ui.faclity.FacilityActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
-import com.example.help_m5.setRating;
+import com.example.help_m5.SetRating;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
@@ -90,7 +90,7 @@ public class ReviewFacilityTests {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.ratingBar2)).perform(setRating.setRatingBar());
+        onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
         onView(withId(R.id.submit_button_review)).perform(click());
         onView(withText("Please add a comment")).inRoot(new ToastMatcher())
                 .check(matches(withText("Please add a comment")));
@@ -103,7 +103,7 @@ public class ReviewFacilityTests {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.ratingBar2)).perform(setRating.setRatingBar());
+        onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
         onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Great overall experience!"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button_review)).perform(click());
@@ -117,7 +117,7 @@ public class ReviewFacilityTests {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.ratingBar2)).perform(setRating.setRatingBar());
+        onView(withId(R.id.ratingBar2)).perform(SetRating.setRatingBar());
         onView(withId(R.id.editTextTextMultiLine))
                 .perform(typeText("Great overall experience!"));
         Espresso.closeSoftKeyboard();
