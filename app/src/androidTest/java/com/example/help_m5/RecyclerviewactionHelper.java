@@ -7,7 +7,7 @@ import androidx.test.espresso.ViewAction;
 
 import org.hamcrest.Matcher;
 
-public class recyclerviewAction {
+public class RecyclerviewactionHelper {
 
     public static ViewAction clickChildViewWithId(final int id) {
         return new ViewAction() {
