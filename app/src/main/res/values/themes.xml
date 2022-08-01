@@ -43,7 +43,7 @@
 
     <!-- Home screen theme -->
     <style name="home_screen_theme">
-        <item name="android:background">@drawable/help_day_main_screen</item>
+        <item name="android:background">@drawable/home_day_main_screen</item>
     </style>
     <style name="home_arrow_theme">
         <item name="android:src">@drawable/ic_baseline_arrow_circle_right_24</item>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     style="@style/home_screen_theme"
     android:orientation="vertical"
-    tools:context=".HomeFragment"
+    tools:context=".ui.home.HomeFragment"
     android:id="@+id/home_fragment_layout">
     <FrameLayout
         android:layout_width="match_parent"
@@ -20,8 +20,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginTop="20dp"
                 android:text="Welcome,"
                 android:textColor="@color/home_main_text_color"
                 android:textSize="45dp"
@@ -32,7 +32,7 @@
                 android:id="@+id/home_user_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginStart="35dp"
                 android:text="User"
                 android:textColor="@color/home_main_text_color"
                 android:textSize="35dp"
@@ -47,7 +47,7 @@
                     android:id="@+id/home_date_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
+                    android:layout_marginStart="35dp"
                     android:textStyle="bold"
                     android:textColor="@color/home_third_text_color"
                     android:textSize="20dp"
@@ -69,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="25dp"
-            android:layout_marginTop="390dp"
+            android:layout_marginTop="382dp"
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -159,7 +159,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="end"
                 android:text="Artwork: Cliff Walk at Pourville by Claude Monet"
-                android:textColor="@color/home_third_text_color"
+                android:textColor="@color/home_secondary_text_color"
                 android:textSize="14dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

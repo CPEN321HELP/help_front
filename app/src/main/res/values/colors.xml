@@ -38,8 +38,8 @@
     <color name="theme_color_80">#000B5F</color>
     <color name="light_8">#14000000</color>
 
-    <color name="home_button_background">#AAFFFFFF</color>
+    <color name="home_button_background">#CCFFFFFF</color>
     <color name="home_main_text_color">#FF000000</color>
-    <color name="home_secondary_text_color">#626062</color>
+    <color name="home_secondary_text_color">#DD000000</color>
     <color name="home_third_text_color">#626062</color>
 </resources>

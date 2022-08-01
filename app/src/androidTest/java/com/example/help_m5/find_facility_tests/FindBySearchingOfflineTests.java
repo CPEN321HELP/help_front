@@ -9,7 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.example.help_m5.R;
 import com.example.help_m5.ui.database.DatabaseConnection;
-import com.example.help_m5.ui.home.BrowseFragment;
+import com.example.help_m5.ui.browse.BrowseFragment;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package com.example.help_m5.ui.home;
+package com.example.help_m5.ui.browse;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -6,9 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.help_m5.CustomAdapter;
-import com.example.help_m5.HomeFragment;
 import com.example.help_m5.databinding.FragmentBrowseBinding;
-import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -49,7 +45,8 @@ public class BrowseFragment extends Fragment {
 
     private SearchView facilitySearchView;
     private DatabaseConnection DBconnection;
-    private @NonNull FragmentBrowseBinding binding;
+    private @NonNull
+    FragmentBrowseBinding binding;
     private FloatingActionButton close_or_refresh;
     private FloatingActionButton page_up;
     private FloatingActionButton page_down;
