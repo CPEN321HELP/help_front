@@ -157,7 +157,8 @@ public class ChatActivity extends AppCompatActivity {
     private void setTopButton(String buttonText, long startTime) {
         String myMessage = "";
         String botMessage = "";
-        long endTime;
+        long endTime = 1;
+        Log.d(TAG, "endTime is: "+endTime);
         if (buttonText.equals((String) getString(R.string.account_settings))) {
             backButton.setEnabled(true);
             topButton.setText((String) getString(R.string.account_settings_Q1));
