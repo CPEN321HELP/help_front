@@ -189,6 +189,13 @@ public class AddFacilityFragment extends Fragment {
             }
         });
 
+        setLocationListener();
+        setSpinner();
+        setButtons();
+        return root;
+    }
+
+    private void setLocationListener(){
         newFacilityLocation = binding.newFacilityLocation;
         newFacilityLocation.setHint("i.e. 650 W 41st Ave, Vancouver, BC, V5Z2M9");
         //newFacilityLocation.setHint("Please enter an valid address");
@@ -220,11 +227,10 @@ public class AddFacilityFragment extends Fragment {
                 enableSubmit();
             }
         });
+    }
 
-        //set up spinner
-        setButtons();
-        Spinner spin = binding.newFacilityType;
-        spin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    private void setSpinner(){
+        binding.newFacilityType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 facility_type = getString(countryNames[position]);
@@ -255,10 +261,7 @@ public class AddFacilityFragment extends Fragment {
             }
         });
         CustomAdapter customAdapter = new CustomAdapter(getContext(), flags, countryNames, 1);
-        spin.setAdapter(customAdapter);
-
-
-        return root;
+        binding.newFacilityType.setAdapter(customAdapter);
     }
 
     private void setButtons(){
