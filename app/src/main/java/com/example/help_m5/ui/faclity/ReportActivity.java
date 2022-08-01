@@ -56,6 +56,10 @@ public class ReportActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (editText.getText().toString().isEmpty()) {
+                    Toast.makeText(ReportActivity.this, "Please state your reason of report", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if(isReporting){
                     Toast.makeText(getApplicationContext(), "Please do not click again", Toast.LENGTH_SHORT).show();
                     return;
@@ -76,11 +80,6 @@ public class ReportActivity extends AppCompatActivity {
                 params.put("title", title);
                 params.put("reportUser", reportUser ? "1" : "0");
                 Log.d(TAG, "aaa" + params.toString());
-
-                if (editText.getText().toString().isEmpty()) {
-                    Toast.makeText(ReportActivity.this, "Please state your reason of report", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override

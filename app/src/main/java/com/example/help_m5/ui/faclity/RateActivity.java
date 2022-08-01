@@ -81,11 +81,7 @@ public class RateActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isRating){
-                    Toast.makeText(getApplicationContext(), "Please do not click again", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                isRating = true;
+
                 RequestQueue queue = Volley.newRequestQueue(RateActivity.this);
                 queue.start();
 
@@ -99,6 +95,11 @@ public class RateActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please add a comment", Toast.LENGTH_SHORT).show();
                     return;
                 } else {
+                    if(isRating){
+                        Toast.makeText(getApplicationContext(), "Please do not click again", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    isRating = true;
                     HashMap<String, String> paramsComment = new HashMap<String, String>();
                     paramsComment.put("facilityType", String.valueOf(facilityType));
                     paramsComment.put("facility_id", facilityId);
