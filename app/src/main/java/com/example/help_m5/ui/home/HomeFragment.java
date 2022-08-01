@@ -32,13 +32,14 @@ public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
     private ActionBar actionBar;
     private final String TAG = "HomeFragment";
+
     public HomeFragment() {
+        Log.d(TAG, "creating home Fragment");
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
