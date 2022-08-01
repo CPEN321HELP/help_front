@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
     private ActionBar actionBar;
-
+    private final String TAG = "HomeFragment";
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -53,10 +54,11 @@ public class HomeFragment extends Fragment {
         binding.homeDateTime.setText(date.toString().substring(0, 10));
 
         actionBar = getActivity().getActionBar();
-
+        Log.d(TAG, actionBar.toString());
         binding.homeReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Setting Browse");
                 getActivity().setTitle("Browse");
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new BrowseFragment(), "NewFragment TAG");
@@ -71,6 +73,7 @@ public class HomeFragment extends Fragment {
         binding.homeAddFacilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Setting Add");
                 getActivity().setTitle("Add Facility");
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new AddFacilityFragment(), "NewFragment TAG");
@@ -85,6 +88,7 @@ public class HomeFragment extends Fragment {
         binding.homeSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Setting Settings");
                 getActivity().setTitle("Settings");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(4).setChecked(true);
@@ -99,6 +103,7 @@ public class HomeFragment extends Fragment {
         binding.homeChatbotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Setting ChatBot");
                 getActivity().setTitle("ChatBot");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(0).setChecked(true);
@@ -107,7 +112,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return root;
     }
 
