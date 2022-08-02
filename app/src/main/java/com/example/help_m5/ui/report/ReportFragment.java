@@ -279,12 +279,12 @@ public class ReportFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
-                Toast.makeText(context, "Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "approve onErrorResponse" + "Error: " + error.getMessage());
+                Toast.makeText(context, "approve Error sending report: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         queue.add(jsObjRequest);
-//        binding.fabRefresh.performClick();
+        binding.fabRefresh.performClick();
     }
 
     @SuppressLint("SetTextI18n")

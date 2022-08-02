@@ -417,7 +417,7 @@ public class AddFacilityFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        getFragmentManager().beginTransaction().remove(AddFacilityFragment.this).commitAllowingStateLoss();
+//        getFragmentManager().beginTransaction().remove(AddFacilityFragment.this).commitAllowingStateLoss();
         binding = null;
     }
 

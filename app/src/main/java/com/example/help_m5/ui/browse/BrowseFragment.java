@@ -445,7 +445,7 @@ public class BrowseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.remove(this).commit();
+//        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//        fragmentTransaction.remove(this).commit();
     }
 }
