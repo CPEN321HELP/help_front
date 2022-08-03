@@ -47,7 +47,11 @@ public class ReportActivity extends AppCompatActivity {
         facilityId = bundle.getInt("facility_id");
         report_type = bundle.getString("report_type");
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        userEmail = account.getEmail();
+        if(account == null){
+            userEmail = "test@gmail.com";
+        }else {
+            userEmail = account.getEmail();
+        }
         title = bundle.getString("title");
 
         EditText editText = findViewById(R.id.editTextReport);
