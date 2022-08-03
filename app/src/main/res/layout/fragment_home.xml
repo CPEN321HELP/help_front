@@ -97,7 +97,7 @@
                     style="@style/home_button_browse_theme"
                     android:layout_width="165dp"
                     android:layout_height="90dp"
-                    android:text="Review"
+                    android:text="Browse"
                     android:textColor="@color/home_secondary_text_color"
                     android:elevation="5dp"
                     android:backgroundTint="@color/home_button_background"

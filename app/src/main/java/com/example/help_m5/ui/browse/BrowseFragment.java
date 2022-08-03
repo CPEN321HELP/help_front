@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -76,17 +77,17 @@ public class BrowseFragment extends Fragment {
                 if (facility_type == posts){
                     setRateBarVisibility(View.GONE);
                     setDateVisibility(View.VISIBLE);
-                    setViewColor("#2B3A70");
+                    setViewBackground(R.drawable.posts_background);
                 } else {
                     setRateBarVisibility(View.VISIBLE);
                     setDateVisibility(View.GONE);
                     if (facility_type == restaurants) {
-                        setViewColor("#D2887A");
+                        setViewBackground(R.drawable.resturants_background);
                     } else if (facility_type == entertainments) {
-                        setViewColor("#00BA98");
-                        setTextColor("#FFFFFF");
+                        setViewBackground(R.drawable.entertainments_background);
+                        setTextColor("#DDFFFF");
                     } else if (facility_type == study) {
-                        setViewColor("#7781AE");
+                        setViewBackground(R.drawable.studys_background);
                     }
                 }
                 setFacilitiesVisibility(View.INVISIBLE);
@@ -200,6 +201,14 @@ public class BrowseFragment extends Fragment {
         binding.ViewFacility3.setBackgroundColor(Color.parseColor(colorCode));
         binding.ViewFacility4.setBackgroundColor(Color.parseColor(colorCode));
         binding.ViewFacility5.setBackgroundColor(Color.parseColor(colorCode));
+    }
+
+    private void setViewBackground(int drawable){
+        binding.ViewFacility1.setBackground(ContextCompat.getDrawable(getContext(), drawable));
+        binding.ViewFacility2.setBackground(ContextCompat.getDrawable(getContext(), drawable));
+        binding.ViewFacility3.setBackground(ContextCompat.getDrawable(getContext(), drawable));
+        binding.ViewFacility4.setBackground(ContextCompat.getDrawable(getContext(), drawable));
+        binding.ViewFacility5.setBackground(ContextCompat.getDrawable(getContext(), drawable));
     }
 
     private void setTextColor(String colorCode){

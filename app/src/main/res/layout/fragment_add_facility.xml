@@ -27,6 +27,48 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/facilityType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Type:"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/imageFacilityType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_baseline_warning_24"/>
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/newFacilityType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:dropDownWidth="match_parent"
+                android:popupBackground="@color/posts_color_dark"
+                android:popupTheme="@style/spinnerTheme"
+                android:spinnerMode="dropdown"
+                android:theme="@style/spinnerTheme"
+                tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/navyBlue"
             android:orientation="vertical">
@@ -200,48 +242,6 @@
                     android:textColorHint="@color/white_light"
                     android:textSize="15sp"
                     tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginTop="5dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/facilityType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Type:"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-
-                    <ImageView
-                        android:id="@+id/imageFacilityType"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="1dp"
-                        android:layout_gravity="center_vertical"
-                        android:src="@drawable/ic_baseline_warning_24"/>
-
-                </LinearLayout>
-
-                <Spinner
-                    android:id="@+id/newFacilityType"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:dropDownWidth="match_parent"
-                    android:popupBackground="@color/posts_color_dark"
-                    android:popupTheme="@style/spinnerTheme"
-                    android:spinnerMode="dropdown"
-                    android:theme="@style/spinnerTheme"
-                    tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
             </LinearLayout>
 
             <LinearLayout
