@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="@color/chat_background_color"
     tools:context=".ChatActivity">
 
     <RelativeLayout
@@ -32,7 +32,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:layout_toEndOf="@+id/backBtn"
-            android:src="@drawable/ic_baseline_android_24" />
+            style="@style/android_icon_theme" />
 
         <LinearLayout
             android:layout_marginStart="10dp"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="Help! ChatBot"
                 android:maxLines="1"
-                android:textColor="#424242"
+                android:textColor="@color/chat_name_text_color"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
             <TextView
@@ -74,7 +74,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#FFFFFF"
         android:orientation="vertical"
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
@@ -84,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:backgroundTint="@color/UBCBlue"
+            android:backgroundTint="@color/studys_color"
             android:elevation="10dp"
             android:stateListAnimator="@null"
             android:text="Back"
@@ -95,7 +94,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:backgroundTint="@color/UBCBlue"
+            android:backgroundTint="@color/studys_color"
             android:elevation="10dp"
             android:stateListAnimator="@null"
             android:paddingVertical="10dp"
@@ -106,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:backgroundTint="@color/UBCBlue"
+            android:backgroundTint="@color/studys_color"
             android:elevation="10dp"
             android:stateListAnimator="@null"
             android:paddingVertical="10dp"
@@ -117,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:backgroundTint="@color/UBCBlue"
+            android:backgroundTint="@color/studys_color"
             android:elevation="10dp"
             android:stateListAnimator="@null"
             android:paddingVertical="10dp"

@@ -32,4 +32,9 @@
     <style name="home_button_settings_theme">
         <item name="android:drawableLeft">@drawable/ic_baseline_settings_24_night</item>
     </style>
+
+    <!-- Chat screen theme -->
+    <style name="android_icon_theme">
+        <item name="android:src">@drawable/ic_baseline_android_24_night</item>
+    </style>
 </resources>

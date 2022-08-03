@@ -22,7 +22,7 @@
                 android:background="@drawable/opo_msg_back"
                 android:padding="12dp"
                 android:text="This is opponent message"
-                android:textColor="#424242" />
+                android:textColor="@color/chat_oppo_text_color" />
 
             <TextView
                 android:id="@+id/oppoMsgTime"
@@ -31,7 +31,8 @@
                 android:layout_marginTop="5dp"
                 android:text="10-08-2021 05:12 PM"
                 android:textSize="10sp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/chat_time_text_color"/>
         </LinearLayout>
 
         <LinearLayout
@@ -61,6 +62,7 @@
                 android:layout_marginTop="5dp"
                 android:text="10-08-2021 05:12 PM"
                 android:textSize="10sp"
+                android:textColor="@color/chat_time_text_color"
                 android:layout_marginBottom="5dp"/>
         </LinearLayout>
 

@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/addFacilityScrollView"
-    android:background="@color/light_grey"
+    android:background="@color/app_background_color"
     android:clipToPadding="false">
 
     <!--    presence_online-->
@@ -278,6 +278,7 @@
                         android:backgroundTint="@color/UBCNavyBlue"
                         android:text="Clean All"
                         android:textSize="18sp"
+                        android:textColor="#CCFFFFFF"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

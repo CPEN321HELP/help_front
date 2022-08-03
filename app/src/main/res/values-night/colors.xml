@@ -30,16 +30,24 @@
     <color name="entertainments_color_dark">#00876E</color>
 
     <!-- For day mode and night mode, below should be night -->
-    <color name="text_color">#FFFFFF</color>
-    <color name="background_color">#212121</color>
-
-    <color name="theme_color">#2176FF</color>
-    <color name="theme_color_8">#142176FF</color>
-    <color name="theme_color_80">#000B5F</color>
-    <color name="light_8">#14000000</color>
+    <color name="text_color">#DDFFFFFF</color>
+    <color name="background_color">#FF000000</color>
 
     <color name="home_button_background">#FF000000</color>
     <color name="home_main_text_color">#DDFFFFFF</color>
     <color name="home_secondary_text_color">#DDFFFFFF</color>
     <color name="home_third_text_color">#AAFFFFFF</color>
+
+    <color name="app_background_color">#1E2744</color>
+
+    <!-- Chat Colors -->
+    <color name="theme_color">#2176FF</color>
+    <color name="theme_color_8">#142176FF</color>
+    <color name="theme_color_80">#000B5F</color>
+    <color name="light_8">#DDFFFFFF</color>
+    <color name="chat_time_text_color">#FFFFFF</color>
+    <color name="chat_name_text_color">#DDFFFFFF</color>
+    <color name="chat_background_color">#1E2744</color>
+    <color name="chat_oppo_text_color">#DD000000</color>
+
 </resources>
