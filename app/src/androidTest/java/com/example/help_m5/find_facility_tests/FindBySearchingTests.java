@@ -1,9 +1,5 @@
 package com.example.help_m5.find_facility_tests;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
@@ -126,7 +122,7 @@ public class FindBySearchingTests {
             e.printStackTrace();
         }
         Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
-        onView(withText("You are on the first page")).inRoot(new ToastMatcher()).check(matches(withText("You are on the first page")));
+        Espresso.onView(ViewMatchers.withText("You are on the first page")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("You are on the first page")));
         String severResponse = readFromJson(posts);
         Assert.assertNotEquals(severResponse, "");
         Log.d(TAG, "severResponse is: "+severResponse);
@@ -183,7 +179,7 @@ public class FindBySearchingTests {
             Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(facility1Title))));
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility5)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(facility5Title))));
-            onView(withText("You are on the last page")).inRoot(new ToastMatcher()).check(matches(withText("You are on the last page")));
+            Espresso.onView(ViewMatchers.withText("You are on the last page")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("You are on the last page")));
             Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
             try {
                 Thread.sleep(500);

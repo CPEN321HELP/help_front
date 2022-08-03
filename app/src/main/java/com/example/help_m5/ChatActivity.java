@@ -4,18 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-
 import com.example.help_m5.chat.ChatAdapter;
 import com.example.help_m5.chat.ChatItem;
-import com.google.android.material.navigation.NavigationView;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -152,6 +148,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 // For testing non functional requirements
                 long endTime = System.currentTimeMillis();
+                Log.d(TAG, "endTime is: "+endTime);
                 backButton.setTag(String.valueOf((endTime - startTime) < 900));
             }
         }, 800);
@@ -160,7 +157,8 @@ public class ChatActivity extends AppCompatActivity {
     private void setTopButton(String buttonText, long startTime) {
         String myMessage = "";
         String botMessage = "";
-        long endTime;
+        long endTime = 1;
+        Log.d(TAG, "endTime is: "+endTime);
         if (buttonText.equals((String) getString(R.string.account_settings))) {
             backButton.setEnabled(true);
             topButton.setText((String) getString(R.string.account_settings_Q1));

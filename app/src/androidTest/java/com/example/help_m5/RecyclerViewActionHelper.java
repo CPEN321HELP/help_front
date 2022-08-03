@@ -1,33 +1,30 @@
 package com.example.help_m5;
 
 import android.view.View;
-import android.widget.RatingBar;
 
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.matcher.ViewMatchers;
 
 import org.hamcrest.Matcher;
 
-public final class SetRating {
+public class RecyclerViewActionHelper {
 
-    public static ViewAction setRatingBar() {
+    public static ViewAction clickChildViewWithId(final int id) {
         return new ViewAction() {
             @Override
             public Matcher<View> getConstraints() {
-                Matcher<View> isRatingBarConstraint = ViewMatchers.isAssignableFrom(RatingBar.class);
-                return isRatingBarConstraint;
+                return null;
             }
 
             @Override
             public String getDescription() {
-                return "Custom view action to set rating.";
+                return "Click on a child view with specified id.";
             }
 
             @Override
             public void perform(UiController uiController, View view) {
-                RatingBar ratingBar = (RatingBar) view;
-                ratingBar.setRating(3);
+                View v = view.findViewById(id);
+                v.performClick();
             }
         };
     }

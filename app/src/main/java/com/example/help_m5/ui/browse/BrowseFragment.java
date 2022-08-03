@@ -52,7 +52,6 @@ public class BrowseFragment extends Fragment {
     private FloatingActionButton page_up;
     private FloatingActionButton page_down;
     private static boolean isLoadingFacility;
-    private FloatingActionButton main;
     Spinner spin;
 
     private final String[] countryNames={"Posts","Eat","Study","Play"};
@@ -279,7 +278,7 @@ public class BrowseFragment extends Fragment {
         close_or_refresh = binding.fabCloseOrRefresh;
         page_up = binding.fabPrevious;
         page_down = binding.fabNext;
-        main = binding.fabMain;
+        FloatingActionButton main = binding.fabMain;
 
         close_or_refresh.setAlpha(0f);
         page_up.setAlpha(0f);
@@ -295,6 +294,7 @@ public class BrowseFragment extends Fragment {
         close_or_refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                isLoadingFacility = false;
                 Log.d(TAG, "close_or_refresh in onResume: "+onSearch);
 
                 DBconnection.cleanAllCaches(getContext()); //disable this line for testing
@@ -376,7 +376,7 @@ public class BrowseFragment extends Fragment {
 
     private void openMenu(){
         isMenuOpen = !isMenuOpen;
-//        main.animate().setInterpolator(interpolator).rotation(180f).setDuration(300).start();
+//        binding.main.animate().setInterpolator(interpolator).rotation(180f).setDuration(300).start();
         close_or_refresh.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         page_up.animate().translationY(0f).alpha(1f).setInterpolator(interpolator).setDuration(300).start();
         page_up.setTag("show");
@@ -386,7 +386,7 @@ public class BrowseFragment extends Fragment {
 
     private void closeMenu(){
         isMenuOpen = !isMenuOpen;
-//        main.animate().setInterpolator(interpolator).rotation(0).setDuration(300).start();
+//        binding.main.animate().setInterpolator(interpolator).rotation(0).setDuration(300).start();
         close_or_refresh.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
         page_up.animate().translationY(transY).alpha(0).setInterpolator(interpolator).setDuration(300).start();
         page_up.setTag("hide");
@@ -437,8 +437,8 @@ public class BrowseFragment extends Fragment {
         isLoadingFacility = false;
         Log.d(TAG, "onSearch in onResume: "+onSearch);
         super.onResume();
-        updateCredit(getContext());
         selfUpdate();
+        updateCredit(getContext());
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.example.help_m5;
+package com.example.help_m5.ui.faclity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.help_m5.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import org.json.JSONObject;
@@ -31,8 +32,10 @@ public class ReportActivity extends AppCompatActivity {
     private int type;
     private int facilityId;
     private boolean reportUser = false;
+    private boolean isReporting;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        isReporting = false;
         vm_ip = getString(R.string.azure_ip);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
@@ -53,6 +56,15 @@ public class ReportActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (editText.getText().toString().isEmpty()) {
+                    Toast.makeText(ReportActivity.this, "Please state your reason of report", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(isReporting){
+                    Toast.makeText(getApplicationContext(), "Please do not click again", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                isReporting = true;
                 String url = vm_ip + "user/Report/commentAndfacility";
                 Log.d(TAG, "bbb" + url);
                 RequestQueue queue = Volley.newRequestQueue(ReportActivity.this);
@@ -68,15 +80,11 @@ public class ReportActivity extends AppCompatActivity {
                 params.put("title", title);
                 params.put("reportUser", reportUser ? "1" : "0");
                 Log.d(TAG, "aaa" + params.toString());
-
-                if (editText.getText().toString().isEmpty()) {
-                    Toast.makeText(ReportActivity.this, "Please state your reason of report", Toast.LENGTH_SHORT).show();
-                    return;
-                }
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
+                                isReporting = false;
                                 Log.d(TAG,"response is: "+response.toString());
                                 if (reportUser) {
                                     Toast.makeText(ReportActivity.this, "Report successfully sent with associated user!", Toast.LENGTH_SHORT).show();
@@ -88,6 +96,7 @@ public class ReportActivity extends AppCompatActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
+                                isReporting = false;
                                 Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
                                 Toast.makeText(ReportActivity.this, "Error sending report" + error.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -102,6 +111,7 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                isReporting = false;
             }
         });
 
@@ -120,7 +130,11 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
     }
-
+    @Override
+    public void onResume(){
+        super.onResume();
+        isReporting = false;
+    }
     @Override
     public void finish() {
         super.finish();

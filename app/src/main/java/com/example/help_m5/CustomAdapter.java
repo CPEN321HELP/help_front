@@ -42,8 +42,8 @@ public class CustomAdapter extends BaseAdapter {
 
     @SuppressLint({"InflateParams", "ViewHolder"})
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        view = inflter.inflate(R.layout.custom_spinner_items, null);
+    public View getView(int i, View viewOriginal, ViewGroup viewGroup) {
+        View view = inflter.inflate(R.layout.custom_spinner_items, null);
         ImageView icon = view.findViewById(R.id.spinnerImageView);
         TextView names = view.findViewById(R.id.spinnerTextView);
         icon.setImageResource(flags[i]);

@@ -1,6 +1,5 @@
 package com.example.help_m5;
 
-import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,21 +7,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import com.example.help_m5.databinding.ActivityMainBinding;
-import com.example.help_m5.ui.browse.BrowseFragment;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.ui.database.LoadToScreen;
-import com.example.help_m5.ui.home.HomeFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 

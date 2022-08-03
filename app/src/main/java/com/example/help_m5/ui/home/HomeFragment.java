@@ -1,12 +1,13 @@
 package com.example.help_m5.ui.home;
 
-import android.app.ActionBar;
+//import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import android.view.ViewGroup;
 import com.example.help_m5.ChatActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentHomeBinding;
-import com.example.help_m5.ui.add_facility.AddFacilityFragment;
+import com.example.help_m5.ui.add.AddFacilityFragment;
 import com.example.help_m5.ui.browse.BrowseFragment;
 import com.example.help_m5.ui.settings.SettingsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -29,15 +30,16 @@ import java.util.Date;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private ActionBar actionBar;
+//    private ActionBar actionBar;
+    private final String TAG = "HomeFragment";
 
     public HomeFragment() {
+        Log.d(TAG, "creating home Fragment");
         // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -52,11 +54,11 @@ public class HomeFragment extends Fragment {
         Date date = new Date();
         binding.homeDateTime.setText(date.toString().substring(0, 10));
 
-        actionBar = getActivity().getActionBar();
-
+//        actionBar = getActivity().getActionBar();
         binding.homeReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Setting Browse");
                 getActivity().setTitle("Browse");
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new BrowseFragment(), "NewFragment TAG");
@@ -71,6 +73,7 @@ public class HomeFragment extends Fragment {
         binding.homeAddFacilityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Setting Add");
                 getActivity().setTitle("Add Facility");
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new AddFacilityFragment(), "NewFragment TAG");
@@ -85,6 +88,7 @@ public class HomeFragment extends Fragment {
         binding.homeSettingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Setting Settings");
                 getActivity().setTitle("Settings");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(4).setChecked(true);
@@ -99,6 +103,7 @@ public class HomeFragment extends Fragment {
         binding.homeChatbotButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d(TAG, "Setting ChatBot");
                 getActivity().setTitle("ChatBot");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(0).setChecked(true);
@@ -107,7 +112,6 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
         return root;
     }
 

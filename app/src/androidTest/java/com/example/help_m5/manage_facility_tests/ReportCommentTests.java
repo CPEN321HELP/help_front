@@ -22,9 +22,9 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import com.example.help_m5.FacilityActivity;
+import com.example.help_m5.ui.faclity.FacilityActivity;
 import com.example.help_m5.R;
-import com.example.help_m5.RecyclerViewAction;
+import com.example.help_m5.RecyclerViewActionHelper;
 import com.example.help_m5.ToastMatcher;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -78,7 +78,7 @@ public class ReportCommentTests {
         onView(withId(R.id.facilityRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withText("Report")))));
         onView(withId(R.id.facilityRecyclerView)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewAction.clickChildViewWithId(R.id.reportCommentButton)));
+                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewActionHelper.clickChildViewWithId(R.id.reportCommentButton)));
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
         onView(withId(R.id.ReportTitle)).check(matches(withText("Report Content")));
         onView(withId(R.id.ReportDescription))
@@ -95,7 +95,7 @@ public class ReportCommentTests {
     public void testEmptySubmission() {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         onView(withId(R.id.facilityRecyclerView)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewAction.clickChildViewWithId(R.id.reportCommentButton)));
+                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewActionHelper.clickChildViewWithId(R.id.reportCommentButton)));
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.submit_button_report)).perform(click());
@@ -109,7 +109,7 @@ public class ReportCommentTests {
     public void testFullSubmissionWithoutCheckbox() {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         onView(withId(R.id.facilityRecyclerView)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewAction.clickChildViewWithId(R.id.reportCommentButton)));
+                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewActionHelper.clickChildViewWithId(R.id.reportCommentButton)));
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextReport))
@@ -124,7 +124,7 @@ public class ReportCommentTests {
     public void testFullSubmissionWithCheckbox() {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         onView(withId(R.id.facilityRecyclerView)).perform(
-                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewAction.clickChildViewWithId(R.id.reportCommentButton)));
+                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewActionHelper.clickChildViewWithId(R.id.reportCommentButton)));
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextReport))

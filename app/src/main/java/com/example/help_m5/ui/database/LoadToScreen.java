@@ -8,15 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentBrowseBinding;
-import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

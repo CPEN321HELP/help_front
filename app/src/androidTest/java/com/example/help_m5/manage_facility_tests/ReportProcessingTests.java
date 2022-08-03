@@ -1,11 +1,6 @@
 package com.example.help_m5.manage_facility_tests;
 
-import static androidx.test.espresso.Espresso.onView;
-import static androidx.test.espresso.assertion.ViewAssertions.matches;
-import static androidx.test.espresso.matcher.ViewMatchers.withText;
-
 import android.util.Log;
-
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.espresso.Espresso;
@@ -13,12 +8,10 @@ import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
-
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
 import com.example.help_m5.ui.database.DatabaseConnection;
 import com.example.help_m5.ui.report.ReportFragment;
-
 import org.hamcrest.Matchers;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +19,6 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -37,7 +29,7 @@ public class ReportProcessingTests {
     DatabaseConnection db;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp(){
         InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("svc wifi enable");
         InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("svc data enable");
         db = new DatabaseConnection();
@@ -45,7 +37,7 @@ public class ReportProcessingTests {
     }
 
     @Test
-    public void refresh() throws InterruptedException {
+    public void refresh(){
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
@@ -57,8 +49,8 @@ public class ReportProcessingTests {
             JSONArray ja = jsonFormat.getJSONArray("report_content");
             JSONObject report1 = ja.getJSONObject(0);
             JSONObject report2 = ja.getJSONObject(1);
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(report1.getString("title")))));
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(report2.getString("title")))));
+            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText(report1.getString("title"))));
+            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(ViewMatchers.withText(report2.getString("title"))));
         } catch (JSONException e) {
             e.printStackTrace();
             Assert.fail();
@@ -78,8 +70,12 @@ public class ReportProcessingTests {
             JSONArray ja = jsonFormat.getJSONArray("report_content");
             JSONObject report1 = ja.getJSONObject(0);
             JSONObject report2 = ja.getJSONObject(1);
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(report1.getString("title")))));
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(report2.getString("title")))));
+            Log.d("TESTT", report1.toString());
+            Log.d("TESTT", report2.toString());
+
+            Thread.sleep(500);
+            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText(report1.getString("title"))));
+            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(ViewMatchers.withText(report2.getString("title"))));
         } catch (JSONException e) {
             e.printStackTrace();
             Assert.fail();
@@ -87,8 +83,9 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.s1)).perform(ViewActions.swipeUp());
         Espresso.onView(ViewMatchers.withId(R.id.reportApprove_y1)).perform(ViewActions.swipeUp(), ViewActions.click());
         Thread.sleep(500);
-        onView(withText("Sending result to server!")).inRoot(new ToastMatcher()).check(matches(withText("Sending result to server!")));
-        onView(withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(matches(withText("Server has received your decision!")));
+        Espresso.onView(ViewMatchers.withText("Sending result to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending result to server!")));
+        Thread.sleep(500);
+        Espresso.onView(ViewMatchers.withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server has received your decision!")));
     }
 
     @Test
@@ -104,8 +101,8 @@ public class ReportProcessingTests {
             JSONArray ja = jsonFormat.getJSONArray("report_content");
             JSONObject report1 = ja.getJSONObject(0);
             JSONObject report2 = ja.getJSONObject(1);
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(report1.getString("title")))));
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(report2.getString("title")))));
+            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText(report1.getString("title"))));
+            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(ViewMatchers.withText(report2.getString("title"))));
         } catch (JSONException e) {
             e.printStackTrace();
             Assert.fail();
@@ -113,8 +110,9 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.s1)).perform(ViewActions.swipeUp());
         Espresso.onView(ViewMatchers.withId(R.id.reportNot_y1)).perform(ViewActions.swipeUp(), ViewActions.click());
         Thread.sleep(500);
-        onView(withText("Sending result to server!")).inRoot(new ToastMatcher()).check(matches(withText("Sending result to server!")));
-        onView(withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(matches(withText("Server has received your decision!")));
+        Espresso.onView(ViewMatchers.withText("Sending result to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending result to server!")));
+        Thread.sleep(500);
+        Espresso.onView(ViewMatchers.withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server has received your decision!")));
     }
 
 
