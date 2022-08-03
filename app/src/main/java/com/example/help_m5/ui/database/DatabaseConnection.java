@@ -107,7 +107,11 @@ public class DatabaseConnection {
             public void onResponse(JSONObject response) {
                 Log.d(TAG, "response getSpecificFacility is: " + response.toString());
                 Bundle bundle = new Bundle();
-                bundle.putString("userEmail", account.getEmail());
+                if(account == null){
+                    bundle.putString("userEmail", "test@gmail.com");
+                }else {
+                    bundle.putString("userEmail", account.getEmail());
+                }
                 bundle.putInt("facilityType", facility_type);
                 bundle.putString("facility_id", facility_id);
                 bundle.putString("facility_json", response.toString());

@@ -69,7 +69,11 @@ public class RateActivity extends AppCompatActivity {
         rateLayout = (LinearLayout) findViewById(R.id.rateFacilityView);
         editText = findViewById(R.id.editTextTextMultiLine);
         userAccount = GoogleSignIn.getLastSignedInAccount(this);
-        userEmail = userAccount.getEmail();
+        if(userAccount == null){
+            userEmail = "test@gmail.com";
+        }else {
+            userEmail = userAccount.getEmail();
+        }
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
         cancelButton = findViewById(R.id.cancel_button_review);
         submitButton = findViewById(R.id.submit_button_review);
@@ -114,7 +118,14 @@ public class RateActivity extends AppCompatActivity {
                     paramsComment.put("facility_id", facilityId);
                     paramsComment.put("user_id", userEmail);
                     paramsComment.put("replyContent", editText.getText().toString());
-                    paramsComment.put("username", userAccount.getDisplayName());
+                    if( userAccount == null){
+                        paramsComment.put("username", "test test");
+
+                    }else {
+                        paramsComment.put("username", userAccount.getDisplayName());
+
+                    }
+
                     paramsComment.put("rateScore", String.valueOf(ratingBar.getRating()));
 
                     //for add credit
