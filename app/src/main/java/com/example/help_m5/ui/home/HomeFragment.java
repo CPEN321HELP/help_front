@@ -4,6 +4,7 @@ package com.example.help_m5.ui.home;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.help_m5.ChatActivity;
+import com.example.help_m5.MainActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentHomeBinding;
 import com.example.help_m5.ui.add.AddFacilityFragment;
@@ -23,6 +25,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,7 +62,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Setting Browse");
-                getActivity().setTitle("Browse");
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new BrowseFragment(), "NewFragment TAG");
                 fragmentTransaction.addToBackStack(null);
@@ -67,6 +69,7 @@ public class HomeFragment extends Fragment {
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(1).setChecked(true);
                 navigationView.getMenu().getItem(0).setEnabled(true);
+                getActionBar().setTitle("Browse");
             }
         });
 
@@ -74,14 +77,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Setting Add");
-                getActivity().setTitle("Add Facility");
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new AddFacilityFragment(), "NewFragment TAG");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-                navigationView.getMenu().getItem(2).setChecked(true);
+                navigationView.getMenu().getItem(3).setChecked(true);
                 navigationView.getMenu().getItem(0).setEnabled(true);
+                getActionBar().setTitle("Add Facility");
             }
         });
 
@@ -89,14 +92,14 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Setting Settings");
-                getActivity().setTitle("Settings");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-                navigationView.getMenu().getItem(4).setChecked(true);
+                navigationView.getMenu().getItem(5).setChecked(true);
                 navigationView.getMenu().getItem(0).setEnabled(true);
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.home_fragment_layout, new SettingsFragment(), "NewFragment TAG");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                getActionBar().setTitle("Settings");
             }
         });
 
@@ -104,7 +107,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Setting ChatBot");
-                getActivity().setTitle("ChatBot");
                 NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
                 navigationView.getMenu().getItem(0).setChecked(true);
                 navigationView.getMenu().getItem(0).setEnabled(false);
@@ -119,5 +121,14 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+    }
+
+    private ActionBar getActionBar() {
+        return ((MainActivity) requireActivity()).getSupportActionBar();
     }
 }

@@ -23,7 +23,8 @@
         tools:targetApi="31">
         <activity
             android:name=".ChatActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Help!"/>
         <!--
      Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more.
@@ -41,10 +42,12 @@
         <!-- android:value="@string/default_notification_channel_id" /> -->
         <activity
             android:name=".ui.faclity.ReportActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Help!"/>
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="Help!">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,7 +56,8 @@
         </activity>
         <activity
             android:name=".ui.faclity.RateActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Help!"/>
         <!--
              You can find your app ID in the AdMob UI. For android:value,
             insert your own AdMob app ID in quotes, as shown below.
@@ -72,6 +76,7 @@
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:exported="false"
+            android:label="Help!"
             android:theme="@android:style/Theme.Translucent" />
 
         <meta-data
@@ -80,7 +85,8 @@
 
         <activity
             android:name=".ui.faclity.FacilityActivity"
-            android:exported="true" /> <!-- CHANGE THIS TO FALSE IN THE END -->
+            android:exported="true"
+            android:label="Help!"/> <!-- CHANGE THIS TO FALSE IN THE END -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

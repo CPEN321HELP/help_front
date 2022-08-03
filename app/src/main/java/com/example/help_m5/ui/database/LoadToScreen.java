@@ -17,6 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class LoadToScreen {
     private final String TAG = "LoadToScreen";
     private int admin = 0;
@@ -50,20 +52,24 @@ public class LoadToScreen {
 
         if (!userLogo.equals("none")) {
             Uri userIcon = Uri.parse(userLogo);
-            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+            Picasso.get().load(userIcon).into((CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
 //            Picasso.get().load(userIcon).into((ImageView) activity.findViewById(R.id.userIcon));
+        } else {
+            CircleImageView userIconView = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon);
+            userIconView.setImageResource(R.drawable.user_logo);
         }
 
         if(userType != -1 && numberCredit != -1){
-            if (userType == admin){ //admain
+            if (userType == admin){
                 ImageView logo = navigationView.getHeaderView(0).findViewById(R.id.userLevelLogo);
 //                ImageView logo = activity.findViewById(R.id.userLevelLogo);
                 assert(logo != null);
-                logo.setImageResource(R.drawable.level_admin_logo);
+                logo.setImageResource(R.drawable.ic_baseline_admin_panel_settings_24);
 
                 TextView userCreditView = navigationView.getHeaderView(0).findViewById(R.id.numberOfCredit);
+                userNameView.setText(userName+ " (admin)");
 //                TextView userCreditView = activity.findViewById(R.id.numberOfCredit);
-                userCreditView.setText("You have: "+numberCredit + "(admin)");
+                userCreditView.setText("Number of Credits: "+numberCredit);
 
             }else {// not admin
                 ImageView logo = navigationView.getHeaderView(0).findViewById(R.id.userLevelLogo);
@@ -104,7 +110,7 @@ public class LoadToScreen {
 
                 TextView userCreditView = navigationView.getHeaderView(0).findViewById(R.id.numberOfCredit);
 //                TextView userCreditView = activity.findViewById(R.id.numberOfCredit);
-                userCreditView.setText("You have: "+numberCredit + "(user)");
+                userCreditView.setText("Number of Credits: "+numberCredit);
             }
         }
         Log.d(TAG, "Finish load all");

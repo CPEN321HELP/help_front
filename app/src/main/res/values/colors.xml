@@ -53,4 +53,8 @@
 
     <!-- Settings Colors -->
     <color name="settings_background_color">#FFFFFF</color>
+
+    <color name="app_bar_background_color_start">#3B2D66</color>
+    <color name="app_bar_background_color_center">#313370</color>
+    <color name="app_bar_background_color_end">#2B3858</color>
 </resources>

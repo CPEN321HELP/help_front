@@ -25,10 +25,10 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.getMenu().getItem(0).setEnabled(false);
         navigationView.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Browse
         navigationView.getMenu().getItem(1).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Reports
         navigationView.getMenu().getItem(2).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
@@ -70,7 +73,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Add facility
         navigationView.getMenu().getItem(3).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                navigationView.getMenu().getItem(0).setEnabled(true);
+                return false;
+            }
+        });
+
+        // ChatBot
+        navigationView.getMenu().getItem(4).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 navigationView.getMenu().getItem(0).setEnabled(false);
@@ -78,18 +91,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        navigationView.getMenu().getItem(4).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                navigationView.getMenu().getItem(0).setEnabled(true);
-                return false;
-            }
-        });
-
+        // Settings
         navigationView.getMenu().getItem(5).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                navigationView.getMenu().getItem(0).setEnabled(true);
+                navigationView.getMenu().getItem(0).setEnabled(false);
                 return false;
             }
         });
