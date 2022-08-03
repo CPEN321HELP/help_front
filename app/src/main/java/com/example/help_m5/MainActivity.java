@@ -1,5 +1,6 @@
 package com.example.help_m5;
 
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -42,6 +44,26 @@ public class MainActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_browse, R.id.nav_add_facility, R.id.nav_chat, R.id.nav_report, R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();
+
+        // Saving state of our app
+        // using SharedPreferences
+        SharedPreferences sharedPreferences
+                = getSharedPreferences(
+                "sharedPrefs", MODE_PRIVATE);
+        final SharedPreferences.Editor editor
+                = sharedPreferences.edit();
+        final boolean isDarkModeOn
+                = sharedPreferences
+                .getBoolean(
+                        "isDarkModeOn", false);
+        // When user reopens the app
+        // after applying dark/light mode
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);

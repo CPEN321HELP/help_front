@@ -2,11 +2,14 @@ package com.example.help_m5.ui.faclity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
@@ -38,6 +41,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -404,6 +408,38 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+
+            // Saving state of our app
+            // using SharedPreferences
+            SharedPreferences sharedPreferences
+                    = getSharedPreferences(
+                    "sharedPrefs", MODE_PRIVATE);
+            final SharedPreferences.Editor editor
+                    = sharedPreferences.edit();
+            final boolean isDarkModeOn
+                    = sharedPreferences
+                    .getBoolean(
+                            "isDarkModeOn", false);
+            // When user reopens the app
+            // after applying dark/light mode
+            boolean success = false;
+            if (isDarkModeOn) {
+                success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                                this, R.raw.style_json));
+            } else {
+                Log.e(TAG, "Map day mode");
+            }
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }
+
         LatLng marker = new LatLng(latitude, longitude);
         googleMap.addMarker(new MarkerOptions()
                 .position(marker)

@@ -70,5 +70,10 @@
         <item name="android:src">@drawable/ic_baseline_android_24</item>
     </style>
 
+    <!-- Facility screen theme -->
+    <style name="facility_report_symbol_theme">
+        <item name="android:drawableLeft">@drawable/ic_baseline_warning_24_black</item>
+    </style>
+
 
 </resources>

@@ -41,4 +41,9 @@
     <style name="android_icon_theme">
         <item name="android:src">@drawable/ic_baseline_android_24_night</item>
     </style>
+
+    <!-- Facility screen theme -->
+    <style name="facility_report_symbol_theme">
+        <item name="android:drawableLeft">@drawable/ic_baseline_warning_24_white</item>
+    </style>
 </resources>

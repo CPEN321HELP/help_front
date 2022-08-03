@@ -1,10 +1,14 @@
 package com.example.help_m5.ui.browse;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -55,7 +59,6 @@ public class BrowseFragment extends Fragment {
     Spinner spin;
 
     private final String[] countryNames={"Posts","Eat","Study","Play"};
-    private final int[] flags = {R.drawable.ic_baseline_post__24, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_baseline_videogame_asset_24};
 
     private int facility_type = posts;
 
@@ -65,6 +68,26 @@ public class BrowseFragment extends Fragment {
         isLoadingFacility = false;
         DBconnection = new DatabaseConnection();
         DBconnection.cleanAllCaches(getContext());  //disable this line for testing
+
+        // Saving state of our app
+        // using SharedPreferences
+        SharedPreferences sharedPreferences
+                = getActivity().getSharedPreferences(
+                "sharedPrefs", MODE_PRIVATE);
+        final SharedPreferences.Editor editor
+                = sharedPreferences.edit();
+        final boolean isDarkModeOn
+                = sharedPreferences
+                .getBoolean(
+                        "isDarkModeOn", false);
+        // When user reopens the app
+        // after applying dark/light mode
+        int[] flags;
+        if (isDarkModeOn) {
+            flags = new int[]{R.drawable.ic_baseline_post_24_white, R.drawable.ic_baseline_resturants_white, R.drawable.ic_baseline_menu_book_24_white, R.drawable.ic_baseline_videogame_asset_24_white};
+        } else {
+            flags = new int[]{R.drawable.ic_baseline_post__24, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_baseline_videogame_asset_24};
+        }
 
         //set up spinner
         spin = binding.spinnerFacility;

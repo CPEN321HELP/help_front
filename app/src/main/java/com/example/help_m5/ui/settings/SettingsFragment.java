@@ -1,9 +1,11 @@
 package com.example.help_m5.ui.settings;
 
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +23,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.navigation.NavigationView;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -45,6 +46,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(getActivity(), gso);
 
+        SharedPreferences sharedPreferences
+                = getActivity().getSharedPreferences(
+                "sharedPrefs", MODE_PRIVATE);
+        final SharedPreferences.Editor editor
+                = sharedPreferences.edit();
+
         SwitchPreference app_theme = findPreference("app_theme_sw");
         if(app_theme != null){
             app_theme.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -53,8 +60,12 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                     boolean isVibrateOn = (Boolean) isVibrateOnObject;
                     if (isVibrateOn) {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        editor.putBoolean("isDarkModeOn", true);
+                        editor.apply();
                     } else {
                         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        editor.putBoolean("isDarkModeOn", false);
+                        editor.apply();
                     }
                     return true;
                 }

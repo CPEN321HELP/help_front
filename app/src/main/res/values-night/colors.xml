@@ -59,4 +59,9 @@
 
     <!-- Facility colors -->
     <color name="facility_background_color">#1E2744</color>
+    <color name="facility_primary_text_color">#fafafa</color>
+    <color name="facility_secondary_text_color">#fafafa</color>
+    <color name="facility_third_text_color">#ddfafafa</color>
+    <color name="facility_review_background_color">#010101</color>
+
 </resources>

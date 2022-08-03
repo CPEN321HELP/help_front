@@ -61,5 +61,9 @@
 
     <!-- Facility colors -->
     <color name="facility_background_color">#FAFAFA</color>
+    <color name="facility_primary_text_color">#000000</color>
+    <color name="facility_secondary_text_color">#fafafa</color>
+    <color name="facility_third_text_color">#646064</color>
+    <color name="facility_review_background_color">#FFFFFF</color>
 
 </resources>
