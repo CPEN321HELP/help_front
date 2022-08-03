@@ -38,7 +38,7 @@
     <color name="home_button_background">#CCFFFFFF</color>
     <color name="home_main_text_color">#FF000000</color>
     <color name="home_secondary_text_color">#000000</color>
-    <color name="home_third_text_color">#626062</color>
+    <color name="home_third_text_color">#3e3b39</color>
 
     <color name="app_background_color">#DCDCDC</color>
 

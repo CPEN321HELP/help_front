@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_browse, R.id.nav_add_facility, R.id.nav_chat, R.id.nav_report)
+                R.id.nav_home, R.id.nav_browse, R.id.nav_add_facility, R.id.nav_chat, R.id.nav_report, R.id.nav_settings)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         navigationView.getMenu().getItem(5).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                navigationView.getMenu().getItem(0).setEnabled(false);
+                navigationView.getMenu().getItem(0).setEnabled(true);
                 return false;
             }
         });
