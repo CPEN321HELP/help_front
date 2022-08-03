@@ -195,12 +195,12 @@ public class ReportFragment extends Fragment {
         }else {
             params.put("approve", "0");
         }
-        try {
-            GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+        GoogleSignInAccount userAccount = GoogleSignIn.getLastSignedInAccount(getContext());
+        if( userAccount == null){
+            params.put("adminEmail","test@gmail.com");
+        }else {
             String userEmail = userAccount.getEmail();
             params.put("adminEmail",userEmail);
-        }catch (Exception e){
-            params.put("adminEmail","none@gmail.com");
         }
 
         if(which == 1){

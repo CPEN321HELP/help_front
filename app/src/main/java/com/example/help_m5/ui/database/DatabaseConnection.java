@@ -44,7 +44,7 @@ public class DatabaseConnection {
     final int report_comment = 5;
     final int report_facility = 6;
     //above are types of facility
-    private String userInfo = "userInfo.json";
+    private final String userInfo = "userInfo.json";
     
     public void updateUserInfo(NavigationView navigationView, Context context, String user_id, Activity activity,boolean load){
 
