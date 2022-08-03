@@ -66,12 +66,13 @@ public class AddFacilityFragment extends Fragment {
         vm_ip = getResources().getString(R.string.azure_ip);
         binding = FragmentAddFacilityBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        try {
-            GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getContext());
+        if(account == null){
+            user_email = "test@gmail.com";
+        }else {
             user_email = account.getEmail();
-        }catch (Exception e){
-            user_email = "testing@gmail.com";
         }
+
 
         newFacilityTitle = binding.newFacilityTitle;
         //newFacilityTitle.setHint("please enter a title");
