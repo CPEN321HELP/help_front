@@ -51,4 +51,6 @@
     <color name="light_8">#14000000</color>
 
 
+    <!-- Settings Colors -->
+    <color name="settings_background_color">#FFFFFF</color>
 </resources>

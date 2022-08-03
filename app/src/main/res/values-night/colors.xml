@@ -50,4 +50,7 @@
     <color name="chat_background_color">#1E2744</color>
     <color name="chat_oppo_text_color">#DD000000</color>
 
+    <!-- Settings Colors -->
+    <color name="settings_background_color">#1E2744</color>
+
 </resources>

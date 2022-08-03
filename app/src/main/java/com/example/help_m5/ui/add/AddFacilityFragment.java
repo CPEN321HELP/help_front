@@ -6,10 +6,7 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-<<<<<<< HEAD:app/src/main/java/com/example/help_m5/ui/add_facility/AddFacilityFragment.java
 
-=======
->>>>>>> dd165e9a420a89f749aa2ee44b52752d5b393508:app/src/main/java/com/example/help_m5/ui/add/AddFacilityFragment.java
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;

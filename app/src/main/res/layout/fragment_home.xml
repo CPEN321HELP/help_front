@@ -155,12 +155,12 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:gravity="end"
-                android:text="Artwork: Cliff Walk at Pourville by Claude Monet"
                 android:textColor="@color/home_secondary_text_color"
                 android:textSize="14dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+                app:layout_constraintRight_toRightOf="parent"
+                style="@style/art_work_reference"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
