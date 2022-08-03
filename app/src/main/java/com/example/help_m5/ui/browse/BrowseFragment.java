@@ -7,7 +7,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,10 +55,9 @@ public class BrowseFragment extends Fragment {
     Spinner spin;
 
     private final String[] countryNames={"Posts","Eat","Study","Play"};
-    private final int[] flags = {R.drawable.ic_menu_posts, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_menu_entertainment};
+    private final int[] flags = {R.drawable.ic_baseline_post__24, R.drawable.ic_menu_restaurants, R.drawable.ic_menu_study, R.drawable.ic_baseline_videogame_asset_24};
 
     private int facility_type = posts;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentBrowseBinding.inflate(inflater, container, false);
@@ -78,16 +76,20 @@ public class BrowseFragment extends Fragment {
                     setRateBarVisibility(View.GONE);
                     setDateVisibility(View.VISIBLE);
                     setViewBackground(R.drawable.posts_background);
+                    setViewIcon(R.drawable.posts_image_browse);
                 } else {
                     setRateBarVisibility(View.VISIBLE);
                     setDateVisibility(View.GONE);
                     if (facility_type == restaurants) {
                         setViewBackground(R.drawable.resturants_background);
+                        setViewIcon(R.drawable.restaurants_image_browse);
                     } else if (facility_type == entertainments) {
                         setViewBackground(R.drawable.entertainments_background);
+                        setViewIcon(R.drawable.entertainments_image_browse);
                         setTextColor("#DDFFFF");
                     } else if (facility_type == study) {
                         setViewBackground(R.drawable.studys_background);
+                        setViewIcon(R.drawable.studys_image_browse);
                     }
                 }
                 setFacilitiesVisibility(View.INVISIBLE);
@@ -195,20 +197,20 @@ public class BrowseFragment extends Fragment {
         binding.dateTextViewFacility5.setVisibility(Visibility);
     }
 
-    private void setViewColor(String colorCode){
-        binding.ViewFacility1.setBackgroundColor(Color.parseColor(colorCode));
-        binding.ViewFacility2.setBackgroundColor(Color.parseColor(colorCode));
-        binding.ViewFacility3.setBackgroundColor(Color.parseColor(colorCode));
-        binding.ViewFacility4.setBackgroundColor(Color.parseColor(colorCode));
-        binding.ViewFacility5.setBackgroundColor(Color.parseColor(colorCode));
-    }
-
     private void setViewBackground(int drawable){
         binding.ViewFacility1.setBackground(ContextCompat.getDrawable(getContext(), drawable));
         binding.ViewFacility2.setBackground(ContextCompat.getDrawable(getContext(), drawable));
         binding.ViewFacility3.setBackground(ContextCompat.getDrawable(getContext(), drawable));
         binding.ViewFacility4.setBackground(ContextCompat.getDrawable(getContext(), drawable));
         binding.ViewFacility5.setBackground(ContextCompat.getDrawable(getContext(), drawable));
+    }
+
+    private void setViewIcon(int drawable){
+        binding.facilityImageview1.setImageResource(drawable);
+        binding.facilityImageview2.setImageResource(drawable);
+        binding.facilityImageview3.setImageResource(drawable);
+        binding.facilityImageview4.setImageResource(drawable);
+        binding.facilityImageview5.setImageResource(drawable);
     }
 
     private void setTextColor(String colorCode){

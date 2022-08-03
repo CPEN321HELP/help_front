@@ -131,11 +131,11 @@
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageView
+                android:id="@+id/facility_imageview_1"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
                 android:background="#FFFFFF"
                 android:elevation="10dp"
                 app:civ_border_width="2dp"
@@ -235,11 +235,11 @@
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageView
+                android:id="@+id/facility_imageview_2"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
                 android:background="#FFFFFF"
                 android:elevation="10dp"
                 app:civ_border_width="2dp"
@@ -338,11 +338,11 @@
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageView
+                android:id="@+id/facility_imageview_3"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
                 android:background="#FFFFFF"
                 android:elevation="10dp"
                 app:civ_border_width="2dp"
@@ -441,11 +441,11 @@
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageView
+                android:id="@+id/facility_imageview_4"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
                 android:background="#FFFFFF"
                 android:elevation="10dp"
                 app:civ_border_width="2dp"
@@ -544,11 +544,11 @@
                     app:layout_constraintEnd_toEndOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
             <ImageView
+                android:id="@+id/facility_imageview_5"
                 android:layout_width="95dp"
                 android:layout_height="95dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:src="@drawable/tim_hortons"
                 android:background="#FFFFFF"
                 android:elevation="10dp"
                 app:civ_border_width="2dp"

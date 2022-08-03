@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,18 +39,24 @@ public class RateActivity extends AppCompatActivity {
     private final static int POST = 0;
 
     private GoogleSignInAccount userAccount;
+
+    private LinearLayout rateLayout;
     private String userEmail;
     private String facilityId;
     private int facilityType;
     private List<CharSequence> reviewers;
     private boolean isRating;
+    private Button cancelButton;
+    private Button submitButton;
+    private EditText editText;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        isRating = false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rate);
+
+        isRating = false;
         vm_ip = getString(R.string.azure_ip);
         Bundle bundle = getIntent().getExtras();
         facilityId = bundle.getString("facility_id");
@@ -59,10 +66,15 @@ public class RateActivity extends AppCompatActivity {
         Log.d(TAG, ""+facilityType);
         Log.d(TAG, ""+reviewers.toString());
 
+        rateLayout = (LinearLayout) findViewById(R.id.rateFacilityView);
+        editText = findViewById(R.id.editTextTextMultiLine);
         userAccount = GoogleSignIn.getLastSignedInAccount(this);
         userEmail = userAccount.getEmail();
-
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar2);
+        cancelButton = findViewById(R.id.cancel_button_review);
+        submitButton = findViewById(R.id.submit_button_review);
+
+        setBackgroundColor(facilityType);
 
         if (facilityType == POST) {
             ratingBar.setVisibility(View.INVISIBLE);
@@ -73,9 +85,6 @@ public class RateActivity extends AppCompatActivity {
             textView.setText("Please leave your comments\nbelow");
         }
 
-        EditText editText = findViewById(R.id.editTextTextMultiLine);
-
-        Button submitButton = findViewById(R.id.submit_button_review);
         submitButton.setTextColor(Color.parseColor("#dbba00"));
         submitButton.setEnabled(true);
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -180,7 +189,6 @@ public class RateActivity extends AppCompatActivity {
             }
         });
 
-        Button cancelButton = findViewById(R.id.cancel_button_review);
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -188,6 +196,36 @@ public class RateActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void setBackgroundColor(int facilityType) {
+        switch (facilityType) {
+            case 0:  // posts
+                rateLayout.setBackgroundColor(Color.parseColor("#7781AE"));
+                submitButton.setBackgroundColor(Color.parseColor("#7781AE"));
+                cancelButton.setBackgroundColor(Color.parseColor("#7781AE"));
+                editText.setBackgroundColor(Color.parseColor("#535A7A"));
+                break;
+            case 1:  // study
+                rateLayout.setBackgroundColor(Color.parseColor("#010280"));
+                submitButton.setBackgroundColor(Color.parseColor("#010280"));
+                cancelButton.setBackgroundColor(Color.parseColor("#010280"));
+                editText.setBackgroundColor(Color.parseColor("#010166"));
+                break;
+            case 2:  // entertainment
+                rateLayout.setBackgroundColor(Color.parseColor("#00BB98"));
+                submitButton.setBackgroundColor(Color.parseColor("#00BB98"));
+                cancelButton.setBackgroundColor(Color.parseColor("#00BB98"));
+                editText.setBackgroundColor(Color.parseColor("#00876E"));
+                break;
+            case 3:  // restaurant
+                rateLayout.setBackgroundColor(Color.parseColor("#D2887A"));
+                submitButton.setBackgroundColor(Color.parseColor("#D2887A"));
+                cancelButton.setBackgroundColor(Color.parseColor("#D2887A"));
+                editText.setBackgroundColor(Color.parseColor("#9E675C"));
+                break;
+        }
+    }
+
     @Override
     public void onResume(){
         super.onResume();

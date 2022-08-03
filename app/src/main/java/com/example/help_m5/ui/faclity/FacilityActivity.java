@@ -15,14 +15,12 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -115,7 +113,13 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
         Button rateButton = findViewById(R.id.rate_button);
-        if (POST == type) { rateButton.setText("Comment"); }
+        if (POST == type) {
+            rateButton.setText("Comment");
+            LinearLayout.LayoutParams marginParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            TextView textView = (TextView) findViewById(R.id.facilityNumberOfRates);
+            textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+            textView.setLayoutParams(marginParams);
+        }
         rateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -344,18 +348,22 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             linearLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.posts_background));
             if (imageView.getBackground() == null) {
                 imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.post_image));
+                imageView.setScaleX(0.4f);
             }
         } else if (type == 1) {
             button.setBackgroundResource(R.drawable.studys_background);
             linearLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.studys_background));
             if (imageView.getBackground() == null) {
                 imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.studys_image));
+                imageView.setScaleX(0.4f);
             }
         } else if (type == 2) {
             button.setBackgroundResource(R.drawable.entertainments_background);
             linearLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.entertainments_background));
             if (imageView.getBackground() == null) {
                 imageView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.entertainments_image));
+                imageView.setScaleX(0.9f);
+                imageView.setScaleY(0.9f);
             }
         } else if (type == 3) {
             button.setBackgroundResource(R.drawable.resturants_background);
@@ -383,7 +391,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             public void onResponse(JSONObject response) {
                 loadFacilityTexts(response);
                 loadReviews(response);
-                loadFacilityBackground(type);
+                loadFacilityBackground(facility_type);
             }
         }, new Response.ErrorListener() {
             @Override

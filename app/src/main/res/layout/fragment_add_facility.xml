@@ -12,6 +12,7 @@
 
     <!--    presence_online-->
     <LinearLayout
+        android:id="@+id/add_facility_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

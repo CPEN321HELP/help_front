@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#fafafa"
+    android:background="@color/facility_background_color"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.faclity.FacilityActivity"
     android:id="@+id/facilityActivityView">
@@ -158,13 +158,13 @@
             android:layout_height="wrap_content"
             android:id="@+id/facilityReport"
             android:orientation="vertical"
-            android:background="@color/white_light">
+            android:background="@color/facility_background_color">
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/report_facility_button"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_gravity="center"
-                android:backgroundTint="#dc143c"
+                android:backgroundTint="#da012d"
                 android:text="Report This Facility"
                 android:textColor="@color/white" />
         </LinearLayout>

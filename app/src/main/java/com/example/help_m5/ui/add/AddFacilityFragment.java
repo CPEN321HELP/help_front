@@ -1,6 +1,7 @@
 package com.example.help_m5.ui.add;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -234,13 +236,46 @@ public class AddFacilityFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 facility_type = getString(countryNames[position]);
                 Log.d(TAG, "facility_type in onItemSelected is: " +facility_type);
+                LinearLayout linearLayout = binding.addFacilityView;
                 if(position != 0){
                     if(position == 1){
                         isPost = true;
                         binding.locationLayout.setVisibility(View.INVISIBLE);
+                        linearLayout.setBackgroundColor(Color.parseColor("#7781AE"));
+                        newFacilityDescription.setBackgroundColor(Color.parseColor("#535A7A"));
+                        newFacilityTitle.setBackgroundColor(Color.parseColor("#535A7A"));
+                        newFacilityLocation.setBackgroundColor(Color.parseColor("#535A7A"));
+                        newFacilityImageLink.setBackgroundColor(Color.parseColor("#535A7A"));
+                        binding.newFacilityType.setPopupBackgroundResource(R.drawable.spinner_background_posts);
                     }else {
                         binding.locationLayout.setVisibility(View.VISIBLE);
                         isPost = false;
+                        switch (position) {
+                            case 2:  // restaurants
+                                linearLayout.setBackgroundColor(Color.parseColor("#D2887A"));
+                                newFacilityDescription.setBackgroundColor(Color.parseColor("#9E675C"));
+                                newFacilityTitle.setBackgroundColor(Color.parseColor("#9E675C"));
+                                newFacilityLocation.setBackgroundColor(Color.parseColor("#9E675C"));
+                                newFacilityImageLink.setBackgroundColor(Color.parseColor("#9E675C"));
+                                binding.newFacilityType.setPopupBackgroundResource(R.drawable.spinner_background_restaurants);
+                                break;
+                            case 3:  // studies
+                                linearLayout.setBackgroundColor(Color.parseColor("#010280"));
+                                newFacilityDescription.setBackgroundColor(Color.parseColor("#010166"));
+                                newFacilityTitle.setBackgroundColor(Color.parseColor("#010166"));
+                                newFacilityLocation.setBackgroundColor(Color.parseColor("#010166"));
+                                newFacilityImageLink.setBackgroundColor(Color.parseColor("#010166"));
+                                binding.newFacilityType.setPopupBackgroundResource(R.drawable.spinner_background_studys);
+                                break;
+                            case 4: // entertainments
+                                linearLayout.setBackgroundColor(Color.parseColor("#00BB98"));
+                                newFacilityDescription.setBackgroundColor(Color.parseColor("#00876E"));
+                                newFacilityTitle.setBackgroundColor(Color.parseColor("#00876E"));
+                                newFacilityLocation.setBackgroundColor(Color.parseColor("#00876E"));
+                                newFacilityImageLink.setBackgroundColor(Color.parseColor("#00876E"));
+                                binding.newFacilityType.setPopupBackgroundResource(R.drawable.spinner_background_entertainments);
+                                break;
+                        }
                     }
                     binding.imageFacilityType.setTag("good");
                     //binding.imageNewFacilityTitle.setImageResource(android.R.drawable.presence_online);
