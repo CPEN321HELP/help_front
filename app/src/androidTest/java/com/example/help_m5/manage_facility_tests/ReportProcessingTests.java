@@ -18,12 +18,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ReportProcessingTests {
     FragmentScenario<ReportFragment> mfragment;
     DatabaseConnection db;
@@ -37,7 +41,7 @@ public class ReportProcessingTests {
     }
 
     @Test
-    public void refresh(){
+    public void A_refresh(){
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
@@ -58,7 +62,7 @@ public class ReportProcessingTests {
     }
 
     @Test
-    public void agree() throws InterruptedException {
+    public void C_agree() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
@@ -84,12 +88,12 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.reportApprove_y1)).perform(ViewActions.swipeUp(), ViewActions.click());
         Thread.sleep(500);
         Espresso.onView(ViewMatchers.withText("Sending result to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending result to server!")));
-        Thread.sleep(500);
+        Thread.sleep(2000);
         Espresso.onView(ViewMatchers.withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server has received your decision!")));
     }
 
     @Test
-    public void reject() throws InterruptedException {
+    public void B_reject() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
@@ -111,7 +115,7 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.reportNot_y1)).perform(ViewActions.swipeUp(), ViewActions.click());
         Thread.sleep(500);
         Espresso.onView(ViewMatchers.withText("Sending result to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending result to server!")));
-        Thread.sleep(500);
+        Thread.sleep(2000);
         Espresso.onView(ViewMatchers.withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server has received your decision!")));
     }
 
