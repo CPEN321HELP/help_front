@@ -66,4 +66,7 @@
     <color name="facility_third_text_color">#646064</color>
     <color name="facility_review_background_color">#FFFFFF</color>
 
+    <!-- Report processing colors -->
+    <color name="report_process_text_color">#ddfafafa</color>
+
 </resources>

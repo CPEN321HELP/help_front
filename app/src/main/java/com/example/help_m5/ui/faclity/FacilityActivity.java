@@ -2,7 +2,6 @@ package com.example.help_m5.ui.faclity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,9 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.LayerDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -25,7 +21,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -71,7 +66,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
     private String adderID;
     private String userID;
 
-    private RelativeLayout progressBar;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private MapView mapView;
@@ -257,7 +251,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                 @Override
                 public void onSuccess() {
                     ImageView imageView = (ImageView) findViewById(R.id.imageView2);
-                    imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                     imageView.setScaleX(1);
                     imageView.setScaleY(1);
                     //progressBar.setVisibility(View.GONE);
@@ -324,8 +317,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         facilityRate.setText("★" + String.valueOf(rate));
 
         RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
         ratingBar.setRating(rate);
 
         TextView facilityNumReviews = findViewById(R.id.facilityNumberOfRates);
@@ -417,8 +408,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             SharedPreferences sharedPreferences
                     = getSharedPreferences(
                     "sharedPrefs", MODE_PRIVATE);
-            final SharedPreferences.Editor editor
-                    = sharedPreferences.edit();
             final boolean isDarkModeOn
                     = sharedPreferences
                     .getBoolean(

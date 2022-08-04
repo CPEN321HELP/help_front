@@ -276,6 +276,8 @@ public class AddFacilityFragment extends Fragment {
                                 newFacilityImageLink.setBackgroundColor(Color.parseColor("#00876E"));
                                 binding.newFacilityType.setPopupBackgroundResource(R.drawable.spinner_background_entertainments);
                                 break;
+                            default:
+                                Log.d(TAG, "error setting spinner background color");
                         }
                     }
                     binding.imageFacilityType.setTag("good");

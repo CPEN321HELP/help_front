@@ -50,8 +50,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences
                 = getSharedPreferences(
                 "sharedPrefs", MODE_PRIVATE);
-        final SharedPreferences.Editor editor
-                = sharedPreferences.edit();
         final boolean isDarkModeOn
                 = sharedPreferences
                 .getBoolean(

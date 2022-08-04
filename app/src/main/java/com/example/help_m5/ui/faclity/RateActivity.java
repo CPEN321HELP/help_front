@@ -234,6 +234,9 @@ public class RateActivity extends AppCompatActivity {
                 cancelButton.setBackgroundColor(Color.parseColor("#D2887A"));
                 editText.setBackgroundColor(Color.parseColor("#9E675C"));
                 break;
+            default:
+                Log.d(TAG, "Error setting background color");
+                break;
         }
     }
 

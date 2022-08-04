@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -74,8 +73,6 @@ public class BrowseFragment extends Fragment {
         SharedPreferences sharedPreferences
                 = getActivity().getSharedPreferences(
                 "sharedPrefs", MODE_PRIVATE);
-        final SharedPreferences.Editor editor
-                = sharedPreferences.edit();
         final boolean isDarkModeOn
                 = sharedPreferences
                 .getBoolean(
