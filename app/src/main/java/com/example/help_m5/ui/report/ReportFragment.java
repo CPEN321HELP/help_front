@@ -5,6 +5,8 @@ import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,6 +55,8 @@ public class ReportFragment extends Fragment {
         DBconnection.cleanAllCaches(getContext());
         binding.c1.setVisibility(View.INVISIBLE);
         binding.c2.setVisibility(View.INVISIBLE);
+        binding.reportedReasonContY1.setMovementMethod(new ScrollingMovementMethod());
+        binding.reportedReasonContY2.setMovementMethod(new ScrollingMovementMethod());
         initFavMenu();
         setConsOnCl();
         initButtons();

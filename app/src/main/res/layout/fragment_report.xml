@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="5dp">
 
         <LinearLayout
             android:id="@+id/s1"
@@ -49,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/report_title_y1"
@@ -60,16 +61,25 @@
                         android:textColor="#fafafa"
                         android:textSize="17sp" />
 
-                    <TextView
-                        android:id="@+id/report_title_cont_y1"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Actual title"
-                        android:paddingVertical="2dp"
-                        android:paddingHorizontal="4dp"
-                        android:textColor="#ccfafafa"
                         android:background="#d35d5d"
-                        android:textSize="15sp" />
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="4dp">
+                        <TextView
+                            android:id="@+id/report_title_cont_y1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Actual title"
+                            android:paddingVertical="2dp"
+                            android:paddingHorizontal="4dp"
+                            android:textColor="#ccfafafa"
+                            android:background="#d35d5d"
+                            android:textSize="15sp"
+                            android:maxLines="1"
+                            android:scrollHorizontally="true"/>
+                    </HorizontalScrollView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -158,16 +168,23 @@
                             android:textColor="#fafafa"
                             android:textSize="17sp" />
 
-                        <TextView
-                            android:id="@+id/reporter_id_cont_y1"
+                        <HorizontalScrollView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Reporter is:"
-                            android:textColor="#ccfafafa"
-                            android:background="#d35d5d"
-                            android:textSize="15sp"
-                            android:paddingVertical="2dp"
-                            android:paddingHorizontal="4dp"/>
+                            android:background="#d35d5d">
+                            <TextView
+                                android:id="@+id/reporter_id_cont_y1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Reporter is:"
+                                android:textColor="#ccfafafa"
+                                android:background="#d35d5d"
+                                android:scrollHorizontally="true"
+                                android:textSize="15sp"
+                                android:maxLines="1"
+                                android:paddingVertical="2dp"
+                                android:paddingHorizontal="4dp"/>
+                        </HorizontalScrollView>
                     </LinearLayout>
 
                     <LinearLayout
@@ -188,16 +205,23 @@
                             android:textColor="#fafafa"
                             android:textSize="17sp" />
 
-                        <TextView
-                            android:id="@+id/reported_id_cont_y1"
+                        <HorizontalScrollView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="User being report is :"
-                            android:textColor="#ccfafafa"
-                            android:background="#d35d5d"
-                            android:textSize="15sp"
-                            android:paddingVertical="2dp"
-                            android:paddingHorizontal="4dp" />
+                            android:background="#d35d5d">
+                            <TextView
+                                android:id="@+id/reported_id_cont_y1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User being report is :"
+                                android:textColor="#ccfafafa"
+                                android:background="#d35d5d"
+                                android:textSize="15sp"
+                                android:maxLines="1"
+                                android:scrollHorizontally="true"
+                                android:paddingVertical="2dp"
+                                android:paddingHorizontal="4dp" />
+                        </HorizontalScrollView>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -263,29 +287,36 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/reported_reason_y1"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:paddingVertical="2dp"
-                    android:text="7. Reason:"
-                    android:textColor="#fafafa"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:id="@+id/reported_reason_cont_y1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reason is:\nReason is:"
-                    android:scrollbars = "vertical"
-                    android:textColor="#ccfafafa"
-                    android:background="#d35d5d"
-                    android:textSize="15sp"
-                    android:paddingVertical="2dp"
-                    android:paddingHorizontal="4dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:maxLines="2"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/reported_reason_y1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:paddingVertical="2dp"
+                        android:layout_marginTop="3dp"
+                        android:text="7. Reason:"
+                        android:textColor="#fafafa"
+                        android:textSize="17sp" />
+                    <TextView
+                        android:id="@+id/reported_reason_cont_y1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reason is:\nReason is:"
+                        android:scrollbars="vertical"
+                        android:textColor="#ccfafafa"
+                        android:background="#d35d5d"
+                        android:textSize="15sp"
+                        android:paddingVertical="2dp"
+                        android:paddingHorizontal="4dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:maxLines="2"
+                        android:minLines="2"/>
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -301,9 +332,8 @@
                         android:textStyle="bold"
                         android:textSize="17sp"
                         android:textColor="#FFFFFF"
-                        android:layout_marginBottom="2dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginStart="50dp"/>
 
                     <Button
@@ -313,10 +343,9 @@
                         android:text="Approve"
                         android:textStyle="bold"
                         android:textSize="17sp"
-                        android:textColor="#4BCC70"
-                        android:layout_marginBottom="2dp"
+                        android:textColor="#fafafa"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginEnd="50dp"
                         style="@style/Widget.AppCompat.Button.Borderless"/>
 
@@ -332,9 +361,9 @@
         android:id="@+id/c2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
         app:layout_constraintHeight_percent="0.5"
-        app:layout_constraintTop_toBottomOf="@+id/c1">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="5dp">
 
         <LinearLayout
             android:id="@+id/s2"
@@ -369,7 +398,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="5dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/report_title_y2"
@@ -380,16 +409,25 @@
                         android:textColor="#fafafa"
                         android:textSize="17sp" />
 
-                    <TextView
-                        android:id="@+id/report_title_cont_y2"
+                    <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Actual title"
-                        android:paddingVertical="2dp"
-                        android:paddingHorizontal="4dp"
-                        android:textColor="#ccfafafa"
                         android:background="#d35d5d"
-                        android:textSize="15sp" />
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="4dp">
+                        <TextView
+                            android:id="@+id/report_title_cont_y2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Actual title"
+                            android:paddingVertical="2dp"
+                            android:paddingHorizontal="4dp"
+                            android:textColor="#ccfafafa"
+                            android:background="#d35d5d"
+                            android:textSize="15sp"
+                            android:maxLines="1"
+                            android:scrollHorizontally="true"/>
+                    </HorizontalScrollView>
                 </LinearLayout>
 
                 <LinearLayout
@@ -478,16 +516,23 @@
                             android:textColor="#fafafa"
                             android:textSize="17sp" />
 
-                        <TextView
-                            android:id="@+id/reporter_id_cont_y2"
+                        <HorizontalScrollView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Reporter is:"
-                            android:textColor="#ccfafafa"
-                            android:background="#d35d5d"
-                            android:textSize="15sp"
-                            android:paddingVertical="2dp"
-                            android:paddingHorizontal="4dp"/>
+                            android:background="#d35d5d">
+                            <TextView
+                                android:id="@+id/reporter_id_cont_y2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Reporter is:"
+                                android:textColor="#ccfafafa"
+                                android:background="#d35d5d"
+                                android:scrollHorizontally="true"
+                                android:textSize="15sp"
+                                android:maxLines="1"
+                                android:paddingVertical="2dp"
+                                android:paddingHorizontal="4dp"/>
+                        </HorizontalScrollView>
                     </LinearLayout>
 
                     <LinearLayout
@@ -508,16 +553,23 @@
                             android:textColor="#fafafa"
                             android:textSize="17sp" />
 
-                        <TextView
-                            android:id="@+id/reported_id_cont_y2"
+                        <HorizontalScrollView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="User being report is :"
-                            android:textColor="#ccfafafa"
-                            android:background="#d35d5d"
-                            android:textSize="15sp"
-                            android:paddingVertical="2dp"
-                            android:paddingHorizontal="4dp" />
+                            android:background="#d35d5d">
+                            <TextView
+                                android:id="@+id/reported_id_cont_y2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="User being report is :"
+                                android:textColor="#ccfafafa"
+                                android:background="#d35d5d"
+                                android:textSize="15sp"
+                                android:maxLines="1"
+                                android:scrollHorizontally="true"
+                                android:paddingVertical="2dp"
+                                android:paddingHorizontal="4dp" />
+                        </HorizontalScrollView>
                     </LinearLayout>
                 </LinearLayout>
 
@@ -583,35 +635,41 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/reported_reason_y2"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:paddingVertical="2dp"
-                    android:text="7. Reason:"
-                    android:textColor="#fafafa"
-                    android:textSize="17sp" />
-
-                <TextView
-                    android:id="@+id/reported_reason_cont_y2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reason is:\nReason is:"
-                    android:scrollbars = "vertical"
-                    android:textColor="#ccfafafa"
-                    android:background="#d35d5d"
-                    android:textSize="15sp"
-                    android:paddingVertical="2dp"
-                    android:paddingHorizontal="4dp"
-                    android:layout_marginHorizontal="5dp"
-                    android:maxLines="2"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/reported_reason_y2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="5dp"
+                        android:paddingVertical="2dp"
+                        android:layout_marginTop="3dp"
+                        android:text="7. Reason:"
+                        android:textColor="#fafafa"
+                        android:textSize="17sp" />
+                    <TextView
+                        android:id="@+id/reported_reason_cont_y2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reason is:\nReason is:"
+                        android:scrollbars="vertical"
+                        android:textColor="#ccfafafa"
+                        android:background="#d35d5d"
+                        android:textSize="15sp"
+                        android:paddingVertical="2dp"
+                        android:paddingHorizontal="4dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:maxLines="2"
+                        android:minLines="2"/>
+                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
-
                     <Button
                         android:id="@+id/reportNot_y2"
                         style="@style/Widget.AppCompat.Button.Borderless"
@@ -619,11 +677,10 @@
                         android:layout_height="wrap_content"
                         android:text="Reject"
                         android:textStyle="bold"
-                        android:textSize="17sp"
+                        android:textSize="18sp"
                         android:textColor="#FFFFFF"
-                        android:layout_marginBottom="2dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginStart="50dp"/>
 
                     <Button
@@ -632,11 +689,10 @@
                         android:layout_height="wrap_content"
                         android:text="Approve"
                         android:textStyle="bold"
-                        android:textSize="17sp"
-                        android:textColor="#4BCC70"
-                        android:layout_marginBottom="2dp"
+                        android:textSize="18sp"
+                        android:textColor="#fafafa"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginEnd="50dp"
                         style="@style/Widget.AppCompat.Button.Borderless"/>
 
@@ -662,7 +718,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            app:elevation="0dp"
+            app:elevation="6dp"
+            android:backgroundTint="@color/black"
+            app:tint="#fafafa"
             app:srcCompat="@drawable/ic_baseline_refresh_24"/>
     </LinearLayout>
 
