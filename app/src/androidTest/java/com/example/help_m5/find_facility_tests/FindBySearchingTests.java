@@ -57,18 +57,16 @@ public class FindBySearchingTests {
     }
 
     @Test
-    public void changeFacilityType(){
+    public void changeFacilityType() throws InterruptedException {
         Assert.assertTrue(spinnerChangeIndex(0));
         Espresso.onView(ViewMatchers.withId(R.id.searchFacility)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.searchFacility)).perform(ViewActions.typeText("the"));
         Espresso.onView(ViewMatchers.withId(R.id.searchFacility)).perform(ViewActions.closeSoftKeyboard());
         // ent
         Assert.assertTrue(spinnerChangeIndex(3));
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        Thread.sleep(500);
+
         String severResponse = readFromJson(entertainments);
         Assert.assertNotEquals(severResponse, "");
         Log.d(TAG, "severResponse is: "+severResponse);
@@ -84,11 +82,9 @@ public class FindBySearchingTests {
 
         //study
         Assert.assertTrue(spinnerChangeIndex(2));
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        Thread.sleep(500);
+
         severResponse = readFromJson(study);
         Assert.assertNotEquals(severResponse, "");
         Log.d(TAG, "severResponse is: "+severResponse);
@@ -104,11 +100,9 @@ public class FindBySearchingTests {
 
         //eat
         Assert.assertTrue(spinnerChangeIndex(1));
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        Thread.sleep(500);
+
         severResponse = readFromJson(restaurants);
         Assert.assertNotEquals(severResponse, "");
         Log.d(TAG, "severResponse is: "+severResponse);
@@ -124,11 +118,9 @@ public class FindBySearchingTests {
 
         //post
         Assert.assertTrue(spinnerChangeIndex(0));
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        Thread.sleep(500);
+
         severResponse = readFromJson(posts);
         Assert.assertNotEquals(severResponse, "");
         Log.d(TAG, "severResponse is: "+severResponse);
