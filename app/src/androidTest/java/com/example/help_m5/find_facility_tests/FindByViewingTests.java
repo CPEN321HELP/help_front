@@ -132,14 +132,12 @@ public class FindByViewingTests {
     }
 
     @Test
-    public void pageUpDownRefreshTest(){
+    public void pageUpDownRefreshTest() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        Thread.sleep(500);
+
         Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.fab_previous)).perform(ViewActions.click());
         String severResponse = readFromJson(posts);
@@ -157,39 +155,29 @@ public class FindByViewingTests {
 
             Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            Thread.sleep(500);
+
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(facility1Title))));
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility5)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(facility5Title))));
 
             Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            Thread.sleep(500);
+
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility1)).check(ViewAssertions.matches(ViewMatchers.withText(facility1Title)));
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility5)).check(ViewAssertions.matches(ViewMatchers.withText(facility5Title)));
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            Thread.sleep(500);
+
             Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            Thread.sleep(500);
+
             Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            Thread.sleep(500);
+
             for(int i =0; i < 20; i++){
                 Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
             }
@@ -198,11 +186,9 @@ public class FindByViewingTests {
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility5)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.withText(facility5Title))));
             Espresso.onView(ViewMatchers.withText("You are on the last page")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("You are on the last page")));
             Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            Thread.sleep(500);
+
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility1)).check(ViewAssertions.matches(ViewMatchers.withText(facility1Title)));
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility5)).check(ViewAssertions.matches(ViewMatchers.withText(facility5Title)));
             Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
