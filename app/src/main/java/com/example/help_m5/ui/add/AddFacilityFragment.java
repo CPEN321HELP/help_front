@@ -278,6 +278,7 @@ public class AddFacilityFragment extends Fragment {
                                 break;
                             default:
                                 Log.d(TAG, "error setting spinner background color");
+                                break;
                         }
                     }
                     binding.imageFacilityType.setTag("good");
