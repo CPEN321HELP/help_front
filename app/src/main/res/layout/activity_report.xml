@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="100dp"
-        android:background="#ccb90e0a"
+        android:background="#cd4b4b"
         android:elevation="20dp"
         android:gravity="center"
         android:orientation="vertical">
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginHorizontal="25dp"
-            android:background="#9b111e"
+            android:background="#B34242"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/report_review_hint"
