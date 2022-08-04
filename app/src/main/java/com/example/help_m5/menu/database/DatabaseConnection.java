@@ -1,4 +1,4 @@
-package com.example.help_m5.ui.database;
+package com.example.help_m5.menu.database;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.help_m5.databinding.FragmentBrowseBinding;
-import com.example.help_m5.ui.faclity.FacilityActivity;
+import com.example.help_m5.menu.faclity.FacilityActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;

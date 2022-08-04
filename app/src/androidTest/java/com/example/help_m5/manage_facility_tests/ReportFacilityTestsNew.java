@@ -18,8 +18,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
-import com.example.help_m5.ui.browse.BrowseFragment;
-import com.example.help_m5.ui.database.DatabaseConnection;
+import com.example.help_m5.menu.browse.BrowseFragment;
+import com.example.help_m5.menu.database.DatabaseConnection;
 
 import org.junit.Before;
 import org.junit.Test;

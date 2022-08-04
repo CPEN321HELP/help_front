@@ -1,4 +1,4 @@
-package com.example.help_m5.ui.home;
+package com.example.help_m5.menu.home;
 
 //import android.app.ActionBar;
 import android.content.Intent;
@@ -17,9 +17,9 @@ import com.example.help_m5.ChatActivity;
 import com.example.help_m5.MainActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentHomeBinding;
-import com.example.help_m5.ui.add.AddFacilityFragment;
-import com.example.help_m5.ui.browse.BrowseFragment;
-import com.example.help_m5.ui.settings.SettingsFragment;
+import com.example.help_m5.menu.add_facility.AddFacilityFragment;
+import com.example.help_m5.menu.browse.BrowseFragment;
+import com.example.help_m5.menu.settings.SettingsFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;

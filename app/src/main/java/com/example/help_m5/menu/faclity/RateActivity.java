@@ -1,4 +1,4 @@
-package com.example.help_m5.ui.faclity;
+package com.example.help_m5.menu.faclity;
 
 import androidx.appcompat.app.AppCompatActivity;
 

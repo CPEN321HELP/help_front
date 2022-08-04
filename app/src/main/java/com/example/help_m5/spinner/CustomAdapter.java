@@ -1,4 +1,4 @@
-package com.example.help_m5;
+package com.example.help_m5.spinner;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.help_m5.R;
 
 public class CustomAdapter extends BaseAdapter {
     Context context;

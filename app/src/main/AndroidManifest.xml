@@ -41,7 +41,7 @@
         <!-- android:name="com.google.firebase.messaging.default_notification_channel_id" -->
         <!-- android:value="@string/default_notification_channel_id" /> -->
         <activity
-            android:name=".ui.faclity.ReportActivity"
+            android:name=".menu.faclity.ReportActivity"
             android:exported="true"
             android:label="Help!"/>
         <activity
@@ -55,7 +55,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.faclity.RateActivity"
+            android:name=".menu.faclity.RateActivity"
             android:exported="true"
             android:label="Help!"/>
         <!--
@@ -84,7 +84,7 @@
             android:value="AIzaSyCYBGUSkkE1Ov84q85OkSl1PV-Uq7F0oHU" />
 
         <activity
-            android:name=".ui.faclity.FacilityActivity"
+            android:name=".menu.faclity.FacilityActivity"
             android:exported="true"
             android:label="Help!"/> <!-- CHANGE THIS TO FALSE IN THE END -->
         <activity

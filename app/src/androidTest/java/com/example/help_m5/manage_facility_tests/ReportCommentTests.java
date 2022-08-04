@@ -22,7 +22,7 @@ import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import com.example.help_m5.ui.faclity.FacilityActivity;
+import com.example.help_m5.menu.faclity.FacilityActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.RecyclerViewActionHelper;
 import com.example.help_m5.ToastMatcher;

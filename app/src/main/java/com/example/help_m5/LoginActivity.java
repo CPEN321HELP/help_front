@@ -16,8 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.help_m5.ui.database.DatabaseConnection;
-import com.example.help_m5.ui.faclity.FacilityActivity;
+import com.example.help_m5.menu.database.DatabaseConnection;
+import com.example.help_m5.menu.faclity.FacilityActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -67,8 +67,6 @@ public class LoginActivity extends AppCompatActivity {
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
 //        OneSignal.setEmail("none@gmail.com");
-
-        System.out.println("21231");
 
         OneSignal.setNotificationOpenedHandler(
                 new OneSignal.OSNotificationOpenedHandler() {

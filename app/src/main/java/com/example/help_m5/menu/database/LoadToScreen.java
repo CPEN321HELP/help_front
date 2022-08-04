@@ -1,4 +1,4 @@
-package com.example.help_m5.ui.database;
+package com.example.help_m5.menu.database;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

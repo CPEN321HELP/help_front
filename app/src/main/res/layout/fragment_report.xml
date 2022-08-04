@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/app_background_color"
-    tools:context=".ui.report.ReportFragment">
+    tools:context=".menu.report.ReportFragment">
 
     <LinearLayout
         android:id="@+id/c1"
