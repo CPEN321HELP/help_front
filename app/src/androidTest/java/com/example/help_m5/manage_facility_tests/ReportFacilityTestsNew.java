@@ -40,9 +40,9 @@ public class ReportFacilityTestsNew {
 
     @Test
     public void testReportFacilityButtonsAndLayout() {
-        Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
+        onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
+        onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
