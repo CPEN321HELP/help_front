@@ -82,7 +82,7 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
 
         reviewItems = new ArrayList<>();
 
-        adapter = new ReviewAdapter(getApplicationContext(), FacilityActivity.this, reviewItems);
+        adapter = new ReviewAdapter(FacilityActivity.this, FacilityActivity.this, reviewItems);
         recyclerView.setAdapter(adapter);
 
         //progressBar = (RelativeLayout) findViewById(R.id.loadingPanel);

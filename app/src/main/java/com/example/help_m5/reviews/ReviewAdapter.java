@@ -59,27 +59,12 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ReviewAdapter.ViewHolder holder, int position) {
         ReviewItem reviewItem = reviewItems.get(position);
 
-        String getTitle = reviewItem.getFacilityInformation().get(0);
-        int getFacilityId = Integer.parseInt(reviewItem.getFacilityInformation().get(1));
-        int getFacilityType = Integer.parseInt(reviewItem.getFacilityInformation().get(2));
-        boolean isPost = (reviewItem.getFacilityInformation().get(3).equals("true"));
-
         int getUpVoteCount = reviewItem.getVoteCounts().get(0);
         int getDownVoteCount = reviewItem.getVoteCounts().get(1);
-
-        holder.userNameView.setText(reviewItem.getUserName());
-        holder.userDateView.setText(reviewItem.getUserDate());
-        if (isPost) {
-            holder.userRateView.setVisibility(View.GONE);
-        } else {
-            holder.userRateView.setVisibility(View.VISIBLE);
-            holder.userRateView.setRating((float) reviewItem.getUserRate());
-        }
-        holder.userDescriptionView.setText(reviewItem.getUserDescription());
-
         holder.upVoteCountView.setText(String.valueOf(getUpVoteCount));
         holder.downVoteCountView.setText(String.valueOf(getDownVoteCount));
 
+        String getTitle = reviewItem.getFacilityInformation().get(0);
         boolean checkedUp = PreferenceManager.getDefaultSharedPreferences(context)
                 .getBoolean("upvote"+getTitle+String.valueOf(position), false);
         if (checkedUp) {
@@ -92,9 +77,24 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             holder.downVoteView.setChecked(checkedDown);
         }
 
+        int getFacilityId = Integer.parseInt(reviewItem.getFacilityInformation().get(1));
+        int getFacilityType = Integer.parseInt(reviewItem.getFacilityInformation().get(2));
+        boolean isPost = (reviewItem.getFacilityInformation().get(3).equals("true"));
+
+        holder.userNameView.setText(reviewItem.getUserName());
+        holder.userDateView.setText(reviewItem.getUserDate());
+        if (isPost) {
+            holder.userRateView.setVisibility(View.GONE);
+        } else {
+            holder.userRateView.setVisibility(View.VISIBLE);
+            holder.userRateView.setRating((float) reviewItem.getUserRate());
+        }
+        holder.userDescriptionView.setText(reviewItem.getUserDescription());
+
+
         holder.upVoteView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                AdjustVote(buttonView.getContext(), String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getReportedUserEmail(), "up", "pend");
+                AdjustVote(context, String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getReportedUserEmail(), "up", "pend");
                 holder.upVoteCountView.setText(String.valueOf(Integer.parseInt(holder.upVoteCountView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
                         .putBoolean("upvote"+getTitle+String.valueOf(position), true).apply();
@@ -102,7 +102,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                     holder.downVoteView.setChecked(false);
                 }
             } else {
-                AdjustVote(buttonView.getContext(), String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getReportedUserEmail(), "up", "cancel");
+                AdjustVote(context, String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getReportedUserEmail(), "up", "cancel");
                 holder.upVoteCountView.setText(String.valueOf(Integer.parseInt(holder.upVoteCountView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
                         .putBoolean("upvote"+getTitle+String.valueOf(position), false).apply();
@@ -111,7 +111,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         holder.downVoteView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                AdjustVote(buttonView.getContext(), String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getReportedUserEmail(), "down", "pend");
+                AdjustVote(context, String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getReportedUserEmail(), "down", "pend");
                 holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) + 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
                         .putBoolean("downvote"+getTitle+String.valueOf(position), true).apply();
@@ -119,12 +119,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                     holder.upVoteView.setChecked(false);
                 }
             } else {
-                AdjustVote(buttonView.getContext(), String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getReportedUserEmail(), "down", "cancel");
+                AdjustVote(context, String.valueOf(getFacilityType), String.valueOf(getFacilityId), reviewItem.getReportedUserEmail(), "down", "cancel");
                 holder.downVoteCountView.setText(String.valueOf(Integer.parseInt(holder.downVoteCountView.getText().toString()) - 1));
                 PreferenceManager.getDefaultSharedPreferences(context).edit()
                         .putBoolean("downvote"+getTitle+String.valueOf(position), false).apply();
             }
-
         });
 
         holder.reportCommentButton.setOnClickListener(new View.OnClickListener() {
@@ -178,7 +177,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     }
 
     private void AdjustVote(Context context, String facilityType, String facilityId, String userId, String vote, String isCancelled) {
-        String url = "http://20.213.243.141:8000/Votes";
+        String url = "http://20.213.243.141:8080/Votes";
         RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<String, String>();
         queue.start();
@@ -194,7 +193,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         System.out.println(vote);
         System.out.println(isCancelled);
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, new JSONObject(params),
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
