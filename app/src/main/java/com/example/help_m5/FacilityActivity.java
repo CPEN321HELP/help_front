@@ -1,4 +1,4 @@
-package com.example.help_m5.menu.faclity;
+package com.example.help_m5;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,7 +28,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.help_m5.R;
 import com.example.help_m5.reviews.ReviewAdapter;
 import com.example.help_m5.reviews.ReviewItem;
 import com.google.android.gms.maps.CameraUpdateFactory;

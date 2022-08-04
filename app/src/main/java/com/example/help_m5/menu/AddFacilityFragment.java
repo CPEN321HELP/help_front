@@ -1,4 +1,4 @@
-package com.example.help_m5.menu.add_facility;
+package com.example.help_m5.menu;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -29,7 +29,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.help_m5.spinner.CustomAdapter;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentAddFacilityBinding;
-import com.example.help_m5.menu.database.DatabaseConnection;
+import com.example.help_m5.database.DatabaseConnection;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.maps.model.LatLng;

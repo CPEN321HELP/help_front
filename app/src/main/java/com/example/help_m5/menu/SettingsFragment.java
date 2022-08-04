@@ -1,4 +1,4 @@
-package com.example.help_m5.menu.settings;
+package com.example.help_m5.menu;
 
 
 import static android.content.Context.MODE_PRIVATE;
@@ -17,7 +17,7 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreference;
 import com.example.help_m5.LoginActivity;
 import com.example.help_m5.R;
-import com.example.help_m5.menu.database.DatabaseConnection;
+import com.example.help_m5.database.DatabaseConnection;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;

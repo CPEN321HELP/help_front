@@ -1,4 +1,4 @@
-package com.example.help_m5.menu.report;
+package com.example.help_m5.menu;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -19,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.help_m5.menu.database.DatabaseConnection;
+import com.example.help_m5.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentReportBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

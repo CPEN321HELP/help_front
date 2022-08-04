@@ -6,7 +6,7 @@
     android:fillViewport="true"
     android:background="@color/facility_background_color"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".menu.faclity.FacilityActivity"
+    tools:context=".FacilityActivity"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:id="@+id/facilityActivityView">
 

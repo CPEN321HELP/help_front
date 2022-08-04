@@ -14,8 +14,8 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
-import com.example.help_m5.menu.database.DatabaseConnection;
-import com.example.help_m5.menu.browse.BrowseFragment;
+import com.example.help_m5.database.DatabaseConnection;
+import com.example.help_m5.menu.BrowseFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

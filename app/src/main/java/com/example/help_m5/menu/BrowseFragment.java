@@ -1,4 +1,4 @@
-package com.example.help_m5.menu.browse;
+package com.example.help_m5.menu;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.example.help_m5.spinner.CustomAdapter;
 import com.example.help_m5.databinding.FragmentBrowseBinding;
-import com.example.help_m5.menu.database.DatabaseConnection;
+import com.example.help_m5.database.DatabaseConnection;
 import com.example.help_m5.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;

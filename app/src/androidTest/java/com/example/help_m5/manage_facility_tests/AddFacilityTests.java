@@ -10,7 +10,7 @@ import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
-import com.example.help_m5.menu.add_facility.AddFacilityFragment;
+import com.example.help_m5.menu.AddFacilityFragment;
 
 import org.junit.Assert;
 import org.junit.Before;

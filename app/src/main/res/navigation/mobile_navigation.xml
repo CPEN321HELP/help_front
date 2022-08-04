@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.help_m5.menu.home.HomeFragment"
+        android:name="com.example.help_m5.menu.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home"/>
 
     <fragment
         android:id="@+id/nav_browse"
-        android:name="com.example.help_m5.menu.browse.BrowseFragment"
+        android:name="com.example.help_m5.menu.BrowseFragment"
         android:label="Browse"
         tools:layout="@layout/fragment_browse" />
 
     <fragment
         android:id="@+id/nav_add_facility"
-        android:name="com.example.help_m5.menu.add_facility.AddFacilityFragment"
+        android:name="com.example.help_m5.menu.AddFacilityFragment"
         android:label="Add Facility"
         tools:layout="@layout/fragment_add_facility"/>
 
     <fragment
         android:id="@+id/nav_report"
-        android:name="com.example.help_m5.menu.report.ReportFragment"
+        android:name="com.example.help_m5.menu.ReportFragment"
         android:label="Report"
         tools:layout="@layout/fragment_report" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.help_m5.menu.settings.SettingsFragment"
+        android:name="com.example.help_m5.menu.SettingsFragment"
         android:label="Settings" />
 
     <activity
