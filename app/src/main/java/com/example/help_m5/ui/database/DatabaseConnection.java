@@ -52,8 +52,8 @@ public class DatabaseConnection {
         HashMap<String, String> params = new HashMap<String, String>();
         queue.start();
         params.put("_id", user_id);
-        params.put("username", "");
-        params.put("user_logo", "");
+        params.put("username", "aa");
+        params.put("user_logo", "aa");
 
         Log.d(TAG, "updateUserInfo params is " + params);
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -28,9 +29,12 @@ import com.android.volley.toolbox.Volley;
 import com.example.help_m5.CustomAdapter;
 import com.example.help_m5.R;
 import com.example.help_m5.databinding.FragmentAddFacilityBinding;
+import com.example.help_m5.ui.database.DatabaseConnection;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.navigation.NavigationView;
+
 import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
@@ -434,6 +438,15 @@ public class AddFacilityFragment extends Fragment {
             }
         });
         queue.add(jsObjRequest);
+        Handler handler = new Handler();
+        Runnable r = new Runnable() {
+            @Override
+            public void run() {
+                updateCredit(getContext());
+            }
+        };
+        handler.postDelayed(r, 1000);
+
     }
 
     private void enableSubmit(){
@@ -456,11 +469,22 @@ public class AddFacilityFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
+
         super.onDestroyView();
 //        getFragmentManager().beginTransaction().remove(AddFacilityFragment.this).commitAllowingStateLoss();
         binding = null;
     }
 
+    private void updateCredit(Context context){
+        NavigationView navigationView = getActivity().findViewById(R.id.nav_view);
+        DatabaseConnection db = new DatabaseConnection();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+        if(account == null){
+            return;
+        }
+        String user_email = account.getEmail();
+        db.updateUserInfo(navigationView, getContext(),user_email,getActivity(),true);
+    }
 
 
 }
