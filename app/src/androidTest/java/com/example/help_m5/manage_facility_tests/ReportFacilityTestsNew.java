@@ -11,28 +11,19 @@ import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import android.content.Intent;
-import android.os.Bundle;
-
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
-import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
 import com.example.help_m5.ui.browse.BrowseFragment;
 import com.example.help_m5.ui.database.DatabaseConnection;
-import com.example.help_m5.ui.faclity.FacilityActivity;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 public class ReportFacilityTestsNew {
@@ -40,7 +31,7 @@ public class ReportFacilityTestsNew {
     DatabaseConnection db;
     FragmentScenario<BrowseFragment> mfragment;
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("svc wifi enable");
         InstrumentationRegistry.getInstrumentation().getUiAutomation().executeShellCommand("svc data enable");
         db = new DatabaseConnection();
