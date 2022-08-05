@@ -107,10 +107,10 @@
 
     <string name="app_functionalities_1">I want to ask about the report system</string>
     <string name="app_functionalities_1_Q1">Where can i report a facility or a review</string>
-    <string name="app_functionalities_1_Q2">How long will an user be banned from the app if a report is successful</string>
+    <string name="app_functionalities_1_Q2">How many credits will I lose if I was reported successfully</string>
     <string name="app_functionalities_1_Q3">How long will it take the admin to process my report</string>
     <string name="app_functionalities_1_A1">For facilities, please navigate to a facility through the home page and scroll to the very bottom of the page for the "Report this Facility" button. For reporting reviews and comments, please navigate to a review/comment of a facility. You will see a "Report" button in the bottom right corner of the review/comment</string>
-    <string name="app_functionalities_1_A2">The user will be banned for 1 week</string>
+    <string name="app_functionalities_1_A2">You will lose 1 credit</string>
     <string name="app_functionalities_1_A3">Usually, the report will be processed within 24 hours, and 2 to 3 days the latest</string>
 
     <string name="app_functionalities_2">I want to ask about the review system</string>
@@ -124,10 +124,10 @@
     <string name="app_functionalities_3">I want to ask about the credit system</string>
     <string name="app_functionalities_3_Q1">How much credit will I receive after a successful report?</string>
     <string name="app_functionalities_3_Q2">How much credit will I receive after reviewing a facility?</string>
-    <string name="app_functionalities_3_Q3">Will I receive credits for upvoting and downvoting reviews?</string>
-    <string name="app_functionalities_3_A1">You will receive 5 credits</string>
-    <string name="app_functionalities_3_A2">You will receive 6 credits</string>
-    <string name="app_functionalities_3_A3">Unfortunately, you will not receive credits for upvoting and downvoting. You can get credits from reviewing facilities and reporting facilities/reviews/comments!</string>
+    <string name="app_functionalities_3_Q3">How much credit will I receive after adding a facility?</string>
+    <string name="app_functionalities_3_A1">You will receive 1 credit</string>
+    <string name="app_functionalities_3_A2">You will receive 1 credit</string>
+    <string name="app_functionalities_3_A3">You will receive 5 credits</string>
 
     <string name="testing_json">{"_id":6,"facility":{"facilityType":"restaurants","facility_status":"normal","facilityTitle":"McDonald's","facilityDescription":"Famous fast food restaurant that serves burgers, fries, soft drinks, and a variety of other fast food options. ","facilityImageLink":"https:\/\/s3-media0.fl.yelpcdn.com\/bphoto\/13GWBclQVEzXzkMkxZXIRA\/o.jpg","facilityOverallRate":0,"numberOfRates":0,"timeAdded":"2022\/6\/11","longitude":-123.24253759999999,"latitude":49.266646699999995},"rated_user":[],"reviews":[],"adderID":""}</string>
 </resources>
