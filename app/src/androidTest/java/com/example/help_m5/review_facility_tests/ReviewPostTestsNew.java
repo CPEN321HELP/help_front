@@ -36,15 +36,12 @@ public class ReviewPostTestsNew {
     }
 
     @Test
-    public void testButtonsAndLayout() {
+    public void testButtonsAndLayout() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(500);
         onView(withId(R.id.facility1)).perform(click());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(500);
         onView(withId(R.id.rate_button)).check(matches(withText("COMMENT")));
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
@@ -64,52 +61,35 @@ public class ReviewPostTestsNew {
     }
 
     @Test
-    public void testEmptySubmission() {
+    public void testEmptySubmission()  throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(500);
         onView(withId(R.id.facility1)).perform(click());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(500);
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
-
         onView(withId(R.id.submit_button_review)).perform(click());
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(1000);
         onView(withText("Please do not submit an empty form")).inRoot(new ToastMatcher())
                 .check(matches(withText("Please do not submit an empty form")));
-
         onView(withId(R.id.cancel_button_review)).perform(click());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(500);
+
     }
 
     @Test
     public void testFullSubmission() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(500);
         onView(withId(R.id.facility1)).perform(click());
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(500);
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
-
         onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Nice Post!"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button_review)).perform(click());
-
         onView(withText("Success!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Success!")));
         Thread.sleep(500);
