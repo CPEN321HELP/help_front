@@ -120,34 +120,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Log.d(TAG, "you have chose" + item.toString());
-//                return true;
-//            }
-//        });
-        /*
-        Bundle bundle = getIntent().getExtras();
-        String userName = bundle.getString("user_name");
-        String userEmail = bundle.getString("user_email");
-        int userType = bundle.getInt("user_type");
-        TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
-        userNameView.setText(userName);
-        TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
-        userEmailView.setText(userEmail);
-        if (!bundle.getString("user_icon").equals("none")) {
-           Uri userIcon = Uri.parse(bundle.getString("user_icon"));
-            Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
-        }
-        if (userType == NORMAL_USER) {
-           Menu nav_Menu = navigationView.getMenu();
-           nav_Menu.findItem(R.id.nav_report).setVisible(false);
-
-        */
-
-//        Menu nav_Menu = navigationView.getMenu();
-//        nav_Menu.findItem(R.id.nav_report).setVisible(false);
         DatabaseConnection db = new DatabaseConnection();
         String info = null;
         String userInfo = "userInfo.json";
@@ -188,10 +160,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-//    private void displaySharedPreferences() {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
