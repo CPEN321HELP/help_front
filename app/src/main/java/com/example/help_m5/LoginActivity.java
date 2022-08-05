@@ -74,6 +74,13 @@ public class LoginActivity extends AppCompatActivity {
 //                        OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
                         String message = result.getNotification().getBody();
                         Log.d(TAG,message);
+
+                        Pattern isReport = Pattern.compile("\\breport\\b");
+                        Matcher isReport_t = isReport.matcher(message);
+                        if(isReport_t.find()){
+                            return;
+                        }
+
                         Pattern id = Pattern.compile("\\d+"); //match facility id
                         Pattern fc_type = Pattern.compile("\\bstudys|entertainments|restaurants|posts\\b");//match facility type
                         Matcher id_m = id.matcher(message);
