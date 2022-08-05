@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LoginActivity"
-    android:background="#fafafa">
+    android:background="#edf2f7">
 
     <!--
     <TextView
@@ -37,11 +37,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/help_app_title"
-        android:scaleY="0.8"
-        android:scaleX="0.8"
+        android:scaleY="0.75"
+        android:scaleX="0.75"
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="-5dp"/>
 
     <ImageView
         android:layout_width="240dp"
