@@ -39,10 +39,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ReportCommentTestsNew {
 
     DatabaseConnection db;
@@ -74,6 +78,33 @@ public class ReportCommentTestsNew {
                 return itemMatcher.matches(viewHolder.itemView);
             }
         };
+    }
+
+    @Test
+    public void a_addComment() throws InterruptedException {
+        onView(withId(R.id.fab_main)).perform(click());
+        onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(500);
+        onView(withId(R.id.facility1)).perform(click());
+        Thread.sleep(500);
+        onView(withId(R.id.rate_button)).perform(click());
+        onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
+        onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Nice Post!"));
+        Espresso.closeSoftKeyboard();
+        onView(withId(R.id.submit_button_review)).perform(click());
+        Thread.sleep(1000);
+        try{
+            onView(withText("Success!")).inRoot(new ToastMatcher()).check(matches(withText("Success!")));
+        }catch (Throwable t){
+            t.printStackTrace();
+            try{
+                onView(withText("You have commented in the past.")).inRoot(new ToastMatcher()).check(matches(withText("You have commented in the past.")));
+            }catch (Throwable tt){
+                t.printStackTrace();
+                Assert.fail();
+            }
+        }
+//        onView(withText("You have reviewed in the past.")).inRoot(new ToastMatcher()).check(matches(withText("You have reviewed in the past.")));
     }
 
     @Test
