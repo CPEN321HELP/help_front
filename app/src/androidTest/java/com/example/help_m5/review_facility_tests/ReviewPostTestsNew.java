@@ -41,7 +41,7 @@ public class ReviewPostTestsNew {
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
         onView(withId(R.id.facility1)).perform(click());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -57,7 +57,7 @@ public class ReviewPostTestsNew {
         onView(withId(R.id.cancel_button_review)).perform(click());
         onView(withId(R.id.facilityActivityView)).check(matches(isDisplayed()));
         try {
-            Thread.sleep(1500);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -69,7 +69,7 @@ public class ReviewPostTestsNew {
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
         onView(withId(R.id.facility1)).perform(click());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -87,7 +87,7 @@ public class ReviewPostTestsNew {
 
         onView(withId(R.id.cancel_button_review)).perform(click());
         try {
-            Thread.sleep(1500);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -99,7 +99,7 @@ public class ReviewPostTestsNew {
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
         onView(withId(R.id.facility1)).perform(click());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -112,7 +112,7 @@ public class ReviewPostTestsNew {
 
         onView(withText("Success!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Success!")));
-        Thread.sleep(1500);
+        Thread.sleep(500);
     }
 
 }
