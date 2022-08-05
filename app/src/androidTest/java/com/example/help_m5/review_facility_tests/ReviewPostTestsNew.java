@@ -78,7 +78,7 @@ public class ReviewPostTestsNew {
 
         onView(withId(R.id.submit_button_review)).perform(click());
         try {
-            Thread.sleep(500);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
