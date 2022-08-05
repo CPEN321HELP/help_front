@@ -28,16 +28,20 @@ public class OnBoardAdapter extends PagerAdapter {
         return view==object;
     }
 
+    /*
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view = layoutInflater.inflate(R.layout.sli, container, false);
+        //View view = layoutInflater.inflate(R.layout.sli, container, false);
 
-        container.addView(view);
-        return view;
+        //container.addView(view);
+        //return view;
+        return
     }
 
-    @Override
-    public void destroyItem()
+     */
+
+    //@Override
+    //public void destroyItem()
 }

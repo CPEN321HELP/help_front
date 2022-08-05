@@ -53,12 +53,13 @@ public class ReviewPostTestsNew {
         onView(withId(R.id.cancel_button_review)).check(matches(isEnabled()));
         onView(withId(R.id.submit_button_review)).check(matches(isEnabled()));
         onView(withId(R.id.cancel_button_review)).perform(click());
-        onView(withId(R.id.facilityActivityView)).check(matches(isDisplayed()));
         try {
-            Thread.sleep(500);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        onView(withId(R.id.facilityActivityView)).check(matches(isDisplayed()));
+
     }
 
     @Test
