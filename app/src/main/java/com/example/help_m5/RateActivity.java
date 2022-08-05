@@ -176,18 +176,6 @@ public class RateActivity extends AppCompatActivity {
                             });
                     queue.add(requestComment);
 
-                    //                Handler handler1 = new Handler();
-                    //                handler1.postDelayed(new Runnable() {
-                    //                    public void run() {
-                    //                        Log.d(TAG,"2 second");
-                    //                        NavigationView navigationView =findViewById(R.id.nav_view);
-                    //                        Log.d(TAG, "here in rate s " + (navigationView == null));
-                    //
-                    //                        DatabaseConnection db = new DatabaseConnection();
-                    //                        db.updateUserInfo(navigationView, getApplicationContext(), userEmail, RateActivity.this,true);
-                    //                    }
-                    //                }, 2000);
-
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         public void run() {
