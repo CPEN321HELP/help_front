@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -84,22 +85,27 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+        Preference deleteButton = findPreference("delete");
+        assert deleteButton != null;
+        deleteButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(@NonNull Preference preference) {
+                signOut();
+                DatabaseConnection db = new DatabaseConnection();
+                db.cleanAllCaches(getContext());
+                return true;
+            }
+        });
 
-//        SwitchPreference sign_out = findPreference("sign_out");
-//        if(sign_out != null){
-//            sign_out.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-//                @Override
-//                public boolean onPreferenceChange(Preference arg0, Object isVibrateOnObject) {
-//                    boolean isVibrateOn = (Boolean) isVibrateOnObject;
-//                    if (isVibrateOn) {
-//                        DatabaseConnection db = new DatabaseConnection();
-//                        db.removeFile("/data/data/com.example.help_m5/files/userInfo.json");
-//                        Toast.makeText(getContext(), "please exist", Toast.LENGTH_LONG).show();
-//                    }
-//                    return true;
-//                }
-//            });
-//        }
+        Preference referenceButton = findPreference("app_references");
+        assert referenceButton != null;
+        referenceButton.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(@NonNull Preference preference) {
+                Toast.makeText(getContext(), "Onboard vectors: https://www.freepik.com\nHome image: https://www.rawpixel.com/image/537438", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
     }
 

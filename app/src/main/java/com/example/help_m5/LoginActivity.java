@@ -1,6 +1,5 @@
 package com.example.help_m5;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,11 +22,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.onesignal.OSNotificationOpenedResult;
 import com.onesignal.OneSignal;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -178,7 +175,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
@@ -202,7 +198,7 @@ public class LoginActivity extends AppCompatActivity {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            updateUI(null);
+            //updateUI(null);
         }
     }
 
@@ -240,6 +236,7 @@ public class LoginActivity extends AppCompatActivity {
             params.put("_id", account.getEmail());
             params.put("username", account.getDisplayName());
             System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
+            System.out.println("email:"+account.getEmail());
             System.out.println("display name:"+account.getDisplayName());
             System.out.println("family name: "+account.getFamilyName());
             System.out.println("given name: "+account.getGivenName());
@@ -300,19 +297,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
         }
-    }
-
-    protected void signOut() {
-        mGoogleSignInClient.signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getApplicationContext(), "You have Sign out.", Toast.LENGTH_LONG).show();
-                    }
-                });
-        mGoogleSignInClient.revokeAccess();
-        finishAndRemoveTask();
-        System.exit(0);
     }
 
 }

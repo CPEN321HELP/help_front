@@ -24,6 +24,8 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -156,7 +158,10 @@ public class MainActivity extends AppCompatActivity {
             userEmailView.setText(userEmail);
             if (!bundle.getString("user_icon").equals("none")) {
                 Uri userIcon = Uri.parse(bundle.getString("user_icon"));
-                Picasso.get().load(userIcon).into((ImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+                Picasso.get().load(userIcon).into((CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+            } else {
+                CircleImageView circleImageView = (CircleImageView) findViewById(R.id.userIcon);
+                circleImageView.setImageResource(R.drawable.user_logo);
             }
         }
     }

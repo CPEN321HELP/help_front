@@ -19,11 +19,15 @@ public class OnBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_board);
 
+        Bundle bundle = getIntent().getExtras();
+        String userName = bundle.getString("user_name");
+        String userEmail = bundle.getString("user_email");
+
         viewPager = findViewById(R.id.viewpager);
-        adapter = new OnBoardAdapter(this);
+        adapter = new OnBoardAdapter(this, userName, userEmail);
         viewPager.setAdapter(adapter);
         if (isOpened()) {
-            Intent intent=new Intent(OnBoardActivity.this,MainActivity.class);
+            Intent intent = new Intent(OnBoardActivity.this,MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
@@ -36,7 +40,6 @@ public class OnBoardActivity extends AppCompatActivity {
     private boolean isOpened() {
         SharedPreferences sharedPreferences=getSharedPreferences("slide", MODE_PRIVATE);
         boolean result = sharedPreferences.getBoolean("slide",false);
-        //return result;
-        return false;
+        return result;
     }
 }

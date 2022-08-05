@@ -62,7 +62,7 @@
         <item name="android:drawableLeft">@drawable/ic_baseline_settings_24</item>
     </style>
     <style name="art_work_reference">
-        <item name="android:text">Zuiderkerk in Amsterdam by Claude Monet</item>
+        <item name="android:text">The University of British Columbia</item>
     </style>
 
     <!-- Chat screen theme -->

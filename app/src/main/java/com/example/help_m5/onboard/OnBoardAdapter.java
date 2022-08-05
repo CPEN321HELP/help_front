@@ -22,10 +22,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 public class OnBoardAdapter extends PagerAdapter {
 
     Context context;
-    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(context);
+    String userName;
+    String userEmail;
 
-    public OnBoardAdapter(Context context) {
+    public OnBoardAdapter(Context context, String userName, String userEmail) {
         this.context = context;
+        this.userName = userName;
+        this.userEmail = userEmail;
     }
 
     @Override
@@ -64,16 +67,8 @@ public class OnBoardAdapter extends PagerAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, MainActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("user_name", account.getDisplayName());
-                bundle.putString("user_email", account.getEmail());
-                bundle.putInt("user_type", 1);
-                bundle.putInt("number_of_credit", 1);
-
-                if (account.getPhotoUrl() != null) {
-                    bundle.putString("user_icon", account.getPhotoUrl().toString());
-                } else {
-                    bundle.putString("user_icon", "none");
-                }
+                bundle.putString("user_name", userName);
+                bundle.putString("user_email", userEmail);
                 intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
@@ -103,8 +98,18 @@ public class OnBoardAdapter extends PagerAdapter {
                 ind3.setImageResource(R.drawable.unselected);
                 ind4.setImageResource(R.drawable.unselected);
                 ind5.setImageResource(R.drawable.unselected);
-                title.setText("Shoping Place");
-                desc.setText("This is random text taking from lorem ipsum tesing puspose");
+                ind1.setScaleX(1f);
+                ind1.setScaleY(1f);
+                ind2.setScaleX(0.7f);
+                ind2.setScaleY(0.7f);
+                ind3.setScaleX(0.7f);
+                ind3.setScaleY(0.7f);
+                ind4.setScaleX(0.7f);
+                ind4.setScaleY(0.7f);
+                ind5.setScaleX(0.7f);
+                ind5.setScaleY(0.7f);
+                title.setText("Welcome to the Help! app");
+                desc.setText("Please follow this introduction or click Get Started to navigate to the app directly!");
                 back.setVisibility(View.GONE);
                 next.setVisibility(View.VISIBLE);
                 break;
@@ -115,8 +120,18 @@ public class OnBoardAdapter extends PagerAdapter {
                 ind3.setImageResource(R.drawable.unselected);
                 ind4.setImageResource(R.drawable.unselected);
                 ind5.setImageResource(R.drawable.unselected);
-                title.setText("Shopping on the way");
-                desc.setText("This is random text taking from lorem ipsum tesing puspose");
+                ind1.setScaleX(0.7f);
+                ind1.setScaleY(0.7f);
+                ind2.setScaleX(1f);
+                ind2.setScaleY(1f);
+                ind3.setScaleX(0.7f);
+                ind3.setScaleY(0.7f);
+                ind4.setScaleX(0.7f);
+                ind4.setScaleY(0.7f);
+                ind5.setScaleX(0.7f);
+                ind5.setScaleY(0.7f);
+                title.setText("Find UBC Facilities");
+                desc.setText("Explore, search, and find UBC restaurants, study spaces, and entertainments");
                 back.setVisibility(View.VISIBLE);
                 next.setVisibility(View.VISIBLE);
                 break;
@@ -127,8 +142,18 @@ public class OnBoardAdapter extends PagerAdapter {
                 ind3.setImageResource(R.drawable.selected);
                 ind4.setImageResource(R.drawable.unselected);
                 ind5.setImageResource(R.drawable.unselected);
-                title.setText("Pay on Delivery");
-                desc.setText("This is random text taking from lorem ipsum tesing puspose");
+                ind1.setScaleX(0.7f);
+                ind1.setScaleY(0.7f);
+                ind2.setScaleX(0.7f);
+                ind2.setScaleY(0.7f);
+                ind3.setScaleX(1f);
+                ind3.setScaleY(1f);
+                ind4.setScaleX(0.7f);
+                ind4.setScaleY(0.7f);
+                ind5.setScaleX(0.7f);
+                ind5.setScaleY(0.7f);
+                title.setText("Rate UBC Facilities");
+                desc.setText("Share your experience by rating and commenting on UBC restaurants, study spaces, and entertainments");
                 back.setVisibility(View.VISIBLE);
                 next.setVisibility(View.VISIBLE);
                 break;
@@ -139,8 +164,18 @@ public class OnBoardAdapter extends PagerAdapter {
                 ind3.setImageResource(R.drawable.unselected);
                 ind4.setImageResource(R.drawable.selected);
                 ind5.setImageResource(R.drawable.unselected);
-                title.setText("Shopping on the way");
-                desc.setText("This is random text taking from lorem ipsum tesing puspose");
+                ind1.setScaleX(0.7f);
+                ind1.setScaleY(0.7f);
+                ind2.setScaleX(0.7f);
+                ind2.setScaleY(0.7f);
+                ind3.setScaleX(0.7f);
+                ind3.setScaleY(0.7f);
+                ind4.setScaleX(1f);
+                ind4.setScaleY(1f);
+                ind5.setScaleX(0.7f);
+                ind5.setScaleY(0.7f);
+                title.setText("Make a Personalized Post");
+                desc.setText("Browse posts made by other users and share your thoughts by making your personalized post");
                 back.setVisibility(View.VISIBLE);
                 next.setVisibility(View.VISIBLE);
                 break;
@@ -151,8 +186,18 @@ public class OnBoardAdapter extends PagerAdapter {
                 ind3.setImageResource(R.drawable.unselected);
                 ind4.setImageResource(R.drawable.unselected);
                 ind5.setImageResource(R.drawable.selected);
-                title.setText("Shopping on the way");
-                desc.setText("This is random text taking from lorem ipsum tesing puspose");
+                ind1.setScaleX(0.7f);
+                ind1.setScaleY(0.7f);
+                ind2.setScaleX(0.7f);
+                ind2.setScaleY(0.7f);
+                ind3.setScaleX(0.7f);
+                ind3.setScaleY(0.7f);
+                ind4.setScaleX(0.7f);
+                ind4.setScaleY(0.7f);
+                ind5.setScaleX(1f);
+                ind5.setScaleY(1f);
+                title.setText("Any Questions?");
+                desc.setText("Head over to the Help! app ChatBot to get your questions answered immediately!");
                 back.setVisibility(View.VISIBLE);
                 next.setVisibility(View.GONE);
                 break;
