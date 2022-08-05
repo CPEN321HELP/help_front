@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -84,8 +85,6 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
         adapter = new ReviewAdapter(FacilityActivity.this, FacilityActivity.this, reviewItems);
         recyclerView.setAdapter(adapter);
 
-        //progressBar = (RelativeLayout) findViewById(R.id.loadingPanel);
-
         // Handle JSON file from backend
         Bundle bundle = getIntent().getExtras();
         String facilityInfo = bundle.getString("facility_json");
@@ -100,9 +99,9 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
             JSONObject facility = new JSONObject(facilityInfo);
             // Load page
             //progressBar.setVisibility(View.VISIBLE);
+            loadFacilityBackground(type);
             loadFacilityImage(facility);
             loadFacilityTexts(facility);
-            loadFacilityBackground(type);
             loadFacilityLocation(facility);
             loadReviews(facility);
         } catch (JSONException e) {
@@ -252,13 +251,12 @@ public class FacilityActivity extends AppCompatActivity implements OnMapReadyCal
                     ImageView imageView = (ImageView) findViewById(R.id.imageView2);
                     imageView.setScaleX(1);
                     imageView.setScaleY(1);
-                    //progressBar.setVisibility(View.GONE);
+                    imageView.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     Log.d(TAG, "image loaded successfully");
                 }
 
                 @Override
                 public void onError(Exception e) {
-                    //progressBar.setVisibility(View.GONE);
                     Log.d(TAG, "no image or loaded unsuccessfully");
                 }
             });
