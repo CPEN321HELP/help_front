@@ -151,7 +151,7 @@ public class ChatActivity extends AppCompatActivity {
                 Log.d(TAG, "endTime is: "+endTime);
                 backButton.setTag(String.valueOf((endTime - startTime) < 900));
             }
-        }, 800);
+        }, 200);
     }
 
     private void setTopButton(String buttonText, long startTime) {
