@@ -20,6 +20,7 @@ import com.example.help_m5.database.DatabaseConnection;
 import com.example.help_m5.menu.BrowseFragment;
 
 import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -90,9 +91,19 @@ public class ReviewPostTestsNew {
         onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Nice Post!"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button_review)).perform(click());
-        onView(withText("Success!")).inRoot(new ToastMatcher())
-                .check(matches(withText("Success!")));
-        Thread.sleep(500);
+        Thread.sleep(1000);
+        try{
+            onView(withText("Success!")).inRoot(new ToastMatcher()).check(matches(withText("Success!")));
+        }catch (Throwable t){
+            t.printStackTrace();
+            try{
+                onView(withText("You have commented in the past.")).inRoot(new ToastMatcher()).check(matches(withText("You have commented in the past.")));
+            }catch (Throwable tt){
+                t.printStackTrace();
+                Assert.fail();
+            }
+        }
+//        onView(withText("You have reviewed in the past.")).inRoot(new ToastMatcher()).check(matches(withText("You have reviewed in the past.")));
     }
 
 }
