@@ -1,30 +1,49 @@
 package com.example.help_m5.manage_facility_tests;
 
+import static androidx.core.util.Preconditions.checkNotNull;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.example.help_m5.FacilityActivity;
 import com.example.help_m5.R;
+import com.example.help_m5.RecyclerViewActionHelper;
 import com.example.help_m5.ToastMatcher;
-import com.example.help_m5.menu.BrowseFragment;
 import com.example.help_m5.database.DatabaseConnection;
+import com.example.help_m5.menu.BrowseFragment;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-public class ReportFacilityTestsNew {
+public class ReportCommentTestsNew {
 
     DatabaseConnection db;
     FragmentScenario<BrowseFragment> mfragment;
@@ -36,8 +55,29 @@ public class ReportFacilityTestsNew {
         mfragment = FragmentScenario.launchInContainer(BrowseFragment.class, null, R.style.MyMaterialTheme, Lifecycle.State.STARTED);
     }
 
+    public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {
+        checkNotNull(itemMatcher);
+        return new BoundedMatcher<View, RecyclerView>(RecyclerView.class) {
+            @Override
+            public void describeTo(Description description) {
+                description.appendText("has item at position " + position + ": ");
+                itemMatcher.describeTo(description);
+            }
+
+            @Override
+            protected boolean matchesSafely(final RecyclerView view) {
+                RecyclerView.ViewHolder viewHolder = view.findViewHolderForAdapterPosition(position);
+                if (viewHolder == null) {
+                    // has no item on such position
+                    return false;
+                }
+                return itemMatcher.matches(viewHolder.itemView);
+            }
+        };
+    }
+
     @Test
-    public void testReportFacilityButtonsAndLayout() {
+    public void testReportCommentButtonsAndLayout() {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
         onView(withId(R.id.facility1)).perform(click());
@@ -47,9 +87,10 @@ public class ReportFacilityTestsNew {
             e.printStackTrace();
         }
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
-        onView(withId(R.id.report_facility_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.report_facility_button)).check(matches(withText("REPORT THIS FACILITY")));
-        onView(withId(R.id.report_facility_button)).perform(click());
+        onView(withId(R.id.facilityRecyclerView))
+                .check(matches(atPosition(0, hasDescendant(withText("Report")))));
+        onView(withId(R.id.facilityRecyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewActionHelper.clickChildViewWithId(R.id.reportCommentButton)));
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
         onView(withId(R.id.ReportTitle)).check(matches(withText("Report Content")));
         onView(withId(R.id.ReportDescription))
@@ -63,20 +104,19 @@ public class ReportFacilityTestsNew {
     }
 
     @Test
-    public void testEmptySubmission() {
+    public void testEmptySubmission() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
         onView(withId(R.id.facility1)).perform(click());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(1000);
+
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
-        onView(withId(R.id.report_facility_button)).perform(click());
+        onView(withId(R.id.facilityRecyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewActionHelper.clickChildViewWithId(R.id.reportCommentButton)));
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.submit_button_report)).perform(click());
+        Thread.sleep(1000);
         onView(withText("Please state your reason of report")).inRoot(new ToastMatcher())
                 .check(matches(withText("Please state your reason of report")));
 
@@ -89,20 +129,19 @@ public class ReportFacilityTestsNew {
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
         onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
-
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
-        onView(withId(R.id.report_facility_button)).perform(click());
+        onView(withId(R.id.facilityRecyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewActionHelper.clickChildViewWithId(R.id.reportCommentButton)));
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextReport))
-                .perform(typeText("Facility is permanently closed on campus"));
+                .perform(typeText("Inappropriate Comment, contains fake content"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button_report)).perform(click());
+        Thread.sleep(1000);
         onView(withText("Report successfully sent!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Report successfully sent!")));
-
-        Thread.sleep(1500);
-        onView(withId(R.id.facilityActivityView)).check(matches(isDisplayed()));
+        Thread.sleep(1000);
     }
 
     @Test
@@ -111,22 +150,20 @@ public class ReportFacilityTestsNew {
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
         onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
-
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
-        onView(withId(R.id.report_facility_button)).perform(click());
+        onView(withId(R.id.facilityRecyclerView)).perform(
+                RecyclerViewActions.actionOnItemAtPosition(0, RecyclerViewActionHelper.clickChildViewWithId(R.id.reportCommentButton)));
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.editTextReport))
-                .perform(typeText("Not a real facility, the publisher is trolling"));
+                .perform(typeText("Inappropriate Comment, contains fake content, the commenter should be penalized"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.checkbox_user)).perform(click());
         onView(withId(R.id.checkbox_user)).check(matches(isChecked()));
         onView(withId(R.id.submit_button_report)).perform(click());
+        Thread.sleep(1000);
         onView(withText("Report successfully sent with associated user!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Report successfully sent with associated user!")));
-
-        Thread.sleep(1500);
-        onView(withId(R.id.facilityActivityView)).check(matches(isDisplayed()));
+        Thread.sleep(1000);
     }
-
 }
