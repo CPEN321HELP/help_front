@@ -53,25 +53,24 @@ public class LoginActivity extends AppCompatActivity {
     private String userInfo = "userInfo.json";
     private static final String ONESIGNAL_APP_ID = "f38cdc86-9fb7-40a5-8176-68b4115411da";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         vm_ip = getString(R.string.azure_ip);
         db = new DatabaseConnection();
+
         // Enable verbose OneSignal logging to debug issues if needed.
         OneSignal.setLogLevel(OneSignal.LOG_LEVEL.VERBOSE, OneSignal.LOG_LEVEL.NONE);
+
         // OneSignal Initialization
         OneSignal.initWithContext(this);
         OneSignal.setAppId(ONESIGNAL_APP_ID);
-//        OneSignal.setEmail("none@gmail.com");
 
         OneSignal.setNotificationOpenedHandler(
                 new OneSignal.OSNotificationOpenedHandler() {
                     @Override
                     public void notificationOpened(OSNotificationOpenedResult result) {
-//                        OSNotificationAction.ActionType type = result.getAction().getType(); // "ActionTaken" | "Opened"
                         String message = result.getNotification().getBody();
                         Log.d(TAG,message);
                         Pattern id = Pattern.compile("\\d+"); //match facility id
@@ -153,15 +152,6 @@ public class LoginActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-//        if(db.isCached(getApplicationContext(), userInfo)){
-//            //user has already login in
-//            Log.d(TAG, "cached");
-//
-//            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
-//            startActivity(MainIntent);
-//        }
-//        Log.d(TAG, "not cached");
-
         // Google Sign In Button
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         setButtonText(signInButton, "Sign in with Google");
@@ -233,7 +223,6 @@ public class LoginActivity extends AppCompatActivity {
             }else {
                 OneSignal.setExternalUserId("none@gmail.com");
                 Toast.makeText(getApplicationContext(), "email is none@gmail.com", Toast.LENGTH_SHORT).show();
-
             }
             Log.d(TAG, "email is: "+email);
 
@@ -243,6 +232,10 @@ public class LoginActivity extends AppCompatActivity {
             queue.start();
             params.put("_id", account.getEmail());
             params.put("username", account.getDisplayName());
+            System.out.println("AAAAAAAAAAAAAAAAAAAAAAA");
+            System.out.println("display name:"+account.getDisplayName());
+            System.out.println("family name: "+account.getFamilyName());
+            System.out.println("given name: "+account.getGivenName());
             if (account.getPhotoUrl() != null) {
                 params.put("user_logo", account.getPhotoUrl().toString());
             } else {
@@ -269,7 +262,7 @@ public class LoginActivity extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 public void run() {
                     // Move to another activity
-                    Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent MainIntent = new Intent(LoginActivity.this, OnBoardActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("user_name", account.getDisplayName());
                     bundle.putString("user_email", account.getEmail());

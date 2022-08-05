@@ -117,12 +117,10 @@ public class RateActivity extends AppCompatActivity {
                     paramsComment.put("facility_id", facilityId);
                     paramsComment.put("user_id", userEmail);
                     paramsComment.put("replyContent", editText.getText().toString());
-                    if( userAccount == null){
+                    if(userAccount == null){
                         paramsComment.put("username", "test test");
-
                     }else {
                         paramsComment.put("username", userAccount.getDisplayName());
-
                     }
 
                     paramsComment.put("rateScore", String.valueOf(ratingBar.getRating()));
@@ -157,7 +155,6 @@ public class RateActivity extends AppCompatActivity {
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "You have reviewed in the past.", Toast.LENGTH_SHORT).show();
                                             }
-
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Success!", Toast.LENGTH_SHORT).show();
                                         }
