@@ -40,9 +40,9 @@ public class ReviewPostTests {
     public void testButtonsAndLayout() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withId(R.id.facility1)).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withId(R.id.rate_button)).check(matches(withText("COMMENT")));
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
@@ -66,9 +66,9 @@ public class ReviewPostTests {
     public void testEmptySubmission()  throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withId(R.id.facility1)).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
         onView(withId(R.id.submit_button_review)).perform(click());
@@ -84,9 +84,9 @@ public class ReviewPostTests {
     public void testFullSubmission() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withId(R.id.facility1)).perform(click());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
         onView(withId(R.id.editTextTextMultiLine)).perform(typeText("Nice Post!"));

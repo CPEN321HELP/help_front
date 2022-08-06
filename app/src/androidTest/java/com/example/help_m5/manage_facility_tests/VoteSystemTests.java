@@ -90,13 +90,15 @@ public class VoteSystemTests {
         }
     }
 
+    /*
     @Test
     public void A_beforeAll() throws InterruptedException {
         Thread.sleep(1500);
         Espresso.onView(ViewMatchers.withId(R.id.home_add_facility_button)).perform(ViewActions.click());
         Thread.sleep(1500);
-
     }
+
+     */
 
     @Test
     public void checkVotingLayout() throws InterruptedException {

@@ -134,7 +134,6 @@ public class ReportCommentTests {
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.submit_button_report)).perform(click());
-        Thread.sleep(1000);
         onView(withText("Please state your reason of report")).inRoot(new ToastMatcher())
                 .check(matches(withText("Please state your reason of report")));
 

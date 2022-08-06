@@ -48,9 +48,9 @@ public class ReviewFacilityTests {
 
     private void navigateToRate() throws InterruptedException {
         Assert.assertTrue(spinnerChangeIndex(1));
-        Thread.sleep(1000);
+        Thread.sleep(1900);
         onView(withId(R.id.facility1)).perform(click());
-        Thread.sleep(1000);
+        Thread.sleep(1900);
     }
 
     @Test
