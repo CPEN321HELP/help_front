@@ -1,6 +1,5 @@
 package com.example.help_m5.manage_facility_tests;
 
-import android.util.Log;
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.espresso.Espresso;
@@ -8,10 +7,12 @@ import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.assertion.ViewAssertions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
+
 import com.example.help_m5.R;
 import com.example.help_m5.ToastMatcher;
 import com.example.help_m5.database.DatabaseConnection;
 import com.example.help_m5.menu.ReportFragment;
+
 import org.hamcrest.Matchers;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -48,17 +49,6 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
         String serverResponse = readFromJson();
         Assert.assertNotNull(serverResponse);
-        try {
-            JSONObject jsonFormat = new JSONObject(serverResponse);
-            JSONArray ja = jsonFormat.getJSONArray("report_content");
-            JSONObject report1 = ja.getJSONObject(0);
-            JSONObject report2 = ja.getJSONObject(1);
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText(report1.getString("title"))));
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(ViewMatchers.withText(report2.getString("title"))));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Assert.fail();
-        }
     }
 
     @Test
@@ -66,29 +56,11 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
-        String serverResponse = readFromJson();
-        Assert.assertNotNull(serverResponse);
-        try {
-            JSONObject jsonFormat = new JSONObject(serverResponse);
-            JSONArray ja = jsonFormat.getJSONArray("report_content");
-            JSONObject report1 = ja.getJSONObject(0);
-            JSONObject report2 = ja.getJSONObject(1);
-            Log.d("TESTT", report1.toString());
-            Log.d("TESTT", report2.toString());
-
-            Thread.sleep(500);
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText(report1.getString("title"))));
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(ViewMatchers.withText(report2.getString("title"))));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Assert.fail();
-        }
-        Espresso.onView(ViewMatchers.withId(R.id.s1)).perform(ViewActions.swipeUp());
-        Espresso.onView(ViewMatchers.withId(R.id.reportApprove_y1)).perform(ViewActions.swipeUp(), ViewActions.click());
         Thread.sleep(500);
+        Espresso.onView(ViewMatchers.withId(R.id.reportApprove_y1)).perform(ViewActions.click());
+        Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withText("Sending result to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending result to server!")));
-        Thread.sleep(2000);
+        Thread.sleep(1500);
         Espresso.onView(ViewMatchers.withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server has received your decision!")));
     }
 
@@ -97,25 +69,11 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
-        String serverResponse = readFromJson();
-        Assert.assertNotNull(serverResponse);
-        try {
-            JSONObject jsonFormat = new JSONObject(serverResponse);
-            JSONArray ja = jsonFormat.getJSONArray("report_content");
-            JSONObject report1 = ja.getJSONObject(0);
-            JSONObject report2 = ja.getJSONObject(1);
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y1)).check(ViewAssertions.matches(ViewMatchers.withText(report1.getString("title"))));
-            Espresso.onView(ViewMatchers.withId(R.id.report_title_cont_y2)).check(ViewAssertions.matches(ViewMatchers.withText(report2.getString("title"))));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Assert.fail();
-        }
-        Espresso.onView(ViewMatchers.withId(R.id.s1)).perform(ViewActions.swipeUp());
-        Espresso.onView(ViewMatchers.withId(R.id.reportNot_y1)).perform(ViewActions.swipeUp(), ViewActions.click());
+        Thread.sleep(500);
+        Espresso.onView(ViewMatchers.withId(R.id.reportNot_y1)).perform(ViewActions.click());
         Thread.sleep(500);
         Espresso.onView(ViewMatchers.withText("Sending result to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending result to server!")));
-        Thread.sleep(2000);
+        Thread.sleep(1500);
         Espresso.onView(ViewMatchers.withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server has received your decision!")));
     }
 
@@ -140,6 +98,4 @@ public class ReportProcessingTests {
             return null;
         }
     }
-
-
 }

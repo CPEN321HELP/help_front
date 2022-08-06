@@ -171,7 +171,6 @@ public class FindBySearchingTests {
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility1)).check(ViewAssertions.matches(ViewMatchers.withText(facility1Title)));
 
             Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
-            Espresso.onView(ViewMatchers.withId(R.id.fab_next)).perform(ViewActions.click());
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {

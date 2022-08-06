@@ -193,6 +193,7 @@ public class FindByViewingTests {
             Espresso.onView(ViewMatchers.withId(R.id.titleTextView_facility5)).check(ViewAssertions.matches(ViewMatchers.withText(facility5Title)));
             Espresso.onView(ViewMatchers.withId(R.id.fab_main)).perform(ViewActions.click());
             Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
+            Thread.sleep(1500);
             Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
             severResponse = readFromJson(posts);
             Assert.assertNotEquals(severResponse, "");
@@ -200,7 +201,7 @@ public class FindByViewingTests {
             try {
                 JSONObject summarySpecific = new JSONObject(severResponse);
                 JSONArray facilitiesSpecific = summarySpecific.getJSONArray("result");
-                JSONArray facility1Specific = facilitiesSpecific.getJSONArray(1);
+                JSONArray facility1Specific = facilitiesSpecific.getJSONArray(0);
                 String facility1TitleSpecific = facility1Specific.getString(2);
                 Espresso.onView(ViewMatchers.withId(R.id.facilityTitle)).check(ViewAssertions.matches(ViewMatchers.withText(facility1TitleSpecific)));
             }catch (JSONException e){
