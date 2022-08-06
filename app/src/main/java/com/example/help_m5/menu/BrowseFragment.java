@@ -5,6 +5,7 @@ import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import java.net.URL;
 
 public class BrowseFragment extends Fragment {
 
@@ -460,7 +463,16 @@ public class BrowseFragment extends Fragment {
             return;
         }
         String user_email = account.getEmail();
-        db.updateUserInfo(navigationView, getContext(),user_email,getActivity(),true);
+        String username = account.getDisplayName();
+        Uri user_logoUri = account.getPhotoUrl();
+        String user_logo = "";
+        if(user_logoUri != null){
+            user_logo = account.getPhotoUrl().toString();
+        }else {
+            user_logo = "none";
+
+        }
+        db.updateUserInfo(navigationView, getContext(),user_email,username,user_logo,getActivity(),true);
     }
 
     @Override

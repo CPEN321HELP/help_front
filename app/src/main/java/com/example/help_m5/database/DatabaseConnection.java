@@ -46,14 +46,14 @@ public class DatabaseConnection {
     //above are types of facility
     private final String userInfo = "userInfo.json";
     
-    public void updateUserInfo(NavigationView navigationView, Context context, String user_id, Activity activity,boolean load){
+    public void updateUserInfo(NavigationView navigationView, Context context, String user_id, String username, String user_logo,Activity activity,boolean load){
 
         RequestQueue queue = Volley.newRequestQueue(context);
         HashMap<String, String> params = new HashMap<String, String>();
         queue.start();
         params.put("_id", user_id);
-        params.put("username", "nullnull");
-        params.put("user_logo", "nullnull");
+        params.put("username", username);
+        params.put("user_logo", user_logo);
 
         Log.d(TAG, "updateUserInfo params is " + params);
 

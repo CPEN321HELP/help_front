@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -483,7 +484,16 @@ public class AddFacilityFragment extends Fragment {
             return;
         }
         String user_email = account.getEmail();
-        db.updateUserInfo(navigationView, getContext(),user_email,getActivity(),true);
+        String username = account.getDisplayName();
+        Uri user_logoUri = account.getPhotoUrl();
+        String user_logo = "";
+        if(user_logoUri != null){
+            user_logo = account.getPhotoUrl().toString();
+        }else {
+            user_logo = "none";
+
+        }
+        db.updateUserInfo(navigationView, getContext(),user_email,username,user_logo,getActivity(),true);
     }
 
 
