@@ -132,14 +132,6 @@ public class AddFacilityTests {
         Espresso.onData(Matchers.anything()).atPosition(2).perform(ViewActions.click());
         Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(ViewMatchers.isEnabled()));
-        Espresso.onView(ViewMatchers.withId(R.id.submitAll)).perform(ViewActions.click());
-        Thread.sleep(1500);
-        Espresso.onView(ViewMatchers.withText("Sending your response to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending your response to server!")));
-        Thread.sleep(1500);
-        Espresso.onView(ViewMatchers.withText("Server received your submission")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server received your submission")));
-        Thread.sleep(500);
-        Espresso.onView(ViewMatchers.withId(R.id.cleanAll)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.newFacilityTitle)).check(ViewAssertions.matches(ViewMatchers.withText("")));
     }
 
 }
