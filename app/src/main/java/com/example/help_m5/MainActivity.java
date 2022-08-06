@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -149,18 +151,22 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
             Bundle bundle = getIntent().getExtras();
-            String userName = bundle.getString("user_name");
-            String userEmail = bundle.getString("user_email");
-            TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
-            userNameView.setText(userName);
-            TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
-            userEmailView.setText(userEmail);
-            if (!bundle.getString("user_icon").equals("none")) {
-                Uri userIcon = Uri.parse(bundle.getString("user_icon"));
-                Picasso.get().load(userIcon).into((CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
-            } else {
-                CircleImageView circleImageView = (CircleImageView) findViewById(R.id.userIcon);
-                circleImageView.setImageResource(R.drawable.user_logo);
+            try {
+                String userName = bundle.getString("user_name");
+                String userEmail = bundle.getString("user_email");
+                TextView userNameView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
+                userNameView.setText(userName);
+                TextView userEmailView = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
+                userEmailView.setText(userEmail);
+                if (!bundle.getString("user_icon").equals("none")) {
+                    Uri userIcon = Uri.parse(bundle.getString("user_icon"));
+                    Picasso.get().load(userIcon).into((CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.userIcon));
+                } else {
+                    CircleImageView circleImageView = (CircleImageView) findViewById(R.id.userIcon);
+                    circleImageView.setImageResource(R.drawable.user_logo);
+                }
+            }catch (Exception e){
+                Toast.makeText(getApplicationContext(),"Error when loading data from server",Toast.LENGTH_SHORT).show();
             }
         }
     }
