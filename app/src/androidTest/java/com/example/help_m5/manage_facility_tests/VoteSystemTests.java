@@ -19,7 +19,6 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.core.app.ApplicationProvider;
-import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
 import androidx.test.espresso.matcher.ViewMatchers;
