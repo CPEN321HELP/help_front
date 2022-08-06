@@ -1,5 +1,6 @@
 package com.example.help_m5.review_facility_tests;
 
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -38,8 +39,8 @@ public class ReviewFacilityTestsNew {
 
     private boolean spinnerChangeIndex(int indexSpinner){
         try{
-            Espresso.onView(ViewMatchers.withId(R.id.spinnerFacility)).perform(ViewActions.click());
-            Espresso.onData(Matchers.anything()).atPosition(indexSpinner).perform(ViewActions.click());
+            onView(ViewMatchers.withId(R.id.spinnerFacility)).perform(ViewActions.click());
+            onData(Matchers.anything()).atPosition(indexSpinner).perform(ViewActions.click());
             return true;
         }catch (Exception e){
             e.printStackTrace();
@@ -50,7 +51,7 @@ public class ReviewFacilityTestsNew {
     private void navigateToRate() throws InterruptedException {
         Assert.assertTrue(spinnerChangeIndex(1));
         Thread.sleep(1000);
-        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1000);
     }
 
