@@ -195,6 +195,7 @@ public class FindByViewingTests {
             Espresso.onView(ViewMatchers.withId(R.id.fab_close_or_refresh)).perform(ViewActions.click());
             Thread.sleep(1500);
             Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+            Thread.sleep(2000);
             severResponse = readFromJson(posts);
             Assert.assertNotEquals(severResponse, "");
             Log.d(TAG, "severResponse is: "+severResponse);
