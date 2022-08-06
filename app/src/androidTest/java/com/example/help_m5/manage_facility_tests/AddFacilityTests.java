@@ -67,7 +67,6 @@ public class AddFacilityTests {
     public void testSpinnerNotPost(){
         Espresso.onData(Matchers.anything()).atPosition(2).perform(ViewActions.click());
         Espresso.onData(Matchers.anything()).atPosition(2).perform(ViewActions.click());
-
         try {
             Thread.sleep(1000);
             Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.typeText("not cause error"));
@@ -80,7 +79,7 @@ public class AddFacilityTests {
     @Test
     public void testBadImageLink() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.typeText("BAD URL"));
-        Thread.sleep(500);
+        Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withId(R.id.imageFacilityImageLink)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("bad"))));
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
@@ -88,7 +87,7 @@ public class AddFacilityTests {
     @Test
     public void testGoodImageLink() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.typeText("https://imgtu.com/i/jwCDjH"));
-        Thread.sleep(500);
+        Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withId(R.id.imageFacilityImageLink)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("good"))));
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
@@ -97,7 +96,7 @@ public class AddFacilityTests {
     public void testBadLocation() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.typeText("Matchers.Not_A_Address"));
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityDescription)).perform(ViewActions.click());
-        Thread.sleep(500);
+        Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withId(R.id.imageFacilityLocation)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("bad"))));
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
