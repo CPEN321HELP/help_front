@@ -103,7 +103,6 @@ public class AddFacilityTests {
     public void testGoodLocation(){
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.typeText("650 W 41st Ave, Vancouver, BC V5Z 2M9"));
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityDescription)).perform(ViewActions.click());
-        Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.imageFacilityLocation)).check(ViewAssertions.matches(ViewMatchers.withTagValue(Matchers.equalTo("good"))));
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
     }
@@ -119,11 +118,11 @@ public class AddFacilityTests {
 
     @Test
     public void ReadyToSubmit(){
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.typeText("650 W 41st Ave, Vancouver, BC V5Z 2M9"));
         Espresso.onView(ViewMatchers.withId(R.id.submitAll)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isEnabled())));
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityTitle)).perform(ViewActions.typeText("Oakridge Centre"));
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityDescription)).perform(ViewActions.typeText("Oakridge Centre is a shopping centre in the Oakridge neighborhood of Vancouver, British Columbia, Canada."));
-        Espresso.onView(ViewMatchers.withId(R.id.newFacilityLocation)).perform(ViewActions.typeText("650 W 41st Ave, Vancouver, BC V5Z 2M9"));
-        Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform( ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.closeSoftKeyboard());
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.typeText("https://imgtu.com/i/jwCDjH"));
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityImageLink)).perform(ViewActions.closeSoftKeyboard());
         Espresso.onView(ViewMatchers.withId(R.id.newFacilityType)).perform(ViewActions.click());

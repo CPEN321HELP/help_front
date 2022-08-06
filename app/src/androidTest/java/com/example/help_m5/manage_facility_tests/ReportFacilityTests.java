@@ -63,20 +63,18 @@ public class ReportFacilityTests {
     }
 
     @Test
-    public void testEmptySubmission() {
+    public void testEmptySubmission() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
         onView(withId(R.id.facility1)).perform(click());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(1000);
+
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         onView(withId(R.id.report_facility_button)).perform(click());
         onView(withId(R.id.reportFacilityView)).check(matches(isDisplayed()));
 
         onView(withId(R.id.submit_button_report)).perform(click());
+        Thread.sleep(1000);
         onView(withText("Please state your reason of report")).inRoot(new ToastMatcher())
                 .check(matches(withText("Please state your reason of report")));
 
@@ -98,10 +96,11 @@ public class ReportFacilityTests {
                 .perform(typeText("Facility is permanently closed on campus"));
         Espresso.closeSoftKeyboard();
         onView(withId(R.id.submit_button_report)).perform(click());
+        Thread.sleep(1000);
+
         onView(withText("Report successfully sent!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Report successfully sent!")));
-
-        Thread.sleep(1500);
+        Thread.sleep(1000);
         onView(withId(R.id.facilityActivityView)).check(matches(isDisplayed()));
     }
 
@@ -122,10 +121,12 @@ public class ReportFacilityTests {
         onView(withId(R.id.checkbox_user)).perform(click());
         onView(withId(R.id.checkbox_user)).check(matches(isChecked()));
         onView(withId(R.id.submit_button_report)).perform(click());
+        Thread.sleep(1000);
+
         onView(withText("Report successfully sent with associated user!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Report successfully sent with associated user!")));
 
-        Thread.sleep(1500);
+        Thread.sleep(1000);
         onView(withId(R.id.facilityActivityView)).check(matches(isDisplayed()));
     }
 
