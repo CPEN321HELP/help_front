@@ -2,11 +2,9 @@ package com.example.help_m5;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import com.example.help_m5.onboard.OnBoardAdapter;
 
 public class OnBoardActivity extends AppCompatActivity {

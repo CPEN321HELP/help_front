@@ -16,8 +16,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.example.help_m5.MainActivity;
 import com.example.help_m5.OnBoardActivity;
 import com.example.help_m5.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
 
 public class OnBoardAdapter extends PagerAdapter {
 
@@ -203,6 +202,7 @@ public class OnBoardAdapter extends PagerAdapter {
                 break;
             default:
                 System.out.println("ERROR on boarding");
+                break;
         }
 
         container.addView(view);
