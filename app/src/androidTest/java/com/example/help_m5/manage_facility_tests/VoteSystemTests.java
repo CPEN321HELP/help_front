@@ -106,11 +106,11 @@ public class VoteSystemTests {
         Espresso.onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(2));
-        Thread.sleep(500);
+        Thread.sleep(1500);
         Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withId(R.id.facilityRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withId(R.id.upVote)))));
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
@@ -135,11 +135,11 @@ public class VoteSystemTests {
         Espresso.onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(2));
-        Thread.sleep(500);
+        Thread.sleep(1500);
         Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
                 .perform(click());
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
@@ -160,11 +160,11 @@ public class VoteSystemTests {
         Espresso.onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(2));
-        Thread.sleep(500);
+        Thread.sleep(1500);
         Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
-        Thread.sleep(500);
+        Thread.sleep(1500);
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.downVote))
                 .perform(click());
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.downVote))

@@ -38,11 +38,12 @@ public class ReportProcessingTests {
     }
 
     @Test
-    public void A_refresh(){
+    public void A_refresh() throws InterruptedException {
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.c1)).check(ViewAssertions.matches(Matchers.not(ViewMatchers.isDisplayed())));
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
+        Thread.sleep(2000);
         String serverResponse = readFromJson();
         Assert.assertNotNull(serverResponse);
     }
@@ -56,7 +57,7 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.reportApprove_y1)).perform(ViewActions.click());
         Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withText("Sending result to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending result to server!")));
-        Thread.sleep(1500);
+        Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server has received your decision!")));
     }
 
@@ -67,9 +68,9 @@ public class ReportProcessingTests {
         Espresso.onView(ViewMatchers.withId(R.id.fabRefresh)).perform(ViewActions.click());
         Thread.sleep(500);
         Espresso.onView(ViewMatchers.withId(R.id.reportNot_y1)).perform(ViewActions.click());
-        Thread.sleep(500);
+        Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withText("Sending result to server!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Sending result to server!")));
-        Thread.sleep(1500);
+        Thread.sleep(1000);
         Espresso.onView(ViewMatchers.withText("Server has received your decision!")).inRoot(new ToastMatcher()).check(ViewAssertions.matches(ViewMatchers.withText("Server has received your decision!")));
     }
 

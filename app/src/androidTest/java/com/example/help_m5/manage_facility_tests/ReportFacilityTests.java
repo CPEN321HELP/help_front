@@ -101,7 +101,7 @@ public class ReportFacilityTests {
 
         onView(withText("Report successfully sent!")).inRoot(new ToastMatcher())
                 .check(matches(withText("Report successfully sent!")));
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         onView(withId(R.id.facilityActivityView)).check(matches(isDisplayed()));
     }
 

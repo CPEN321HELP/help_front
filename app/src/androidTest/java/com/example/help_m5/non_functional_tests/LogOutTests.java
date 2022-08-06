@@ -75,7 +75,7 @@ public class LogOutTests {
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(3));
         Thread.sleep(2000);
-        Espresso.onView(ViewMatchers.withId(R.id.facility3)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1500);
         Espresso.onView(ViewMatchers.withId(R.id.facilityActivityView)).perform(ViewActions.swipeUp());
         Espresso.onView(ViewMatchers.withId(R.id.report_facility_button)).perform(ViewActions.click());
@@ -100,7 +100,7 @@ public class LogOutTests {
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(2));
         Thread.sleep(500);
-        Espresso.onView(ViewMatchers.withId(R.id.facility3)).perform(ViewActions.click());
+        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1500);
 
         // User starts to log out
