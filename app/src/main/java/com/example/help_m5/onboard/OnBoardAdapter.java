@@ -24,11 +24,17 @@ public class OnBoardAdapter extends PagerAdapter {
     Context context;
     String userName;
     String userEmail;
+    String userIcon;
+    int userType;
+    int numCredits;
 
-    public OnBoardAdapter(Context context, String userName, String userEmail) {
+    public OnBoardAdapter(Context context, String userName, String userEmail, String userIcon, int userType, int numCredits) {
         this.context = context;
         this.userName = userName;
         this.userEmail = userEmail;
+        this.userIcon = userIcon;
+        this.userType = userType;
+        this.numCredits = numCredits;
     }
 
     @Override
@@ -69,6 +75,9 @@ public class OnBoardAdapter extends PagerAdapter {
                 Bundle bundle = new Bundle();
                 bundle.putString("user_name", userName);
                 bundle.putString("user_email", userEmail);
+                bundle.putString("user_icon", userIcon);
+                bundle.putInt("user_type", userType);
+                bundle.putInt("number_of_credit", numCredits);
                 intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);

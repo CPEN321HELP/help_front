@@ -22,16 +22,19 @@ public class OnBoardActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String userName = bundle.getString("user_name");
         String userEmail = bundle.getString("user_email");
+        String userIcon = bundle.getString("user_icon");
+        int userType = bundle.getInt("user_type");
+        int numCredits = bundle.getInt("number_of_credits");
 
         viewPager = findViewById(R.id.viewpager);
-        adapter = new OnBoardAdapter(this, userName, userEmail);
+        adapter = new OnBoardAdapter(this, userName, userEmail, userIcon, userType, numCredits);
         viewPager.setAdapter(adapter);
         if (isOpened()) {
             Intent intent = new Intent(OnBoardActivity.this,MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else {
-            SharedPreferences.Editor editor=getSharedPreferences("slide",MODE_PRIVATE).edit();
+            SharedPreferences.Editor editor=getSharedPreferences("slide", MODE_PRIVATE).edit();
             editor.putBoolean("slide",true);
             editor.apply();
         }
