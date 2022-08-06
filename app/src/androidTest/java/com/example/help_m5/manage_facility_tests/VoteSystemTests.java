@@ -131,11 +131,11 @@ public class VoteSystemTests {
     @Test
     public void upVoteTest() throws InterruptedException {
         Thread.sleep(1500);
-        onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
+        onView(withId(R.id.home_review_button)).perform(ViewActions.click());
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(2));
         Thread.sleep(1500);
-        onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        onView(withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(1500);
@@ -156,11 +156,11 @@ public class VoteSystemTests {
     @Test
     public void downVoteTest() throws InterruptedException {
         Thread.sleep(1500);
-        onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
+        onView(withId(R.id.home_review_button)).perform(ViewActions.click());
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(2));
         Thread.sleep(1500);
-        onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        onView(withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(1500);
@@ -181,12 +181,12 @@ public class VoteSystemTests {
     @Test
     public void VoteChangeTest() throws InterruptedException {
         Thread.sleep(1500);
-        onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
+        onView(withId(R.id.home_review_button)).perform(ViewActions.click());
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(2));
         Thread.sleep(1500);
 
-        onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        onView(withId(R.id.facility1)).perform(ViewActions.click());
         Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(1500);
