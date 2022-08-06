@@ -12,7 +12,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import androidx.fragment.app.testing.FragmentScenario;
 import androidx.lifecycle.Lifecycle;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
 import com.example.help_m5.R;
@@ -51,7 +50,7 @@ public class ReviewFacilityTestsNew {
     private void navigateToRate() throws InterruptedException {
         Assert.assertTrue(spinnerChangeIndex(1));
         Thread.sleep(1000);
-        onView(ViewMatchers.withId(R.id.facility1)).perform(click());
+        onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
     }
 
@@ -61,8 +60,7 @@ public class ReviewFacilityTestsNew {
         onView(withId(R.id.rate_button)).perform(click());
         onView(withId(R.id.rateFacilityView)).check(matches(isDisplayed()));
         onView(withId(R.id.RateFacilityTitle)).check(matches(withText("Rate this Facility")));
-        onView(withId(R.id.RateFacilityDescription))
-                .check(matches(withText("Please select some stars and give\nyour feedback")));
+        onView(withId(R.id.RateFacilityDescription)).check(matches(withText("Please select some stars and give\nyour feedback")));
         onView(withId(R.id.ratingBar2)).check(matches(isDisplayed()));
         onView(withId(R.id.cancel_button_review)).check(matches(isEnabled()));
         onView(withId(R.id.submit_button_review)).check(matches(isEnabled()));
