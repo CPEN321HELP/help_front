@@ -11,8 +11,6 @@ import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
-
-import com.example.help_m5.ChatActivity;
 import com.example.help_m5.MainActivity;
 import com.example.help_m5.R;
 
@@ -24,7 +22,7 @@ import org.junit.Test;
 public class LogOutTests {
 
     @Rule
-    public ActivityScenarioRule<ChatActivity> mActivityRule =
+    public ActivityScenarioRule<MainActivity> mActivityRule =
             new ActivityScenarioRule<>(intent);
 
     static Intent intent;

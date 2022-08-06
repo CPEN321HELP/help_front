@@ -1,6 +1,7 @@
 package com.example.help_m5.manage_facility_tests;
 
 import static androidx.core.util.Preconditions.checkNotNull;
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.swipeUp;
@@ -18,37 +19,40 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.matcher.BoundedMatcher;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
-import com.example.help_m5.FacilityActivity;
+import com.example.help_m5.MainActivity;
 import com.example.help_m5.R;
 import com.example.help_m5.RecyclerViewMatcher;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class VoteSystemTests {
 
     @Rule
-    public ActivityScenarioRule<FacilityActivity> mActivityRule =
-            new ActivityScenarioRule<FacilityActivity>(intent);
+    public ActivityScenarioRule<MainActivity> mActivityRule =
+            new ActivityScenarioRule<>(intent);
 
     static Intent intent;
     static {
-        intent = new Intent(ApplicationProvider.getApplicationContext(), FacilityActivity.class);
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(ApplicationProvider.getApplicationContext());
+        intent = new Intent(ApplicationProvider.getApplicationContext(), MainActivity.class);
         Bundle bundle = new Bundle();
-        intent.putExtra("userEmail", account.getEmail());
-        intent.putExtra("facility_id", "11");
-        intent.putExtra("facilityType", 2);
-        intent.putExtra("facility_json", "{\"_id\":11,\"facility\":{\"facilityType\":\"entertainments\",\"facility_status\":\"normal\",\"facilityTitle\":\"Iona Island (British Columbia)\",\"facilityDescription\":\"Iona Island in Richmond, British Columbia, Canada was formerly an island, but is now a peninsula physically connected to Sea Island via a causeway and Ferguson Road. Iona is home to a primary sewage treatment plant (located in the middle), an animal refuge and a park (Iona Beach Regional Park). The Iona Sewage Plant is located near the centre of the island and has tours for the public. Iona Beach Regional Park also features a beach adjacent to wildlife from the nearby animal refuge. The park is managed by Metro Vancouver. Iona Island is located almost adjacent to the Vancouver International Airport. The park is mostly visited by birders, as the sewage ponds have attracted many rare shorebirds such as Spoon-billed Sandpiper, Great Knot, and Red-necked Stint.\",\"facilityImageLink\":\"https:\\/\\/imgtu.com\\/i\\/jTfY8I\",\"facilityOverallRate\":null,\"numberOfRates\":1,\"timeAdded\":\"2022\\/6\\/19\",\"longitude\":-123.1685486,\"latitude\":49.2056385},\"rated_user\":[{}],\"reviews\":[{},{\"replierID\":\"lufei8351@gmail.com\",\"userName\":\"Peter Na\",\"rateScore\":4,\"upVotes\":0,\"downVotes\":0,\"replyContent\":\"Nice place\",\"timeOfReply\":\"2022\\/6\\/29\\/9\\/29\\/48\"}],\"adderID\":\"l2542293790@gmail.com\",\"ratedUser\":[{\"replierID\":\"lufei8351@gmail.com\"}]}");
-        intent.putExtras(bundle);
-    }
+        intent.putExtra("user_email", "test@gmail.com");
+        intent.putExtra("user_name", "name");
+        intent.putExtra("user_icon", "none");
+        intent.putExtras(bundle);    }
 
     public static Matcher<View> atPosition(final int position, @NonNull final Matcher<View> itemMatcher) {
         checkNotNull(itemMatcher);
@@ -75,8 +79,34 @@ public class VoteSystemTests {
         return new RecyclerViewMatcher(recyclerViewId);
     }
 
+    private boolean spinnerChangeIndex(int indexSpinner){
+        try{
+            onView(withId(R.id.spinnerFacility)).perform(click());
+            onData(Matchers.anything()).atPosition(indexSpinner).perform(click());
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Test
+    public void A_beforeAll() throws InterruptedException {
+        Thread.sleep(1500);
+        Espresso.onView(ViewMatchers.withId(R.id.home_add_facility_button)).perform(ViewActions.click());
+        Thread.sleep(1500);
+
+    }
+
     @Test
     public void checkVotingLayout() throws InterruptedException {
+        Thread.sleep(1500);
+        Espresso.onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
+        Thread.sleep(1500);
+        Assert.assertTrue(spinnerChangeIndex(2));
+        Thread.sleep(500);
+        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(500);
         onView(withId(R.id.facilityRecyclerView))
@@ -99,6 +129,13 @@ public class VoteSystemTests {
 
     @Test
     public void upVoteTest() throws InterruptedException {
+        Thread.sleep(1500);
+        Espresso.onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
+        Thread.sleep(1500);
+        Assert.assertTrue(spinnerChangeIndex(2));
+        Thread.sleep(500);
+        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(500);
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
@@ -117,6 +154,13 @@ public class VoteSystemTests {
 
     @Test
     public void downVoteTest() throws InterruptedException {
+        Thread.sleep(1500);
+        Espresso.onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
+        Thread.sleep(1500);
+        Assert.assertTrue(spinnerChangeIndex(2));
+        Thread.sleep(500);
+        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(500);
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.downVote))
@@ -135,6 +179,13 @@ public class VoteSystemTests {
 
     @Test
     public void VoteChangeTest() throws InterruptedException {
+        Thread.sleep(1500);
+        Espresso.onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
+        Thread.sleep(1500);
+        Assert.assertTrue(spinnerChangeIndex(2));
+        Thread.sleep(500);
+        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(500);
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))

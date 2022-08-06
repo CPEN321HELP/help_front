@@ -205,14 +205,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        // Check for existing Google Sign In account, if the user is already signed in
-        // the GoogleSignInAccount will be non-null.
-        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        //try {
-        //    updateUI(account);
-        //} catch (JSONException e) {
-        //    e.printStackTrace();
-        //}
     }
 
     private void updateUI(GoogleSignInAccount account) throws JSONException {

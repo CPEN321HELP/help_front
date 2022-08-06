@@ -186,25 +186,17 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         params.put("user_id", userId);  // reported user id
         params.put("vote", vote);
         params.put("isCancelled", isCancelled);
-        System.out.println("INFORMATION BELOW VOTING");
-        System.out.println(facilityType);
-        System.out.println(facilityId);
-        System.out.println(userId);
-        System.out.println(vote);
-        System.out.println(isCancelled);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                         Log.d(TAG,"response is: "+response.toString());
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println("ERRORRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
                         Log.d(TAG, "onErrorResponse" + "Error: " + error.getMessage());
                     }
                 });
