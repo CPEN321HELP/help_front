@@ -96,15 +96,13 @@ public class ReportCommentTests {
     }
 
     @Test
-    public void testReportCommentButtonsAndLayout() {
+    public void testReportCommentButtonsAndLayout() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.facility1)).perform(click());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        Thread.sleep(1000);
+
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         onView(withId(R.id.facilityRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withText("Report")))));
@@ -126,6 +124,7 @@ public class ReportCommentTests {
     public void testEmptySubmission() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
 
@@ -146,6 +145,7 @@ public class ReportCommentTests {
     public void testFullSubmissionWithoutCheckbox() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
@@ -167,6 +167,7 @@ public class ReportCommentTests {
     public void testFullSubmissionWithCheckbox() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());

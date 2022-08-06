@@ -37,15 +37,14 @@ public class ReportFacilityTests {
     }
 
     @Test
-    public void testReportFacilityButtonsAndLayout() {
+    public void testReportFacilityButtonsAndLayout() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.facility1)).perform(click());
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        Thread.sleep(1000);
+
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         onView(withId(R.id.report_facility_button)).check(matches(isDisplayed()));
         onView(withId(R.id.report_facility_button)).check(matches(withText("REPORT THIS FACILITY")));
@@ -66,6 +65,7 @@ public class ReportFacilityTests {
     public void testEmptySubmission() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
 
@@ -85,6 +85,7 @@ public class ReportFacilityTests {
     public void testFullSubmissionWithoutCheckbox() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
 
@@ -108,6 +109,7 @@ public class ReportFacilityTests {
     public void testFullSubmissionWithCheckbox() throws InterruptedException {
         onView(withId(R.id.fab_main)).perform(click());
         onView(withId(R.id.fab_close_or_refresh)).perform(click());
+        Thread.sleep(1000);
         onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
 
