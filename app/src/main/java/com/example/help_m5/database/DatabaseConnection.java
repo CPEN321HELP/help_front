@@ -69,7 +69,11 @@ public class DatabaseConnection {
                         if(load){
                             Log.d(TAG, "updateUserInfo response is "+response);
                             LoadToScreen loader = new LoadToScreen();
-                            loader.loadUserInfo(navigationView, response, activity);
+                            try {
+                                loader.loadUserInfo(navigationView, response, activity);
+                            }catch (Exception e){
+                                Log.d(TAG, "Unable to reload credit");
+                            }
                         }
 
                     }

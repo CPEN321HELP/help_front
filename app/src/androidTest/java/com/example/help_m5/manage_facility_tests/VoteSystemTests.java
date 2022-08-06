@@ -76,8 +76,9 @@ public class VoteSystemTests {
     }
 
     @Test
-    public void checkVotingLayout() {
+    public void checkVotingLayout() throws InterruptedException {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
+        Thread.sleep(500);
         onView(withId(R.id.facilityRecyclerView))
                 .check(matches(atPosition(0, hasDescendant(withId(R.id.upVote)))));
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
@@ -97,8 +98,9 @@ public class VoteSystemTests {
     }
 
     @Test
-    public void upVoteTest() {
+    public void upVoteTest() throws InterruptedException {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
+        Thread.sleep(500);
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
                 .perform(click());
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
@@ -114,8 +116,9 @@ public class VoteSystemTests {
     }
 
     @Test
-    public void downVoteTest() {
+    public void downVoteTest() throws InterruptedException {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
+        Thread.sleep(500);
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.downVote))
                 .perform(click());
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.downVote))
@@ -131,8 +134,10 @@ public class VoteSystemTests {
     }
 
     @Test
-    public void VoteChangeTest() {
+    public void VoteChangeTest() throws InterruptedException {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
+        Thread.sleep(500);
+
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
                 .perform(click());
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
