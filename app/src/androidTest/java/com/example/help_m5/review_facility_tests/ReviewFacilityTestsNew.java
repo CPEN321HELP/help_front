@@ -39,8 +39,8 @@ public class ReviewFacilityTestsNew {
 
     private boolean spinnerChangeIndex(int indexSpinner){
         try{
-            onView(ViewMatchers.withId(R.id.spinnerFacility)).perform(ViewActions.click());
-            onData(Matchers.anything()).atPosition(indexSpinner).perform(ViewActions.click());
+            onView(ViewMatchers.withId(R.id.spinnerFacility)).perform(click());
+            onData(Matchers.anything()).atPosition(indexSpinner).perform(click());
             return true;
         }catch (Exception e){
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class ReviewFacilityTestsNew {
     private void navigateToRate() throws InterruptedException {
         Assert.assertTrue(spinnerChangeIndex(1));
         Thread.sleep(1000);
-        onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        onView(ViewMatchers.withId(R.id.facility1)).perform(click());
         Thread.sleep(1000);
     }
 
