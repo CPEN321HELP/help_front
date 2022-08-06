@@ -33,7 +33,7 @@ public class ChatBotTests {
     public void testResponseOne() throws InterruptedException {
         onView(withId(R.id.topButton)).perform(click());
         onView(withId(R.id.topButton)).perform(click());
-        Thread.sleep(900);
+        Thread.sleep(400);
         onView(withId(R.id.chatBackButton)).check(matches(ViewMatchers.withTagValue(Matchers.equalTo("true"))));
     }
 
@@ -41,7 +41,7 @@ public class ChatBotTests {
     public void testResponseTwo() throws InterruptedException {
         onView(withId(R.id.midButton)).perform(click());
         onView(withId(R.id.midButton)).perform(click());
-        Thread.sleep(900);
+        Thread.sleep(400);
         onView(withId(R.id.chatBackButton)).check(matches(ViewMatchers.withTagValue(Matchers.equalTo("true"))));
     }
 
@@ -50,7 +50,7 @@ public class ChatBotTests {
         onView(withId(R.id.botButton)).perform(click());
         onView(withId(R.id.botButton)).perform(click());
         onView(withId(R.id.midButton)).perform(click());
-        Thread.sleep(900);
+        Thread.sleep(400);
         onView(withId(R.id.chatBackButton)).check(matches(ViewMatchers.withTagValue(Matchers.equalTo("true"))));
     }
 }

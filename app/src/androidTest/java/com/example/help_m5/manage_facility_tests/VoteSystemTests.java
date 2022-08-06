@@ -137,7 +137,6 @@ public class VoteSystemTests {
     public void VoteChangeTest() throws InterruptedException {
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(500);
-
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
                 .perform(click());
         onView(withRecyclerView(R.id.facilityRecyclerView).atPositionOnView(0, R.id.upVote))
