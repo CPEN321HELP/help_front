@@ -38,7 +38,7 @@ public class ReviewFacilityTestsNew {
 
     private boolean spinnerChangeIndex(int indexSpinner){
         try{
-            onView(ViewMatchers.withId(R.id.spinnerFacility)).perform(click());
+            onView(withId(R.id.spinnerFacility)).perform(click());
             onData(Matchers.anything()).atPosition(indexSpinner).perform(click());
             return true;
         }catch (Exception e){
