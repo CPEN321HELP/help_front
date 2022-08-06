@@ -103,11 +103,11 @@ public class VoteSystemTests {
     @Test
     public void checkVotingLayout() throws InterruptedException {
         Thread.sleep(1500);
-        Espresso.onView(ViewMatchers.withId(R.id.home_review_button)).perform(ViewActions.click());
+        Espresso.onView(withId(R.id.home_review_button)).perform(click());
         Thread.sleep(1500);
         Assert.assertTrue(spinnerChangeIndex(2));
         Thread.sleep(1500);
-        Espresso.onView(ViewMatchers.withId(R.id.facility1)).perform(ViewActions.click());
+        Espresso.onView(withId(R.id.facility1)).perform(click());
         Thread.sleep(1500);
         onView(withId(R.id.facilityActivityView)).perform(swipeUp());
         Thread.sleep(1500);
